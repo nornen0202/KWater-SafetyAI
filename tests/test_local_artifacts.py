@@ -1,5 +1,6 @@
 import hashlib
 import json
+import os
 from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
@@ -63,3 +64,30 @@ class LocalInventoryTests(unittest.TestCase):
             archive.with_suffix(".zip.json").write_text(json.dumps(receipt))
             with self.assertRaisesRegex(ValueError, "receipt differ"):
                 inventory(root, old)
+
+    def test_new_floodnet_archive_receipt_and_full_verification(self):
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            folder = root / "data/external/floodnet"
+            folder.mkdir(parents=True)
+            old = inventory(root)
+            archive = folder / "FloodNet.zip"
+            archive.write_bytes(b"public example")
+            receipt = {"source_url": "https://www.dropbox.com/scl/fo/example", "bytes": archive.stat().st_size,
+                       "sha256": hashlib.sha256(archive.read_bytes()).hexdigest()}
+            local = archive.with_suffix(".zip.json")
+            local.write_text(json.dumps(receipt))
+            self.assertEqual(inventory(root, old), inventory(root))
+            receipt["source_url"] = "https://www.dropbox.com.example.org/scl/fo/example"
+            local.write_text(json.dumps(receipt))
+            with self.assertRaisesRegex(ValueError, "acquisition receipt"):
+                inventory(root, old)
+            receipt["source_url"] = "https://www.dropbox.com/scl/fo/example"
+            receipt["bytes"] += 1
+            local.write_text(json.dumps(receipt))
+            with self.assertRaisesRegex(ValueError, "acquisition receipt"):
+                inventory(root, old)
+            # A later archive update must be hashed from disk even if the receipt still exists.
+            newer = local.stat().st_mtime_ns + 2_000_000_000
+            os.utime(archive, ns=(newer, newer))
+            self.assertEqual(inventory(root, old), inventory(root))

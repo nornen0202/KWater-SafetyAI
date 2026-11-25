@@ -7,6 +7,7 @@ import os
 from pathlib import Path
 import re
 import stat
+from urllib.parse import urlparse
 
 from .train_head import save_atomic
 
@@ -83,6 +84,14 @@ def inventory(root, previous=None, *, refresh_derived=False):
                     or receipt["dataset"] != p.parent.parent.name or receipt["zip_members"] < 1
                     or p.name != f"{receipt['filekey']}-{receipt['name']}"):
                 raise ValueError(f"Completed package and its download receipt differ: {name}")
+        elif (previous and name == "data/external/floodnet/FloodNet.zip"
+              and p.with_suffix(".zip.json").is_file() and initial.st_mtime_ns <= p.with_suffix(".zip.json").stat().st_mtime_ns):
+            receipt = json.loads(p.with_suffix(".zip.json").read_text(encoding="utf-8"))
+            checksum = receipt["sha256"]
+            source = urlparse(receipt["source_url"])
+            if (receipt["bytes"] != size or not re.fullmatch("[a-f0-9]{64}", checksum)
+                    or source.scheme != "https" or source.hostname != "www.dropbox.com"):
+                raise ValueError("FloodNet package differs from its acquisition receipt")
         else:
             with p.open("rb") as stream:
                 checksum = hashlib.file_digest(stream, "sha256").hexdigest()
