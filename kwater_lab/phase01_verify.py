@@ -253,6 +253,7 @@ def verify(project, run, checker):
                 "single_fixed",
                 "multi_class_utility_scene",
                 done["winner"],
+                max(metric, key=lambda arm: metric[arm]["macro_f1"]),
             }:
                 inputs, output = directory / "input", directory / name
                 inputs.mkdir(exist_ok=True)
