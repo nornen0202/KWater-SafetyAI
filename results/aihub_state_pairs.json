@@ -1,0 +1,85 @@
+{
+  "scope": "AI-Hub 71407 frame-level provider normal/abnormal scenario boxes; no injury outcome labels",
+  "design": "Same scenario, site and construction process; distinct source videos, nonoverlapping times at same site; at most two sites per scenario. Future split by site.",
+  "frozen_validation_raw_keys": [
+    "487915",
+    "487939",
+    "487941",
+    "487942",
+    "487943",
+    "487944",
+    "487945",
+    "487946",
+    "487949",
+    "487950",
+    "487952",
+    "487953",
+    "487954",
+    "487955",
+    "487956"
+  ],
+  "validation_label_archives": 24,
+  "frames": {
+    "sample_target_annotations": 24,
+    "sample_physically_paired_frames": 24,
+    "validation_target_annotations": 4800,
+    "validation_physically_paired_frames": 3000,
+    "inconsistent_video_metadata": 0
+  },
+  "sample_videos": 24,
+  "validation_videos": 130,
+  "sample_and_validation_shared_videos": 24,
+  "usable_distinct_videos": 130,
+  "distinct_videos_with_source_photos": 83,
+  "selected_pairs": 8,
+  "unique_images": 16,
+  "unique_videos": 16,
+  "unique_selected_sites": 5,
+  "fall_pairs": 7,
+  "crane_pairs": 1,
+  "rejections_during_selection": {},
+  "by_scenario": {
+    "1": {},
+    "2": {
+      "eligible_metadata_strata": 2,
+      "strata_with_both_images": 1,
+      "selected_pairs": 1
+    },
+    "3": {
+      "eligible_metadata_strata": 1,
+      "strata_with_both_images": 1,
+      "selected_pairs": 1
+    },
+    "4": {},
+    "5": {},
+    "6": {},
+    "7": {
+      "eligible_metadata_strata": 1,
+      "strata_with_both_images": 1,
+      "selected_pairs": 1
+    },
+    "8": {
+      "eligible_metadata_strata": 1,
+      "strata_with_both_images": 1,
+      "selected_pairs": 1
+    },
+    "9": {
+      "eligible_metadata_strata": 2,
+      "strata_with_both_images": 2,
+      "selected_pairs": 2
+    },
+    "10": {
+      "eligible_metadata_strata": 1,
+      "strata_with_both_images": 1,
+      "selected_pairs": 1
+    },
+    "19": {
+      "eligible_metadata_strata": 1,
+      "strata_with_both_images": 1,
+      "selected_pairs": 1
+    },
+    "20": {}
+  },
+  "source": "https://www.aihub.or.kr/aihubdata/data/view.do?dataSetSn=71407",
+  "local_pair_selection_sha256": "d377a827bb428676e864eb7032fd46c06bc18b8fa1257f257671ef521b928962"
+}

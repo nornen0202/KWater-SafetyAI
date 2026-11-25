@@ -1,0 +1,187 @@
+{
+  "scope": "External contrast of provider-annotated safety conditions in selected frames. Only the target of each pair is scored. Other hazards are unlabelled.",
+  "training": {
+    "official_photos": 170,
+    "external_photos": 0,
+    "l2": 0.01,
+    "steps": 250,
+    "threshold": 0.5,
+    "max_codes": 3
+  },
+  "clip_revision": "6b7c523703ae26e39be4b03774966f8571c7f523",
+  "depth_export_revision": "4472b7362082ad9968fee890ca0f1e5aca36b93d",
+  "official_feature_cache_sha256": "00d1f8ba49ba97b6d108ab580d4fd50d9eb2024a75af0d625420840436419158",
+  "official_depth_cache_sha256": "d32ab789a97800ca7e76ae285ba54b9bd378b06a0fc94b6075ff19b673ba2b13",
+  "selection_sha256": "d377a827bb428676e864eb7032fd46c06bc18b8fa1257f257671ef521b928962",
+  "pairs": 8,
+  "photos": 16,
+  "source_videos": 16,
+  "sites": 5,
+  "wrong_depth_donors": {
+    "training": 170,
+    "external_test": 16,
+    "source": "official training photos"
+  },
+  "metrics": {
+    "rgb": {
+      "fall_height": {
+        "pairs": 7,
+        "sites": 4,
+        "normal_images": 7,
+        "abnormal_images": 7,
+        "tp": 3,
+        "fp": 4,
+        "fn": 4,
+        "tn": 3,
+        "abnormal_scored_higher": 1,
+        "equal_scores": 0,
+        "abnormal_scored_lower": 6,
+        "mean_abnormal_minus_normal": -0.06530207742414822,
+        "median_abnormal_minus_normal": -0.043282484485459016
+      },
+      "struck_by_lifting": {
+        "pairs": 1,
+        "sites": 1,
+        "normal_images": 1,
+        "abnormal_images": 1,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1,
+        "tn": 1,
+        "abnormal_scored_higher": 0,
+        "equal_scores": 0,
+        "abnormal_scored_lower": 1,
+        "mean_abnormal_minus_normal": -0.16941057327700007,
+        "median_abnormal_minus_normal": -0.16941057327700007
+      }
+    },
+    "brightness": {
+      "fall_height": {
+        "pairs": 7,
+        "sites": 4,
+        "normal_images": 7,
+        "abnormal_images": 7,
+        "tp": 2,
+        "fp": 3,
+        "fn": 5,
+        "tn": 4,
+        "abnormal_scored_higher": 2,
+        "equal_scores": 0,
+        "abnormal_scored_lower": 5,
+        "mean_abnormal_minus_normal": -0.003729838094640126,
+        "median_abnormal_minus_normal": -0.027224168922160275
+      },
+      "struck_by_lifting": {
+        "pairs": 1,
+        "sites": 1,
+        "normal_images": 1,
+        "abnormal_images": 1,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1,
+        "tn": 1,
+        "abnormal_scored_higher": 0,
+        "equal_scores": 0,
+        "abnormal_scored_lower": 1,
+        "mean_abnormal_minus_normal": -0.18758512205715727,
+        "median_abnormal_minus_normal": -0.18758512205715727
+      }
+    },
+    "edge": {
+      "fall_height": {
+        "pairs": 7,
+        "sites": 4,
+        "normal_images": 7,
+        "abnormal_images": 7,
+        "tp": 1,
+        "fp": 3,
+        "fn": 6,
+        "tn": 4,
+        "abnormal_scored_higher": 3,
+        "equal_scores": 0,
+        "abnormal_scored_lower": 4,
+        "mean_abnormal_minus_normal": -0.059550235041450475,
+        "median_abnormal_minus_normal": -0.0002733290679126574
+      },
+      "struck_by_lifting": {
+        "pairs": 1,
+        "sites": 1,
+        "normal_images": 1,
+        "abnormal_images": 1,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1,
+        "tn": 1,
+        "abnormal_scored_higher": 0,
+        "equal_scores": 0,
+        "abnormal_scored_lower": 1,
+        "mean_abnormal_minus_normal": -0.17602565732311465,
+        "median_abnormal_minus_normal": -0.17602565732311465
+      }
+    },
+    "depth": {
+      "fall_height": {
+        "pairs": 7,
+        "sites": 4,
+        "normal_images": 7,
+        "abnormal_images": 7,
+        "tp": 3,
+        "fp": 3,
+        "fn": 4,
+        "tn": 4,
+        "abnormal_scored_higher": 2,
+        "equal_scores": 0,
+        "abnormal_scored_lower": 5,
+        "mean_abnormal_minus_normal": -0.03242981448371254,
+        "median_abnormal_minus_normal": -0.038798850047307945
+      },
+      "struck_by_lifting": {
+        "pairs": 1,
+        "sites": 1,
+        "normal_images": 1,
+        "abnormal_images": 1,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1,
+        "tn": 1,
+        "abnormal_scored_higher": 0,
+        "equal_scores": 0,
+        "abnormal_scored_lower": 1,
+        "mean_abnormal_minus_normal": -0.0549823825470342,
+        "median_abnormal_minus_normal": -0.0549823825470342
+      }
+    },
+    "wrong_depth": {
+      "fall_height": {
+        "pairs": 7,
+        "sites": 4,
+        "normal_images": 7,
+        "abnormal_images": 7,
+        "tp": 1,
+        "fp": 3,
+        "fn": 6,
+        "tn": 4,
+        "abnormal_scored_higher": 3,
+        "equal_scores": 0,
+        "abnormal_scored_lower": 4,
+        "mean_abnormal_minus_normal": -0.09065166484367111,
+        "median_abnormal_minus_normal": -0.002891899195218811
+      },
+      "struck_by_lifting": {
+        "pairs": 1,
+        "sites": 1,
+        "normal_images": 1,
+        "abnormal_images": 1,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1,
+        "tn": 1,
+        "abnormal_scored_higher": 0,
+        "equal_scores": 0,
+        "abnormal_scored_lower": 1,
+        "mean_abnormal_minus_normal": -0.024865988818039197,
+        "median_abnormal_minus_normal": -0.024865988818039197
+      }
+    }
+  }
+}
