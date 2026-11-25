@@ -2,7 +2,7 @@
 
 [시각화 연구 보고서](reports/competition-research-2026-11-25.md) · [PDF 보고서](reports/competition-research-2026-11-25.pdf) · [CLIP·SigLIP 2 실측과 생성 VLM 도입 검토](docs/vlm-model-selection.md) · [후속 실험 설계](docs/improvement-experiments.md) · [외부 데이터 전후 비교](reports/external-first-experiment.md)
 
-제5회 K-water AI 경진대회 현장 사진 위험성평가 부문 연구. 2026년 11월 25일 Codex에 등록한 로컬 프로젝트는 `G:\Projects\KWater-SafetyAI`이다. 새 Codex 대화에서는 이 폴더를 열면 코드·실험 기록·참가자 자료를 이어서 사용할 수 있다. 기존 공개 실험과 첨부 계획서를 옮겼고 공식 배포 ZIP 세 개를 확보했다. 2026년 11월 25일 20:42(KST)에 공식 베이스라인으로 첫 Public 제출을 접수했다. 결과 카드에 표시된 공개 예정 시각은 11월 26일 13:00이며, 접수 시점에 공개된 팀 점수는 0개였다. [접수 기록](results/public_submission_001.json)
+제5회 K-water AI 경진대회 현장 사진 위험성평가 부문 연구. 2026년 11월 25일 Codex에 등록한 로컬 프로젝트는 `G:\Projects\KWater-SafetyAI`이다. 새 Codex 대화에서는 이 폴더를 열면 코드·실험 기록·참가자 자료를 이어서 사용할 수 있다. 기존 공개 실험과 첨부 계획서를 옮겼고 공식 배포 ZIP 세 개를 확보했다. 2026년 11월 25일 20:42(KST)에 공식 베이스라인으로 첫 Public 제출을 접수했다. 결과 카드에 표시된 공개 예정 시각은 11월 26일 13:00이며, 23:14에 다시 확인한 공식 리더보드에도 공개된 팀은 0팀이었다. [접수 기록](results/public_submission_001.json)
 
 ## 참가자 데이터와 연구 결과
 
@@ -142,6 +142,9 @@ python -m kwater_lab.prefix_pilot --audit results/train_audit_full.json --labels
 python -m kwater_lab.weight_pilot
 python -m kwater_lab.loss_pilot
 python -m kwater_lab.encoder_pilot --prepare --clip $clipModel
+python -m kwater_lab.encoder_pilot --prepare --resolution 384 --clip $clipModel
+python -m kwater_lab.encoder_fusion
+python -m kwater_lab.fusion_timing --clip $clipModel
 python -m kwater_lab.adapter_spectrum
 python -m unittest discover -s tests -q
 ```

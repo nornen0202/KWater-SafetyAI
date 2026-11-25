@@ -16,5 +16,14 @@
   "daily_quota": 2,
   "published_teams_at_observation": 0,
   "public_score": null,
-  "public_rank": null
+  "public_rank": null,
+  "public_leaderboard_recheck": {
+    "observed_at_kst": "2026-11-25T23:14:51+09:00",
+    "source": "https://hackathon.imaginationgroup.co.kr/kwater/api/leaderboard",
+    "generated_at_utc": "2026-11-25T14:14:51.698Z",
+    "phase": "open",
+    "sample": false,
+    "teams": 0,
+    "updated_at": null
+  }
 }
