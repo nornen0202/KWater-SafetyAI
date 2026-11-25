@@ -33,6 +33,19 @@ class LocalInventoryTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "missing"):
                 inventory(root, original)
 
+    def test_refresh_rehashes_a_same_size_revised_design(self):
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            folder = root / "data/prompt-pilot"
+            folder.mkdir(parents=True)
+            design = folder / "design.json"
+            design.write_bytes(b'{"arm":"a"}')
+            original = inventory(root)
+            design.write_bytes(b'{"arm":"b"}')
+            revised = inventory(root, original, refresh_derived=True)
+            self.assertNotEqual(original["artifacts"][0]["sha256"], revised["artifacts"][0]["sha256"])
+            self.assertEqual(revised, inventory(root))
+
     def test_new_aihub_packages_use_the_completed_download_receipt(self):
         with TemporaryDirectory() as directory:
             root = Path(directory)

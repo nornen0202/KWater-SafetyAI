@@ -1,0 +1,93 @@
+{
+  "scope": "One previously exposed organizer illustration; two zero-shot Q4_K_M backbones, no LoRA",
+  "photos": 1,
+  "matched_runtime": "llama-b12721",
+  "seed": 42,
+  "temperature": 0,
+  "max_tokens": 384,
+  "source": "Qwen/Qwen3.5-4B",
+  "conversion": "unsloth/Qwen3.5-4B-GGUF",
+  "revision": "e87f176479d0855a907a41277aca2f8ee7a09523",
+  "weights_sha256": {
+    "Qwen3.5-4B-Q4_K_M.gguf": "00fe7986ff5f6b463e62455821146049db6f9313603938a70800d1fb69ef11a4",
+    "mmproj-F16.gguf": "cd88edcf8d031894960bb0c9c5b9b7e1fea6ebee02b9f7ce925a00d12891f864"
+  },
+  "reference_sha256": "b149d67e3ec95788628f7dd1b27fb7906661820b47be33beb8ea7d5c49ccdbb5",
+  "local_raw_sha256": "da3f8258fa53520dc1e924829eece22e077b1b505440cd18591698749df6857c",
+  "runtime": {
+    "startup_s": 1062.794,
+    "server_flags": [
+      "--offline",
+      "-ngl",
+      "99",
+      "-c",
+      "4096",
+      "-np",
+      "1",
+      "--no-webui",
+      "--host",
+      "127.0.0.1",
+      "--reasoning",
+      "off",
+      "--chat-template-kwargs",
+      "{\"enable_thinking\":false}",
+      "--load-mode",
+      "none"
+    ],
+    "server_sha256": "aad682fa5fb3ff6108aee1421d340ab62e007c8505c4ee50e59deaa76d36d5c7"
+  },
+  "conditions": {
+    "Qwen3-VL-4B": {
+      "direct": {
+        "valid": true,
+        "expected": 2,
+        "proposed": 3,
+        "tp": 1,
+        "fp": 2,
+        "fn": 1,
+        "seconds": 25.167,
+        "finish_reason": "stop",
+        "input_tokens_including_image": 942,
+        "output_tokens": 147
+      },
+      "evidence_gate": {
+        "valid": true,
+        "expected": 2,
+        "proposed": 3,
+        "tp": 1,
+        "fp": 2,
+        "fn": 1,
+        "seconds": 9.18,
+        "finish_reason": "stop",
+        "input_tokens_including_image": 997,
+        "output_tokens": 218
+      }
+    },
+    "Qwen3.5-4B": {
+      "direct": {
+        "valid": true,
+        "expected": 2,
+        "proposed": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 2,
+        "seconds": 38.407,
+        "finish_reason": "stop",
+        "input_tokens_including_image": 913,
+        "output_tokens": 52
+      },
+      "evidence_gate": {
+        "valid": true,
+        "expected": 2,
+        "proposed": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 2,
+        "seconds": 1.948,
+        "finish_reason": "stop",
+        "input_tokens_including_image": 954,
+        "output_tokens": 67
+      }
+    }
+  }
+}

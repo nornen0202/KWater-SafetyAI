@@ -18,6 +18,31 @@ def average_scores(train, valid, features, gold):
     return {method: (clip[method] + siglip[method]) / 2 for method in MODELS}
 
 
+def high_risk_targets(labels_path, gold):
+    groups = {"risk_product_13_to_20": {}, "severity_4": {}}
+    with labels_path.open(encoding="utf-8") as stream:
+        for row in map(json.loads, stream):
+            sid = row["sample_id"]
+            if sid not in gold:
+                continue
+            hazards = row["target"]["hazards"]
+            if set(hazards) != gold[sid]:
+                raise ValueError("Risk levels and evaluated hazard codes came from different labels")
+            for code, item in hazards.items():
+                level = item["risk_level"]
+                if level["risk"]["score"] >= 13:
+                    groups["risk_product_13_to_20"].setdefault(sid, set()).add(code)
+                if level["severity"]["score"] == 4:
+                    groups["severity_4"].setdefault(sid, set()).add(code)
+    return groups
+
+
+def subset_recovery(targets, pred):
+    return {"photos": len(targets), "hazards": sum(map(len, targets.values())),
+            "recovered_hazards": sum(len(codes & pred[sid]) for sid, codes in targets.items()),
+            "photos_missing_all_target_codes": sum(codes.isdisjoint(pred[sid]) for sid, codes in targets.items())}
+
+
 def run(root):
     audit = root / "results/train_audit_full.json"
     exposure = root / "data/prefix-pilot/exposure.json"
@@ -53,9 +78,17 @@ def run(root):
                 if evaluate(gold, base, groups)["macro_f1"] != ref["pooled"][name][method][policy]["macro_f1"]:
                     raise ValueError("Published standalone F1 was not reproduced")
                 paired[method][policy][name] = paired_bootstrap(gold, base, pred, groups)
+    labels = root / "data/train/train.jsonl"
+    if file_hash(labels) != json.loads(exposure.read_text(encoding="utf-8"))["labels_sha256"]:
+        raise ValueError("Risk levels differ from the registered labels")
+    targets = high_risk_targets(labels, gold)
+    high_risk = {name: {method: {criterion: subset_recovery(subset, models[method]["inner_calibrated"])
+                                  for criterion, subset in targets.items()} for method in MODELS}
+                 for name, models in {**baseline, "fusion": combined}.items()}
     return {"scope": "Post-hoc exploratory fixed-ratio fusion on the exposed 170 photos; six unverified prefixes",
             "source_sha256": file_hash(comparison), "ratio_clip_to_siglip2": [1, 1], "photos": len(gold),
-            "thresholds": thresholds, "pooled": pooled, "paired_fusion_minus_single": paired}
+            "thresholds": thresholds, "pooled": pooled, "paired_fusion_minus_single": paired,
+            "high_risk_inner_calibrated": high_risk}
 
 
 if __name__ == "__main__":

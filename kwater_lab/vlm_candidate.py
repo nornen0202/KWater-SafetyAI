@@ -27,9 +27,11 @@ def summarize(trials, expected):
     summary = {}
     for name, record in trials.items():
         pred = set(record["predicted_codes"] or [])
+        usage = record.get("usage") or {}
         summary[name] = {"valid": record["valid"], "expected": len(expected), "proposed": len(pred),
                          "tp": len(pred & expected), "fp": len(pred - expected), "fn": len(expected - pred),
-                         "seconds": record["elapsed_s"], "finish_reason": record["finish_reason"]}
+                         "seconds": record["elapsed_s"], "finish_reason": record["finish_reason"],
+                         "input_tokens_including_image": usage.get("prompt_tokens"), "output_tokens": usage.get("completion_tokens")}
     return summary
 
 
@@ -46,9 +48,9 @@ def run(root, cache, folder):
         raise ValueError("Public example or comparison prompts differ from the recorded reference")
     expected = set(json.loads(label.read_text(encoding="utf-8"))["target"]["hazards"])
     photo = encoded_image(image)
-    flags = ("--reasoning", "off", "--chat-template-kwargs", '{"enable_thinking":false}')
+    flags = ("--reasoning", "off", "--chat-template-kwargs", '{"enable_thinking":false}', "--load-mode", "none")
     with local_server(folder, local / "model.log", weights=WEIGHTS, runtime_root=cache,
-                      extra_flags=flags, startup_timeout=900) as (port, key, runtime):
+                      extra_flags=flags, startup_timeout=1800) as (port, key, runtime):
         if runtime["server_sha256"] != ref["server_sha256"]:
             raise ValueError("Runtime binary differs from the comparison baseline")
         trials = {name: run_trial(port, key, photo, prompt) for name, prompt in CONDITIONS.items()}
@@ -64,15 +66,37 @@ def run(root, cache, folder):
     print(json.dumps(report["conditions"]), flush=True)
 
 
+def replay(root, cache):
+    from .adapter_scale_pilot import write_json
+    result = root / "results/vlm_candidate_public.json"
+    report = json.loads(result.read_text(encoding="utf-8"))
+    baseline = root / "results/visual_probe.json"
+    candidate = root / "data/vlm-candidate/generations.json"
+    label = cache / "public-example-label.json"
+    if digest(baseline) != report["reference_sha256"] or digest(candidate) != report["local_raw_sha256"]:
+        raise ValueError("Stored generations differ from the completed comparison")
+    ref = json.loads(baseline.read_text(encoding="utf-8"))
+    if digest(label) != ref["label_sha256"]:
+        raise ValueError("The published example labels differ from the reference run")
+    expected = set(json.loads(label.read_text(encoding="utf-8"))["target"]["hazards"])
+    report["conditions"] = {"Qwen3-VL-4B": summarize(ref["conditions"], expected),
+                            "Qwen3.5-4B": summarize(json.loads(candidate.read_text(encoding="utf-8")), expected)}
+    write_json(result, report)
+    print(json.dumps(report["conditions"]), flush=True)
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[1])
     parser.add_argument("--reference-cache", type=Path, default=DEFAULT_CACHE)
     parser.add_argument("--prepare", action="store_true", help="Download and verify the GGUF pair before running")
     parser.add_argument("--prepare-only", action="store_true", help="Download and verify without starting a GPU model")
+    parser.add_argument("--replay", action="store_true", help="Recompute counts using the previously saved, hash-verified generations")
     args = parser.parse_args()
     folder = args.root / "data/encoders/qwen3.5-4b-q4"
     if args.prepare or args.prepare_only:
         prepare(folder)
-    if not args.prepare_only:
+    if args.replay:
+        replay(args.root, args.reference_cache)
+    elif not args.prepare_only:
         run(args.root, args.reference_cache, folder)

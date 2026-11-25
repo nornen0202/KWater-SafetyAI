@@ -54,14 +54,24 @@ def eligible_files(root):
             yield p
 
 
-def inventory(root, previous=None):
+def derived_output(path, root):
+    parts = path.relative_to(root).parts
+    if parts[0] == "results":
+        return True
+    if parts[1] == "external":
+        return path.parent.name != "packages" and path.suffix.lower() in {".json", ".jsonl", ".csv", ".npz", ".txt"}
+    return parts[1] not in {"packages", "baseline", "local-kit", "train", "encoders"}
+
+
+def inventory(root, previous=None, *, refresh_derived=False):
     recorded = {r["path"]: r for r in previous["artifacts"]} if previous else {}
     rows = []
     for p in sorted(eligible_files(root)):
-        size = p.stat().st_size
+        initial = p.stat()
+        size = initial.st_size
         name = p.relative_to(root).as_posix()
         existing = recorded.pop(name, None)
-        if existing is not None:
+        if existing is not None and not (refresh_derived and derived_output(p, root)):
             if size != existing["bytes"]:
                 raise ValueError(f"Previously recorded file changed size; run a full index: {name}")
             rows.append(existing)
@@ -76,8 +86,9 @@ def inventory(root, previous=None):
         else:
             with p.open("rb") as stream:
                 checksum = hashlib.file_digest(stream, "sha256").hexdigest()
-        if p.stat().st_size != size:
-            raise RuntimeError(f"Size changed during hash: {p.name}")
+        final = p.stat()
+        if (final.st_size, final.st_mtime_ns) != (size, initial.st_mtime_ns):
+            raise RuntimeError(f"File changed during hash: {p.name}")
         rows.append({"path": name, "bytes": size, "sha256": checksum})
     if recorded:
         raise ValueError("Previously recorded files are missing. Inspect the changes before refreshing the index.")
@@ -93,11 +104,13 @@ def main():
     modes.add_argument("--check", action="store_true", help="Rehash and compare without changing the existing index")
     modes.add_argument("--append-new", action="store_true",
                        help="Hash new outputs only; keep existing digests, checking their presence and size. Use --check to reverify bytes.")
+    modes.add_argument("--refresh-derived", action="store_true",
+                       help="Rehash local research outputs, including same-sized revisions, and add newly verified inputs.")
     args = parser.parse_args()
     root = args.root.resolve()
     dest = root / "results/local_artifacts.json"
-    previous = json.loads(dest.read_text(encoding="utf-8")) if args.append_new else None
-    report = inventory(root, previous)
+    previous = json.loads(dest.read_text(encoding="utf-8")) if args.append_new or args.refresh_derived else None
+    report = inventory(root, previous, refresh_derived=args.refresh_derived)
     if args.check:
         if report != json.loads(dest.read_text(encoding="utf-8")):
             raise SystemExit("Local inventory differs from the recorded commit")

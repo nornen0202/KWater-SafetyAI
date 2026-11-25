@@ -937,5 +937,97 @@
         }
       }
     }
+  },
+  "high_risk_inner_calibrated": {
+    "clip": {
+      "head": {
+        "risk_product_13_to_20": {
+          "photos": 8,
+          "hazards": 8,
+          "recovered_hazards": 5,
+          "photos_missing_all_target_codes": 3
+        },
+        "severity_4": {
+          "photos": 59,
+          "hazards": 65,
+          "recovered_hazards": 27,
+          "photos_missing_all_target_codes": 34
+        }
+      },
+      "blend": {
+        "risk_product_13_to_20": {
+          "photos": 8,
+          "hazards": 8,
+          "recovered_hazards": 5,
+          "photos_missing_all_target_codes": 3
+        },
+        "severity_4": {
+          "photos": 59,
+          "hazards": 65,
+          "recovered_hazards": 35,
+          "photos_missing_all_target_codes": 26
+        }
+      }
+    },
+    "siglip2": {
+      "head": {
+        "risk_product_13_to_20": {
+          "photos": 8,
+          "hazards": 8,
+          "recovered_hazards": 4,
+          "photos_missing_all_target_codes": 4
+        },
+        "severity_4": {
+          "photos": 59,
+          "hazards": 65,
+          "recovered_hazards": 28,
+          "photos_missing_all_target_codes": 32
+        }
+      },
+      "blend": {
+        "risk_product_13_to_20": {
+          "photos": 8,
+          "hazards": 8,
+          "recovered_hazards": 5,
+          "photos_missing_all_target_codes": 3
+        },
+        "severity_4": {
+          "photos": 59,
+          "hazards": 65,
+          "recovered_hazards": 34,
+          "photos_missing_all_target_codes": 26
+        }
+      }
+    },
+    "fusion": {
+      "head": {
+        "risk_product_13_to_20": {
+          "photos": 8,
+          "hazards": 8,
+          "recovered_hazards": 5,
+          "photos_missing_all_target_codes": 3
+        },
+        "severity_4": {
+          "photos": 59,
+          "hazards": 65,
+          "recovered_hazards": 32,
+          "photos_missing_all_target_codes": 29
+        }
+      },
+      "blend": {
+        "risk_product_13_to_20": {
+          "photos": 8,
+          "hazards": 8,
+          "recovered_hazards": 5,
+          "photos_missing_all_target_codes": 3
+        },
+        "severity_4": {
+          "photos": 59,
+          "hazards": 65,
+          "recovered_hazards": 37,
+          "photos_missing_all_target_codes": 23
+        }
+      }
+    }
   }
 }
