@@ -302,9 +302,18 @@ def build(root, public_img):
         cohorts[c] = {"planned_source_photos":planned[c],"source_generations_observed":len(batch),
                       "parsed_source_generations":sum(r["parsed"] for r in batch),
                       "source_photos_observed":len({r["image_sha"] for r in batch}),
+                      "photos_with_hazard_wording":len({r["image_sha"] for r in batch if any(r["fields"].values())}),
                       "generations_used_in_pairs":len({r["trial"] for r in selected}),
                       "photos_with_pairs":len({r["image_sha256"] for r in selected}),
                       "built_pairs":len(selected),"pairs_by_field":dict(Counter(r["field"] for r in selected))}
+        if c == "adapter_eighteen":
+            cohorts[c]["by_adapter_scale"] = {}
+            for factor in ("1.0", "0.75"):
+                prefix = f"scale/{factor}/"
+                cohorts[c]["by_adapter_scale"][factor] = {
+                    "observed_generations":sum(trial.startswith(prefix) for trial in rows),
+                    "built_pairs":sum(r["trial"].startswith(prefix) for r in selected),
+                }
     score(private,cards,cohorts)
     write(keypath,cards)
     write(formpath, {"instructions":instructions, "choices":CHOICES, "pairs":forms})

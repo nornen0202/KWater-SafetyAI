@@ -6,6 +6,7 @@
       "source_generations_observed": 1,
       "parsed_source_generations": 1,
       "source_photos_observed": 1,
+      "photos_with_hazard_wording": 1,
       "generations_used_in_pairs": 1,
       "photos_with_pairs": 1,
       "built_pairs": 2,
@@ -36,6 +37,7 @@
       "source_generations_observed": 30,
       "parsed_source_generations": 28,
       "source_photos_observed": 6,
+      "photos_with_hazard_wording": 6,
       "generations_used_in_pairs": 8,
       "photos_with_pairs": 6,
       "built_pairs": 9,
@@ -56,15 +58,29 @@
     },
     "adapter_eighteen": {
       "planned_source_photos": 18,
-      "source_generations_observed": 0,
-      "parsed_source_generations": 0,
-      "source_photos_observed": 0,
-      "generations_used_in_pairs": 0,
-      "photos_with_pairs": 0,
-      "built_pairs": 0,
-      "pairs_by_field": {},
+      "source_generations_observed": 36,
+      "parsed_source_generations": 36,
+      "source_photos_observed": 18,
+      "photos_with_hazard_wording": 13,
+      "generations_used_in_pairs": 15,
+      "photos_with_pairs": 13,
+      "built_pairs": 26,
+      "pairs_by_field": {
+        "evidence": 13,
+        "prevention": 13
+      },
+      "by_adapter_scale": {
+        "1.0": {
+          "observed_generations": 18,
+          "built_pairs": 24
+        },
+        "0.75": {
+          "observed_generations": 18,
+          "built_pairs": 2
+        }
+      },
       "human_rated_pairs": 0,
-      "human_unrated_pairs": 0,
+      "human_unrated_pairs": 26,
       "human_votes": 0,
       "human_reviewers": 0,
       "choices": {},
@@ -81,7 +97,7 @@
     "equal_NFC_codepoints_UTF8_bytes_words_Qwen_tokens": true,
     "reviewer_sees_source_side": false,
     "tokenizer_sha256": "a5d85b6dcc535e6b93115a9ef287e6132fdbf30270da6218194ba742261173c7",
-    "recipe_sha256": "4e3184190d77e51402222c32362bd48c5ba183808196338d046a84e9fd281010"
+    "recipe_sha256": "4fb9e09c9c125d5830cf0a4ce22070dae19c93cedb0ce4d3ca133b9f70814894"
   },
   "eligibility": "Preparer screened both alternatives for safe wording; eligibility is not a human preference vote."
 }
