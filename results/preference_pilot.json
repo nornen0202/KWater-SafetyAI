@@ -33,15 +33,18 @@
     },
     "prompt_six": {
       "planned_source_photos": 6,
-      "source_generations_observed": 0,
-      "parsed_source_generations": 0,
-      "source_photos_observed": 0,
-      "generations_used_in_pairs": 0,
-      "photos_with_pairs": 0,
-      "built_pairs": 0,
-      "pairs_by_field": {},
+      "source_generations_observed": 19,
+      "parsed_source_generations": 18,
+      "source_photos_observed": 6,
+      "generations_used_in_pairs": 7,
+      "photos_with_pairs": 6,
+      "built_pairs": 8,
+      "pairs_by_field": {
+        "evidence": 6,
+        "prevention": 2
+      },
       "human_rated_pairs": 0,
-      "human_unrated_pairs": 0,
+      "human_unrated_pairs": 8,
       "human_votes": 0,
       "human_reviewers": 0,
       "choices": {},
@@ -78,7 +81,7 @@
     "equal_NFC_codepoints_UTF8_bytes_words_Qwen_tokens": true,
     "reviewer_sees_source_side": false,
     "tokenizer_sha256": "a5d85b6dcc535e6b93115a9ef287e6132fdbf30270da6218194ba742261173c7",
-    "recipe_sha256": "2cceb5d12eccdc341448daff6ba87ca4716673bda969b891b0605f311bbe1227"
+    "recipe_sha256": "2a7a20255c738bbf6a86e445a49a2e3dd8365ca0bc1e5c0e25a836a228a37e8e"
   },
   "eligibility": "Preparer screened both alternatives for safe wording; eligibility is not a human preference vote."
 }
