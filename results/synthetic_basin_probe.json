@@ -1,0 +1,46 @@
+{
+  "scope": "One synthetic scene, two PNG views. Exploratory sensitivity probe.",
+  "archive_sha256": "22e32c10f56c4dec50a9365ee59c16b79439fa28787132d6f2fcfa500070eaa0",
+  "threshold": 0.2,
+  "views": {
+    "open": {
+      "sha256": "bfe84528d02eef17c2be0d77e6df0804e0dc61d95d307c1180e0f1aa66596b61",
+      "scores": {
+        "fall_height": 0.7066307359199099,
+        "slip_trip": 0.1990852745904198,
+        "caught_in_machine": 0.0281264116944965,
+        "struck_by_lifting": 0.05063845821397934,
+        "electrical_energy": 0.0031360919986652943,
+        "drowning_inundation": 0.0,
+        "fire_explosion": 0.010181380617379098,
+        "confined_space": 0.0,
+        "chemical_exposure": 0.0,
+        "thermal_weather": 0.0,
+        "other": 0.0021104623954670363
+      },
+      "emitted": [
+        "fall_height"
+      ]
+    },
+    "railed": {
+      "sha256": "7683f473b0e94706bf6b9ae3999c9b07bacb7f50f530d2afcf7be7aabfc4e9d0",
+      "scores": {
+        "fall_height": 0.6593643621146194,
+        "slip_trip": 0.20844571380699212,
+        "caught_in_machine": 0.034522586471004785,
+        "struck_by_lifting": 0.012724801647585843,
+        "electrical_energy": 0.0028914110843393775,
+        "drowning_inundation": 0.0,
+        "fire_explosion": 0.01719622323056807,
+        "confined_space": 0.0,
+        "chemical_exposure": 0.0,
+        "thermal_weather": 0.0,
+        "other": 0.0006525211745828337
+      },
+      "emitted": [
+        "fall_height",
+        "slip_trip"
+      ]
+    }
+  }
+}

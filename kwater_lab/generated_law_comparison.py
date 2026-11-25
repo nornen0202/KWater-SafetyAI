@@ -11,6 +11,7 @@ from .law_examples import law_ids, select_articles, training_examples
 from .law_retrieval import ArticleIndex, article_texts, official_ranker_type, official_ranking
 from .metrics import CODES, decode_target, unique_keys
 from .observation_pilot import write_aggregate
+from .prompt_pilot import ARMS, digest, parse_generation
 from .train_head import file_hash
 from .visual_probe import DEFAULT_CACHE, FILES
 
@@ -63,6 +64,39 @@ def load_generations(root):
             if sorted(hazards) != sorted(record["predicted_codes"]) or len(hazards) != len(items):
                 raise ValueError("Mismatch between the generated text and the recorded code set")
             groups[name + "_" + arm] = [(sid, hazards)]
+    prompt_check = root / "results/prompt_format_replay.json"
+    if prompt_check.exists():
+        report = read(prompt_check)
+        design = read(root / "data/prompt-pilot/design.json")
+        signature = digest(design)
+        anchors = design["anchors"]
+        if signature != report["signature"] or len(anchors) != 6 or tuple(design["arms"]) != ARMS:
+            raise ValueError("Unexpected six-photo design")
+        folder = root / "data/prompt-pilot" / signature[:12]
+        for arm in ARMS:
+            check = report["conditions"][arm]
+            submission = folder / "format-replay" / arm / "out/submission.jsonl"
+            if file_hash(submission) != check["submission_sha256"]:
+                raise ValueError("Six-photo submission changed")
+            accepted = [json.loads(s, object_pairs_hook=unique_keys) for s in submission.read_text(encoding="utf-8").splitlines()]
+            rows, cases, hashes_for_arm = [], [], []
+            for i in range(len(anchors)):
+                actual = anchors[(i + int(arm == "swapped_11")) % len(anchors)]
+                path = folder / f"{i}-{arm}.json"
+                record = read(path)
+                if record["signature"] != signature or record["image_sha256"] != actual["sha256"]:
+                    raise ValueError("Prompt receipt disagrees with the image shown")
+                hashes_for_arm.append(file_hash(path))
+                _, row = parse_generation(arm, actual["sid"], record["generation"])
+                if row is not None:
+                    rows.append(row)
+                cases.append((actual["sid"], row["hazards"] if row else {}))
+            if rows != accepted or len(rows) != check["kit_valid"] or digest(hashes_for_arm) != check["receipts_digest"]:
+                raise ValueError("Raw prompt output differs from the kit-checked records")
+            name = f"prompt_{arm}"
+            groups[name] = cases
+            hashes[name + "_raw"] = check["receipts_digest"]
+            hashes[name + "_kit"] = check["submission_sha256"]
     scale = root / "results/adapter_scale_pilot.json"
     report = read(scale) if scale.exists() else {}
     local = root / "data/adapter-scale-pilot"
