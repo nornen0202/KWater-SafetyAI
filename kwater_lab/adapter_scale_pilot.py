@@ -42,6 +42,18 @@ def write_json(path, record):
     save_atomic(path, lambda f: f.write((json.dumps(record, ensure_ascii=False, indent=2) + "\n").encode()))
 
 
+def competition_codes(raw, mapping):
+    """Map validated, pre-format model hazards in the same order as the submission wrapper."""
+    codes = []
+    for item in raw.get("hazards", []):
+        code = mapping.get(item["code"])
+        if code and code not in codes:
+            codes.append(code)
+            if len(codes) == 3:
+                break
+    return frozenset(codes)
+
+
 def run(root, output, local):
     base = root / "data/baseline"
     audit_path, exposure_path = root / "results/train_audit_full.json", root / "data/prefix-pilot/exposure.json"
@@ -82,14 +94,14 @@ def run(root, output, local):
         elapsed = time.perf_counter() - start
         if [r["sample_id"] for r in rows] != [r["sample_id"] for r in inputs]:
             raise ValueError("Unexpected model output IDs")
-        usable = {r["sample_id"]: not entry.validate_prediction(r["prediction"]) for r in rows}
-        pred = {r["sample_id"]: frozenset(entry.convert(r["sample_id"], r["prediction"]
-                               if usable[r["sample_id"]] else {})["hazards"]) for r in rows}
         path = local / f"generated-scale-{factor}.json"
         write_json(path, rows)
+        usable = {r["sample_id"]: not entry.validate_prediction(r["prediction"]) for r in rows}
+        pred = {r["sample_id"]: competition_codes(r["prediction"], entry.CODE_MAP)
+                if usable[r["sample_id"]] else frozenset() for r in rows}
         codes[factor] = pred
         metrics[str(factor)] = {"inference_seconds": elapsed, "model_parsed": sum(usable.values()),
-                                "fallback_rows": len(rows)-sum(usable.values()), "changed_layer_scales": layer_count,
+                                "fallback_rows": len(rows)-sum(usable.values()), "scaled_layers": layer_count,
                                 "raw_sha256": file_hash(path), "metrics": evaluate(gold, pred, groups)}
     first, second = codes[1.0], codes[0.75]
     results = {"scope": "Training-domain diagnostic, organizer LoRA was fit on training material, no independent generalization claim.",

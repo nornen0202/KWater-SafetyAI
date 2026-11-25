@@ -2,12 +2,19 @@ import unittest
 
 import numpy as np
 
-from kwater_lab.adapter_scale_pilot import scale_default_adapter, sample
+from kwater_lab.adapter_scale_pilot import competition_codes, scale_default_adapter, sample
 from kwater_lab.adapter_spectrum import singular_values
 from kwater_lab.weight_pilot import edit_columns, neighbor_scores
 
 
 class WeightExperimentTests(unittest.TestCase):
+    def test_raw_hazards_map_without_postprocessed_risk_levels(self):
+        raw = {"hazards": [{"code": c, "likelihood_score": 2, "severity_score": 3}
+                           for c in ("a", "x", "b", "c", "d", "e")]}
+        mapping = {"a": "first", "b": "first", "c": "second", "d": "third", "e": "fourth"}
+        self.assertEqual(competition_codes(raw, mapping), {"first", "second", "third"})
+        self.assertEqual(competition_codes({}, mapping), set())
+
     def test_clip_edit_and_sham_have_equal_magnitude_only_on_targets(self):
         w = np.array([[1., 2., 3.], [2., 3., 5.], [-1., 0., 2.]])
         edited, sham, lengths = edit_columns(w, (0, 1))
