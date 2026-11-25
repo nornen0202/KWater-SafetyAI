@@ -1,0 +1,40 @@
+{
+  "png_files": 1045,
+  "jsonl_rows": 1045,
+  "previous_inventory_matches": true,
+  "png_chunk_presence_in_files": {
+    "IDAT": 1045,
+    "IEND": 1045,
+    "IHDR": 1045,
+    "iCCP": 34,
+    "pHYs": 6
+  },
+  "png_with_exif": 0,
+  "png_with_text_container": 0,
+  "png_with_tIME_modification_only": 0,
+  "png_with_trailing_bytes": 0,
+  "images_with_exif_field": {
+    "file_datetime": 0,
+    "capture_datetime_original": 0,
+    "digitized_datetime": 0,
+    "image_unique_id": 0,
+    "document_name": 0,
+    "page_name": 0,
+    "artist": 0,
+    "copyright": 0,
+    "body_serial_number": 0,
+    "gps_ifd": 0
+  },
+  "jsonl_field_presence_in_rows": {
+    "wrapper": {
+      "image": 1045,
+      "notes": 1045,
+      "sample_id": 1045,
+      "target": 1045
+    },
+    "notes": {
+      "scene_note": 1045,
+      "uncertainty": 1045
+    }
+  }
+}
