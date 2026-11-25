@@ -182,19 +182,21 @@ def semantic_quarantine(project, run, rows, features, seed):
             )
         )
     groups = [comps.find(g) for g in original]
-    exposed = {g for g, r in zip(groups, rows) if r["exposed"]}
-    hold = reserve(groups, set(groups) - exposed, 125, seed)
+    sealed = np.array([r["dev_fold"] < 0 for r in rows])
+    hold = {g for g, flag in zip(groups, sealed) if flag}
+    write_json(run / "semantic-pairs.json", audit)
+    if any(g in hold and not flag for g, flag in zip(groups, sealed)):
+        raise ValueError(
+            "A newly registered pair crosses the sealed holdout. Review semantic-pairs.json before fitting."
+        )
     y = np.array([[c in r["codes"] for c in CODES] for r in rows], float)
     dev = [i for i, g in enumerate(groups) if g not in hold]
     family = np.asarray([source_family(sid) for sid in ids])
     folds = balanced_folds([groups[i] for i in dev], y[dev], 5, seed, family[dev])
     dev_folds = dict(zip(dev, folds.tolist()))
-    all_folds = balanced_folds(groups, y, 5, seed, family)
     for i, r in enumerate(rows):
-        r.update(
-            group=groups[i], all_fold=int(all_folds[i]), dev_fold=dev_folds.get(i, -1)
-        )
-    write_json(run / "semantic-pairs.json", audit)
+        r.update(group=groups[i], dev_fold=dev_folds.get(i, -1))
+        r.pop("all_fold")
     write_json(run / "evaluation-manifest.json", rows)
     summary = {
         "groups": len(set(groups)),
@@ -204,13 +206,15 @@ def semantic_quarantine(project, run, rows, features, seed):
         "holdout_photos": len(rows) - len(dev),
         "exposure_overlap": sum(r["exposed"] and r["dev_fold"] < 0 for r in rows),
     }
-    for key in ("all_fold", "dev_fold"):
+    for key in ("dev_fold",):
         buckets = defaultdict(set)
         for r in rows:
             buckets[r["group"]].add(r[key])
         assert all(len(v) == 1 for v in buckets.values())
         data = []
         for f in sorted({r[key] for r in rows}):
+            if f < 0:
+                continue
             idx = [i for i, r in enumerate(rows) if r[key] == f]
             data.append(
                 dict(

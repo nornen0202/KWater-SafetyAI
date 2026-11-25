@@ -83,6 +83,30 @@ def verify(project, run, checker):
         raise ValueError("Manifest does not cover the complete official train")
     if sha(project / "data/train/train.jsonl") != phase0["labels_sha256"]:
         raise ValueError("Official labels changed")
+    reserved = {
+        r["sample_id"] for r in read(run / "manifest.json") if r["dev_fold"] < 0
+    }
+    if reserved != {s for s, r in by_id.items() if r["dev_fold"] < 0}:
+        raise ValueError("Changed sealed holdout membership")
+    if any(
+        (run / name).exists()
+        for name in (
+            "all_fold-oof.jsonl",
+            "all_fold-metrics.json",
+            "holdout-metrics.json",
+        )
+    ):
+        raise ValueError("Unexpected sealed evaluation artifacts")
+    dev_policy = read(run / "phase3-development/policy.json")
+    full_policy = read(run / "inference/policy.json")
+    if (
+        dev_policy["head"] == full_policy["head"]
+        or dev_policy["policy"] != full_policy["policy"]
+    ):
+        raise ValueError("Development and final-fit policies differ or share a head")
+    for folder, cfg in (("phase3-development", dev_policy), ("inference", full_policy)):
+        if sha(run / folder / cfg["head"]) != sha(run / cfg["head"]):
+            raise ValueError("Incorrect packaged weights")
     for name, digest in done["files"].items():
         if sha(run / name) != digest:
             raise ValueError(f"Run artifact changed: {name}")
@@ -90,7 +114,7 @@ def verify(project, run, checker):
     for sid, r in by_id.items():
         if set(r["codes"]) != gold[sid] or (r["exposed"] and r["dev_fold"] < 0):
             raise ValueError("Gold or exposure mismatch")
-        signature = (r["group"], r["dev_fold"], r["all_fold"])
+        signature = (r["group"], r["dev_fold"])
         for typ, key in (
             ("source", r["source"]),
             ("group", r["group"]),
@@ -113,7 +137,7 @@ def verify(project, run, checker):
     pilot = set(read(project / "data/prefix-pilot/exposure.json")["exposed_ids"])
     if not pilot <= gold.keys():
         raise ValueError("Historic cohort differs from current official train")
-    for axis in ("dev_fold", "all_fold"):
+    for axis in ("dev_fold",):
         rows = [
             json.loads(line, object_pairs_hook=unique_keys)
             for line in (run / (axis + "-oof.jsonl")).read_bytes().splitlines()
@@ -175,7 +199,7 @@ def verify(project, run, checker):
                 reference[k] != v for k, v in independent.items() if k != "per_code"
             ):
                 raise ValueError("Pooled metric mismatch")
-            if axis == "all_fold":
+            if pilot:
                 matched = [r for r in rows if r["sample_id"] in pilot]
                 subsets = {s: gold[s] for s in pilot}
                 out = {s: preds[s] for s in pilot}
@@ -200,7 +224,7 @@ def verify(project, run, checker):
                     final_misses_outside_raw_top3=lost_out,
                     final_hits_from_outside_raw_top3=rescued,
                 )
-            if axis == "all_fold" and name in {
+            if name in {
                 "single_fixed",
                 "multi_class_utility_scene",
                 done["winner"],
@@ -229,15 +253,15 @@ def verify(project, run, checker):
         groups=split["groups"],
         folds=5,
         metrics_per_axis=len(metric),
-        axes=["dev_fold", "all_fold"],
+        axes=["dev_fold"],
         isolated_holdout_scored=False,
         known_group_or_duplicate_crossings=0,
         exposed_holdout=0,
-        bounded_rows=len(gold),
+        bounded_rows=len(expected),
         official_kit=kit,
         historical_170_ids_new_training_protocol=historical,
         evaluation_manifest_sha256=sha(run / "evaluation-manifest.json"),
-        oof_sha256=sha(run / "all_fold-oof.jsonl"),
+        oof_sha256=sha(run / "dev_fold-oof.jsonl"),
     )
 
 

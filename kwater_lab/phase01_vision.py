@@ -158,6 +158,14 @@ def feature_cache(vision, train, run, rows, limit=None):
             with tmp.open("wb") as f:
                 np.save(f, data, allow_pickle=False)
             tmp.replace(path)
+            if i == 0:
+                print(
+                    "FIRST_FEATURE_SAVED",
+                    len(rows[:limit]),
+                    round(time.monotonic() - start, 2),
+                    time.strftime("%Y-%m-%dT%H:%M:%S"),
+                    flush=True,
+                )
         if (
             data.shape != (6, 17, 128)
             or data.dtype != np.float16

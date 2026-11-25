@@ -398,9 +398,9 @@ def choose(arms, paired):
     return max(["single_fixed", *candidates], key=lambda k: arms[k]["macro_f1"])
 
 
-def stage_bundle(run, seed):
+def stage_bundle(run, seed, name="inference", policy_name="policy.json"):
     root = Path(__file__).resolve().parents[1]
-    bundle = run / "inference"
+    bundle = run / name
     package = bundle / "kwater_lab"
     package.mkdir(parents=True, exist_ok=True)
     (package / "__init__.py").touch()
@@ -413,9 +413,9 @@ def stage_bundle(run, seed):
     ):
         shutil.copyfile(root / "kwater_lab" / (name + ".py"), package / (name + ".py"))
     shutil.copyfile(root / "submission/phase01/main.py", bundle / "main.py")
-    cfg = read(run / "policy.json")
-    for filename in (cfg["head"], "policy.json"):
-        shutil.copyfile(run / filename, bundle / filename)
+    cfg = read(run / policy_name)
+    shutil.copyfile(run / cfg["head"], bundle / cfg["head"])
+    shutil.copyfile(run / policy_name, bundle / "policy.json")
     for key in MODEL_IDS:
         target = bundle / "models" / key
         target.mkdir(parents=True, exist_ok=True)
@@ -456,7 +456,7 @@ def stage_bundle(run, seed):
             source="K-water participant training download",
             revision="2026-11-25",
             license="organizer competition-only terms",
-            use="head fitting and OOF calibration",
+            use=f"fit on {cfg['fit_photos']} photos; policy fixed using development OOF only",
         )
     )
     assets.append(
@@ -493,6 +493,12 @@ def stage_bundle(run, seed):
         bundle / "assets.json", dict(schema_version="1.0", seed=seed, assets=assets)
     )
     return bundle
+
+
+def save_head(model, path):
+    tmp = path.with_suffix(".tmp")
+    torch.save(model.cpu().state_dict(), tmp)
+    tmp.replace(path)
 
 
 def main():
@@ -540,11 +546,14 @@ def main():
     xt = torch.from_numpy(features).to(a.device)
     del features
     have_features = time.monotonic()
-    labels, ev, severe = supervision(a.project, records)
+    dev_idx = np.array([i for i, r in enumerate(records) if r["dev_fold"] >= 0])
+    dev_rows = [records[i] for i in dev_idx]
+    dev_x = xt[dev_idx]
+    labels, ev, severe = supervision(a.project, dev_rows)
     yy = torch.from_numpy(labels).to(a.device)
     ee = torch.from_numpy(ev).to(a.device)
-    dev, paired, _ = evaluate_split(
-        "dev_fold", records, xt, yy, ee, severe, a.run, signature, a.seed, a.epochs
+    dev, paired, dev_z = evaluate_split(
+        "dev_fold", dev_rows, dev_x, yy, ee, severe, a.run, signature, a.seed, a.epochs
     )
     winner = choose(dev, paired)
     write_json(
@@ -554,23 +563,41 @@ def main():
             basis="development OOF only, delta >= .02, FPR <= max(base FPR, .20), severity4 complete misses strictly reduced, paired lower bound >0",
         ),
     )
-    _, _, all_z = evaluate_split(
-        "all_fold", records, xt, yy, ee, severe, a.run, signature, a.seed, a.epochs
+    dev_all = np.arange(len(dev_rows))
+    dev_groups = np.array([r["group"] for r in dev_rows])
+    for mode, multi in (("single", False), ("multi", True)):
+        model = fit_head(dev_x, yy, ee, dev_all, multi, a.seed, a.epochs)
+        filename = mode + "-dev.pt"
+        save_head(model, a.run / filename)
+        policies = calibrate(dev_z[mode], labels[:, :11], dev_groups)
+        write_json(a.run / (mode + "-dev-policies.json"), policies)
+        if winner.startswith(mode + "_"):
+            dev_policy = policy_cfg(filename, multi, policies[winner[len(mode) + 1 :]])
+    dev_policy.update(
+        fit_photos=len(dev_rows),
+        calibration_photos=len(dev_rows),
+        fit_ids_sha256=hashlib.sha256(
+            "\n".join(r["sample_id"] for r in dev_rows).encode()
+        ).hexdigest(),
     )
+    write_json(a.run / "phase3-dev-policy.json", dev_policy)
+    stage_bundle(a.run, a.seed, "phase3-development", "phase3-dev-policy.json")
+    # Only after fixing the policy and the Phase 3 development-only weights, open
+    # all labels for the independent full-data fit. No holdout scoring takes place.
+    labels, ev, _ = supervision(a.project, records)
     full = np.arange(len(records))
-    groups = np.array([r["group"] for r in records])
+    yy, ee = torch.from_numpy(labels).to(a.device), torch.from_numpy(ev).to(a.device)
     for mode, multi in (("single", False), ("multi", True)):
         model = fit_head(xt, yy, ee, full, multi, a.seed, a.epochs)
-        filename = mode + "-all.pt"
-        tmp = a.run / (filename + ".tmp")
-        torch.save(model.cpu().state_dict(), tmp)
-        tmp.replace(a.run / filename)
-        policies = calibrate(all_z[mode], labels[:, :11], groups)
-        write_json(a.run / (mode + "-all-policies.json"), policies)
-        if winner.startswith(mode + "_"):
-            final_policy = policy_cfg(
-                filename, multi, policies[winner[len(mode) + 1 :]]
-            )
+        save_head(model, a.run / (mode + "-all.pt"))
+    final_policy = dict(
+        dev_policy,
+        head=winner.split("_", 1)[0] + "-all.pt",
+        fit_photos=len(records),
+        fit_ids_sha256=hashlib.sha256(
+            "\n".join(r["sample_id"] for r in records).encode()
+        ).hexdigest(),
+    )
     write_json(a.run / "policy.json", final_policy)
     bundle = stage_bundle(a.run, a.seed)
     final_head = SpatialHead(final_policy["multiscale"]).to(a.device)
@@ -592,6 +619,9 @@ def main():
         a.run / "completed.json",
         dict(
             photos=len(records),
+            oof_photos=len(dev_rows),
+            holdout_photos=len(records) - len(dev_rows),
+            fit_only_full=True,
             groups=split["groups"],
             winner=winner,
             epochs=a.epochs,
@@ -611,9 +641,12 @@ def main():
                 k: sha(a.run / k)
                 for k in (
                     "manifest.json",
-                    "all_fold-oof.jsonl",
+                    "dev_fold-oof.jsonl",
                     "single-all.pt",
                     "multi-all.pt",
+                    "single-dev.pt",
+                    "multi-dev.pt",
+                    "phase3-dev-policy.json",
                     "policy.json",
                 )
             },
