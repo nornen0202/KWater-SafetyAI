@@ -189,8 +189,9 @@ def semantic_quarantine(project, run, rows, features, seed):
         raise ValueError(
             "A newly registered pair crosses the sealed holdout. Review semantic-pairs.json before fitting."
         )
-    y = np.array([[c in r["codes"] for c in CODES] for r in rows], float)
     dev = [i for i, g in enumerate(groups) if g not in hold]
+    y = np.zeros((len(rows), len(CODES)))
+    y[dev] = [[c in rows[i]["codes"] for c in CODES] for i in dev]
     family = np.asarray([source_family(sid) for sid in ids])
     folds = balanced_folds([groups[i] for i in dev], y[dev], 5, seed, family[dev])
     dev_folds = dict(zip(dev, folds.tolist()))

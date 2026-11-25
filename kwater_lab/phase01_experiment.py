@@ -61,7 +61,7 @@ def supervision(project, records):
             continue
         i = known[sid]
         target = row["target"]
-        if set(records[i]["codes"]) != set(target["hazards"]):
+        if "codes" in records[i] and set(records[i]["codes"]) != set(target["hazards"]):
             raise ValueError("Target and frozen manifest differ")
         severe[sid] = set()
         for j, c in enumerate(CODES):
@@ -521,6 +521,10 @@ def main():
         len(records) == meta["photos"]
         and sha(a.run / "manifest.json") == meta["manifest_sha256"]
     )
+    for row in records:
+        if row["dev_fold"] < 0:
+            row.pop("codes")
+            row.pop("status")
     modules = (
         "phase01_vision.py",
         "phase01_head.py",

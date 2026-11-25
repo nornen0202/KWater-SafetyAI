@@ -11,7 +11,7 @@ from .metrics import (
     CODES,
     decode_target,
     evaluate,
-    load_gold,
+    decode_gold,
     load_predictions,
     unique_keys,
 )
@@ -71,14 +71,22 @@ def verify(project, run, checker):
     done = read(run / "completed.json")
     phase0 = read(run / "data-summary.json")
     split = read(run / "evaluation-split.json")
-    gold = load_gold(project / "data/train/train.jsonl")
     audit = read(project / "results/train_audit_full.json")
     manifest = read(run / "evaluation-manifest.json")
     by_id = {r["sample_id"]: r for r in manifest}
+    all_ids, gold = set(), {}
+    for line in (project / "data/train/train.jsonl").read_bytes().splitlines():
+        row = json.loads(line, object_pairs_hook=unique_keys)
+        sid = row["sample_id"]
+        if sid in all_ids:
+            raise ValueError("Duplicate official ID")
+        all_ids.add(sid)
+        if by_id[sid]["dev_fold"] >= 0:
+            _, gold[sid] = decode_gold(row)
     if (
         len(by_id) != len(manifest)
-        or set(by_id) != set(gold)
-        or len(gold) != done["photos"]
+        or set(by_id) != all_ids
+        or len(by_id) != done["photos"]
     ):
         raise ValueError("Manifest does not cover the complete official train")
     if sha(project / "data/train/train.jsonl") != phase0["labels_sha256"]:
@@ -112,7 +120,9 @@ def verify(project, run, checker):
             raise ValueError(f"Run artifact changed: {name}")
     group_index = {}
     for sid, r in by_id.items():
-        if set(r["codes"]) != gold[sid] or (r["exposed"] and r["dev_fold"] < 0):
+        if sid in gold and set(r["codes"]) != gold[sid]:
+            raise ValueError("Development gold mismatch")
+        if r["dev_fold"] < 0 and (r["exposed"] or "codes" in r or "status" in r):
             raise ValueError("Gold or exposure mismatch")
         signature = (r["group"], r["dev_fold"])
         for typ, key in (
@@ -249,7 +259,7 @@ def verify(project, run, checker):
                 if evaluate(hex_gold, reopened)["macro_f1"] != independent["macro_f1"]:
                     raise ValueError("Round trip score mismatch")
     return dict(
-        photos=len(gold),
+        photos=len(by_id),
         groups=split["groups"],
         folds=5,
         metrics_per_axis=len(metric),
