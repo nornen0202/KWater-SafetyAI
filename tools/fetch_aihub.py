@@ -29,6 +29,7 @@ SETS = ("71407", "71793", "507")
 PATTERN = re.compile(r"[^├└─│\n]*?[├└]─([^\r\n/|]+?\.zip)\s*\|\s*([\d.,]+)\s*(B|KB|MB|GB|TB)\s*\|\s*(\d+)")
 UNITS = {name: 1024**i for i, name in enumerate(("B", "KB", "MB", "GB", "TB"))}
 ZIP_HEADERS = (b"PK\x03\x04", b"PK\x07\x08", b"PK\x05\x06")
+OVERLAP = 64 * 1024
 
 
 def save(path, obj):
@@ -117,9 +118,101 @@ def unpack(archive, final):
     return {"bytes": final.stat().st_size, "sha256": checksum.hexdigest(), "zip_members": members}
 
 
+def provider_response(sid, filekey, secret, byte_range=None):
+    headers = {"apikey": secret, "Accept-Encoding": "identity"}
+    if byte_range is not None:
+        headers["Range"] = "bytes=" + byte_range
+    route = f"https://api.aihub.or.kr/down/0.6/{sid}.do?fileSn={filekey}"
+    for _ in range(5):
+        parsed = urlsplit(route)
+        name = parsed.hostname or ""
+        if parsed.scheme != "https" or not (name == "aihub.or.kr" or name.endswith(".aihub.or.kr")):
+            raise RuntimeError("Unrecognized provider download host")
+        safe_headers = headers if name == "api.aihub.or.kr" else {k:v for k,v in headers.items() if k != "apikey"}
+        reply = requests.get(route, headers=safe_headers, stream=True, allow_redirects=False, timeout=(20, 180))
+        if not reply.is_redirect:
+            return reply
+        route = urljoin(route, reply.headers["Location"])
+        reply.close()
+    raise RuntimeError("Too many download redirects")
+
+
+def keep_longest(partial, replay):
+    # Both paths belong to this one inbound provider file. A shorter restart
+    # must never discard data from a previous longer transfer.
+    if replay.exists():
+        if not partial.exists() or replay.stat().st_size > partial.stat().st_size:
+            replay.replace(partial)
+        else:
+            replay.unlink()
+
+
+def receive(reply, partial, offset):
+    start = max(0, offset - OVERLAP)
+    overlap = offset - start
+    pieces = reply.iter_content(1024**2)
+    first = bytearray()
+    for block in pieces:
+        first.extend(block)
+        if len(first) >= max(512, overlap):
+            break
+    spelling = reply.headers.get("Content-Range", "")
+    span = re.fullmatch(r"bytes (\d+)-(\d+)/(\d+)", spelling, re.IGNORECASE) if spelling else None
+    if spelling and not span:
+        raise ValueError("Invalid provider Content-Range")
+    if span:
+        low, high, total = map(int, span.groups())
+        if not (0 <= low <= high < total) or low not in {0, start}:
+            raise ValueError("Provider returned a different byte range")
+    else:
+        low = high = total = None
+    if reply.headers.get("Content-Encoding", "identity").lower() not in {"", "identity"}:
+        raise ValueError("Expected an unencoded archive byte stream")
+    matches = False
+    if overlap and len(first) >= overlap:
+        with partial.open("rb") as old:
+            old.seek(start)
+            expected = old.read(overlap)
+        matches = first[:overlap] == expected
+    archive_header = first.startswith((*ZIP_HEADERS, b"\x1f\x8b")) or first[257:262] == b"ustar"
+    continued = bool(offset and matches and (low == start or (start > 0 and not spelling
+                      and not archive_header and overlap == OVERLAP and len(set(first[:overlap])) >= 16)))
+    if low not in {None, 0} and not continued:
+        raise ValueError("Provider range does not match the saved prefix")
+    if not continued and not archive_header:
+        raise RuntimeError(f"Provider returned no usable ZIP/TAR (HTTP {reply.status_code})")
+    replay = partial.with_suffix(".restart")
+    target = partial if continued or not offset else replay
+    received = len(first)
+    if span and received > high - low + 1:
+        raise ValueError("Response exceeds the advertised range")
+    try:
+        with target.open("ab" if continued else "wb") as output:
+            output.write(first[overlap:] if continued else first)
+            for block in pieces:
+                received += len(block)
+                if span and received > high - low + 1:
+                    raise ValueError("Response exceeds the advertised range")
+                output.write(block)
+        if span and received != high - low + 1:
+            raise EOFError("Short provider range")
+    except (OSError, ValueError, EOFError, requests.RequestException):
+        if target == replay:
+            keep_longest(partial, replay)
+        raise
+    return target, bool(span and high + 1 < total)
+
+
 def fetch(sid, row, secret):
+    if sid not in SETS or not re.fullmatch(r"[0-9]+", row["filekey"]):
+        raise ValueError("Unknown dataset or invalid provider file key")
     out = ROOT / sid / "packages"
     out.mkdir(exist_ok=True)
+    with transfer_lock(out / (row["filekey"] + ".fetch.lock")):
+        return fetch_locked(sid, row, secret, out)
+
+
+def fetch_locked(sid, row, secret, out):
     key = row["filekey"]
     if Path(row["name"]).name != row["name"]:
         raise ValueError("Invalid name in catalog")
@@ -133,6 +226,8 @@ def fetch(sid, row, secret):
         save(receipt, {**row, **fixed, "dataset":sid, "source":f"https://api.aihub.or.kr/down/0.6/{sid}.do?fileSn={key}"})
         return
     tar = out / (key + ".tar.partial")
+    replay = tar.with_suffix(".restart")
+    keep_longest(tar, replay)
     url = f"https://api.aihub.or.kr/down/0.6/{sid}.do"
     offset = tar.stat().st_size if tar.exists() else 0
     if offset >= 1024:
@@ -148,37 +243,25 @@ def fetch(sid, row, secret):
                 save(receipt,{**row,**metrics,"dataset":sid,"source":url+"?fileSn="+key})
                 tar.unlink()
                 return
-    headers = {"apikey": secret}
-    if offset:
-        headers["Range"] = f"bytes={offset}-"
-    route = url + "?fileSn=" + key
-    for _ in range(5):
-        parsed = urlsplit(route)
-        name = parsed.hostname or ""
-        if parsed.scheme != "https" or not (name == "aihub.or.kr" or name.endswith(".aihub.or.kr")):
-            raise RuntimeError(f"Unrecognized provider download host {parsed.scheme}://{name}")
-        safe_headers = headers if name == "api.aihub.or.kr" else {k:v for k,v in headers.items() if k != "apikey"}
-        reply = requests.get(route, headers=safe_headers, stream=True, allow_redirects=False, timeout=(20,150))
-        if not reply.is_redirect:
+    while True:
+        request_range = f"{max(0, offset - OVERLAP)}-" if offset else None
+        with provider_response(sid, key, secret, request_range) as reply:
+            source, more = receive(reply, tar, offset)
+        if not more:
             break
-        route = urljoin(route, reply.headers["Location"])
-        reply.close()
-    else:
-        raise RuntimeError("Too many download redirects")
-    with reply:
-        # Some official endpoints set HTTP 502 even when serving a well-formed catalog or TAR.
-        continuation = offset and reply.status_code == 206 and reply.headers.get("Content-Range", "").startswith(f"bytes {offset}-")
-        pieces = reply.iter_content(1024**2)
-        first = next(pieces, b"")
-        if not continuation and not (first.startswith((*ZIP_HEADERS, b"\x1f\x8b")) or first[257:262] == b"ustar"):
-            raise RuntimeError(f"Provider did not send a ZIP/TAR (HTTP {reply.status_code}, {len(first)} initial bytes)")
-        with tar.open("ab" if continuation else "wb") as f:
-            f.write(first)
-            for block in pieces:
-                f.write(block)
-    metrics = unpack(tar, dest)
+        keep_longest(tar, replay)
+        size = tar.stat().st_size
+        if size <= offset:
+            raise EOFError("Provider did not advance the requested range")
+        offset = size
+    try:
+        metrics = unpack(source, dest)
+    except (OSError, EOFError, ValueError, tarfile.TarError, zipfile.BadZipFile):
+        keep_longest(tar, replay)
+        raise
     save(receipt, {**row, **metrics, "dataset": sid, "source": url + "?fileSn=" + key})
-    tar.unlink()
+    tar.unlink(missing_ok=True)
+    replay.unlink(missing_ok=True)
     return metrics
 
 
@@ -204,7 +287,7 @@ def run_dataset(sid, secret):
                 fetch(sid,row,secret)
                 done += 1
                 break
-            except (requests.RequestException, OSError, ValueError, RuntimeError, tarfile.TarError, zipfile.BadZipFile) as e:
+            except (requests.RequestException, OSError, EOFError, ValueError, RuntimeError, tarfile.TarError, zipfile.BadZipFile) as e:
                 if attempt == 2:
                     errors[row["filekey"]] = type(e).__name__ if isinstance(e, requests.RequestException) else str(e)[:220]
                 else:

@@ -30,10 +30,12 @@ def snapshot(hash_samples=False):
         files = [read(p) for p in sorted((folder/"packages").glob("*.zip.json"))]
         status_path=folder/"transfer-status.json"
         status=read(status_path) if status_path.is_file() else {}
+        acquired = {str(r["filekey"]) for r in files}
+        failed = set(status.get("failed", {}))
         record = {"source":f"https://www.aihub.or.kr/aihubdata/data/view.do?dataSetSn={sid}",
                   "approved":True,"published_files":len(catalog),"provider_estimated_bytes":sum(r["estimate"] for r in catalog),
                   "completed_files":len(files),"completed_bytes":sum(r["bytes"] for r in files),
-                  "transfer_errors":len(status.get("failed",{}))}
+                  "transfer_errors":len(failed - acquired), "recovered_transfer_errors":len(failed & acquired)}
         sample = folder/"sample.zip"
         receipt = folder/"sample.zip.json"
         if sample.is_file() and hash_samples and not receipt.is_file():

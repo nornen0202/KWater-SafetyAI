@@ -161,11 +161,13 @@ def unresolved(ready, items):
 def inspect_files(watch):
     items = expected_files()
     verified = {}
+    last_failures = ()
     while len(verified) < len(items):
         ready = ready_files(items)
-        failures = unresolved(ready, items)
-        if failures:
-            raise RuntimeError(f"Provider retries exhausted for {failures}")
+        failures = tuple(sorted(unresolved(ready, items)))
+        if failures and failures != last_failures:
+            print(f"Waiting for repair of {len(failures)} provider packages; continuing other checks", flush=True)
+        last_failures = failures
         for rel in sorted(ready - verified.keys(), key=lambda name: (DATA / name).stat().st_size):
             try:
                 verified[rel] = verify(rel, items[rel])

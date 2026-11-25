@@ -94,3 +94,5 @@ python tools/external_inventory.py --save
 ```
 
 전체 취득본의 디스크 SHA-256과 ZIP 내부 파일별 CRC를 다시 확인할 때는 `python tools/verify_external_archives.py --watch`를 쓴다. 내려받은 파일을 한 번씩 확인하고, 모든 자료가 검증된 시점에 `results/external_file_ledger.json`에 배포처·파일명·크기·해시를 기록한다.
+
+기존 전송이 한 파일의 재시도를 소진하면 `python tools/repair_aihub.py`를 실행할 수 있다. 기존 작업이 실행 중일 때 복구 도구는 실패로 기록된 파일만 처리한다. 기존 작업이 종료되면 잠금을 넘겨받고 남은 목록을 확인한다. 이어받을 때 디스크에 저장한 마지막 64KiB를 서버의 응답과 대조한다. 서버가 처음부터 다시 전송하다 중단되면 더 길게 받은 쪽을 보존한다. 키는 로컬 비공개 입력창으로 받는다. `transfer_errors`는 아직 복구되지 않은 파일 수, `recovered_transfer_errors`는 중단 후 취득을 끝낸 파일 수다. [AI-Hub 공식 CLI 안내](https://www.aihub.or.kr/devsport/apishell/list.do)
