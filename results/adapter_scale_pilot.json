@@ -1,0 +1,277 @@
+{
+  "scope": "Training-domain diagnostic, organizer LoRA was fit on training material, no independent generalization claim.",
+  "design": "Three SHA-ordered known exposed samples from each of six ID prefixes, labels unused for selection. Single GPU load. Original inference function; no law retrieval or LLM scoring.",
+  "photos": 18,
+  "cohort_sha256": "8cb63bad4bb0516a1b218ca14b16550c5d9b52eafc2493c81dbe0c6778328044",
+  "exposure_sha256": "3e049cac60ec3db236ad3a98bcf44785ccf24621eadd1d16286f72855f0643e4",
+  "main_sha256": "6dff3c44b5b0331a1085ddb69545d153510c13e670c4e163442f57d3dd1ae9c6",
+  "adapter_sha256": "24037dbe4b3a6e165e5023031e16fc2fb4a0b34a7d536a0fcd628bc0cf743093",
+  "batch_size": 1,
+  "seed": 42,
+  "weight_reader": "pread-cpu",
+  "per_row_snapshots": true,
+  "load_seconds_after_import": 3243.9023510999978,
+  "conditions": {
+    "1.0": {
+      "inference_seconds": 1205.2797709000297,
+      "model_parsed": 18,
+      "fallback_rows": 0,
+      "scaled_layers": 252,
+      "raw_sha256": "eedb624b00d8032782def148a9d848c1acaca67e9d75816fb4cdb649c4463abd",
+      "metrics": {
+        "photos": 18,
+        "active_codes": 4,
+        "macro_f1": 0.5243818681318682,
+        "quantitative_points_out_of_70": 36.706730769230774,
+        "exact_set_matches": 9,
+        "no_hazard_photos": 4,
+        "no_hazard_false_alarms": 0,
+        "no_hazard_false_alarm_rate": 0.0,
+        "hazard_photos": 14,
+        "hazard_completely_missed": 1,
+        "hazard_predicted_empty_rate": 0.07142857142857142,
+        "per_code": {
+          "fall_height": {
+            "support": 3,
+            "predicted": 4,
+            "tp": 3,
+            "fp": 1,
+            "fn": 0,
+            "f1": 0.8571428571428571,
+            "support_groups": 3
+          },
+          "slip_trip": {
+            "support": 8,
+            "predicted": 8,
+            "tp": 5,
+            "fp": 3,
+            "fn": 3,
+            "f1": 0.625,
+            "support_groups": 5
+          },
+          "caught_in_machine": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "struck_by_lifting": {
+            "support": 3,
+            "predicted": 1,
+            "tp": 0,
+            "fp": 1,
+            "fn": 3,
+            "f1": 0.0,
+            "support_groups": 3
+          },
+          "electrical_energy": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "drowning_inundation": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "fire_explosion": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "confined_space": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "chemical_exposure": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "thermal_weather": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "other": {
+            "support": 9,
+            "predicted": 4,
+            "tp": 4,
+            "fp": 0,
+            "fn": 5,
+            "f1": 0.6153846153846154,
+            "support_groups": 6
+          }
+        }
+      }
+    },
+    "0.75": {
+      "inference_seconds": 332.38642940000864,
+      "model_parsed": 18,
+      "fallback_rows": 0,
+      "scaled_layers": 252,
+      "raw_sha256": "4fe4a2538f2f7969641ffdd2e348681782366e3d960865a6172cb71f1aa5a1fb",
+      "metrics": {
+        "photos": 18,
+        "active_codes": 4,
+        "macro_f1": 0.48750000000000004,
+        "quantitative_points_out_of_70": 34.125,
+        "exact_set_matches": 6,
+        "no_hazard_photos": 4,
+        "no_hazard_false_alarms": 0,
+        "no_hazard_false_alarm_rate": 0.0,
+        "hazard_photos": 14,
+        "hazard_completely_missed": 1,
+        "hazard_predicted_empty_rate": 0.07142857142857142,
+        "per_code": {
+          "fall_height": {
+            "support": 3,
+            "predicted": 5,
+            "tp": 3,
+            "fp": 2,
+            "fn": 0,
+            "f1": 0.75,
+            "support_groups": 3
+          },
+          "slip_trip": {
+            "support": 8,
+            "predicted": 7,
+            "tp": 6,
+            "fp": 1,
+            "fn": 2,
+            "f1": 0.8,
+            "support_groups": 5
+          },
+          "caught_in_machine": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "struck_by_lifting": {
+            "support": 3,
+            "predicted": 2,
+            "tp": 1,
+            "fp": 1,
+            "fn": 2,
+            "f1": 0.4,
+            "support_groups": 3
+          },
+          "electrical_energy": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "drowning_inundation": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "fire_explosion": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "confined_space": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "chemical_exposure": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "thermal_weather": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "other": {
+            "support": 9,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 9,
+            "f1": 0.0,
+            "support_groups": 6
+          }
+        }
+      }
+    }
+  },
+  "code_set_changed": 8,
+  "exact_set_gains": 0,
+  "exact_set_losses": 3,
+  "format_replay": {
+    "checker_sha256": "22dd4bf71c2a47b5d5928ae90b7a098cecc692b4ec32c8bbe7506c4876c45fed",
+    "source": "Official formatter with supplied laws and no training examples; verifies code sets and schema only.",
+    "conditions": {
+      "1.0": {
+        "converted_code_sets_match": 18,
+        "kit_valid": 18,
+        "submission_sha256": "8d5aa8aa040dd2d00dab6cdaa395577a15f9436eb5c2a71d6de043aa31915e5c"
+      },
+      "0.75": {
+        "converted_code_sets_match": 18,
+        "kit_valid": 18,
+        "submission_sha256": "d6aeb822cdf8e19d58566e0b9257e3c24d91295571f26f6c7239eaa622a97adc"
+      }
+    }
+  }
+}
