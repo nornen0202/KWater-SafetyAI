@@ -5,6 +5,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import re
 import stat
 
 from .train_head import save_atomic
@@ -15,13 +16,18 @@ LOCAL_REPORTS = (
     "prevention_replay.json", "public_law_replay.json", "public_law_replay_review.json",
     "train_audit_full.json", "train_audit_reviewed.json",
 )
-TEMPORARY_SUFFIXES = {".pyc", ".copying", ".partial", ".part", ".crdownload", ".tmp"}
+TEMPORARY_SUFFIXES = {".pyc", ".copying", ".partial", ".part", ".crdownload", ".tmp", ".assembling"}
 
 
 def is_link(path):
     info = path.lstat()
     return stat.S_ISLNK(info.st_mode) or bool(getattr(info, "st_file_attributes", 0)
                                                & stat.FILE_ATTRIBUTE_REPARSE_POINT)
+
+
+def aihub_package(path, data):
+    return (path.suffix.lower() == ".zip" and path.parent.name == "packages"
+            and path.parent.parent.parent == data / "external/aihub")
 
 
 def eligible_files(root):
@@ -34,6 +40,8 @@ def eligible_files(root):
         for name in files:
             p = base / name
             if p.is_relative_to(data / "external/aihub") and name in {"transfer.log", "transfer-status.json"}:
+                continue
+            if aihub_package(p, data) and not p.with_suffix(".zip.json").is_file():
                 continue
             if p.suffix.lower() not in TEMPORARY_SUFFIXES and not is_link(p) and p.is_file():
                 yield p
@@ -58,8 +66,16 @@ def inventory(root, previous=None):
                 raise ValueError(f"Previously recorded file changed size; run a full index: {name}")
             rows.append(existing)
             continue
-        with p.open("rb") as stream:
-            checksum = hashlib.file_digest(stream, "sha256").hexdigest()
+        if previous and aihub_package(p, root / "data"):
+            receipt = json.loads(p.with_suffix(".zip.json").read_text(encoding="utf-8"))
+            checksum = receipt["sha256"]
+            if (receipt["bytes"] != size or not re.fullmatch(r"[a-f0-9]{64}", checksum)
+                    or receipt["dataset"] != p.parent.parent.name or receipt["zip_members"] < 1
+                    or p.name != f"{receipt['filekey']}-{receipt['name']}"):
+                raise ValueError(f"Completed package and its download receipt differ: {name}")
+        else:
+            with p.open("rb") as stream:
+                checksum = hashlib.file_digest(stream, "sha256").hexdigest()
         if p.stat().st_size != size:
             raise RuntimeError(f"Size changed during hash: {p.name}")
         rows.append({"path": name, "bytes": size, "sha256": checksum})

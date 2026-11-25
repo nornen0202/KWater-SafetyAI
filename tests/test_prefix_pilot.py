@@ -1,13 +1,30 @@
 """Constraint selection uses only inner-fold predictions."""
 import unittest
+from pathlib import Path
+from tempfile import TemporaryDirectory
 
 import numpy as np
 
 from kwater_lab.metrics import CODES
-from kwater_lab.prefix_pilot import calibrate_fpr20, policy_decisions
+from kwater_lab.prefix_pilot import calibrate_fpr20, get_features, policy_decisions
 
 
 class PilotConstraintTests(unittest.TestCase):
+    def test_siglip_cache_accepts_only_the_declared_encoder_and_width(self):
+        with TemporaryDirectory() as folder:
+            path = Path(folder) / "features.npz"
+            vectors = np.zeros((1,768), dtype=np.float32)
+            vectors[0,0] = 1.0
+            np.savez(path, ids=["photo"], features=vectors, revision="siglip")
+            args = (path, ["photo"], {}, None, None)
+            values, how = get_features(*args, {"revision": "siglip"}, dimension=768)
+            self.assertEqual(how, "reused")
+            np.testing.assert_array_equal(values["photo"], vectors[0])
+            with self.assertRaises(ValueError):
+                get_features(*args, {"revision": "other"}, dimension=768)
+            with self.assertRaises(ValueError):
+                get_features(*args, {"revision": "siglip"})
+
     def setUp(self):
         self.gold = {"p": frozenset({"fall_height"}), **{f"n{i}": frozenset() for i in range(5)}}
         self.groups = {k: k for k in self.gold}

@@ -1,4 +1,5 @@
 import hashlib
+import json
 from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
@@ -16,6 +17,7 @@ class LocalInventoryTests(unittest.TestCase):
             old = data / "private.jsonl"
             old.write_bytes(b"private row")
             (data / "pending.zip.partial").write_bytes(b"in progress")
+            (data / "pending.zip.assembling").write_bytes(b"unfinished")
             status_dir = data / "external/aihub/507"
             status_dir.mkdir(parents=True)
             (status_dir / "transfer-status.json").write_text("{}")
@@ -30,3 +32,21 @@ class LocalInventoryTests(unittest.TestCase):
             old.unlink()
             with self.assertRaisesRegex(ValueError, "missing"):
                 inventory(root, original)
+
+    def test_new_aihub_packages_use_the_completed_download_receipt(self):
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            packages = root / "data/external/aihub/507/packages"
+            packages.mkdir(parents=True)
+            old = inventory(root)
+            archive = packages / "2-example.zip"
+            archive.write_bytes(b"example")
+            self.assertEqual(inventory(root, old), old)
+            receipt = {"name": "example.zip", "dataset": "507", "filekey": "2", "bytes": 7, "zip_members": 1,
+                       "sha256": hashlib.sha256(b"example").hexdigest()}
+            archive.with_suffix(".zip.json").write_text(json.dumps(receipt))
+            self.assertEqual(inventory(root, old), inventory(root))
+            receipt["bytes"] = 99
+            archive.with_suffix(".zip.json").write_text(json.dumps(receipt))
+            with self.assertRaisesRegex(ValueError, "receipt differ"):
+                inventory(root, old)

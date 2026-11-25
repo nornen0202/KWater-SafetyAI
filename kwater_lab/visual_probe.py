@@ -187,17 +187,18 @@ def encoded_image(image):
 
 
 @contextmanager
-def local_server(cache, log):
-    model, projector = [cache / name for name in FILES if name.endswith(".gguf")]
-    for name, expected in FILES.items():
-        if name.endswith(".gguf") and digest(cache / name) != expected:
+def local_server(cache, log, *, weights=None, runtime_root=None, extra_flags=()):
+    weights = weights or {name: sha for name, sha in FILES.items() if name.endswith(".gguf")}
+    model, projector = [cache / name for name in weights]
+    for name, expected in weights.items():
+        if digest(cache / name) != expected:
             raise ValueError(f"Unexpected SHA-256 for {name}")
-    server = cache / RUNTIME / ("llama-server.exe" if os.name == "nt" else "llama-server")
+    server = (runtime_root or cache) / RUNTIME / ("llama-server.exe" if os.name == "nt" else "llama-server")
     with socket.socket() as sock:
         sock.bind(("127.0.0.1", 0))
         port = sock.getsockname()[1]
     key = secrets.token_hex(24)
-    flags = ["--offline", "-ngl", "99", "-c", "4096", "-np", "1", "--no-webui", "--host", "127.0.0.1"]
+    flags = ["--offline", "-ngl", "99", "-c", "4096", "-np", "1", "--no-webui", "--host", "127.0.0.1", *extra_flags]
     command = [str(server), *flags, "--port", str(port), "-m", str(model), "--mmproj", str(projector)]
     env = os.environ.copy()
     env["LLAMA_API_KEY"] = key

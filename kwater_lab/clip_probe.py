@@ -85,6 +85,8 @@ def unit_rows(matrix):
 
 
 class ImageEncoder:
+    output_name = "image_embeds"
+
     def __init__(self, folder, *, verify_vision=False):
         config = (folder / "preprocessor_config.json").read_bytes()
         source = folder / "vision_model_quantized.onnx"
@@ -117,7 +119,7 @@ class ImageEncoder:
             raise ValueError(f"Unknown framing: {framing}")
         pixels = (np.asarray(image, dtype=np.float32) / 255.0 - self.mean) / self.std
         pixels = np.ascontiguousarray(pixels.transpose(2, 0, 1)[None])
-        vector, = self.model.run(["image_embeds"], {"pixel_values": pixels})
+        vector, = self.model.run([self.output_name], {"pixel_values": pixels})
         return unit_rows(vector)[0]
 
 

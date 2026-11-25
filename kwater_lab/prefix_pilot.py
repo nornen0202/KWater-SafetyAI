@@ -94,18 +94,18 @@ def calibrate_fpr20(scores, gold, groups):
         r["threshold"] is not None for r in feasible), "candidates": records}
 
 
-def get_features(cache, keys, inventory, root, model_root, provenance):
+def get_features(cache, keys, inventory, root, model_root, provenance, *, encoder_type=None, dimension=512):
     if cache and cache.exists():
         with np.load(cache, allow_pickle=False) as archive:
             if (archive["ids"].tolist() != keys or
                     any(archive[k].item() != v for k,v in provenance.items())):
                 raise ValueError("Pilot feature cache IDs or provenance mismatch")
             features = archive["features"]
-        if (features.shape != (len(keys), 512) or features.dtype != np.float32 or
+        if (features.shape != (len(keys), dimension) or features.dtype != np.float32 or
                 not np.isfinite(features).all() or not np.allclose(np.linalg.norm(features,axis=1), 1, atol=1e-4)):
             raise ValueError("Invalid cached CLIP features")
         return dict(zip(keys, features)), "reused"
-    encoder = ImageEncoder(model_root, verify_vision=True)
+    encoder = (encoder_type or ImageEncoder)(model_root, verify_vision=True)
     vectors = {}
     with (ZipFile(root) if root.is_file() else nullcontext()) as archive:
         sequence = sorted(keys, key=lambda k: archive.getinfo(inventory[k]["image"]).header_offset) if archive else keys

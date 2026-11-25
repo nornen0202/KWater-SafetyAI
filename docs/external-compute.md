@@ -22,12 +22,12 @@ Public 200장·30분은 설치·로딩·저장까지 평균 9초/장이다. Priv
 | 서비스 | 확인된 제공 조건 | 이 프로젝트에서 맡길 일 |
 |---|---|---|
 | Google AI Pro의 Colab | 적격 국가 유료 구독에 월 200 Colab 컴퓨팅 단위(CCU). 한국어·영어 도움말의 해당 혜택 국가 목록에 대한민국이 없다. 만 18세 이상, 가족 요금제는 관리자, 체험 구독 제외. | 한국 결제 계정의 기본 예산은 0 CCU. 실제 계정 잔액에 표시된 경우 공개 데이터 고해상도 특징과 어댑터 후보를 비교 |
-| 무료 Colab | 무료 GPU는 할당 상황과 사용 한도의 영향을 받는다. 무료 런타임은 가용성과 사용 패턴에 따라 최대 약 12시간 | 작은 독립 단위로 쪼갠 공개 데이터 전처리, 노트북 재현 |
+| 무료 Colab | 지정 계정의 11월 25일 런타임 설정에서 T4 GPU가 선택 가능했다. L4·A100·H100·G4는 비활성화됐다. 실제 할당과 지속 시간은 가용성과 사용 패턴에 따라 달라진다. | T4가 배정될 때 공개 자료 전처리와 노트북 재현. 실제 연결은 별도 실험에서 수행 |
 | Kaggle Notebooks | 계정의 세션 시작 화면에 표시되는 GPU와 잔여 할당량에 따라 이용. 종류와 주간 한도는 바뀔 수 있다. | 공개 데이터만 포함한 비공개 노트북으로 seed 반복. GPU가 2장이어도 개별 GPU VRAM은 분리됨 |
 | AWS SageMaker Studio Lab | 신규 고객 접수 종료. 기존 계정은 가용한 GPU를 하루 최대 4시간 사용 가능 | 기존 사용자에게만 짧은 재현 실험 |
 | Google Cloud 일반 VM | Compute Engine 상시 무료 범위는 GPU·TPU 제외. Free Trial 계정에는 GPU 추가 제한 | 무료 학습 시간 산정에서 제외 |
 
-Colab은 브라우저에서 Python을 실행하는 서비스다. Gemini 앱이나 NotebookLM의 콘텐츠 처리 한도와 별도로 Colab의 잔액을 사용한다. Google AI Pro에서 **200시간**을 보장한다는 뜻은 아니다. 예를 들어 런타임이 시간당 5 CCU를 표시한다면 200 CCU로 40시간 상당이라는 산술이 성립한다. 로그인된 Chrome에서 공개 예제의 ‘추가 연결 옵션 → 리소스 보기’를 열어 현재 사용 가능한 단위가 없고 런타임이 연결되지 않았음을 확인했다. 이 계정의 현재 잔액은 0 CCU다. Gemini 결제 계정과의 일치 여부는 확인되지 않았다. [한국 Google One 혜택](https://support.google.com/googleone/answer/14534406?hl=ko) · [Google의 2026년 9월 발표](https://developers.googleblog.com/colab-is-now-part-of-your-google-ai-plan/) · [Colab 자원·실행 FAQ](https://research.google.com/colaboratory/faq.html)
+2026년 11월 25일 Chrome의 Colab 계정 표시에서 사용자가 지정한 Google AI Pro 계정 주소와 Google 멤버십 표시를 확인했다. 같은 계정의 ‘추가 연결 옵션 → 리소스 보기’에는 ‘구독 중이 아닙니다’와 ‘현재 사용 가능한 컴퓨팅 단위가 없습니다’가 표시됐다. 이 계정으로 계획에 반영할 유료 잔액은 **0 CCU**다. 무료 GPU는 당일 배정 상황에 따라 사용할 수 있다. CCU로 실행할 수 있는 시간은 런타임별 소모율에 따라 달라진다. [한국 Google One 혜택](https://support.google.com/googleone/answer/14534406?hl=ko) · [Google의 2026년 9월 발표](https://developers.googleblog.com/colab-is-now-part-of-your-google-ai-plan/) · [Colab 자원·실행 FAQ](https://research.google.com/colaboratory/faq.html)
 
 Kaggle에 공개되지 않은 대회 사진과 AI-Hub 원본을 올리지 않는다. Kaggle은 노트북 설정에서 해당 계정의 실제 가속기 및 잔여 할당량을 확인한 뒤 사용한다. 기존 Studio Lab 계정이 없다면 Colab과 Kaggle로 계획한다. [Kaggle Notebooks](https://www.kaggle.com/docs/notebooks) · [Kaggle의 변동 할당량 안내](https://www.kaggle.com/discussions/product-feedback/173129) · [AWS Studio Lab 이용 조건](https://docs.aws.amazon.com/sagemaker/latest/dg/studio-lab-overview.html) · [Google Cloud 무료 범위](https://docs.cloud.google.com/free/docs/free-cloud-features)
 
@@ -37,3 +37,5 @@ Kaggle에 공개되지 않은 대회 사진과 AI-Hub 원본을 올리지 않는
 2. Colab에는 허용 범위를 확인한 FloodNet 공개 데이터 또는 여기서 추출한 특징만 사용한다. `tools/floodnet_cloud_pilot.ipynb`는 동봉한 `public-data/floodnet-pilot/pilot-features.npz`의 원래 학습·시험 구분을 유지해 중심점 모델과 100스텝 선형 분류기를 실행하고 환경·시간·최대 GPU 사용량을 저장한다. [FloodNet 배포처와 CDLA 라이선스](https://github.com/BinaLab/FloodNet-Supervised_v1.0)
 3. 기본 계획은 로컬과 무료 Colab·Kaggle을 쓴다. 계정에 실제 200 CCU가 표시될 경우에 한해 20을 환경 확인, 100을 GPU가 필요한 공개 자료 실험, 60을 유망 후보의 다른 시드·해상도 재검증, 20을 L4를 배정받았을 때의 공개 입력 추론 점검에 남길 수 있다. 가속기 소모율과 단계별 개선을 보고 다음 단계 사용량을 정한다. 세션 중단에 대비해 공개 실험의 체크포인트와 결과를 저장한다.
 4. 공개 데이터에서 얻은 후보 가중치를 G:로 가져와 국내에서 공식 자료와 결합해 비교한다. 대회 제출 후보는 오프라인 환경과 실제 L4에서 다시 잰다. 외부 데이터 사용 내역은 대회 공고의 신고 조건에 맞춰 추적한다.
+
+공개 노트북의 결과를 대조하려면 원 배포 훈련 192장, 시험 114장 분할을 유지한다. 로컬 CPU에서 NumPy로 독립 계산한 결과, 훈련 양·음성 중심을 쓴 방법은 TP 49, FP 1, FN 1, TN 63으로 F1 0.980이었다. 0에서 시작한 선형 모델을 노트북과 같은 AdamW 조건으로 100회 갱신하면 TP 49, FP 3, FN 1, TN 61로 F1 0.961이었다. 이 수치는 Colab에서도 계산 결과를 확인할 수 있는 기준값이다. 채점 L4의 처리시간은 따로 측정해야 한다. [공개 특징과 지문](../public-data/floodnet-pilot/README.md) · [Colab 실행 노트북](../tools/floodnet_cloud_pilot.ipynb)

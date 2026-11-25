@@ -1,13 +1,13 @@
 {
-  "observed_utc": "2026-11-25T12:39:59.293308+00:00",
+  "observed_utc": "2026-11-25T13:14:49.004051+00:00",
   "aihub": {
     "71407": {
       "source": "https://www.aihub.or.kr/aihubdata/data/view.do?dataSetSn=71407",
       "approved": true,
       "published_files": 452,
       "provider_estimated_bytes": 272245612544,
-      "completed_files": 94,
-      "completed_bytes": 1159261414,
+      "completed_files": 130,
+      "completed_bytes": 3443635713,
       "transfer_errors": 0,
       "sample": {
         "bytes": 147267723,
@@ -20,8 +20,8 @@
       "approved": true,
       "published_files": 5,
       "provider_estimated_bytes": 38222692352,
-      "completed_files": 1,
-      "completed_bytes": 71874412,
+      "completed_files": 3,
+      "completed_bytes": 4895762947,
       "transfer_errors": 0,
       "sample": {
         "bytes": 430244083,
@@ -34,8 +34,8 @@
       "approved": true,
       "published_files": 27,
       "provider_estimated_bytes": 543946122240,
-      "completed_files": 5,
-      "completed_bytes": 462612288,
+      "completed_files": 11,
+      "completed_bytes": 4709503647,
       "transfer_errors": 0
     }
   },

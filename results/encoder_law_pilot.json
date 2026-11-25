@@ -1,0 +1,97 @@
+{
+  "scope": "Predicted code plus training-fold most frequent article; article IDs only, no assessment of action support",
+  "photos": 170,
+  "cited_gold_hazards": 147,
+  "conditions": {
+    "clip/head/fixed": {
+      "predicted": 126,
+      "correct_code": 59,
+      "cited": 126,
+      "joint": 47,
+      "false_risk_cited": 67
+    },
+    "clip/head/inner_calibrated": {
+      "predicted": 193,
+      "correct_code": 76,
+      "cited": 193,
+      "joint": 64,
+      "false_risk_cited": 117
+    },
+    "clip/head/inner_fpr20": {
+      "predicted": 106,
+      "correct_code": 53,
+      "cited": 106,
+      "joint": 43,
+      "false_risk_cited": 53
+    },
+    "clip/blend/fixed": {
+      "predicted": 105,
+      "correct_code": 54,
+      "cited": 105,
+      "joint": 42,
+      "false_risk_cited": 51
+    },
+    "clip/blend/inner_calibrated": {
+      "predicted": 229,
+      "correct_code": 89,
+      "cited": 229,
+      "joint": 74,
+      "false_risk_cited": 140
+    },
+    "clip/blend/inner_fpr20": {
+      "predicted": 112,
+      "correct_code": 56,
+      "cited": 112,
+      "joint": 44,
+      "false_risk_cited": 56
+    },
+    "siglip2/head/fixed": {
+      "predicted": 123,
+      "correct_code": 54,
+      "cited": 123,
+      "joint": 47,
+      "false_risk_cited": 69
+    },
+    "siglip2/head/inner_calibrated": {
+      "predicted": 178,
+      "correct_code": 69,
+      "cited": 178,
+      "joint": 58,
+      "false_risk_cited": 109
+    },
+    "siglip2/head/inner_fpr20": {
+      "predicted": 50,
+      "correct_code": 22,
+      "cited": 50,
+      "joint": 19,
+      "false_risk_cited": 28
+    },
+    "siglip2/blend/fixed": {
+      "predicted": 106,
+      "correct_code": 50,
+      "cited": 106,
+      "joint": 45,
+      "false_risk_cited": 56
+    },
+    "siglip2/blend/inner_calibrated": {
+      "predicted": 247,
+      "correct_code": 92,
+      "cited": 247,
+      "joint": 75,
+      "false_risk_cited": 155
+    },
+    "siglip2/blend/inner_fpr20": {
+      "predicted": 69,
+      "correct_code": 37,
+      "cited": 69,
+      "joint": 34,
+      "false_risk_cited": 32
+    }
+  },
+  "source_sha256": {
+    "encoder_results": "8172124568a6ca152374747aa9b253242873e04f1425a0b45ac2c8332909a58f",
+    "labels": "ab427fed4615b32627b76001e27124e99ae9202c855ba4170916ebe4fdc4de55",
+    "laws": "1408b69db444cf90b31f9bebb4a773a30fa4362739e50b22c95f3bbe0e75bd9d",
+    "exposure": "3e049cac60ec3db236ad3a98bcf44785ccf24621eadd1d16286f72855f0643e4"
+  }
+}

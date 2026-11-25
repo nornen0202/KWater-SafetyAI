@@ -1,0 +1,30 @@
+{
+  "scope": "Previously exposed, label-blind disagreement anchors; no independent efficacy estimate",
+  "anchors": 6,
+  "conditions": [
+    "direct_8",
+    "direct_11",
+    "facts_11",
+    "verify_11",
+    "swapped_11"
+  ],
+  "planned_generations": 30,
+  "cohort_photos": 170,
+  "holdout_excluded_candidates": 182,
+  "signature": "23aabeb22ab0b8c46e0a60ecce204074bc09aa8ca8249a1a644fa37a7e9000ac",
+  "shared_and_exclusive_candidates": {
+    "both": {
+      "proposed": 141,
+      "correct": 69
+    },
+    "clip_only": {
+      "proposed": 88,
+      "correct": 20
+    },
+    "siglip2_only": {
+      "proposed": 106,
+      "correct": 23
+    }
+  },
+  "candidate_union_over_three": 12
+}
