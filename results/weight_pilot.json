@@ -38,6 +38,32 @@
         "random_control": 0.3788667069973785,
         "neighbors": 0.2746320346320346,
         "blend": 0.4010179211469534
+      },
+      "followup_inner_fpr20": {
+        "original": {
+          "inner_selected": {
+            "threshold": 0.7,
+            "macro_f1": 0.18084772370486657,
+            "no_hazard_false_alarms": 10,
+            "no_hazard_photos": 53,
+            "no_hazard_false_alarm_rate": 0.18867924528301888
+          },
+          "outer_false_alarms": 0,
+          "outer_no_hazard_photos": 13,
+          "outer_macro_f1": 0.20488687782805431
+        },
+        "blend": {
+          "inner_selected": {
+            "threshold": 0.5,
+            "macro_f1": 0.18898225957049486,
+            "no_hazard_false_alarms": 10,
+            "no_hazard_photos": 53,
+            "no_hazard_false_alarm_rate": 0.18867924528301888
+          },
+          "outer_false_alarms": 0,
+          "outer_no_hazard_photos": 13,
+          "outer_macro_f1": 0.23076923076923078
+        }
       }
     },
     "S87": {
@@ -63,6 +89,32 @@
         "random_control": 0.2593939393939394,
         "neighbors": 0.2275781601439496,
         "blend": 0.26666666666666666
+      },
+      "followup_inner_fpr20": {
+        "original": {
+          "inner_selected": {
+            "threshold": 0.5,
+            "macro_f1": 0.25026192445547285,
+            "no_hazard_false_alarms": 7,
+            "no_hazard_photos": 49,
+            "no_hazard_false_alarm_rate": 0.14285714285714285
+          },
+          "outer_false_alarms": 6,
+          "outer_no_hazard_photos": 17,
+          "outer_macro_f1": 0.3011764705882353
+        },
+        "blend": {
+          "inner_selected": {
+            "threshold": 0.4,
+            "macro_f1": 0.2585856416009293,
+            "no_hazard_false_alarms": 7,
+            "no_hazard_photos": 49,
+            "no_hazard_false_alarm_rate": 0.14285714285714285
+          },
+          "outer_false_alarms": 5,
+          "outer_no_hazard_photos": 17,
+          "outer_macro_f1": 0.29390374331550806
+        }
       }
     },
     "S129001": {
@@ -88,6 +140,32 @@
         "random_control": 0.3994505494505495,
         "neighbors": 0.34700000000000003,
         "blend": 0.3781684981684982
+      },
+      "followup_inner_fpr20": {
+        "original": {
+          "inner_selected": {
+            "threshold": 0.6,
+            "macro_f1": 0.1818933861169886,
+            "no_hazard_false_alarms": 7,
+            "no_hazard_photos": 53,
+            "no_hazard_false_alarm_rate": 0.1320754716981132
+          },
+          "outer_false_alarms": 0,
+          "outer_no_hazard_photos": 13,
+          "outer_macro_f1": 0.37394184762605814
+        },
+        "blend": {
+          "inner_selected": {
+            "threshold": 0.5,
+            "macro_f1": 0.18942961800104657,
+            "no_hazard_false_alarms": 3,
+            "no_hazard_photos": 53,
+            "no_hazard_false_alarm_rate": 0.05660377358490566
+          },
+          "outer_false_alarms": 1,
+          "outer_no_hazard_photos": 13,
+          "outer_macro_f1": 0.35288921604711077
+        }
       }
     },
     "S129005": {
@@ -113,6 +191,32 @@
         "random_control": 0.36491228070175435,
         "neighbors": 0.45499999999999996,
         "blend": 0.4583333333333333
+      },
+      "followup_inner_fpr20": {
+        "original": {
+          "inner_selected": {
+            "threshold": 0.7,
+            "macro_f1": 0.18900503290747192,
+            "no_hazard_false_alarms": 3,
+            "no_hazard_photos": 61,
+            "no_hazard_false_alarm_rate": 0.04918032786885246
+          },
+          "outer_false_alarms": 0,
+          "outer_no_hazard_photos": 5,
+          "outer_macro_f1": 0.30952380952380953
+        },
+        "blend": {
+          "inner_selected": {
+            "threshold": 0.4,
+            "macro_f1": 0.1875960004569939,
+            "no_hazard_false_alarms": 7,
+            "no_hazard_photos": 61,
+            "no_hazard_false_alarm_rate": 0.11475409836065574
+          },
+          "outer_false_alarms": 1,
+          "outer_no_hazard_photos": 5,
+          "outer_macro_f1": 0.3761904761904762
+        }
       }
     },
     "S91": {
@@ -138,6 +242,32 @@
         "random_control": 0.19404186795491143,
         "neighbors": 0.16883116883116883,
         "blend": 0.17857142857142858
+      },
+      "followup_inner_fpr20": {
+        "original": {
+          "inner_selected": {
+            "threshold": 0.6,
+            "macro_f1": 0.23619081004600312,
+            "no_hazard_false_alarms": 9,
+            "no_hazard_photos": 57,
+            "no_hazard_false_alarm_rate": 0.15789473684210525
+          },
+          "outer_false_alarms": 1,
+          "outer_no_hazard_photos": 9,
+          "outer_macro_f1": 0.21333333333333332
+        },
+        "blend": {
+          "inner_selected": {
+            "threshold": 0.5,
+            "macro_f1": 0.23120562880324544,
+            "no_hazard_false_alarms": 9,
+            "no_hazard_photos": 57,
+            "no_hazard_false_alarm_rate": 0.15789473684210525
+          },
+          "outer_false_alarms": 1,
+          "outer_no_hazard_photos": 9,
+          "outer_macro_f1": 0.23333333333333334
+        }
       }
     },
     "S103": {
@@ -163,6 +293,32 @@
         "random_control": 0.32456140350877194,
         "neighbors": 0.4236111111111111,
         "blend": 0.3964285714285714
+      },
+      "followup_inner_fpr20": {
+        "original": {
+          "inner_selected": {
+            "threshold": 0.5,
+            "macro_f1": 0.21012676619083942,
+            "no_hazard_false_alarms": 10,
+            "no_hazard_photos": 57,
+            "no_hazard_false_alarm_rate": 0.17543859649122806
+          },
+          "outer_false_alarms": 2,
+          "outer_no_hazard_photos": 9,
+          "outer_macro_f1": 0.27976190476190477
+        },
+        "blend": {
+          "inner_selected": {
+            "threshold": 0.5,
+            "macro_f1": 0.21141317373967738,
+            "no_hazard_false_alarms": 8,
+            "no_hazard_photos": 57,
+            "no_hazard_false_alarm_rate": 0.14035087719298245
+          },
+          "outer_false_alarms": 2,
+          "outer_no_hazard_photos": 9,
+          "outer_macro_f1": 0.30192307692307696
+        }
       }
     }
   },
@@ -1882,6 +2038,277 @@
           }
         }
       }
+    }
+  },
+  "hazard_photos_with_no_correct_code": {
+    "fixed": {
+      "original": 58,
+      "shared_axis_edit": 58,
+      "random_control": 58,
+      "neighbors": 70,
+      "blend": 62
+    },
+    "base_threshold": {
+      "original": 47,
+      "shared_axis_edit": 47,
+      "random_control": 47,
+      "neighbors": 24,
+      "blend": 36
+    },
+    "inner_calibrated": {
+      "original": 47,
+      "shared_axis_edit": 47,
+      "random_control": 47,
+      "neighbors": 30,
+      "blend": 37
+    },
+    "followup_fpr20": {
+      "original": 62,
+      "blend": 61
+    }
+  },
+  "followup_fpr20": {
+    "metrics": {
+      "original": {
+        "photos": 170,
+        "active_codes": 7,
+        "macro_f1": 0.18899318503278897,
+        "quantitative_points_out_of_70": 13.229522952295229,
+        "exact_set_matches": 73,
+        "no_hazard_photos": 66,
+        "no_hazard_false_alarms": 9,
+        "no_hazard_false_alarm_rate": 0.13636363636363635,
+        "hazard_photos": 104,
+        "hazard_completely_missed": 41,
+        "hazard_predicted_empty_rate": 0.3942307692307692,
+        "per_code": {
+          "fall_height": {
+            "support": 34,
+            "predicted": 21,
+            "tp": 7,
+            "fp": 14,
+            "fn": 27,
+            "f1": 0.2545454545454545,
+            "support_groups": 6
+          },
+          "slip_trip": {
+            "support": 56,
+            "predicted": 45,
+            "tp": 31,
+            "fp": 14,
+            "fn": 25,
+            "f1": 0.6138613861386139,
+            "support_groups": 6
+          },
+          "caught_in_machine": {
+            "support": 3,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 3,
+            "f1": 0.0,
+            "support_groups": 2
+          },
+          "struck_by_lifting": {
+            "support": 19,
+            "predicted": 9,
+            "tp": 0,
+            "fp": 9,
+            "fn": 19,
+            "f1": 0.0,
+            "support_groups": 6
+          },
+          "electrical_energy": {
+            "support": 1,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 1,
+            "f1": 0.0,
+            "support_groups": 1
+          },
+          "drowning_inundation": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "fire_explosion": {
+            "support": 1,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 1,
+            "f1": 0.0,
+            "support_groups": 1
+          },
+          "confined_space": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "chemical_exposure": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "thermal_weather": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "other": {
+            "support": 35,
+            "predicted": 31,
+            "tp": 15,
+            "fp": 16,
+            "fn": 20,
+            "f1": 0.45454545454545453,
+            "support_groups": 6
+          }
+        }
+      },
+      "blend": {
+        "photos": 170,
+        "active_codes": 7,
+        "macro_f1": 0.19749882885476105,
+        "quantitative_points_out_of_70": 13.824918019833273,
+        "exact_set_matches": 71,
+        "no_hazard_photos": 66,
+        "no_hazard_false_alarms": 10,
+        "no_hazard_false_alarm_rate": 0.15151515151515152,
+        "hazard_photos": 104,
+        "hazard_completely_missed": 37,
+        "hazard_predicted_empty_rate": 0.3557692307692308,
+        "per_code": {
+          "fall_height": {
+            "support": 34,
+            "predicted": 25,
+            "tp": 8,
+            "fp": 17,
+            "fn": 26,
+            "f1": 0.2711864406779661,
+            "support_groups": 6
+          },
+          "slip_trip": {
+            "support": 56,
+            "predicted": 48,
+            "tp": 31,
+            "fp": 17,
+            "fn": 25,
+            "f1": 0.5961538461538461,
+            "support_groups": 6
+          },
+          "caught_in_machine": {
+            "support": 3,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 3,
+            "f1": 0.0,
+            "support_groups": 2
+          },
+          "struck_by_lifting": {
+            "support": 19,
+            "predicted": 8,
+            "tp": 0,
+            "fp": 8,
+            "fn": 19,
+            "f1": 0.0,
+            "support_groups": 6
+          },
+          "electrical_energy": {
+            "support": 1,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 1,
+            "f1": 0.0,
+            "support_groups": 1
+          },
+          "drowning_inundation": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "fire_explosion": {
+            "support": 1,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 1,
+            "f1": 0.0,
+            "support_groups": 1
+          },
+          "confined_space": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "chemical_exposure": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "thermal_weather": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "other": {
+            "support": 35,
+            "predicted": 31,
+            "tp": 17,
+            "fp": 14,
+            "fn": 18,
+            "f1": 0.5151515151515151,
+            "support_groups": 6
+          }
+        }
+      }
+    },
+    "paired_prefix_resampling": {
+      "groups": 6,
+      "seed": 42,
+      "resamples": 2000,
+      "defined_resamples": 2000,
+      "undefined_resamples": 0,
+      "macro_f1_delta_b_minus_a": 0.008505643821972081,
+      "percentile_95_ci": [
+        -0.005429645471238578,
+        0.029458936762629437
+      ]
     }
   },
   "paired_prefix_resampling": {

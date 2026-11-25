@@ -54,13 +54,15 @@ def draw(out):
 
     ref = read("prefix_pilot_fpr20")["pooled_out_of_prefix"]["linear_head"]
     w = read("weight_pilot")
-    chosen = [ref["inner_fpr20"],ref["fixed_0.5"],ref["inner_calibrated"],w["pooled"]["inner_calibrated"]["blend"]]
-    names = ["내측 오경보 20% 제약","임계값 0.5","내측 F1 최대화","분류기 + 사례 검색"]
-    fig, ax = axes(2.85)
-    ys = np.arange(4)
+    chosen = [ref["inner_fpr20"], w["followup_fpr20"]["metrics"]["blend"], ref["fixed_0.5"],
+              ref["inner_calibrated"], w["pooled"]["inner_calibrated"]["blend"]]
+    names = ["오경보 20% 제약 · 분류기", "오경보 20% 제약 · 검색 결합", "임계값 0.5 · 분류기",
+             "F1 최대화 · 분류기", "F1 최대화 · 검색 결합"]
+    fig, ax = axes(2.95)
+    ys = np.arange(len(chosen))
     for offset, key, denom, color, name in (
             (-.18,"no_hazard_false_alarms",66,ORANGE,"무위험 사진에 오경보 (66장 중)"),
-            (.18,"hazard_completely_missed",104,BLUE,"위험 사진의 모든 위험 누락 (104장 중)")):
+            (.18,"hazard_completely_missed",104,BLUE,"위험 사진에 빈 예측 (104장 중)")):
         vals = [s[key] for s in chosen]
         bars = ax.barh(ys + offset, [100*n/denom for n in vals],color=color,height=.29,label=name)
         ax.bar_label(bars,labels=[f"{n}장" for n in vals],padding=4,fontsize=9,color=INK)
@@ -81,6 +83,21 @@ def draw(out):
     ax.set_yticks(range(4),names); ax.invert_yaxis()
     ax.set(xlim=(-8,8),ylim=(3.5,-.5),xlabel="기존 분류기 대비 Macro F1 차이 (퍼센트포인트)")
     save(fig,out,"paired-changes")
+
+    loss = read("loss_pilot")["pooled"]
+    fig, ax = axes(2.5)
+    methods = ("bce", "negative_clip", "asymmetric")
+    ys = np.arange(len(methods))
+    for offset, policy, color, label in ((-.17, "inner_calibrated", TEAL, "내측 F1 최대화"),
+                                         (.17, "inner_fpr20", BLUE, "내측 무위험 오경보 20% 제약")):
+        values = [loss[policy][m]["macro_f1"] for m in methods]
+        bars = ax.barh(ys+offset, values, height=.3, color=color, label=label)
+        ax.bar_label(bars, labels=[f"{v:.3f}" for v in values], padding=4, fontsize=9)
+    ax.set_yticks(ys, ["기본 손실 (BCE)", "쉬운 음성만 제외", "비대칭 손실 (ASL)"])
+    ax.invert_yaxis()
+    ax.set(xlim=(0,.28), xlabel="위험 코드 Macro F1 (0~1 중 관측 구간)")
+    ax.legend(loc="lower center", bbox_to_anchor=(.48,1.01), ncol=2, frameon=False, fontsize=8.5)
+    save(fig, out, "loss-comparison")
 
     fig, ax = axes(2.35)
     law = read("law_retrieval_pilot")["methods"]

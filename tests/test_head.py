@@ -7,9 +7,23 @@ from pathlib import Path
 import numpy as np
 
 from kwater_lab import train_head as head
+from kwater_lab.loss_pilot import asymmetric_gradient
 
 
 class HeadTests(unittest.TestCase):
+    def test_asymmetric_logit_gradient_matches_the_stated_objective(self):
+        logits = np.array([-4.2, -0.7, 1.1, -3.7, 2.8])
+        labels = np.array([0., 0., 0., 1., 1.])
+        for power in (0, 4):
+            def loss(values):
+                p = head.sigmoid(values)
+                q = np.maximum(p - 0.05, 0.0)
+                return np.where(labels, -np.log(p), -(q ** power) * np.log1p(-q))
+            h = 1e-5
+            expected = (loss(logits + h) - loss(logits - h)) / (2*h)
+            actual = asymmetric_gradient(head.sigmoid(logits), labels, power=power)
+            np.testing.assert_allclose(actual, expected, atol=1e-9)
+
     def setUp(self):
         self.directory = tempfile.TemporaryDirectory()
         self.addCleanup(self.directory.cleanup)

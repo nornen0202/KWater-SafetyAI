@@ -8,7 +8,7 @@ import numpy as np
 
 from .clip_probe import REVISION
 from .metrics import CODES, evaluate, paired_bootstrap
-from .prefix_pilot import filtered_training, get_features, prefix_cohort
+from .prefix_pilot import calibrate_fpr20, filtered_training, get_features, policy_decisions, prefix_cohort
 from .train_head import calibration, decisions, file_hash, fit, probabilities, save_atomic
 
 
@@ -93,6 +93,7 @@ def run(audit, exposure, cache, reference_path):
     groups = {s: p for p, ids in buckets.items() for s in ids}
     policies = ("fixed", "base_threshold", "inner_calibrated")
     collected = {p: {m: {} for m in METHODS} for p in policies}
+    constrained = {m: {} for m in ("original", "blend")}
     folds = {}
     for prefix, valid in buckets.items():
         train = filtered_training(gold, valid, linked)
@@ -110,7 +111,8 @@ def run(audit, exposure, cache, reference_path):
             for m in METHODS:
                 inner[m].append(inner_batch[m])
         inner_gold = {s: gold[s] for s in keys}
-        threshold = {m: calibration(np.vstack(inner[m]), inner_gold, {s: groups[s] for s in keys})
+        inner_groups = {s: groups[s] for s in keys}
+        threshold = {m: calibration(np.vstack(inner[m]), inner_gold, inner_groups)
                      ["selected_threshold"] for m in METHODS}
         fold_scores = {}
         for m in METHODS:
@@ -121,20 +123,40 @@ def run(audit, exposure, cache, reference_path):
                     fold_scores[m] = evaluate({s: gold[s] for s in valid}, pred)["macro_f1"]
         folds[prefix] = {"train": len(train), "validation": len(valid), "geometry": geometry,
                          "inner_threshold": threshold, "macro_f1": fold_scores}
+        limits = {}
+        for m, output in constrained.items():
+            chosen = calibrate_fpr20(np.vstack(inner[m]), inner_gold, inner_groups)["chosen"]
+            decisions_out = policy_decisions(valid, outer[m], chosen["threshold"])
+            output.update(decisions_out)
+            measured = evaluate({s: gold[s] for s in valid}, decisions_out)
+            limits[m] = {"inner_selected": chosen,
+                         "outer_false_alarms": measured["no_hazard_false_alarms"],
+                         "outer_no_hazard_photos": measured["no_hazard_photos"],
+                         "outer_macro_f1": measured["macro_f1"]}
+        folds[prefix]["followup_inner_fpr20"] = limits
     pooled = {p: {m: evaluate(gold, pred, groups) for m, pred in models.items()}
               for p, models in collected.items()}
     for p, key in (("inner_calibrated", "inner_calibrated"), ("fixed", "fixed_0.5")):
         if pooled[p]["original"] != reference["pooled_out_of_prefix"]["linear_head"][key]:
             raise ValueError("Unedited control did not reproduce the archived benchmark")
+    constrained_metrics = {m: evaluate(gold, pred, groups) for m, pred in constrained.items()}
+    if constrained_metrics["original"] != reference["pooled_out_of_prefix"]["linear_head"]["inner_fpr20"]:
+        raise ValueError("Constrained control differs from the archived benchmark")
     chosen = collected["inner_calibrated"]
     double = [s for s,v in gold.items() if set(PAIR) <= v]
     paired = {m: paired_bootstrap(gold, chosen["original"], chosen[m], groups)
               for m in METHODS if m != "original"}
+    no_correct_code = {p: {m: sum(bool(labels) and labels.isdisjoint(pred[s]) for s, labels in gold.items())
+                            for m, pred in models.items()}
+                       for p, models in {**collected, "followup_fpr20": constrained}.items()}
     return {"scope": "Exploratory, repeated use of 170 exposed images; six unverified ID prefixes",
             "protocol": "docs/weight-pilot-protocol.md", "photos": len(gold), "reference_reproduced": True,
             "seed": 42, "edit_fraction": 0.5, "edit_target_order": PAIR, "top_k": 8, "kernel_sharpness": 20,
             "feature_sha256": file_hash(cache), "exposure_sha256": file_hash(exposure),
             "audit_sha256": file_hash(audit), "folds": folds, "pooled": pooled,
+            "hazard_photos_with_no_correct_code": no_correct_code,
+            "followup_fpr20": {"metrics": constrained_metrics, "paired_prefix_resampling":
+                               paired_bootstrap(gold, constrained["original"], constrained["blend"], groups)},
             "paired_prefix_resampling": paired, "both_target_codes_in_gold": len(double),
             "both_targets_recalled": {m: sum(set(PAIR) <= pred[s] for s in double) for m,pred in chosen.items()}}
 

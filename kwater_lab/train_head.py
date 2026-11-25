@@ -89,10 +89,12 @@ def sigmoid(logits):
     return np.exp(-np.logaddexp(0.0, -logits))
 
 
-def fit(x, targets, l2, steps):
-    """Full-batch accelerated gradient on mean binary cross entropy plus L2."""
+def fit(x, targets, l2, steps, *, logit_gradient=None, step_scale=1.0):
+    """Fit the full-batch L2 head. By default the loss is binary cross entropy."""
     if steps < 1 or not np.isfinite(l2) or l2 <= 0:
         raise ValueError("steps and l2 must be positive")
+    if not 0 < step_scale <= 1:
+        raise ValueError("step_scale must be in (0, 1]")
     x = x.astype(np.float64)
     center = x.mean(axis=0)
     scale = x.std(axis=0)
@@ -111,9 +113,11 @@ def fit(x, targets, l2, steps):
         # For logistic loss the curvature is at most 1/4 of that bound.
         curvature_bound = np.abs((x.T @ x) / len(x)).sum(axis=1).max() / 4 + l2
         for step in range(steps):
-            gradient = x.T @ (sigmoid(x @ momentum) - y) / len(x)
+            probability = sigmoid(x @ momentum)
+            residual = probability - y if logit_gradient is None else logit_gradient(probability, y)
+            gradient = x.T @ residual / len(x)
             gradient[:-1] += l2 * momentum[:-1]
-            updated = momentum - gradient / curvature_bound
+            updated = momentum - (step_scale * gradient) / curvature_bound
             momentum = updated + step / (step + 3) * (updated - current)
             current = updated
         beta[:, active] = current
