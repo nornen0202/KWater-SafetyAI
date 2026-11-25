@@ -2,6 +2,7 @@
 
 import argparse
 import json
+import os
 from pathlib import Path
 import re
 
@@ -53,6 +54,10 @@ def run(model_dir, input_dir, output_dir, device, loaded=None):
 
 
 def main(model_dir=None):
+    os.environ.setdefault("CUBLAS_WORKSPACE_CONFIG", ":4096:8")
+    os.environ.setdefault("HF_HUB_OFFLINE", "1")
+    torch.use_deterministic_algorithms(True)
+    torch.set_num_threads(2)
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument(
         "--model-dir", type=Path, default=model_dir, required=model_dir is None
