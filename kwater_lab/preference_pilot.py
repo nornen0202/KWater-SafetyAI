@@ -267,7 +267,13 @@ def build(root, public_img):
         old = read(keypath)
         if any(cards.get(pair) != meta for pair, meta in old.items()):
             raise ValueError("An existing blind pair changed; preserve the previous recipes and order")
-    forms.sort(key=lambda r:blinded(secret,"form",r["pair_id"]))
+    formpath = private/"blind/review.json"
+    previous_forms = read(formpath)["pairs"] if formpath.exists() else []
+    candidates = {r["pair_id"]: r for r in forms}
+    for prior in previous_forms:
+        if candidates.pop(prior["pair_id"], None) != prior:
+            raise ValueError("Existing blind form changed; only append newly prepared questions")
+    forms = previous_forms + sorted(candidates.values(), key=lambda r:blinded(secret,"form",r["pair_id"]))
     instructions = {"evidence":"같은 사진과 코드에서 실제로 확인되는 대상·상태·위치를 어느 문장이 더 충실히 기술합니까?",
                     "prevention":"같은 사진과 코드에서 어느 조치가 더 안전하고 구체적이며 현장에서 실행 가능합니까?",
                     "tie":"두 문구의 적절성이 비슷함", "both_unsuitable":"양쪽 모두 부적절함",
@@ -286,7 +292,7 @@ def build(root, public_img):
                       "built_pairs":len(selected),"pairs_by_field":dict(Counter(r["field"] for r in selected))}
     score(private,cards,cohorts)
     write(keypath,cards)
-    write(private/"blind/review.json", {"instructions":instructions, "choices":CHOICES, "pairs":forms})
+    write(formpath, {"instructions":instructions, "choices":CHOICES, "pairs":forms})
     review_page(forms, instructions, private/"blind/review.html")
     template(forms,private/"blind/blank.csv")
     summary = {"scope":"Paired wording preparation and human preference inventory. No new inference. No official LLM score.",
