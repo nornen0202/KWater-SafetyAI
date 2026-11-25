@@ -16,7 +16,7 @@ from .metrics import CODES, evaluate, unique_keys
 from .prefix_pilot import filtered_training, policy_decisions
 from .prototype import RESPONSE_SCHEMA, assemble
 from .train_head import file_hash
-from .visual_probe import CODEBOOK, DEFAULT_CACHE, FILES, MODEL_REV, RUNTIME, generate, local_server
+from .visual_probe import CODEBOOK, DEFAULT_CACHE, FILES, MODEL_REV, RUNTIME, GenerationRequestError, generate, local_server
 from .weight_pilot import pilot_data
 
 
@@ -92,7 +92,7 @@ def paired_changes(measured, gold):
     return counts
 
 
-def prepare(root, local):
+def prepare(root, local, context_size=8192):
     ref = json.loads((root / "results/prefix_pilot_fpr20.json").read_text(encoding="utf-8"))
     enc = json.loads((root / "results/encoder_pilot.json").read_text(encoding="utf-8"))
     audit = root / "results/train_audit_full.json"
@@ -147,7 +147,7 @@ def prepare(root, local):
     if len(anchors) != 6:
         raise ValueError("Expected one anchor from each of the six outer groups")
     protocol = {"anchors": anchors, "arms": ARMS, "seed": 42, "model_revision": MODEL_REV, "runtime": RUNTIME,
-                "gguf": {k:v for k,v in FILES.items() if k.endswith(".gguf")}, "max_tokens": 640,
+                "gguf": {k:v for k,v in FILES.items() if k.endswith(".gguf")}, "max_tokens": 640, "context_size": context_size,
                 "exposure_sha256": file_hash(exposure), "encoder_results_sha256": file_hash(root/"results/encoder_pilot.json"),
                 "prompt_schema_sha256": digest([instruction(a, ["slip_trip"]) for a in ARMS])}
     write_json(local / "design.json", protocol)
@@ -165,9 +165,9 @@ def prepare(root, local):
     return protocol
 
 
-def run(root, local, cache):
+def run(root, local, cache, startup_timeout=1800, context_size=8192):
     import base64
-    protocol = prepare(root, local)
+    protocol = prepare(root, local, context_size)
     signature = digest(protocol)
     output = local / signature[:12]
     output.mkdir(parents=True, exist_ok=True)
@@ -178,7 +178,7 @@ def run(root, local, cache):
     observed_first = {arm: Counter() for arm in ARMS}
     jobs = [(i, ARMS[(i+j) % len(ARMS)]) for j in range(len(ARMS)) for i in range(len(anchors))]
     with local_server(cache, output / "model.log", extra_flags=("--load-mode", "none"),
-                      startup_timeout=1800) as (port, secret, runtime):
+                      startup_timeout=startup_timeout, context_size=context_size) as (port, secret, runtime):
         for i, arm in jobs:
             anchor = anchors[i]
             case = anchors[(i+1) % len(anchors)] if arm == "swapped_11" else anchor
@@ -198,7 +198,13 @@ def run(root, local, cache):
                     raise ValueError("Expected an audited PNG")
                 photo = "data:image/png;base64," + base64.b64encode(raw).decode("ascii")
                 prompt, schema = instruction(arm, anchor["candidates"])
-                result = generate(port, secret, photo, prompt, schema, protocol["max_tokens"])
+                try:
+                    result = generate(port, secret, photo, prompt, schema, protocol["max_tokens"])
+                except GenerationRequestError as error:
+                    if error.status != 400 or error.details.get("type") != "exceed_context_size_error":
+                        raise
+                    result = {"finish_reason": "context_overflow", "raw_output": "", "elapsed_s": error.elapsed,
+                              "prompt_tokens_required": error.details.get("n_prompt_tokens"), "context_limit": context_size}
                 write_json(receipt, {"signature": signature, "image_sha256": case["sha256"], "generation": result})
             content, row = parse_generation(arm, sid, result)
             codes = None if row is None else frozenset(row["hazards"])
@@ -247,10 +253,12 @@ if __name__ == "__main__":
     p.add_argument("--run", action="store_true", help="Start the local GPU server and produce paired generations")
     p.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[1])
     p.add_argument("--cache", type=Path, default=DEFAULT_CACHE)
+    p.add_argument("--startup-timeout", type=int, default=1800, help="Seconds allowed for local model loading")
+    p.add_argument("--context-size", type=int, default=8192, help="Input and generation context shared by all arms")
     args = p.parse_args()
     root = args.root.resolve()
     local = root / "data/prompt-pilot"
     if args.run:
-        run(root, local, args.cache)
+        run(root, local, args.cache, args.startup_timeout, args.context_size)
     else:
-        print("Prepared",len(prepare(root, local)["anchors"]),"paired photos")
+        print("Prepared",len(prepare(root, local, args.context_size)["anchors"]),"paired photos")

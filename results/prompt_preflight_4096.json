@@ -1,0 +1,29 @@
+{
+  "design_signature": "6bcd4928aa77d102fbfd147a3935b9c8c36e623c1bfb3c577be10d944f9e8d46",
+  "photos_planned": 6,
+  "arms_planned": 5,
+  "local_first_request_arm": "direct_8",
+  "original_width": 3264,
+  "original_height": 2448,
+  "output_tokens_allowed": 640,
+  "completed_model_responses": 0,
+  "attempts": [
+    {
+      "startup_limit_seconds": 1800,
+      "result": "startup_timeout",
+      "server_log_sha256": "4ee6c6ed5e20bc885f70ebc44ed9f1ead54d063fc2fe47055def30bd22dd0912"
+    },
+    {
+      "startup_limit_seconds": 5400,
+      "result": "server_ready_then_first_input_rejected",
+      "server_reported_listen_s": 2434.777115,
+      "request_http_status": 400,
+      "total_prompt_tokens_including_image": 4261,
+      "window_limit": 4096,
+      "image_token_count": null,
+      "server_log_sha256": "2ccf3320be5cf16c8277a70bc38adf4b8d6c713c3ed82037ee6edbf6bad7b5ce",
+      "worker_log_sha256": "1f9cef95e2c2a62d64b7e6da4ae4c965c8853064250fe36bcb2119b23e47b423"
+    }
+  ],
+  "scope": "Infrastructure preflight, no generated output or code score."
+}

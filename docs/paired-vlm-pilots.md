@@ -37,9 +37,10 @@ Set-Location -LiteralPath 'G:/Projects/KWater-SafetyAI'
 $env:OPENBLAS_NUM_THREADS = '1'
 $env:MKL_NUM_THREADS = '1'
 $env:PYTHONUTF8 = '1'
-python -m kwater_lab.prompt_pilot
-python -u -m kwater_lab.prompt_pilot --run
+python -m kwater_lab.prompt_pilot --context-size 8192
+python -u -m kwater_lab.prompt_pilot --run --startup-timeout 5400 --context-size 8192
 python -m kwater_lab.prompt_replay --checker-python .runtime/baseline-venv/Scripts/python.exe
+python -m kwater_lab.prompt_vision_budget
 ```
 
 6개 접두사에서 두 인코더의 위험 후보가 다른 사진을 우선해 1장씩 고른다. 같은 사진에 모든 조건을 적용한다. `swapped_11`은 원래 후보를 고정하고 다음 사진으로 회전시켜 잘못 짝지은 후보의 영향을 본다. 이 조건의 정답 대조와 사람 판정은 실제 모델에 들어간 사진을 기준으로 한다.
@@ -52,7 +53,9 @@ python -m kwater_lab.prompt_replay --checker-python .runtime/baseline-venv/Scrip
 | verify_11 | 11개 | 장면 관찰 후 두 인코더 후보의 합집합을 사진과 대조한다. |
 | swapped_11 | 11개 | 동일한 후보 검증 지시와 다른 사진의 후보를 조합한다. |
 
-원본 전체 사진을 로컬 루프백 서버로 보내며 온도 0, 시드 42, 조건당 최대 640토큰이다. 모든 사진·조건에 같은 생성 한도를 적용한다. 대용량 가중치는 `--load-mode none`으로 읽고 서버 준비에는 최대 1,800초를 허용한다. 서버 실행 전에 가중치 해시도 검증한다. 각 응답은 `data/prompt-pilot/<설계 서명 앞 12자리>/`에 즉시 저장된다. 중단 뒤 같은 설계로 재실행하면 완료된 응답을 재사용한다.
+원본 전체 사진을 로컬 루프백 서버로 보내며 온도 0, 시드 42, 조건당 최대 640토큰이다. 대용량 가중치는 `--load-mode none`으로 읽는다. 기본 준비 한도 1,800초가 지난 첫 실행은 응답을 생성하기 전에 종료됐다. 5,400초를 허용한 두 번째 실행은 서버 로그 기준 2,434.78초에 연결을 받기 시작했다. 첫 사진의 전체 입력은 이미지와 글을 합해 4,261토큰이었고 4,096토큰 문맥을 초과해 HTTP 400으로 거절됐다. 두 번 모두 생성 응답은 0건이다. [기동 실측](../results/prompt_preflight_4096.json)
+
+이 실패를 기록한 뒤 위 명령에서 모든 사진·조건의 문맥을 8,192토큰으로 정해 새 설계 서명을 만든다. 원본 사진, 프롬프트, 모델, 시드 및 640토큰 출력 한도는 같은 조건으로 실행한다. 같은 문맥 오류가 발생하면 그 입력의 거절을 별도 영수증에 남기고 다음 사진을 처리한다. 서버 실행 전에 가중치 해시도 검증한다. 각 응답은 `data/prompt-pilot/<설계 서명 앞 12자리>/`에 즉시 저장된다. 중단 뒤 같은 설계로 재실행하면 완료된 응답을 재사용한다.
 
 코드 점수는 다섯 조건 모두에서 변환 가능한 사진의 교집합에서 계산한다. 조건별 전체 생성 수와 변환 가능한 수를 함께 읽어야 한다. 공식 재생은 각 조건의 6개 ID를 모두 manifest에 남기고 변환이 불가능한 응답은 출력 행에서 생략한다. 각 조건의 공식 유효 행 수, 종료 코드와 제출 파일 해시는 `results/prompt_format_replay.json`에 기록한다. 프롬프트 비교의 조치와 법령은 프로토타입 직렬화를 따르며, 전기 위험의 조치는 지정 문구로 대체하고 법령 인용은 빈 목록으로 둔다.
 

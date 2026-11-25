@@ -141,6 +141,15 @@ def local_request(port, api_key, path, body=None, timeout=120):
         connection.close()
 
 
+class GenerationRequestError(RuntimeError):
+    def __init__(self, status, response, elapsed):
+        self.status = status
+        detail = response.get("error") if isinstance(response, dict) else None
+        self.details = detail if isinstance(detail, dict) else {}
+        self.elapsed = elapsed
+        super().__init__(f"Local inference failed with HTTP {status}: {self.details.get('type', 'unknown')}")
+
+
 def generate(port, api_key, data_image, instruction, schema, max_tokens):
     payload = {
         "messages": [{"role": "user", "content": [
@@ -159,7 +168,7 @@ def generate(port, api_key, data_image, instruction, schema, max_tokens):
     status, response = local_request(port, api_key, "/v1/chat/completions", payload, timeout=300)
     elapsed = time.perf_counter() - start
     if status != 200:
-        raise RuntimeError(f"Local inference failed with HTTP {status}: {response}")
+        raise GenerationRequestError(status, response, elapsed)
     choice = response["choices"][0]
     return {
         "prompt": instruction, "raw_output": choice["message"]["content"],
@@ -187,7 +196,7 @@ def encoded_image(image):
 
 
 @contextmanager
-def local_server(cache, log, *, weights=None, runtime_root=None, extra_flags=(), startup_timeout=300):
+def local_server(cache, log, *, weights=None, runtime_root=None, extra_flags=(), startup_timeout=300, context_size=4096):
     weights = weights or {name: sha for name, sha in FILES.items() if name.endswith(".gguf")}
     model, projector = [cache / name for name in weights]
     for name, expected in weights.items():
@@ -198,7 +207,7 @@ def local_server(cache, log, *, weights=None, runtime_root=None, extra_flags=(),
         sock.bind(("127.0.0.1", 0))
         port = sock.getsockname()[1]
     key = secrets.token_hex(24)
-    flags = ["--offline", "-ngl", "99", "-c", "4096", "-np", "1", "--no-webui", "--host", "127.0.0.1", *extra_flags]
+    flags = ["--offline", "-ngl", "99", "-c", str(context_size), "-np", "1", "--no-webui", "--host", "127.0.0.1", *extra_flags]
     command = [str(server), *flags, "--port", str(port), "-m", str(model), "--mmproj", str(projector)]
     env = os.environ.copy()
     env["LLAMA_API_KEY"] = key

@@ -7,11 +7,19 @@ from tempfile import TemporaryDirectory
 import unittest
 
 from kwater_lab.adapter_scale_pilot import write_json
-from kwater_lab.prompt_pilot import ARMS, digest, paired_changes
+from kwater_lab.prompt_pilot import ARMS, digest, paired_changes, parse_generation
 from kwater_lab.prompt_replay import replay
+from kwater_lab.visual_probe import GenerationRequestError
 
 
 class PromptReplayTests(unittest.TestCase):
+    def test_http_rejection_carries_typed_usage_but_is_not_a_generation(self):
+        detail = {"type": "exceed_context_size_error", "n_prompt_tokens": 4200}
+        error = GenerationRequestError(400, {"error": detail}, 0.5)
+        self.assertEqual(error.details["n_prompt_tokens"], 4200)
+        self.assertEqual(parse_generation("direct_8", "x", {"finish_reason": "context_overflow"}), (None, None))
+        self.assertEqual(GenerationRequestError(503, {"error": "unavailable"}, 0.1).details, {})
+
     def test_pairwise_changes_exclude_invalid_without_discarding_complete_neighbors(self):
         gold = {"x": frozenset({"a"}), "y": frozenset()}
         data = {arm: {"x": (gold["x"], 0), "y": (gold["y"], 0)} for arm in ARMS}
