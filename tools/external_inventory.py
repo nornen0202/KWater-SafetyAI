@@ -5,6 +5,7 @@ from datetime import datetime, timezone
 import hashlib
 import json
 from pathlib import Path
+import time
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -13,6 +14,11 @@ FLOODNET_SOURCE = "https://github.com/BinaLab/FloodNet-Supervised_v1.0"
 
 
 def read(path):
+    for delay in (.05, .1, .2, .4, .8, 1.6):
+        try:
+            return json.loads(path.read_text(encoding="utf-8"))
+        except PermissionError:
+            time.sleep(delay)
     return json.loads(path.read_text(encoding="utf-8"))
 
 

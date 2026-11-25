@@ -8,7 +8,6 @@ import argparse
 from contextlib import ExitStack
 import errno
 import getpass
-import json
 import sys
 import tarfile
 import time
@@ -16,11 +15,8 @@ from zipfile import BadZipFile
 
 import requests
 
+from external_inventory import read
 from fetch_aihub import OVERLAP, ROOT, SETS, ZIP_HEADERS, fetch, provider_response, save, transfer_lock
-
-
-def read(path):
-    return json.loads(path.read_text(encoding="utf-8"))
 
 
 def size(path):
@@ -40,7 +36,10 @@ def pending(*, include_unattempted=False):
         if not {r["filekey"] for r in rows}.issubset(received):
             complete = False
         status = directory / "transfer-status.json"
-        retired = set(read(status).get("failed", {})) if status.exists() else set()
+        try:
+            retired = set(read(status).get("failed", {}))
+        except (PermissionError, FileNotFoundError):
+            retired = set()
         failed.extend((sid, row, parcels / (row["filekey"] + ".tar.partial"))
                       for row in rows if row["filekey"] not in received
                       and (include_unattempted or row["filekey"] in retired))

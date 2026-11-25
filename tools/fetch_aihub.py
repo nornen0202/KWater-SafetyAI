@@ -35,6 +35,12 @@ OVERLAP = 64 * 1024
 def save(path, obj):
     part = path.with_name(path.name + ".tmp")
     part.write_text(json.dumps(obj, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    for delay in (.05, .1, .2, .4, .8, 1.6):
+        try:
+            part.replace(path)
+            return
+        except PermissionError:
+            time.sleep(delay)
     part.replace(path)
 
 

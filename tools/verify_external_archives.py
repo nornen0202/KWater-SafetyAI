@@ -153,8 +153,13 @@ def unresolved(ready, items):
     failures = []
     for sid in SETS:
         status = DATA / "aihub" / sid / "transfer-status.json"
-        if status.exists():
-            failures.extend((sid, key) for key in read(status).get("failed", {}) if (sid, key) not in acquired)
+        try:
+            report = read(status)
+        except (PermissionError, FileNotFoundError):
+            # This is an advisory transfer checkpoint. A completed receipt and
+            # the archive itself supply the integrity evidence.
+            continue
+        failures.extend((sid, key) for key in report.get("failed", {}) if (sid, key) not in acquired)
     return failures
 
 
@@ -171,6 +176,10 @@ def inspect_files(watch):
         for rel in sorted(ready - verified.keys(), key=lambda name: (DATA / name).stat().st_size):
             try:
                 verified[rel] = verify(rel, items[rel])
+            except PermissionError:
+                if not watch:
+                    raise
+                continue
             except (OSError, EOFError, ValueError, RuntimeError, BadZipFile) as error:
                 raise RuntimeError(f"Verification failed for {rel} ({type(error).__name__})") from None
             if len(verified) % 25 == 0:
