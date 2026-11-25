@@ -13,16 +13,23 @@
         "evidence": 1,
         "prevention": 1
       },
-      "human_rated_pairs": 0,
-      "human_unrated_pairs": 2,
-      "human_votes": 0,
-      "human_reviewers": 0,
-      "choices": {},
-      "votes_by_field": {
-        "evidence": {},
-        "prevention": {}
+      "human_rated_pairs": 2,
+      "human_unrated_pairs": 0,
+      "human_votes": 2,
+      "human_reviewers": 1,
+      "choices": {
+        "tie": 1,
+        "source": 1
       },
-      "source_preference_among_directional_votes": null
+      "votes_by_field": {
+        "evidence": {
+          "source": 1
+        },
+        "prevention": {
+          "tie": 1
+        }
+      },
+      "source_preference_among_directional_votes": 1.0
     },
     "prompt_six": {
       "planned_source_photos": 6,
