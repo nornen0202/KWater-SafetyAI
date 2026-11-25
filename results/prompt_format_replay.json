@@ -1,0 +1,65 @@
+{
+  "scope": "Organizer schema and manifest replay. Unusable generations omitted; each arm checked against all six images. No quality or leaderboard score.",
+  "signature": "9ecfe878bfbd26e214d5ff8936452bcef95b47417928d3503e08f850f32c45c4",
+  "checker_sha256": "22dd4bf71c2a47b5d5928ae90b7a098cecc692b4ec32c8bbe7506c4876c45fed",
+  "schema_sha256": "b6d5fcb79db56aea692ef57105ade98fe9c6cfb17b801fbd73224e704a199e2d",
+  "conditions": {
+    "direct_8": {
+      "expected": 6,
+      "generation_finish": {
+        "stop": 6
+      },
+      "model_assembled": 6,
+      "kit_valid": 6,
+      "checker_exit": 0,
+      "receipts_digest": "895414956ca080ea6d22228d3f81f92f753abf7342ec435fcac64abbca21158f",
+      "submission_sha256": "b276b642f2af118a6a82d979a4c9d7ef7613d82b3ea64c6dd38e689de045482f"
+    },
+    "direct_11": {
+      "expected": 6,
+      "generation_finish": {
+        "stop": 6
+      },
+      "model_assembled": 6,
+      "kit_valid": 6,
+      "checker_exit": 0,
+      "receipts_digest": "4b42499f23ce91e0adf539dc49fed2d701564c5ff2b10f99d9d983ddec464481",
+      "submission_sha256": "9d9a38fcb670d666ff36971740cb256e71e47127d58bacbde80179198b74a577"
+    },
+    "facts_11": {
+      "expected": 6,
+      "generation_finish": {
+        "stop": 5,
+        "length": 1
+      },
+      "model_assembled": 5,
+      "kit_valid": 5,
+      "checker_exit": 0,
+      "receipts_digest": "50319591f1b21303ea672c68b61686e01adbbeb2761da8a21ceea72fda185914",
+      "submission_sha256": "eb509b8b2c2de1714bc1a82c7253a69a9fc7d3d59a5e298d42adcd6f95295c20"
+    },
+    "verify_11": {
+      "expected": 6,
+      "generation_finish": {
+        "length": 1,
+        "stop": 5
+      },
+      "model_assembled": 5,
+      "kit_valid": 5,
+      "checker_exit": 0,
+      "receipts_digest": "b710715dc6220d67e5f69b7a5e52aacb1410d5a26db303acc74ec26c2edc750b",
+      "submission_sha256": "99f20d0e6ebfe1d287b8bab8a91dbe4e6d8cd7a4087f2937531b6f3ea5f3e089"
+    },
+    "swapped_11": {
+      "expected": 6,
+      "generation_finish": {
+        "stop": 6
+      },
+      "model_assembled": 6,
+      "kit_valid": 6,
+      "checker_exit": 0,
+      "receipts_digest": "777a3abc40afcae96331578940d40a04b3ce9b7d318351aa769988b4459c23d3",
+      "submission_sha256": "51d1755383d59894a698d1f54b2921421475f37a2cbc8497f52d6a0e1e22340e"
+    }
+  }
+}

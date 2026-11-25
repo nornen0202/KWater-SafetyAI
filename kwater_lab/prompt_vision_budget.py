@@ -4,6 +4,7 @@ import argparse
 from collections import Counter
 import json
 from pathlib import Path
+import re
 from statistics import median
 import struct
 
@@ -61,12 +62,17 @@ def audit(root):
         usage[arm] = {"full_prompt_tokens": measured(prompt), "completion_tokens": measured(completion)}
     log = folder / "model.log"
     log_text = log.read_text(encoding="utf-8", errors="replace")
+    prompt_evals = re.findall(r"prompt eval time\s*=.*?ms\s*/\s*(\d+) tokens", log_text)
+    image_evals = re.findall(r"(?:encoded image|image encoded)[^\n]*?\b(\d+) (?:image )?tokens\b",
+                             log_text, re.IGNORECASE)
     result = {"signature": signature, "input_format": "Original full PNG; no external crop or resize",
               "source_resolution_counts": dict(sorted(dimensions.items())), "conditions": usage,
               "generation_limit": design["max_tokens"], "context_size": design["context_size"],
               "server_flags": runs["runtime"]["server_flags"],
               "startup_seconds": runs["runtime"]["startup_s"],
               "image_tokens_in_api_usage": measured(image_counts),
+              "server_logged_prompt_evaluations": len(prompt_evals),
+              "image_tokens_in_logged_image_encodes": measured([int(n) for n in image_evals]),
               "runtime_warned_about_1024_tokens_for_grounding":
                   "at minimum 1024 image tokens" in log_text,
               "server_log_sha256": file_hash(log)}

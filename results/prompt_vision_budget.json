@@ -1,0 +1,116 @@
+{
+  "signature": "9ecfe878bfbd26e214d5ff8936452bcef95b47417928d3503e08f850f32c45c4",
+  "input_format": "Original full PNG; no external crop or resize",
+  "source_resolution_counts": {
+    "2048x512": 1,
+    "3264x2448": 1,
+    "486x334": 1,
+    "640x480": 1,
+    "720x1280": 1,
+    "832x609": 1
+  },
+  "conditions": {
+    "direct_8": {
+      "full_prompt_tokens": {
+        "observations": 6,
+        "minimum": 396,
+        "median": 933.0,
+        "maximum": 4261
+      },
+      "completion_tokens": {
+        "observations": 6,
+        "minimum": 141,
+        "median": 320.5,
+        "maximum": 527
+      }
+    },
+    "direct_11": {
+      "full_prompt_tokens": {
+        "observations": 6,
+        "minimum": 438,
+        "median": 975.0,
+        "maximum": 4303
+      },
+      "completion_tokens": {
+        "observations": 6,
+        "minimum": 82,
+        "median": 334.5,
+        "maximum": 419
+      }
+    },
+    "facts_11": {
+      "full_prompt_tokens": {
+        "observations": 6,
+        "minimum": 439,
+        "median": 976.0,
+        "maximum": 4304
+      },
+      "completion_tokens": {
+        "observations": 6,
+        "minimum": 182,
+        "median": 337.5,
+        "maximum": 640
+      }
+    },
+    "verify_11": {
+      "full_prompt_tokens": {
+        "observations": 6,
+        "minimum": 485,
+        "median": 1021.5,
+        "maximum": 4343
+      },
+      "completion_tokens": {
+        "observations": 6,
+        "minimum": 188,
+        "median": 310.0,
+        "maximum": 640
+      }
+    },
+    "swapped_11": {
+      "full_prompt_tokens": {
+        "observations": 6,
+        "minimum": 481,
+        "median": 1023.5,
+        "maximum": 4346
+      },
+      "completion_tokens": {
+        "observations": 6,
+        "minimum": 178,
+        "median": 271.5,
+        "maximum": 613
+      }
+    }
+  },
+  "generation_limit": 640,
+  "context_size": 8192,
+  "server_flags": [
+    "--offline",
+    "-ngl",
+    "99",
+    "-c",
+    "8192",
+    "-np",
+    "1",
+    "--no-webui",
+    "--host",
+    "127.0.0.1",
+    "--load-mode",
+    "none"
+  ],
+  "startup_seconds": 1363.329,
+  "image_tokens_in_api_usage": {
+    "observations": 0,
+    "minimum": null,
+    "median": null,
+    "maximum": null
+  },
+  "server_logged_prompt_evaluations": 30,
+  "image_tokens_in_logged_image_encodes": {
+    "observations": 0,
+    "minimum": null,
+    "median": null,
+    "maximum": null
+  },
+  "runtime_warned_about_1024_tokens_for_grounding": true,
+  "server_log_sha256": "93afc237e5e47749884217ff0e8b008333aa5bffaed633dde89dc66ee9d740f6"
+}
