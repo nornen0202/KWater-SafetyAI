@@ -13,6 +13,9 @@ $python = Join-Path $Runtime 'python.exe'
 $checker = Join-Path $Project '.runtime/baseline-venv/Scripts/python.exe'
 [IO.Directory]::CreateDirectory($runPath) | Out-Null
 $lock = [IO.File]::Open((Join-Path $runPath 'run.lock'), 'OpenOrCreate', 'ReadWrite', 'None')
+$environmentNames = @('PATH','PYTHONPATH','PYTHONUTF8','OPENBLAS_NUM_THREADS','OMP_NUM_THREADS','MKL_NUM_THREADS','CUBLAS_WORKSPACE_CONFIG','HF_HOME','CUDA_CACHE_PATH','HF_HUB_OFFLINE')
+$previous = @{}
+foreach ($name in $environmentNames) { $previous[$name] = [Environment]::GetEnvironmentVariable($name) }
 Push-Location -LiteralPath $src
 try {
     $env:PYTHONUTF8='1'
@@ -26,7 +29,7 @@ try {
         if ($LASTEXITCODE) { throw "Backbone acquisition failed ($LASTEXITCODE)" }
     }
     $env:PATH="$Runtime/Library/bin;$Runtime/DLLs;$Runtime;$env:PATH"
-    $env:PYTHONPATH=[IO.File]::ReadAllText((Join-Path $Project '.runtime/legacy-overlay-path.txt'))
+    [Environment]::SetEnvironmentVariable('PYTHONPATH', $null)
     $env:HF_HOME=Join-Path $runPath 'hf'
     $env:CUDA_CACHE_PATH=Join-Path $runPath 'cuda-cache'
     $env:HF_HUB_OFFLINE='1'
@@ -40,6 +43,7 @@ try {
         $reviewHash = if ($ReviewedGroups) { (Get-FileHash -LiteralPath $ReviewedGroups).Hash } else { $null }
         if ($audit.reviewed_sha256 -ne $reviewHash) { throw 'Reviewed groups changed. Choose a new run directory.' }
     }
+    $env:PYTHONPATH=[IO.File]::ReadAllText((Join-Path $Project '.runtime/legacy-overlay-path.txt'))
     if (-not (Test-Path -LiteralPath (Join-Path $runPath 'completed.json'))) {
         & $python -B -u -m kwater_lab.phase01_experiment --project $Project --run $runPath --checker-python $checker --epochs $Epochs
         if ($LASTEXITCODE) { throw "Experiment failed ($LASTEXITCODE)" }
@@ -50,6 +54,7 @@ try {
     & $python -B -u -m kwater_lab.phase01_verify --project $Project --run $runPath --checker-python $checker
     if ($LASTEXITCODE) { throw "OOF verification failed ($LASTEXITCODE)" }
 } finally {
+    foreach ($name in $environmentNames) { [Environment]::SetEnvironmentVariable($name, $previous[$name]) }
     Pop-Location
     $lock.Dispose()
 }
