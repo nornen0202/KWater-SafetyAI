@@ -63,7 +63,45 @@ def load_entry(base):
     return entry
 
 
-def run(root, output, local):
+@contextmanager
+def weight_reader(mode):
+    if mode == "default":
+        yield
+        return
+    from safetensors import safe_open
+    from transformers import modeling_utils
+
+    def read_on_cpu(filename, framework, device="cpu"):
+        # Transformers moves each decoded parameter to its configured final device.
+        return safe_open(filename, framework=framework, device="cpu", backend="pread")
+
+    with patch.object(modeling_utils, "safe_open", read_on_cpu):
+        yield
+
+
+@contextmanager
+def save_progress(entry, inputs, folder):
+    """Capture official parse results as they arrive, without interrupting the arm."""
+    if folder is None:
+        yield
+        return
+    parse = entry.parse_prediction
+    order = iter(enumerate(inputs))
+
+    def capture(text):
+        obj, error = parse(text)
+        index, source = next(order)
+        valid = not error and not entry.schema_errors(obj)
+        write_json(folder / f"{index+1:02}.json", {
+            "sample_id": source["sample_id"], "prediction": obj if valid else {},
+        })
+        return obj, error
+
+    with patch.object(entry, "parse_prediction", capture):
+        yield
+
+
+def run(root, output, local, reader="default", snapshots=False):
     base = root / "data/baseline"
     audit_path, exposure_path = root / "results/train_audit_full.json", root / "data/prefix-pilot/exposure.json"
     exposure = json.loads(exposure_path.read_text(encoding="utf-8"))
@@ -90,19 +128,25 @@ def run(root, output, local):
     entry.seed_all(42)
     t0 = time.perf_counter()
     print("Loading official adapter for paired scale test", flush=True)
-    model, processor = entry.load_model(str(base / "base_model"), "sdpa", str(base / "adapter"), 384*32*32)
+    with weight_reader(reader):
+        model, processor = entry.load_model(str(base / "base_model"), "sdpa", str(base / "adapter"), 384*32*32)
     load_seconds = time.perf_counter() - t0
     metrics, codes = {}, {}
     for factor in (1.0, 0.75):
         start = time.perf_counter()
+        progress = local / f"progress-{factor}" if snapshots else None
         with scale_default_adapter(model, factor) as layer_count, patch.object(
-                entry, "load_model", return_value=(model, processor)):
+                entry, "load_model", return_value=(model, processor)), save_progress(entry, inputs, progress):
             rows = entry.infer_batched(inputs, root / "data/train")
         elapsed = time.perf_counter() - start
         if [r["sample_id"] for r in rows] != [r["sample_id"] for r in inputs]:
             raise ValueError("Unexpected model output IDs")
         path = local / f"generated-scale-{factor}.json"
         write_json(path, rows)
+        if progress is not None:
+            for index, row in enumerate(rows, start=1):
+                if row != json.loads((progress / f"{index:02}.json").read_text(encoding="utf-8")):
+                    raise ValueError("Progress snapshots and official inference output differ")
         usable = {r["sample_id"]: not entry.validate_prediction(r["prediction"]) for r in rows}
         pred = {r["sample_id"]: competition_codes(r["prediction"], entry.CODE_MAP)
                 if usable[r["sample_id"]] else frozenset() for r in rows}
@@ -116,7 +160,8 @@ def run(root, output, local):
                "photos": len(selected), "cohort_sha256": hashlib.sha256("\n".join(sorted(gold)).encode()).hexdigest(),
                "exposure_sha256": file_hash(exposure_path), "main_sha256": expected["main_sha256"],
                "adapter_sha256": file_hash(base / "adapter/adapter_model.safetensors"),
-               "batch_size": 1, "seed": 42, "load_seconds_after_import": load_seconds, "conditions": metrics,
+               "batch_size": 1, "seed": 42, "weight_reader": reader, "per_row_snapshots": snapshots,
+               "load_seconds_after_import": load_seconds, "conditions": metrics,
                "code_set_changed": sum(first[k] != second[k] for k in gold),
                "exact_set_gains": sum(first[k] != gold[k] and second[k] == gold[k] for k in gold),
                "exact_set_losses": sum(first[k] == gold[k] and second[k] != gold[k] for k in gold)}
@@ -176,8 +221,11 @@ if __name__ == "__main__":
     parser.add_argument("--local", type=Path, default=Path("data/adapter-scale-pilot"))
     parser.add_argument("--verify", action="store_true", help="Check saved codes against the official formatter and kit")
     parser.add_argument("--checker-python", default=sys.executable, help="Python interpreter with jsonschema")
+    parser.add_argument("--weight-reader", choices=["default", "pread-cpu"], default="default",
+                        help="Optional safetensors 0.8 CPU pread backend for native Windows loading")
+    parser.add_argument("--save-progress", action="store_true", help="Save and reconcile each local model row")
     args = parser.parse_args()
     if args.verify:
         verify_format(args.root.resolve(), args.output, args.local, args.checker_python)
     else:
-        run(args.root.resolve(), args.output, args.local)
+        run(args.root.resolve(), args.output, args.local, args.weight_reader, args.save_progress)

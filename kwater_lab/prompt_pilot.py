@@ -12,7 +12,7 @@ import numpy as np
 from .adapter_scale_pilot import write_json
 from .encoder_pilot import scores
 from .law_examples import law_ids, select_articles, training_examples
-from .metrics import CODES, decode_target, evaluate, unique_keys
+from .metrics import CODES, evaluate, unique_keys
 from .prefix_pilot import filtered_training, policy_decisions
 from .prototype import RESPONSE_SCHEMA, assemble
 from .train_head import file_hash
@@ -35,12 +35,15 @@ def instruction(arm, candidates):
               "likelihood는 1~5, severity는 1~4인 정수입니다. 코드 목록은 다음과 같습니다.\n" +
               "\n".join(f"{c} = {CODEBOOK[c]}" for c in codes))
     if arm.startswith("direct"):
-        action = "사진에서 위험 유형을 직접 판정하고 관찰·근거·조치를 함께 작성하세요."
+        action = "hazards에 위험 유형을 먼저 판정하여 근거·조치를 쓰고 마지막에 scene_observation에 장면을 요약하세요."
     else:
         action = "대상·위치·방호 상태를 관찰해 먼저 scene_observation에 적으세요. 그 사실로 설명되는 위험과 조치를 판정하세요."
     if arm in ("verify_11", "swapped_11"):
         action += " 확인할 후보는 " + (", ".join(candidates) or "없음") + "입니다. 사진에서 독립적으로 지지되는 경우만 채택하고 그 밖의 관측 위험도 평가하세요."
     schema = deepcopy(RESPONSE_SCHEMA)
+    if arm.startswith("direct"):
+        schema["required"] = ["hazards", "scene_observation"]
+        schema["properties"] = {key: schema["properties"][key] for key in schema["required"]}
     schema["properties"]["hazards"]["items"]["properties"]["code"]["enum"] = codes
     return common + "\n" + action, schema
 
@@ -57,6 +60,35 @@ def citation_counts(predictions, labels, first_article):
                 counts["cited"] += 1
                 counts["false_risk_cited"] += not correct
                 counts["joint"] += correct and article in law_ids(labels[sid][code])
+    return counts
+
+
+def parse_generation(arm, sid, result):
+    if result["finish_reason"] != "stop":
+        return None, None
+    try:
+        content = json.loads(result["raw_output"], object_pairs_hook=unique_keys)
+        row = assemble(digest(sid)[:32], content)
+        if arm == "direct_8" and set(row["hazards"]) & RARE:
+            return None, None
+        return content, row
+    except (KeyError, ValueError, TypeError):
+        return None, None
+
+
+def paired_changes(measured, gold):
+    counts = {}
+    for left, right in (("direct_8", "direct_11"), ("direct_11", "facts_11"),
+                        ("facts_11", "verify_11"), ("verify_11", "swapped_11")):
+        pairs = [(measured[left][sid][0], measured[right][sid][0], target)
+                 for sid, target in gold.items()
+                 if measured[left][sid][0] is not None and measured[right][sid][0] is not None]
+        counts[f"{left}/{right}"] = {
+            "pairwise_valid": len(pairs),
+            "code_set_changed": sum(first != second for first, second, _ in pairs),
+            "exact_set_gains": sum(first != target and second == target for first, second, target in pairs),
+            "exact_set_losses": sum(first == target and second != target for first, second, target in pairs),
+        }
     return counts
 
 
@@ -142,8 +174,11 @@ def run(root, local, cache):
     anchors = protocol["anchors"]
     inventory = json.loads((root / "results/train_audit_full.json").read_text(encoding="utf-8"))["inventory"]
     measured, blind, key = {arm:{} for arm in ARMS}, [], {}
+    valid_ids = {a["sid"]: {} for a in anchors}
+    observed_first = {arm: Counter() for arm in ARMS}
     jobs = [(i, ARMS[(i+j) % len(ARMS)]) for j in range(len(ARMS)) for i in range(len(anchors))]
-    with local_server(cache, output / "model.log", startup_timeout=900) as (port, secret, runtime):
+    with local_server(cache, output / "model.log", extra_flags=("--load-mode", "none"),
+                      startup_timeout=1800) as (port, secret, runtime):
         for i, arm in jobs:
             anchor = anchors[i]
             case = anchors[(i+1) % len(anchors)] if arm == "swapped_11" else anchor
@@ -165,23 +200,30 @@ def run(root, local, cache):
                 prompt, schema = instruction(arm, anchor["candidates"])
                 result = generate(port, secret, photo, prompt, schema, protocol["max_tokens"])
                 write_json(receipt, {"signature": signature, "image_sha256": case["sha256"], "generation": result})
-            content, codes = None, None
-            if result["finish_reason"] == "stop":
-                try:
-                    content = json.loads(result["raw_output"], object_pairs_hook=unique_keys)
-                    _, codes = decode_target(assemble(digest(sid)[:32], content))
-                    if arm == "direct_8" and codes & RARE:
-                        raise ValueError("Eight-code grammar returned a reserved rare code")
-                except (KeyError, ValueError, TypeError):
-                    content, codes = None, None
+            content, row = parse_generation(arm, sid, result)
+            codes = None if row is None else frozenset(row["hazards"])
             measured[arm][sid] = (codes, result["elapsed_s"])
             if content is not None:
                 review_id = digest(["blind", signature, sid, arm])[:16]
-                blind.append({"review_id": review_id, "image": case["image"], "model_content": content})
+                observed_first[arm][next(iter(content))] += 1
+                standard = {field: content[field] for field in ("scene_observation", "hazards")}
+                blind.append({"review_id": review_id, "image": case["image"], "model_content": standard})
                 key[review_id] = arm
+                valid_ids[sid][arm] = review_id
             print(f"{i+1}/{len(anchors)} {arm} {'valid' if codes is not None else 'invalid'}", flush=True)
     write_json(output/"blind-review.json", sorted(blind, key=lambda r:r["review_id"]))
     write_json(output/"blind-key.json", key)
+    pairs = []
+    for anchor in anchors:
+        available = valid_ids[anchor["sid"]]
+        for left, right in (("direct_11", "facts_11"), ("facts_11", "verify_11"), ("verify_11", "swapped_11")):
+            if left in available and right in available:
+                pair_id = digest(["pair", signature, anchor["sid"], left, right])
+                first, second = sorted((available[left], available[right]), key=lambda item: digest([pair_id, item]))
+                pairs.append({"pair_id": pair_id[:16], "image": anchor["image"], "A": first, "B": second,
+                              "photographic_support": None, "action_feasibility": None, "review_note": ""})
+    write_json(output/"blind-pairs.json", {"choices":["A", "B", "tie", "both_inadequate"],
+                                           "pairs":sorted(pairs, key=lambda pair:pair["pair_id"])})
     gold = {a["sid"]: frozenset(inventory[a["sid"]]["codes"]) for a in anchors}
     shared_valid = set.intersection(*[{s for s,(codes,_) in values.items() if codes is not None} for values in measured.values()])
     summary = {}
@@ -195,7 +237,9 @@ def run(root, local, cache):
                         "matched_valid_multi_hazard_photos": sum(len(g)>1 for g in data.values())}
     write_json(root/"results/prompt_pilot.json", {"scope":"Six disagreement-enriched exploratory anchors; five arms, single 4B Q4 model, identical 640-token limit",
                "signature":signature, "runtime":runtime, "paired_valid_photos":len(shared_valid), "conditions":summary,
-               "blind_review_items":len(blind), "human_quality_ratings":None})
+               "paired_code_changes":paired_changes(measured, gold),
+               "actual_first_field":{arm:dict(counts) for arm,counts in observed_first.items()},
+               "blind_review_items":len(blind), "blind_pairs":len(pairs), "human_quality_ratings":None})
 
 
 if __name__ == "__main__":

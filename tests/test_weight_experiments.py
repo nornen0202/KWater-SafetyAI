@@ -1,13 +1,32 @@
+import json
+from pathlib import Path
+from tempfile import TemporaryDirectory
+from types import SimpleNamespace
 import unittest
 
 import numpy as np
 
-from kwater_lab.adapter_scale_pilot import competition_codes, scale_default_adapter, sample
+from kwater_lab.adapter_scale_pilot import competition_codes, save_progress, scale_default_adapter, sample
 from kwater_lab.adapter_spectrum import singular_values
 from kwater_lab.weight_pilot import edit_columns, neighbor_scores
 
 
 class WeightExperimentTests(unittest.TestCase):
+    def test_progress_keeps_official_parse_and_records_invalid_fallback(self):
+        def parse(text):
+            return ({"hazards": []}, None) if text == "ok" else (None, "error")
+
+        entry = SimpleNamespace(parse_prediction=parse, schema_errors=lambda value: [])
+        with TemporaryDirectory() as tmp:
+            folder = Path(tmp)
+            rows = [{"sample_id": sid} for sid in ("first", "second")]
+            with save_progress(entry, rows, folder):
+                self.assertEqual(entry.parse_prediction("ok"), parse("ok"))
+                self.assertEqual(entry.parse_prediction("bad"), parse("bad"))
+            self.assertIs(entry.parse_prediction, parse)
+            self.assertEqual(json.loads((folder / "01.json").read_text())["prediction"], {"hazards": []})
+            self.assertEqual(json.loads((folder / "02.json").read_text()), {"sample_id": "second", "prediction": {}})
+
     def test_raw_hazards_map_without_postprocessed_risk_levels(self):
         raw = {"hazards": [{"code": c, "likelihood_score": 2, "severity_score": 3}
                            for c in ("a", "x", "b", "c", "d", "e")]}
