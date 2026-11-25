@@ -4,3 +4,6 @@
 *.json text eol=lf
 *.pdf binary
 *.png binary
+submission/fusion/*.onnx binary -filter
+submission/fusion/*.npz binary -filter
+submission/fusion/wheelhouse/*.whl binary -filter

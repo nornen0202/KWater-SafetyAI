@@ -2,11 +2,11 @@
 
 [시각화 연구 보고서](reports/competition-research-2026-11-25.md) · [PDF 보고서](reports/competition-research-2026-11-25.pdf) · [CLIP·SigLIP 2 실측과 생성 VLM 도입 검토](docs/vlm-model-selection.md) · [후속 실험 설계](docs/improvement-experiments.md) · [외부 데이터 전후 비교](reports/external-first-experiment.md)
 
-제5회 K-water AI 경진대회 현장 사진 위험성평가 부문 연구. 2026년 11월 25일 Codex에 등록한 로컬 프로젝트는 `G:\Projects\KWater-SafetyAI`이다. 새 Codex 대화에서는 이 폴더를 열면 코드·실험 기록·참가자 자료를 이어서 사용할 수 있다. 기존 공개 실험과 첨부 계획서를 옮겼고 공식 배포 ZIP 세 개를 확보했다. 2026년 11월 25일 20:42(KST)에 공식 베이스라인으로 첫 Public 제출을 접수했다. 결과 카드에 표시된 공개 예정 시각은 11월 26일 13:00이며, 23:14에 다시 확인한 공식 리더보드에도 공개된 팀은 0팀이었다. [접수 기록](results/public_submission_001.json)
+제5회 K-water AI 경진대회 현장 사진 위험성평가 부문 연구. 2026년 11월 25일 Codex에 등록한 로컬 프로젝트는 `G:\Projects\KWater-SafetyAI`이다. 새 Codex 대화에서는 이 폴더를 열면 코드·실험 기록·참가자 자료를 이어서 사용할 수 있다. 기존 공개 실험과 첨부 계획서를 옮겼고 공식 배포 ZIP 세 개를 확보했다. 11월 25일 20:42(KST) 공식 Qwen3-VL-4B+LoRA와 23:57(KST) CLIP 224 + SigLIP 2 384 결합 모델을 각각 접수했다. 두 번째 접수 직후 당일 잔여는 **0/2**였고, 두 제출의 공개 예정 시각은 **11월 26일 13:00(KST)**다. [1차 접수](results/public_submission_001.json) · [2차 접수](results/public_submission_002.json)
 
 ## 참가자 데이터와 연구 결과
 
-같은 170장의 내측 F1 보정 결과는 CLIP 224 **0.223**, SigLIP 2 224 **0.209**, SigLIP 2 384 **0.239**였다. 고해상도 SigLIP 2와 CLIP의 분류 점수를 절반씩 섞으면 **0.247**이었다. CLIP 대비 무위험 오경보는 31→26/66, 정답 위험을 하나도 맞히지 못한 사진은 47→42/104, 추락 적중은 12→13/34건이었다. 이 결합을 독립 검증에 올린다. 생성기 교체도 시험했다. 공개 사진 한 장에 대한 한국어 질문 두 개에서 Qwen3.5-4B는 매번 정답 0/2건, 원본 Qwen3-VL-4B는 매번 1/2건을 찾았다. 공식 제출은 기존 Qwen3-VL-4B+LoRA다. [비교 그림과 연구 보고서](reports/competition-research-2026-11-25.md) · [모델별 평가와 선택 근거](docs/vlm-model-selection.md)
+같은 170장의 내측 F1 보정 결과는 CLIP 224 **0.223**, SigLIP 2 224 **0.209**, SigLIP 2 384 **0.239**였다. 고해상도 SigLIP 2와 CLIP의 분류 점수를 절반씩 섞으면 **0.247**이었다. CLIP 대비 무위험 오경보는 31→26/66, 정답 위험을 하나도 맞히지 못한 사진은 47→42/104, 추락 적중은 12→13/34건이었다. 2차 배포 임계값 0.20으로 동일 탐색 분할의 예측을 재평가한 F1은 **0.2508**, 미관측 오경보는 **30/66장**이다. 새 사건에서도 확인할 예정이다. 생성기 교체도 시험했다. 공개 사진 한 장에 대한 한국어 질문 두 개에서 Qwen3.5-4B는 매번 정답 0/2건, 원본 Qwen3-VL-4B는 매번 1/2건을 찾았다. 첫 제출은 공식 생성기, 두 번째는 결합 분류기와 코드별 문구다. [비교 그림과 연구 보고서](reports/competition-research-2026-11-25.md) · [모델별 평가와 선택 근거](docs/vlm-model-selection.md)
 
 | 공식 패키지 | 원본 바이트 | 프로젝트에서의 용도 |
 |---|---:|---|
@@ -129,6 +129,10 @@ python -m kwater_lab.train_head --audit results/train_audit_reviewed.json --feat
 코딩 도구는 실험 코드, 프롬프트, 채점기, 테스트 및 결과 정리에 사용했다. 공개 예시의 정답은 운영진이 제공했다. 기반 모델, 양자화 리비전, 추론기, 프롬프트와 원본 해시는 실행 기록에서 확인할 수 있다. [CLIP 모델 카드](https://huggingface.co/Xenova/clip-vit-base-patch32) · [Qwen 모델 카드](https://huggingface.co/Qwen/Qwen3-VL-4B-Instruct-GGUF)
 
 ## Git 관리와 후속 실험 재현
+
+11월 25일 23:57에 접수된 [두 번째 제출 ZIP](https://github.com/nornen0202/KWater-SafetyAI/releases/download/submission-20261125-02/kwater-fusion-20261125.zip)을 팀 단독 비공개 GitHub 릴리스에서 받는다. 두 공개 모델 가중치, 학습한 분류 헤드, 직접 작성한 코드와 Linux 런타임 휠은 각각 원래 파일 단위로 Git에도 보관한다. 참가자 전용 사진·라벨과 운영진 배포 LoRA, AI-Hub 원본은 국내 G:에서 관리한다. [공식 규칙](https://hackathon.imaginationgroup.co.kr/kwater/#rules) · [제공 자료 조건](https://hackathon.imaginationgroup.co.kr/kwater/#core-data) · [최종 ZIP의 SHA-256과 로컬 키트 확인](results/public_submission_002.json)
+
+두 번째 제출의 실행 진입점·헤드·환경 잠금·라이선스를 [제출 소스](submission/fusion/)에 보존했다. 체크아웃한 프로젝트 루트에서 `python tools/build_fusion_submission.py`로 같은 ZIP을 복원하고 접수본과 바이트 단위 SHA-256을 비교한다. 훈련된 헤드의 11개 출력 중 학습 양성이 없던 익수·침수, 밀폐공간, 화학물질 노출, 온도·기상 네 개의 확률은 이번 배포판에서 0이다. [헤드와 공통 임계값 검증](results/submission2_head.json)
 
 비공개 원격 저장소 `git@github.com:nornen0202/KWater-SafetyAI.git`의 `main`에서 연구 코드·문서·도표·집계 결과를 관리한다. 대회가 GitHub를 포함한 외부 저장소로의 제공 데이터 업로드를 제한하므로, 참가자가 직접 받은 ZIP과 해제 자료, 이미지 특징·행별 예측은 G: 프로젝트에 둔다. 기존 공개 모델 실험의 다운로드 캐시는 G:의 별도 경로를 유지한다. [대회 이용 조건](https://hackathon.imaginationgroup.co.kr/kwater/#core-data) · [프로젝트 로컬 파일 원장](results/local_artifacts.json) · [초기 모델·런타임 의존성](results/public_probe_dependencies.json)
 

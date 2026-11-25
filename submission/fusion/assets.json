@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0",
+  "seed": 42,
+  "assets": [
+    {
+      "kind": "model",
+      "name": "OpenAI CLIP ViT-B/32, Xenova int8 vision export",
+      "source": "https://huggingface.co/Xenova/clip-vit-base-patch32",
+      "revision": "6b7c523703ae26e39be4b03774966f8571c7f523",
+      "license": "MIT (OpenAI CLIP)",
+      "use": "224-pixel full-frame embedding"
+    },
+    {
+      "kind": "model",
+      "name": "Google SigLIP 2 Base/16 384, ONNX Community int8 vision export",
+      "source": "https://huggingface.co/onnx-community/siglip2-base-patch16-384-ONNX",
+      "revision": "99f5d40afb5331b81eecee4bb02c360fbb9cdf8a",
+      "license": "Apache-2.0",
+      "use": "384-pixel full-frame embedding"
+    },
+    {
+      "kind": "model",
+      "name": "K-water dual linear hazard heads",
+      "source": "Team training on organizer training data",
+      "revision": "submission-002",
+      "license": "Team-authored for the competition",
+      "use": "Equal mean of two sets of 11 probabilities and calibrated top-three alerts"
+    },
+    {
+      "kind": "data",
+      "name": "Official K-water training split",
+      "source": "https://hackathon.imaginationgroup.co.kr/kwater/",
+      "revision": "2026 public release",
+      "license": "Organizer competition-only terms",
+      "use": "Fit hazard heads on 170 development photos and derive per-code citation priors"
+    },
+    {
+      "kind": "library",
+      "name": "ONNX Runtime CPU",
+      "source": "https://github.com/microsoft/onnxruntime",
+      "revision": "1.26.0",
+      "license": "MIT. License and bundled third-party notices: licenses/onnxruntime-LICENSE, licenses/onnxruntime-ThirdPartyNotices.txt",
+      "use": "Offline vision inference"
+    },
+    {
+      "kind": "library",
+      "name": "NumPy and Pillow",
+      "source": "Organizer evaluation base image",
+      "revision": "Organizer preinstalled Ubuntu Python 3.12 environment",
+      "license": "BSD-3-Clause and MIT-CMU",
+      "use": "Image preprocessing, linear inference and deterministic output"
+    },
+    {
+      "kind": "library",
+      "name": "FlatBuffers Python runtime",
+      "source": "https://github.com/google/flatbuffers",
+      "revision": "25.12.19",
+      "license": "Apache-2.0. See licenses/flatbuffers-LICENSE.txt",
+      "use": "ONNX Runtime offline dependency"
+    }
+  ]
+}

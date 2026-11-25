@@ -1,0 +1,42 @@
+{
+  "event": "K-water 5th Public leaderboard",
+  "stage": "accepted_awaiting_release",
+  "submitted_at_kst": "2026-11-25T23:57:00+09:00",
+  "time_precision": "minute",
+  "release_from_kst": "2026-11-26T13:00:00+09:00",
+  "receipt_source": "Organizer acceptance dialog and My Submissions history showed a second submission and 0/2 attempts remaining.",
+  "submission_page": "https://hackathon.imaginationgroup.co.kr/kwater/#my",
+  "leaderboard": "https://hackathon.imaginationgroup.co.kr/kwater/#leaderboard",
+  "submitted_archive": "kwater-fusion-20261125.zip",
+  "bytes": 203513187,
+  "sha256": "22e32c10f56c4dec50a9365ee59c16b79439fa28787132d6f2fcfa500070eaa0",
+  "entries": 17,
+  "model": "CLIP ViT-B/32 224 + SigLIP 2 Base/16 384, equal mean of two linear head scores, threshold 0.20",
+  "hazard_text": "Team-authored per-code Korean evidence and action text, risk levels, and one organizer-law citation per predicted hazard.",
+  "external_research_datasets_used": [],
+  "fitted_head_sha256": "e09b2e442bd9017dd53576941da1eed1b09c0111fa1826d7eb4ab36c75805e52",
+  "official_zip_check": {
+    "seed": 42,
+    "requirements_lock": true,
+    "exit_code": 0
+  },
+  "official_kit_output_check": {
+    "mode": "Windows local full inference + official format validation",
+    "photos": 10,
+    "valid": 10,
+    "predicted_hazard_photos": 7,
+    "predicted_no_hazard_photos": 3
+  },
+  "remaining_attempts_today": 0,
+  "daily_quota": 2,
+  "public_score": null,
+  "public_rank": null,
+  "private_release": "https://github.com/nornen0202/KWater-SafetyAI/releases/tag/submission-20261125-02",
+  "final_submission_selection": "Automatic selection of the highest Public score at the competition deadline, as shown in My Submissions.",
+  "training_codes_without_positives": [
+    "drowning_inundation",
+    "confined_space",
+    "chemical_exposure",
+    "thermal_weather"
+  ]
+}

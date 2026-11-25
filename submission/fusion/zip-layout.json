@@ -1,0 +1,359 @@
+[
+  {
+    "name": "clip.onnx",
+    "size": 89117001,
+    "crc32": "c0c95a3c",
+    "date_time": [
+      2026,
+      11,
+      25,
+      16,
+      54,
+      26
+    ],
+    "method": 0,
+    "create_system": 0,
+    "create_version": 20,
+    "extract_version": 20,
+    "external_attr": 2176188416,
+    "internal_attr": 0,
+    "extra_hex": "",
+    "comment_hex": ""
+  },
+  {
+    "name": "sig.onnx",
+    "size": 95720693,
+    "crc32": "3b8a7dca",
+    "date_time": [
+      2026,
+      11,
+      25,
+      22,
+      9,
+      52
+    ],
+    "method": 0,
+    "create_system": 0,
+    "create_version": 20,
+    "extract_version": 20,
+    "external_attr": 2176188416,
+    "internal_attr": 0,
+    "extra_hex": "",
+    "comment_hex": ""
+  },
+  {
+    "name": "wheelhouse/flatbuffers-25.12.19-py2.py3-none-any.whl",
+    "size": 26661,
+    "crc32": "fc5a147d",
+    "date_time": [
+      2026,
+      11,
+      25,
+      23,
+      49,
+      22
+    ],
+    "method": 0,
+    "create_system": 0,
+    "create_version": 20,
+    "extract_version": 20,
+    "external_attr": 2176188416,
+    "internal_attr": 0,
+    "extra_hex": "",
+    "comment_hex": ""
+  },
+  {
+    "name": "wheelhouse/onnxruntime-1.26.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+    "size": 18185439,
+    "crc32": "8232f60c",
+    "date_time": [
+      2026,
+      11,
+      25,
+      23,
+      49,
+      20
+    ],
+    "method": 0,
+    "create_system": 0,
+    "create_version": 20,
+    "extract_version": 20,
+    "external_attr": 2176188416,
+    "internal_attr": 0,
+    "extra_hex": "",
+    "comment_hex": ""
+  },
+  {
+    "name": "main.py",
+    "size": 3470,
+    "crc32": "8331704f",
+    "date_time": [
+      2026,
+      11,
+      25,
+      23,
+      49,
+      34
+    ],
+    "method": 0,
+    "create_system": 0,
+    "create_version": 20,
+    "extract_version": 20,
+    "external_attr": 2176188416,
+    "internal_attr": 0,
+    "extra_hex": "",
+    "comment_hex": ""
+  },
+  {
+    "name": "assets.json",
+    "size": 2395,
+    "crc32": "06861ac1",
+    "date_time": [
+      2026,
+      11,
+      25,
+      23,
+      52,
+      28
+    ],
+    "method": 0,
+    "create_system": 0,
+    "create_version": 20,
+    "extract_version": 20,
+    "external_attr": 2176188416,
+    "internal_attr": 0,
+    "extra_hex": "",
+    "comment_hex": ""
+  },
+  {
+    "name": "clip.json",
+    "size": 520,
+    "crc32": "9b28c4a7",
+    "date_time": [
+      2026,
+      11,
+      25,
+      16,
+      54,
+      20
+    ],
+    "method": 0,
+    "create_system": 0,
+    "create_version": 20,
+    "extract_version": 20,
+    "external_attr": 2176188416,
+    "internal_attr": 0,
+    "extra_hex": "",
+    "comment_hex": ""
+  },
+  {
+    "name": "sig.json",
+    "size": 394,
+    "crc32": "e4e48f8a",
+    "date_time": [
+      2026,
+      11,
+      25,
+      22,
+      9,
+      58
+    ],
+    "method": 0,
+    "create_system": 0,
+    "create_version": 20,
+    "extract_version": 20,
+    "external_attr": 2176188416,
+    "internal_attr": 0,
+    "extra_hex": "",
+    "comment_hex": ""
+  },
+  {
+    "name": "head.npz",
+    "size": 94405,
+    "crc32": "c5c7257b",
+    "date_time": [
+      2026,
+      11,
+      25,
+      23,
+      49,
+      20
+    ],
+    "method": 0,
+    "create_system": 0,
+    "create_version": 20,
+    "extract_version": 20,
+    "external_attr": 2176188416,
+    "internal_attr": 0,
+    "extra_hex": "",
+    "comment_hex": ""
+  },
+  {
+    "name": "requirements.lock",
+    "size": 202,
+    "crc32": "675fc87f",
+    "date_time": [
+      2026,
+      11,
+      25,
+      23,
+      49,
+      26
+    ],
+    "method": 0,
+    "create_system": 0,
+    "create_version": 20,
+    "extract_version": 20,
+    "external_attr": 2176188416,
+    "internal_attr": 0,
+    "extra_hex": "",
+    "comment_hex": ""
+  },
+  {
+    "name": "safety_output.py",
+    "size": 7376,
+    "crc32": "b6568a46",
+    "date_time": [
+      2026,
+      11,
+      25,
+      23,
+      50,
+      58
+    ],
+    "method": 0,
+    "create_system": 0,
+    "create_version": 20,
+    "extract_version": 20,
+    "external_attr": 2176188416,
+    "internal_attr": 0,
+    "extra_hex": "",
+    "comment_hex": ""
+  },
+  {
+    "name": "licenses/flatbuffers-LICENSE.txt",
+    "size": 11358,
+    "crc32": "86e2b4b4",
+    "date_time": [
+      2026,
+      11,
+      25,
+      23,
+      52,
+      26
+    ],
+    "method": 0,
+    "create_system": 0,
+    "create_version": 20,
+    "extract_version": 20,
+    "external_attr": 2176188416,
+    "internal_attr": 0,
+    "extra_hex": "",
+    "comment_hex": ""
+  },
+  {
+    "name": "licenses/onnxruntime-LICENSE",
+    "size": 1073,
+    "crc32": "fa60cd37",
+    "date_time": [
+      2026,
+      11,
+      25,
+      23,
+      52,
+      26
+    ],
+    "method": 0,
+    "create_system": 0,
+    "create_version": 20,
+    "extract_version": 20,
+    "external_attr": 2176188416,
+    "internal_attr": 0,
+    "extra_hex": "",
+    "comment_hex": ""
+  },
+  {
+    "name": "licenses/onnxruntime-ThirdPartyNotices.txt",
+    "size": 325054,
+    "crc32": "f3f5263d",
+    "date_time": [
+      2026,
+      11,
+      25,
+      23,
+      52,
+      26
+    ],
+    "method": 0,
+    "create_system": 0,
+    "create_version": 20,
+    "extract_version": 20,
+    "external_attr": 2176188416,
+    "internal_attr": 0,
+    "extra_hex": "",
+    "comment_hex": ""
+  },
+  {
+    "name": "licenses/openai-CLIP-MIT.txt",
+    "size": 1064,
+    "crc32": "ad99e816",
+    "date_time": [
+      2026,
+      11,
+      25,
+      23,
+      54,
+      10
+    ],
+    "method": 0,
+    "create_system": 0,
+    "create_version": 20,
+    "extract_version": 20,
+    "external_attr": 2176188416,
+    "internal_attr": 0,
+    "extra_hex": "",
+    "comment_hex": ""
+  },
+  {
+    "name": "licenses/siglip2-APACHE-2.0.txt",
+    "size": 11358,
+    "crc32": "86e2b4b4",
+    "date_time": [
+      2026,
+      11,
+      25,
+      23,
+      54,
+      12
+    ],
+    "method": 0,
+    "create_system": 0,
+    "create_version": 20,
+    "extract_version": 20,
+    "external_attr": 2176188416,
+    "internal_attr": 0,
+    "extra_hex": "",
+    "comment_hex": ""
+  },
+  {
+    "name": "README.md",
+    "size": 2602,
+    "crc32": "0d305e5b",
+    "date_time": [
+      2026,
+      11,
+      25,
+      23,
+      54,
+      12
+    ],
+    "method": 0,
+    "create_system": 0,
+    "create_version": 20,
+    "extract_version": 20,
+    "external_attr": 2176188416,
+    "internal_attr": 0,
+    "extra_hex": "",
+    "comment_hex": ""
+  }
+]
