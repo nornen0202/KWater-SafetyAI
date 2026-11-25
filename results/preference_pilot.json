@@ -1,0 +1,77 @@
+{
+  "scope": "Paired wording preparation and human preference inventory. No new inference. No official LLM score.",
+  "cohorts": {
+    "public_clean": {
+      "planned_source_photos": 1,
+      "source_generations_observed": 1,
+      "parsed_source_generations": 1,
+      "source_photos_observed": 1,
+      "generations_used_in_pairs": 1,
+      "photos_with_pairs": 1,
+      "built_pairs": 2,
+      "pairs_by_field": {
+        "evidence": 1,
+        "prevention": 1
+      },
+      "human_rated_pairs": 0,
+      "human_unrated_pairs": 2,
+      "human_votes": 0,
+      "human_reviewers": 0,
+      "choices": {},
+      "votes_by_field": {
+        "evidence": {},
+        "prevention": {}
+      },
+      "source_preference_among_directional_votes": null
+    },
+    "prompt_six": {
+      "planned_source_photos": 6,
+      "source_generations_observed": 0,
+      "parsed_source_generations": 0,
+      "source_photos_observed": 0,
+      "generations_used_in_pairs": 0,
+      "photos_with_pairs": 0,
+      "built_pairs": 0,
+      "pairs_by_field": {},
+      "human_rated_pairs": 0,
+      "human_unrated_pairs": 0,
+      "human_votes": 0,
+      "human_reviewers": 0,
+      "choices": {},
+      "votes_by_field": {
+        "evidence": {},
+        "prevention": {}
+      },
+      "source_preference_among_directional_votes": null
+    },
+    "adapter_eighteen": {
+      "planned_source_photos": 18,
+      "source_generations_observed": 0,
+      "parsed_source_generations": 0,
+      "source_photos_observed": 0,
+      "generations_used_in_pairs": 0,
+      "photos_with_pairs": 0,
+      "built_pairs": 0,
+      "pairs_by_field": {},
+      "human_rated_pairs": 0,
+      "human_unrated_pairs": 0,
+      "human_votes": 0,
+      "human_reviewers": 0,
+      "choices": {},
+      "votes_by_field": {
+        "evidence": {},
+        "prevention": {}
+      },
+      "source_preference_among_directional_votes": null
+    }
+  },
+  "checks": {
+    "same_photo_and_code": true,
+    "one_exact_span": true,
+    "equal_NFC_codepoints_UTF8_bytes_words_Qwen_tokens": true,
+    "reviewer_sees_source_side": false,
+    "tokenizer_sha256": "a5d85b6dcc535e6b93115a9ef287e6132fdbf30270da6218194ba742261173c7",
+    "recipe_sha256": "2cceb5d12eccdc341448daff6ba87ca4716673bda969b891b0605f311bbe1227"
+  },
+  "eligibility": "Preparer screened both alternatives for safe wording; eligibility is not a human preference vote."
+}
