@@ -144,22 +144,20 @@ def feature_cache(vision, train, run, rows, limit=None):
     for i, row in enumerate(rows[:limit]):
         name = hashlib.sha256((SIGNATURE + row["sha256"]).encode()).hexdigest() + ".npy"
         path = cache / name
-        if not path.exists():
+        if path.exists():
+            with path.open("rb") as f:
+                data = np.load(f, allow_pickle=False)
+        else:
             image_path = train / row["image"]
-            with image_path.open("rb") as f:
-                if hashlib.file_digest(f, "sha256").hexdigest() != row["sha256"]:
-                    raise ValueError("Changed training image")
-                f.seek(0)
-                with Image.open(f) as pic:
-                    data = vision.encode(
-                        pic, augmentation_seed=int(row["sha256"][:16], 16)
-                    )
+            raw = image_path.read_bytes()
+            if hashlib.sha256(raw).hexdigest() != row["sha256"]:
+                raise ValueError("Changed training image")
+            with Image.open(io.BytesIO(raw)) as pic:
+                data = vision.encode(pic, augmentation_seed=int(row["sha256"][:16], 16))
             tmp = path.with_suffix(".tmp")
             with tmp.open("wb") as f:
                 np.save(f, data, allow_pickle=False)
             tmp.replace(path)
-        with path.open("rb") as f:
-            data = np.load(f, allow_pickle=False)
         if (
             data.shape != (6, 17, 128)
             or data.dtype != np.float16
