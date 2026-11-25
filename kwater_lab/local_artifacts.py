@@ -19,6 +19,19 @@ LOCAL_REPORTS = (
 )
 TEMPORARY_SUFFIXES = {".pyc", ".copying", ".partial", ".part", ".crdownload", ".tmp", ".assembling"}
 
+# LFS lengths and hashes at the exact revisions used by the local verification runs.
+MODEL_RECEIPTS = {
+    "qwen3.5-4b-q4/Qwen3.5-4B-Q4_K_M.gguf": (
+        "vlm_candidate_public.json", "e87f176479d0855a907a41277aca2f8ee7a09523", "weights_sha256",
+        "Qwen3.5-4B-Q4_K_M.gguf", 2740937888, "00fe7986ff5f6b463e62455821146049db6f9313603938a70800d1fb69ef11a4"),
+    "qwen3.5-4b-q4/mmproj-F16.gguf": (
+        "vlm_candidate_public.json", "e87f176479d0855a907a41277aca2f8ee7a09523", "weights_sha256",
+        "mmproj-F16.gguf", 672423616, "cd88edcf8d031894960bb0c9c5b9b7e1fea6ebee02b9f7ce925a00d12891f864"),
+    "siglip2-base-p16-384/vision_model_quantized.onnx": (
+        "encoder_pilot_384.json", "99f5d40afb5331b81eecee4bb02c360fbb9cdf8a", "asset_digests",
+        "onnx/vision_model_quantized.onnx", 95720693, "9f354d80bbb46b319f46f9e9d0e24ae523e3eb5921aac3d34979d74dbd0db6cd"),
+}
+
 
 def is_link(path):
     info = path.lstat()
@@ -40,6 +53,8 @@ def eligible_files(root):
         dirs[:] = sorted(d for d in dirs if d != "__pycache__" and not is_link(base / d))
         for name in files:
             p = base / name
+            if p.is_relative_to(data / "external") and p.suffix.lower() == ".lock":
+                continue
             if p.is_relative_to(data / "external/aihub") and name in {"transfer.log", "transfer-status.json"}:
                 continue
             if aihub_package(p, data) and not p.with_suffix(".zip.json").is_file():
@@ -64,6 +79,43 @@ def derived_output(path, root):
     return parts[1] not in {"packages", "baseline", "local-kit", "train", "encoders"}
 
 
+def submitted_digest(path, root, attributes):
+    if path.parent != root / "data/submissions" or path.suffix.lower() != ".zip":
+        return None
+    accepted = set()
+    for record in (root / "results").glob("public_submission_*.json"):
+        if attributes.st_mtime_ns > record.stat().st_mtime_ns:
+            continue
+        receipt = json.loads(record.read_text(encoding="utf-8"))
+        if receipt.get("submitted_archive") != path.name:
+            continue
+        checksum = receipt.get("sha256", "")
+        if (receipt.get("bytes") != attributes.st_size or not re.fullmatch(r"[a-f0-9]{64}", checksum)
+                or not receipt.get("submitted_at_kst") or not receipt.get("receipt_source")):
+            raise ValueError(f"Submitted ZIP and acceptance record differ: {path.name}")
+        accepted.add(checksum)
+    if len(accepted) > 1:
+        raise ValueError(f"Conflicting accepted ZIP fingerprints: {path.name}")
+    return next(iter(accepted), None)
+
+
+def model_digest(path, root, attributes):
+    folder = root / "data/encoders"
+    if not path.is_relative_to(folder):
+        return None
+    spec = MODEL_RECEIPTS.get(path.relative_to(folder).as_posix())
+    if spec is None:
+        return None
+    receipt_name, revision, field, key, size, checksum = spec
+    record = root / "results" / receipt_name
+    if not record.is_file() or attributes.st_mtime_ns > record.stat().st_mtime_ns:
+        return None
+    receipt = json.loads(record.read_text(encoding="utf-8"))
+    if attributes.st_size != size or receipt.get("revision") != revision or receipt.get(field, {}).get(key) != checksum:
+        raise ValueError(f"Local model differs from verified revision: {path.name}")
+    return checksum
+
+
 def inventory(root, previous=None, *, refresh_derived=False):
     recorded = {r["path"]: r for r in previous["artifacts"]} if previous else {}
     rows = []
@@ -77,7 +129,10 @@ def inventory(root, previous=None, *, refresh_derived=False):
                 raise ValueError(f"Previously recorded file changed size; run a full index: {name}")
             rows.append(existing)
             continue
-        if previous and aihub_package(p, root / "data"):
+        accepted = (submitted_digest(p, root, initial) or model_digest(p, root, initial)) if previous else None
+        if accepted:
+            checksum = accepted
+        elif previous and aihub_package(p, root / "data"):
             receipt = json.loads(p.with_suffix(".zip.json").read_text(encoding="utf-8"))
             checksum = receipt["sha256"]
             if (receipt["bytes"] != size or not re.fullmatch(r"[a-f0-9]{64}", checksum)
@@ -93,8 +148,11 @@ def inventory(root, previous=None, *, refresh_derived=False):
                     or source.scheme != "https" or source.hostname != "www.dropbox.com"):
                 raise ValueError("FloodNet package differs from its acquisition receipt")
         else:
-            with p.open("rb") as stream:
-                checksum = hashlib.file_digest(stream, "sha256").hexdigest()
+            try:
+                with p.open("rb") as stream:
+                    checksum = hashlib.file_digest(stream, "sha256").hexdigest()
+            except OSError as exc:
+                raise OSError(f"Cannot hash local file {name}: {exc}") from exc
         final = p.stat()
         if (final.st_size, final.st_mtime_ns) != (size, initial.st_mtime_ns):
             raise RuntimeError(f"File changed during hash: {p.name}")
