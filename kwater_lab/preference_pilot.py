@@ -49,6 +49,24 @@ def code_map(root):
     raise ValueError("Missing organizer code map")
 
 
+def adapter_generations(local, expected_ids):
+    for factor in ("1.0", "0.75"):
+        final = local / f"generated-scale-{factor}.json"
+        batch = read(final) if final.is_file() else []
+        if final.is_file() and [row["sample_id"] for row in batch] != expected_ids:
+            raise ValueError("Scale generation batch differs from its registered photo order")
+        partial = []
+        for i, checkpoint in enumerate(sorted((local / f"progress-{factor}").glob("*.json"))):
+            row = read(checkpoint)
+            if i >= len(expected_ids) or checkpoint.name != f"{i+1:02d}.json" or row["sample_id"] != expected_ids[i]:
+                raise ValueError("Scale progress row does not match its registered photo")
+            if batch and row != batch[i]:
+                raise ValueError("Scale progress row conflicts with the final generation")
+            partial.append(row)
+        for row in batch or partial:
+            yield factor, row
+
+
 def sources(root, public_img):
     rows = {}
     def add(trial, cohort, sid, picture, image_sha, receipt_sha, hazards, mapping=None):
@@ -90,6 +108,8 @@ def sources(root, public_img):
                 case = design["anchors"][(i+1) % len(design["anchors"])] if arm == "swapped_11" else anchor
                 if r["signature"] != sig or r["image_sha256"] != case["sha256"] or audit[case["sid"]]["sha256"] != case["sha256"]:
                     raise ValueError("Prompt receipt provenance mismatch")
+                if not r["generation"].get("raw_output", "").strip():
+                    continue
                 hs = None
                 if r["generation"]["finish_reason"] == "stop":
                     try:
@@ -100,23 +120,18 @@ def sources(root, public_img):
                     case["sha256"], file_hash(path), hs)
 
     scale_dir = root/"data/adapter-scale-pilot"
-    for path in sorted(scale_dir.glob("generated-scale-*.json")):
-        factor = path.stem.removeprefix("generated-scale-")
-        if factor not in ("1.0","0.75"):
-            continue
+    if scale_dir.is_dir():
         lookup = {sha("kwater/scale/" + s)[:32]: s for s,_ in sample(read(root/"data/prefix-pilot/exposure.json"))}
-        generated = read(path)
-        if len(generated) != 18 or {r["sample_id"] for r in generated} != lookup.keys():
-            raise ValueError("Scale generation batch does not cover its designated 18 photos")
-        checksum = file_hash(path)
+        if len(lookup) != 18:
+            raise ValueError("Expected 18 distinct registered scale photos")
         mapping = code_map(root)
-        for rec in generated:
+        for factor, rec in adapter_generations(scale_dir, list(lookup)):
             sid = lookup[rec["sample_id"]]
             item = audit[sid]
             pred = rec["prediction"]
             hs = pred.get("hazards") if isinstance(pred, dict) else None
             add(f"scale/{factor}/{sid}", COHORTS[2], sid, root/"data/train"/item["image"],
-                item["sha256"], checksum, hs, mapping)
+                item["sha256"], sha(canonical(rec)), hs, mapping)
     return rows
 
 
