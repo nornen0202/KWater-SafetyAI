@@ -1,0 +1,25 @@
+{
+  "scope": "original validation rope-work partition",
+  "files": {
+    "raw": "68035",
+    "labels": "68023"
+  },
+  "images": 707,
+  "labels": 707,
+  "matched": 707,
+  "unique_raw_videos": 17,
+  "source_id_mismatches": 0,
+  "provider_states": {
+    "WS": 707
+  },
+  "box_classes": {
+    "SO-19": 115,
+    "WO-01": 668,
+    "SO-06": 1038,
+    "SO-09": 73,
+    "SO-24": 2
+  },
+  "invalid_xywh_boxes": 0,
+  "decoded_images": 32,
+  "decoded_size_matches": 32
+}

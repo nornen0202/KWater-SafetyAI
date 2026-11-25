@@ -1,0 +1,87 @@
+{
+  "observed_utc": "2026-11-25T12:39:59.293308+00:00",
+  "aihub": {
+    "71407": {
+      "source": "https://www.aihub.or.kr/aihubdata/data/view.do?dataSetSn=71407",
+      "approved": true,
+      "published_files": 452,
+      "provider_estimated_bytes": 272245612544,
+      "completed_files": 94,
+      "completed_bytes": 1159261414,
+      "transfer_errors": 0,
+      "sample": {
+        "bytes": 147267723,
+        "sha256": "ea98d07191a8ad8b6b39f3916e5948d482bdec98e891bff314cde498a5e044b1",
+        "source_page": "https://www.aihub.or.kr/aihubdata/data/view.do?dataSetSn=71407"
+      }
+    },
+    "71793": {
+      "source": "https://www.aihub.or.kr/aihubdata/data/view.do?dataSetSn=71793",
+      "approved": true,
+      "published_files": 5,
+      "provider_estimated_bytes": 38222692352,
+      "completed_files": 1,
+      "completed_bytes": 71874412,
+      "transfer_errors": 0,
+      "sample": {
+        "bytes": 430244083,
+        "sha256": "66f684adb4de819172605b6aaa1cf49c517a1165776f788868d4bb8cd404d52e",
+        "source_page": "https://www.aihub.or.kr/aihubdata/data/view.do?dataSetSn=71793"
+      }
+    },
+    "507": {
+      "source": "https://www.aihub.or.kr/aihubdata/data/view.do?dataSetSn=507",
+      "approved": true,
+      "published_files": 27,
+      "provider_estimated_bytes": 543946122240,
+      "completed_files": 5,
+      "completed_bytes": 462612288,
+      "transfer_errors": 0
+    }
+  },
+  "references": [
+    {
+      "source_url": "https://www.moel.go.kr/common/downloadFile.do?file_seq=20260501390&bbs_seq=20260500439&bbs_id=29&file_ext=pdf",
+      "bytes": 12487404,
+      "sha256": "abb56328019ff39d726ee89384713484f7cc2a2b590f52d9075732957b58a09a"
+    },
+    {
+      "source_url": "https://www.moel.go.kr/common/downloadFile.do?file_seq=20260501391&bbs_seq=20260500439&bbs_id=29&file_ext=pdf",
+      "bytes": 1021777,
+      "sha256": "7d739f6b94d38219d4721cd2fea8d0a4acc7c00270c39ac3bd07527c01839cee"
+    },
+    {
+      "source_url": "https://www.moel.go.kr/common/downloadFile.do?file_seq=20260501392&bbs_seq=20260500439&bbs_id=29&file_ext=pdf",
+      "bytes": 7792458,
+      "sha256": "4ea468f6f415198f9d8f8b5e6f059c3bcb126f5557e271822efda005a8272af9"
+    },
+    {
+      "source_url": "https://www.moel.go.kr/common/downloadFile.do?file_seq=20260501393&bbs_seq=20260500439&bbs_id=29&file_ext=pdf",
+      "bytes": 3841065,
+      "sha256": "4a5581c778baab4f7ce8cfdee4ad83a80d74be857b98c4379fe6e8ebe70fce67"
+    },
+    {
+      "source_url": "https://www.moel.go.kr/common/downloadFile.do?file_seq=20260501394&bbs_seq=20260500439&bbs_id=29&file_ext=pdf",
+      "bytes": 1038465,
+      "sha256": "05069d83272cd2e6afbf7d4c78b65a48703e6a96de64fe08167ef16225292c90"
+    }
+  ],
+  "kalis/sample.zip": {
+    "source_url": "https://www.data.go.kr/cmm/cmm/fileDownload.do",
+    "bytes": 4666023,
+    "sha256": "b2b1cb0e2a357af387e1708b7b152f46ef89e42c6abb009712f51ef75d222c63"
+  },
+  "floodnet/FloodNet.zip": {
+    "verified_receipt": false
+  },
+  "kosha-confined/confined-space-2022.pdf": {
+    "source_url": "https://www.moel.go.kr/local/boryeong/common/downloadFile.do?file_seq=20230502606&bbs_seq=20230501649&bbs_id=LOCAL5",
+    "bytes": 4512595,
+    "sha256": "3d634673ef6a90fb3ece60fec7ef21d3d6654277aff9edef4843a7bd187eab88"
+  },
+  "kosha-sif/sif-20260401.xlsx": {
+    "source_url": "https://www.moel.go.kr/common/downloadFile.do?file_seq=20260400329&bbs_seq=20260400196&bbs_id=29&file_ext=xlsx",
+    "bytes": 1435423,
+    "sha256": "0c2bb7a47c951039b30020e0ba6974362cf5d32d69d62486093f3f16b2da394e"
+  }
+}
