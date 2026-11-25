@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+/.runtime/
+/data/
+/results/train_audit_full.json
+/results/train_audit_reviewed.json
+/results/*/submission.jsonl
+/results/clip_probe.json
+/results/visual_probe.json
+/results/taxonomy_followup.json
+/results/prototype.json
+/results/prevention_replay.json
+/results/public_law_replay.json
+/results/public_law_replay_review.json

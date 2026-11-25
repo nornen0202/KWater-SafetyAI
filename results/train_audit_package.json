@@ -1,0 +1,13 @@
+{
+  "archive": "kwater-train.zip",
+  "size_bytes": 1802107979,
+  "source_and_copy_sha256": "2dc849828eb6fc6e4d380aced9757655275f40aa50ab13f4723f6868216dfb77",
+  "zip_entries": 1047,
+  "uncompressed_bytes": 1802643652,
+  "CRC_checked": true,
+  "top_level": [
+    "README.md",
+    "images",
+    "train.jsonl"
+  ]
+}

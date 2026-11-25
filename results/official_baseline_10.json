@@ -1,0 +1,115 @@
+{
+  "finished_utc": "2026-11-25T10:28:20.735700+00:00",
+  "mode": "official_code_native_host",
+  "competition_container_tested": false,
+  "external_network_blocked_at_os_level": false,
+  "offline_environment": {
+    "HF_HUB_OFFLINE": "1",
+    "TRANSFORMERS_OFFLINE": "1",
+    "HF_DATASETS_OFFLINE": "1"
+  },
+  "main_sha256": "6dff3c44b5b0331a1085ddb69545d153510c13e670c4e163442f57d3dd1ae9c6",
+  "archive_sha256": "be91eb3a745dc6e1f305237b44842106707164f4174940439b246e4abb385aab",
+  "code_and_prompt_files_matching_archive": 11,
+  "input_count": 10,
+  "source_manifest_sha256": "9414c55dde6fdbe4ac8bd4aba7dd6b973c74778cc31ca6fa532ac258500b7b90",
+  "native_versions": {
+    "torch": "2.5.1",
+    "torchvision": "0.20.1",
+    "transformers": "4.57.1",
+    "peft": "0.17.1",
+    "accelerate": "1.10.1",
+    "huggingface-hub": "0.36.0",
+    "tokenizers": "0.22.1",
+    "numpy": "1.26.4",
+    "Pillow": "11.3.0",
+    "safetensors": "0.8.0",
+    "jsonschema": "4.23.0"
+  },
+  "command": [
+    "C:\\Users\\JY\\anaconda3\\envs\\env_aias_test\\python.exe",
+    "G:\\Projects\\KWater-SafetyAI\\data\\baseline\\main.py",
+    "--input-dir",
+    "G:\\Projects\\KWater-SafetyAI\\data\\local-kit\\sample-input",
+    "--output-dir",
+    "G:\\Projects\\KWater-SafetyAI\\data\\official-baseline-10\\output"
+  ],
+  "kw_batch": 1,
+  "seed": 42,
+  "return_code": 0,
+  "native_timeout_seconds": 5400,
+  "time_limit_reached": false,
+  "elapsed_seconds_including_native_model_startup": 2035.436,
+  "gpu_system_used_mib_before": 1968,
+  "gpu_system_peak_used_mib": 11831,
+  "any_traceback": false,
+  "full_model_log": "G:\\Projects\\KWater-SafetyAI\\data\\official-baseline-10\\model.log",
+  "official_model_schema_valid_count": 10,
+  "internal_invalid_fallback_count": 0,
+  "infer_progress": [
+    {
+      "cumulative_images": 1,
+      "total": 10,
+      "generation_seconds": 26.9
+    },
+    {
+      "cumulative_images": 2,
+      "total": 10,
+      "generation_seconds": 32.9
+    },
+    {
+      "cumulative_images": 3,
+      "total": 10,
+      "generation_seconds": 38.3
+    },
+    {
+      "cumulative_images": 4,
+      "total": 10,
+      "generation_seconds": 43.3
+    },
+    {
+      "cumulative_images": 5,
+      "total": 10,
+      "generation_seconds": 48.4
+    },
+    {
+      "cumulative_images": 6,
+      "total": 10,
+      "generation_seconds": 53.9
+    },
+    {
+      "cumulative_images": 7,
+      "total": 10,
+      "generation_seconds": 73.8
+    },
+    {
+      "cumulative_images": 8,
+      "total": 10,
+      "generation_seconds": 78.8
+    },
+    {
+      "cumulative_images": 9,
+      "total": 10,
+      "generation_seconds": 84.2
+    },
+    {
+      "cumulative_images": 10,
+      "total": 10,
+      "generation_seconds": 90.0
+    }
+  ],
+  "official_checker_exit": 0,
+  "official_checker_valid_rows": 10,
+  "n_rows": 10,
+  "n_hazard": 2,
+  "n_no_visible_hazard": 8,
+  "predicted_code_counts": {
+    "fall_height": 1,
+    "slip_trip": 1,
+    "other": 1
+  },
+  "reference_count": 3,
+  "law_reference_count": 3,
+  "law_reference_ids_resolved_in_official_corpus": 3,
+  "output_sha256": "ba9c79ba266d79c45bd8c6cc2e800b1fa39216d0dedb11b94111f13c2a30b1ec"
+}

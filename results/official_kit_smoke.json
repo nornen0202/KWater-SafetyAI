@@ -1,0 +1,26 @@
+{
+  "recorded_utc": "2026-11-25T09:08:24.993666+00:00",
+  "scope": "Official local kit template and two official checkers, native Windows execution; no Docker, GPU or quality scoring for this template.",
+  "kit_bytes": 2713157,
+  "kit_sha256": "28acc73fab6a7605361866f87825bd00740b1aacd9bfe35996bdec542dbc37c2",
+  "zip_entries": 22,
+  "all_entry_crc_passed": true,
+  "template_sha256": "aeb887099ae3a3dae2c4284a72f61bb49c3550a0ee25963cd11ee258d9e7d2f8",
+  "official_zip_check": {
+    "seed": 0,
+    "lock": false,
+    "exit_code": 0
+  },
+  "official_template_main_exit": 0,
+  "sample_images": 10,
+  "official_output_checker_sha256": "22dd4bf71c2a47b5d5928ae90b7a098cecc692b4ec32c8bbe7506c4876c45fed",
+  "official_output_checker_exit": 0,
+  "valid_outputs": 10,
+  "official_output_summary": [
+    "유효 결과 10/10",
+    "OK 채점 대상입니다 (무효 줄·빠진 사진은 그 사진만 0점)"
+  ],
+  "output_sha256": "36d21e3a2a8e3706c00ba7dcd66f43cb19bd6147dddbfc98369134b883b07a4b",
+  "predictions_file": "data\\kit-template-smoke\\output\\submission.jsonl",
+  "full_official_docker_sandbox_tested": false
+}

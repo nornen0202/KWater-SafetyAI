@@ -1,0 +1,27 @@
+{
+  "source": "N:\\User Manual\\Downloads",
+  "project_storage": "data\\packages",
+  "packages": [
+    {
+      "name": "kwater-local-kit.zip",
+      "bytes": 2713157,
+      "sha256_n_and_g": "28acc73fab6a7605361866f87825bd00740b1aacd9bfe35996bdec542dbc37c2",
+      "zip_members": 22,
+      "member_crc_verified": true
+    },
+    {
+      "name": "kwater-train.zip",
+      "bytes": 1802107979,
+      "sha256_n_and_g": "2dc849828eb6fc6e4d380aced9757655275f40aa50ab13f4723f6868216dfb77",
+      "zip_members": 1047,
+      "member_crc_verified": true
+    },
+    {
+      "name": "kwater-baseline.zip",
+      "bytes": 9032392642,
+      "sha256_n_and_g": "be91eb3a745dc6e1f305237b44842106707164f4174940439b246e4abb385aab",
+      "zip_members": 47,
+      "member_crc_verified": true
+    }
+  ]
+}

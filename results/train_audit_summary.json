@@ -1,0 +1,134 @@
+{
+  "rows": 1045,
+  "unique_sample_id": 1045,
+  "unique_image_paths": 1045,
+  "status_counts": {
+    "hazard": 730,
+    "no_visible_hazard": 315
+  },
+  "hazard_count_per_photo": {
+    "0": 315,
+    "1": 544,
+    "2": 160,
+    "3": 26
+  },
+  "per_code_photo_count": {
+    "caught_in_machine": 48,
+    "chemical_exposure": 19,
+    "confined_space": 1,
+    "drowning_inundation": 1,
+    "electrical_energy": 47,
+    "fall_height": 224,
+    "fire_explosion": 44,
+    "other": 168,
+    "slip_trip": 317,
+    "struck_by_lifting": 72,
+    "thermal_weather": 1
+  },
+  "hazard_instances": 942,
+  "hazards_with_no_references": 56,
+  "source_reference_kinds": {
+    "law": 1086
+  },
+  "nonempty_uncertainty_notes": 25,
+  "strict_target_violations": {},
+  "confirmed_incident_id_field": null,
+  "observed_top_level_keys": [
+    "image",
+    "notes",
+    "sample_id",
+    "target"
+  ],
+  "observed_note_keys": [
+    "scene_note",
+    "uncertainty"
+  ],
+  "zip": {
+    "archive": "kwater-train.zip",
+    "size_bytes": 1802107979,
+    "source_and_copy_sha256": "2dc849828eb6fc6e4d380aced9757655275f40aa50ab13f4723f6868216dfb77",
+    "zip_entries": 1047,
+    "uncompressed_bytes": 1802643652,
+    "CRC_checked": true,
+    "top_level": [
+      "README.md",
+      "images",
+      "train.jsonl"
+    ]
+  },
+  "legal_reference_check": {
+    "law_asset_sha256": "1408b69db444cf90b31f9bebb4a773a30fa4362739e50b22c95f3bbe0e75bd9d",
+    "law_source_rows": 2871,
+    "resolvable_article_identifiers": 690,
+    "validated_label_mentions": 1086,
+    "unique_label_references": 70,
+    "unresolvable_mentions": 0,
+    "unresolvable_distinct_ids": 0,
+    "normalization_source": "kwater-baseline.zip/main.py article normalization; kind=law only",
+    "textual_support_checked": false
+  },
+  "label_sha256": "ab427fed4615b32627b76001e27124e99ae9202c855ba4170916ebe4fdc4de55",
+  "admissible_for_incident_independent_split": false,
+  "split_status": "needs_group_review",
+  "verified_incident_mappings": 0,
+  "unmapped_photos": 1045,
+  "unreadable_or_invalid_rows": 0,
+  "full_pixel_audit_source": "Sequential member decode of the CRC-checked official ZIP. Source and G: archive SHA-256 independently matched. Per-image hashes enable file checks during training.",
+  "image_metadata": {
+    "exif_tagged_images": 0,
+    "png_keys_counts": {
+      "icc_profile": 34,
+      "dpi": 6
+    },
+    "format_mode_counts": {
+      "PNG RGB": 1045
+    }
+  },
+  "unique_dimensions": 502,
+  "orientation": {
+    "landscape": 937,
+    "portrait": 101,
+    "square": 7
+  },
+  "min_median_max_pixels": [
+    17819,
+    562671,
+    34159711
+  ],
+  "byte_duplicate_sets": 0,
+  "pixel_duplicate_sets": 0,
+  "photos_in_exact_pixel_sets": 0,
+  "pixel_duplicate_sets_with_conflicting_hazard_codes": 0,
+  "dhash_threshold": 4,
+  "pairs_within_dhash_threshold": 0,
+  "distinct_hazard_sets": 37,
+  "most_common_hazard_pairs": {
+    "other + slip_trip": 60,
+    "fall_height + slip_trip": 54,
+    "fall_height + other": 27,
+    "slip_trip + struck_by_lifting": 22,
+    "fire_explosion + other": 11,
+    "electrical_energy + slip_trip": 10,
+    "fire_explosion + slip_trip": 10,
+    "other + struck_by_lifting": 10,
+    "caught_in_machine + slip_trip": 7,
+    "fall_height + struck_by_lifting": 7
+  },
+  "instances_without_sources_by_code": {
+    "other": 20,
+    "slip_trip": 14,
+    "caught_in_machine": 4,
+    "fall_height": 6,
+    "confined_space": 1,
+    "chemical_exposure": 3,
+    "struck_by_lifting": 4,
+    "electrical_energy": 2,
+    "fire_explosion": 1,
+    "thermal_weather": 1
+  },
+  "group_review_protocol": [
+    "A documented incident map or local source-case review is needed for 1,045 photos. The supplied sample_id identifies an image. Labels, scene notes and PNG metadata do not establish incident boundaries.",
+    "Use the label-blind visual review CSV in data/group-review. Check candidate crops, related views and affected workers using trusted local source information. Large dHash distance does not prove incident independence.",
+    "Record verified sample_id,group_id for every used image, and only confirmed pair decisions. Reserve all previously unseen incidents for final assessment. Three classes have one positive photo each and cannot support simultaneous independent train and test positives."
+  ]
+}

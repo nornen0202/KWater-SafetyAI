@@ -1,0 +1,11 @@
+{
+  "law_asset_sha256": "1408b69db444cf90b31f9bebb4a773a30fa4362739e50b22c95f3bbe0e75bd9d",
+  "law_source_rows": 2871,
+  "resolvable_article_identifiers": 690,
+  "validated_label_mentions": 1086,
+  "unique_label_references": 70,
+  "unresolvable_mentions": 0,
+  "unresolvable_distinct_ids": 0,
+  "normalization_source": "kwater-baseline.zip/main.py article normalization; kind=law only",
+  "textual_support_checked": false
+}

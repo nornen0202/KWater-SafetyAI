@@ -1,0 +1,175 @@
+{
+  "scope": "Exploratory leave-one-ID-prefix-out. No verified incident identifiers. Oracle hazard code, evidence and prevention; no scene notes. No bundled training examples or adapter.",
+  "query_count_unit": "hazard annotation with at least one gold law ID",
+  "retriever_output": "The official selector returns five legal units, collapsed to unique articles. The prior returns up to three articles.",
+  "reference_order_for_training": "Original order of distinct active article IDs",
+  "labels_sha256": "ab427fed4615b32627b76001e27124e99ae9202c855ba4170916ebe4fdc4de55",
+  "exposure_sha256": "3e049cac60ec3db236ad3a98bcf44785ccf24621eadd1d16286f72855f0643e4",
+  "laws_sha256": "1408b69db444cf90b31f9bebb4a773a30fa4362739e50b22c95f3bbe0e75bd9d",
+  "rag_sha256": "4fdd5046e93cf0689b40fdf209b9f8a5344a5dbe5a6ac43641c14a755043e640",
+  "audit_sha256": "9ea46cd904b181405052304c4f439cf2e4252a44b8c094c218c989f63e92d502",
+  "folds": {
+    "S73": {
+      "train_photos": 131,
+      "query_photos": 39,
+      "removed_for_image_similarity": 0,
+      "scores": {
+        "code_frequency": {
+          "queries": 35,
+          "top1_hits": 26,
+          "top3_hits": 29,
+          "hit_at_1": 0.7428571428571429,
+          "hit_at_3": 0.8285714285714286,
+          "mean_reciprocal_rank": 0.7857142857142857
+        },
+        "official_train_examples": {
+          "queries": 35,
+          "top1_hits": 28,
+          "top3_hits": 31,
+          "hit_at_1": 0.8,
+          "hit_at_3": 0.8857142857142857,
+          "mean_reciprocal_rank": 0.850952380952381
+        }
+      }
+    },
+    "S87": {
+      "train_photos": 139,
+      "query_photos": 31,
+      "removed_for_image_similarity": 0,
+      "scores": {
+        "code_frequency": {
+          "queries": 19,
+          "top1_hits": 16,
+          "top3_hits": 16,
+          "hit_at_1": 0.8421052631578947,
+          "hit_at_3": 0.8421052631578947,
+          "mean_reciprocal_rank": 0.8421052631578947
+        },
+        "official_train_examples": {
+          "queries": 19,
+          "top1_hits": 15,
+          "top3_hits": 17,
+          "hit_at_1": 0.7894736842105263,
+          "hit_at_3": 0.8947368421052632,
+          "mean_reciprocal_rank": 0.8552631578947368
+        }
+      }
+    },
+    "S129001": {
+      "train_photos": 140,
+      "query_photos": 30,
+      "removed_for_image_similarity": 0,
+      "scores": {
+        "code_frequency": {
+          "queries": 24,
+          "top1_hits": 17,
+          "top3_hits": 21,
+          "hit_at_1": 0.7083333333333334,
+          "hit_at_3": 0.875,
+          "mean_reciprocal_rank": 0.7708333333333334
+        },
+        "official_train_examples": {
+          "queries": 24,
+          "top1_hits": 18,
+          "top3_hits": 22,
+          "hit_at_1": 0.75,
+          "hit_at_3": 0.9166666666666666,
+          "mean_reciprocal_rank": 0.8263888888888888
+        }
+      }
+    },
+    "S129005": {
+      "train_photos": 148,
+      "query_photos": 22,
+      "removed_for_image_similarity": 0,
+      "scores": {
+        "code_frequency": {
+          "queries": 26,
+          "top1_hits": 20,
+          "top3_hits": 23,
+          "hit_at_1": 0.7692307692307693,
+          "hit_at_3": 0.8846153846153846,
+          "mean_reciprocal_rank": 0.8269230769230769
+        },
+        "official_train_examples": {
+          "queries": 26,
+          "top1_hits": 23,
+          "top3_hits": 24,
+          "hit_at_1": 0.8846153846153846,
+          "hit_at_3": 0.9230769230769231,
+          "mean_reciprocal_rank": 0.9038461538461539
+        }
+      }
+    },
+    "S91": {
+      "train_photos": 145,
+      "query_photos": 25,
+      "removed_for_image_similarity": 0,
+      "scores": {
+        "code_frequency": {
+          "queries": 20,
+          "top1_hits": 17,
+          "top3_hits": 18,
+          "hit_at_1": 0.85,
+          "hit_at_3": 0.9,
+          "mean_reciprocal_rank": 0.875
+        },
+        "official_train_examples": {
+          "queries": 20,
+          "top1_hits": 18,
+          "top3_hits": 19,
+          "hit_at_1": 0.9,
+          "hit_at_3": 0.95,
+          "mean_reciprocal_rank": 0.9266666666666667
+        }
+      }
+    },
+    "S103": {
+      "train_photos": 147,
+      "query_photos": 23,
+      "removed_for_image_similarity": 0,
+      "scores": {
+        "code_frequency": {
+          "queries": 23,
+          "top1_hits": 22,
+          "top3_hits": 23,
+          "hit_at_1": 0.9565217391304348,
+          "hit_at_3": 1.0,
+          "mean_reciprocal_rank": 0.9782608695652174
+        },
+        "official_train_examples": {
+          "queries": 23,
+          "top1_hits": 22,
+          "top3_hits": 23,
+          "hit_at_1": 0.9565217391304348,
+          "hit_at_3": 1.0,
+          "mean_reciprocal_rank": 0.9782608695652174
+        }
+      }
+    }
+  },
+  "paired_top1": {
+    "both_hit": 115,
+    "both_missed": 20,
+    "retrieval_only": 9,
+    "frequency_only": 3
+  },
+  "methods": {
+    "code_frequency": {
+      "queries": 147,
+      "top1_hits": 118,
+      "top3_hits": 130,
+      "hit_at_1": 0.8027210884353742,
+      "hit_at_3": 0.8843537414965986,
+      "mean_reciprocal_rank": 0.8401360544217688
+    },
+    "official_train_examples": {
+      "queries": 147,
+      "top1_hits": 124,
+      "top3_hits": 136,
+      "hit_at_1": 0.8435374149659864,
+      "hit_at_3": 0.9251700680272109,
+      "mean_reciprocal_rank": 0.8870748299319728
+    }
+  }
+}

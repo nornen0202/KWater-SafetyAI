@@ -1,0 +1,16 @@
+{
+  "archive_name": "kwater-baseline.zip",
+  "archive_bytes": 9032392642,
+  "original_sha256": "be91eb3a745dc6e1f305237b44842106707164f4174940439b246e4abb385aab",
+  "preserved_copy_sha256": "be91eb3a745dc6e1f305237b44842106707164f4174940439b246e4abb385aab",
+  "sha256_equal": true,
+  "entries": 47,
+  "uncompressed_bytes": 9056261772,
+  "all_entry_crc_validated_during_official_extraction": true,
+  "official_seed": 42,
+  "official_wheel_lock": true,
+  "extracted_dir": "data/baseline",
+  "code_and_prompt_files_matching_archive": 11,
+  "main_sha256": "6dff3c44b5b0331a1085ddb69545d153510c13e670c4e163442f57d3dd1ae9c6",
+  "archive_check_finished_utc": "2026-11-25T09:53:44.741008+00:00"
+}

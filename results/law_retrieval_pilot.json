@@ -1,0 +1,58 @@
+{
+  "scope": "Pilot only; oracle Korean annotations. An exact ID hit means agreement with an annotated source.",
+  "photos": 170,
+  "active_articles": 669,
+  "counts": {
+    "hazard_rows": 149,
+    "without_law_reference": 2
+  },
+  "reference_ids_outside_active_corpus": {},
+  "query_policy": "Remove explicit article numbers; filter to previously exposed sample IDs. No label/code prior.",
+  "bm25_tie_break": "Descending score then lexical article ID. Articles with no matching term have no rank.",
+  "official_rag": {
+    "sha256": "4fdd5046e93cf0689b40fdf209b9f8a5344a5dbe5a6ac43641c14a755043e640",
+    "examples_used": 0,
+    "input": "Evidence and action only, no scene note. Up to five returned legal units are collapsed to unique parent articles."
+  },
+  "labels_sha256": "ab427fed4615b32627b76001e27124e99ae9202c855ba4170916ebe4fdc4de55",
+  "exposure_sha256": "3e049cac60ec3db236ad3a98bcf44785ccf24621eadd1d16286f72855f0643e4",
+  "laws_sha256": "1408b69db444cf90b31f9bebb4a773a30fa4362739e50b22c95f3bbe0e75bd9d",
+  "methods": {
+    "word_evidence_action": {
+      "queries": 147,
+      "top1_hits": 11,
+      "top3_hits": 17,
+      "hit_at_1": 0.07482993197278912,
+      "hit_at_3": 0.11564625850340136,
+      "mean_reciprocal_rank": 0.11218107374384208
+    },
+    "bigram_evidence_action": {
+      "queries": 147,
+      "top1_hits": 15,
+      "top3_hits": 30,
+      "hit_at_1": 0.10204081632653061,
+      "hit_at_3": 0.20408163265306123,
+      "mean_reciprocal_rank": 0.18496390926292508
+    },
+    "bigram_action": {
+      "queries": 147,
+      "top1_hits": 22,
+      "top3_hits": 31,
+      "hit_at_1": 0.14965986394557823,
+      "hit_at_3": 0.2108843537414966,
+      "mean_reciprocal_rank": 0.21241205098841864
+    },
+    "official_rag_no_examples": {
+      "queries": 147,
+      "top1_hits": 15,
+      "top3_hits": 23,
+      "hit_at_1": 0.10204081632653061,
+      "hit_at_3": 0.1564625850340136,
+      "mean_reciprocal_rank": 0.1336734693877551
+    }
+  },
+  "paired_top1_bigram_vs_word": {
+    "losses": 2,
+    "gains": 6
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "scope": "previously exposed 170-photo prefix pilot, false candidate rates among negatives",
+  "photos": 170,
+  "rare_gold_counts": {
+    "confined_space": 0,
+    "drowning_inundation": 0,
+    "thermal_weather": 0
+  },
+  "image_files_opened": 0,
+  "code_order": [
+    "fall_height",
+    "slip_trip",
+    "caught_in_machine",
+    "struck_by_lifting",
+    "electrical_energy",
+    "drowning_inundation",
+    "fire_explosion",
+    "confined_space",
+    "chemical_exposure",
+    "thermal_weather",
+    "other",
+    "no_visible_hazard"
+  ],
+  "framing": "full_frame",
+  "revision": "6b7c523703ae26e39be4b03774966f8571c7f523",
+  "encoder": "Xenova/clip-vit-base-patch32",
+  "text_runtime": "ONNX Runtime CPUExecutionProvider, 4 threads",
+  "text_model_sha256": "73baab855d406190da9faa498cfedf65f15cf309f4cc7385b7b032e6d08e5c3a",
+  "tokenizer_sha256": "f7f3b7af117d467b58374797691a6438d3e6b9e9cef800dfd5dced7f697a90cd",
+  "versions": {
+    "numpy": "2.4.4",
+    "onnxruntime": "1.26.0"
+  },
+  "ranking": "unit image and text cosine, all 11 hazards and no_visible_hazard together, descending with published code order resolving equal scores",
+  "ties_seen_at_top1_boundary": 0,
+  "ties_seen_at_top3_boundary": 0,
+  "threshold_tuning": false,
+  "incident_independence_verified": false,
+  "false_candidate_rates": {
+    "top1": {
+      "confined_space": {
+        "images": 32,
+        "denominator": 170,
+        "rate": 0.18823529411764706
+      },
+      "drowning_inundation": {
+        "images": 3,
+        "denominator": 170,
+        "rate": 0.01764705882352941
+      },
+      "thermal_weather": {
+        "images": 3,
+        "denominator": 170,
+        "rate": 0.01764705882352941
+      },
+      "any_of_three": {
+        "images": 38,
+        "denominator": 170,
+        "rate": 0.2235294117647059
+      }
+    },
+    "top3": {
+      "confined_space": {
+        "images": 72,
+        "denominator": 170,
+        "rate": 0.4235294117647059
+      },
+      "drowning_inundation": {
+        "images": 6,
+        "denominator": 170,
+        "rate": 0.03529411764705882
+      },
+      "thermal_weather": {
+        "images": 17,
+        "denominator": 170,
+        "rate": 0.1
+      },
+      "any_of_three": {
+        "images": 88,
+        "denominator": 170,
+        "rate": 0.5176470588235295
+      }
+    }
+  },
+  "positive_recall": null,
+  "limitation": "No rare-class positives are present. These candidate rankings do not measure positive recall, final submitted false alarms, or an official score.",
+  "input_sha256": {
+    "features": "00d1f8ba49ba97b6d108ab580d4fd50d9eb2024a75af0d625420840436419158",
+    "diagnostic": "daf0cdd97ffa5bbc3ea7cb3df17fcb26321bb093440322d32a4c1857943d9e72",
+    "exposure": "3e049cac60ec3db236ad3a98bcf44785ccf24621eadd1d16286f72855f0643e4",
+    "prompt_record": "ddb6e37ac32527266e55085c0e2d5326d6dd7da88f95df6dcd723ee15b796fdc"
+  }
+}

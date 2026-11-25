@@ -1,0 +1,20 @@
+{
+  "event": "K-water 5th Public leaderboard",
+  "stage": "accepted_awaiting_release",
+  "observed_at_kst": "2026-11-25T20:44:00+09:00",
+  "submitted_at_kst": "2026-11-25T20:42:00+09:00",
+  "release_from_kst": "2026-11-26T13:00:00+09:00",
+  "time_precision": "minute",
+  "receipt_source": "Organizer acceptance dialog and My Submissions record",
+  "submission_page": "https://hackathon.imaginationgroup.co.kr/kwater/#my",
+  "leaderboard": "https://hackathon.imaginationgroup.co.kr/kwater/#leaderboard",
+  "submitted_archive": "kwater-baseline.zip",
+  "source": "Unmodified organizer baseline; no research variants included",
+  "bytes": 9032392642,
+  "sha256": "be91eb3a745dc6e1f305237b44842106707164f4174940439b246e4abb385aab",
+  "remaining_attempts_today": 1,
+  "daily_quota": 2,
+  "published_teams_at_observation": 0,
+  "public_score": null,
+  "public_rank": null
+}
