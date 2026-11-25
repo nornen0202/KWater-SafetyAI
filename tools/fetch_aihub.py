@@ -38,9 +38,9 @@ def save(path, obj):
 
 
 @contextmanager
-def transfer_lock():
+def transfer_lock(path=None):
     """Release the OS lock even if a worker is interrupted or the PC restarts."""
-    with (ROOT/"transfer.lock").open("a+b") as lock:
+    with (path or ROOT/"transfer.lock").open("a+b") as lock:
         if lock.tell() == 0:
             lock.write(b"0")
             lock.flush()

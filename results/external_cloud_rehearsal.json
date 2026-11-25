@@ -1,0 +1,30 @@
+{
+  "scope": "Public FloodNet features, local notebook rehearsal on Windows CPU",
+  "python": "3.12.8",
+  "torch": "2.5.1",
+  "torch_build_cuda": "12.4",
+  "notebook_sha256": "891d3ccd7d1aa5e6103f3d70d8b34931174576670938200486e0a5176f82a313",
+  "timing_scope": "Includes initializing the PyTorch optimizer and 100 full-batch updates; excludes import of torch and feature loading.",
+  "device": "cpu",
+  "wall_seconds_100_updates": 403.05302530003246,
+  "peak_cuda_allocated_mib": null,
+  "selection_sha256": "32ee0a27e7d14191489a72198df6414ca6e19fc49384fad92fe09f5f3fdfdb98",
+  "metrics": [
+    {
+      "method": "train centroids",
+      "TP": 49,
+      "FP": 1,
+      "FN": 1,
+      "TN": 63,
+      "F1": 0.98
+    },
+    {
+      "method": "linear head, 100 updates",
+      "TP": 49,
+      "FP": 3,
+      "FN": 1,
+      "TN": 61,
+      "F1": 0.9607843137254902
+    }
+  ]
+}

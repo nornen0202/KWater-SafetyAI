@@ -9,6 +9,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data/external"
+FLOODNET_SOURCE = "https://github.com/BinaLab/FloodNet-Supervised_v1.0"
 
 
 def read(path):
@@ -47,6 +48,8 @@ def snapshot(hash_samples=False):
         p=DATA/loc
         receipt=p.with_name(p.name+".json")
         out[loc]=read(receipt) if receipt.exists() else {"verified_receipt":False}
+        if loc == "floodnet/FloodNet.zip" and receipt.exists():
+            out[loc]["source_url"] = FLOODNET_SOURCE
     for receipt in sorted((DATA/"moel-heat").glob("*.pdf.json")):
         out["references"].append(read(receipt))
     return out
@@ -61,4 +64,4 @@ if __name__=="__main__":
     if args.save:
         write(ROOT/"results/external_inventory.json",doc)
     for sid,row in doc["aihub"].items():
-        print(sid,row["completed_files"],"/",row["published_files"],"verified,",row["completed_bytes"],"bytes")
+        print(sid,row["completed_files"],"/",row["published_files"],"acquired,",row["completed_bytes"],"bytes")
