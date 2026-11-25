@@ -4,6 +4,7 @@ import argparse
 import hashlib
 import json
 import math
+import os
 from pathlib import Path
 import subprocess
 
@@ -42,8 +43,6 @@ def checked_output(checker, project, inputs, output, n):
         str(output),
     ]
     # Run the distributed checker with its own dependency environment.
-    import os
-
     env = dict(os.environ)
     env.pop("PYTHONPATH", None)
     env["PYTHONUTF8"] = "1"
@@ -115,6 +114,22 @@ def verify(project, run, checker):
     for folder, cfg in (("phase3-development", dev_policy), ("inference", full_policy)):
         if sha(run / folder / cfg["head"]) != sha(run / cfg["head"]):
             raise ValueError("Incorrect packaged weights")
+        if cfg["calibration_photos"] != len(gold):
+            raise ValueError("Calibration includes non-development photos")
+    if (dev_policy["fit_photos"], full_policy["fit_photos"]) != (len(gold), len(by_id)):
+        raise ValueError("Unexpected fit cohort")
+    signature = dev_policy["vision_signature"]
+    cached = {
+        e.name: e.stat().st_size
+        for e in os.scandir(run / "features")
+        if e.is_file() and e.name.endswith(".npy")
+    }
+    required = {
+        hashlib.sha256((signature + r["sha256"]).encode()).hexdigest() + ".npy"
+        for r in manifest
+    }
+    if set(cached) != required or len(set(cached.values())) != 1:
+        raise ValueError("Incomplete or truncated feature cache")
     for name, digest in done["files"].items():
         if sha(run / name) != digest:
             raise ValueError(f"Run artifact changed: {name}")
@@ -268,6 +283,7 @@ def verify(project, run, checker):
         known_group_or_duplicate_crossings=0,
         exposed_holdout=0,
         bounded_rows=len(expected),
+        feature_cache_files=len(cached),
         official_kit=kit,
         historical_170_ids_new_training_protocol=historical,
         evaluation_manifest_sha256=sha(run / "evaluation-manifest.json"),
