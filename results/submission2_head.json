@@ -1,0 +1,195 @@
+{
+  "scope": "170 exposed photos, held-out ID prefixes; fixed threshold informed by the six archived inner calibrations. Not an independent estimate of the final refit or an official score.",
+  "photos": 170,
+  "encoder_weight_ratio": [
+    1,
+    1
+  ],
+  "bce_l2": 0.01,
+  "steps": 250,
+  "head_sha256": "e09b2e442bd9017dd53576941da1eed1b09c0111fa1826d7eb4ab36c75805e52",
+  "feature_sha256": {
+    "clip": "00d1f8ba49ba97b6d108ab580d4fd50d9eb2024a75af0d625420840436419158",
+    "sig": "bc8995e41b21ec82fedef3344e8c6ea3f1815b37511d44e7a8ec215754a4cf74"
+  },
+  "codes": [
+    "fall_height",
+    "slip_trip",
+    "caught_in_machine",
+    "struck_by_lifting",
+    "electrical_energy",
+    "drowning_inundation",
+    "fire_explosion",
+    "confined_space",
+    "chemical_exposure",
+    "thermal_weather",
+    "other"
+  ],
+  "schema": {
+    "clip_center": [
+      512
+    ],
+    "clip_scale": [
+      512
+    ],
+    "clip_weight": [
+      512,
+      11
+    ],
+    "clip_bias": [
+      11
+    ],
+    "clip_prior": [
+      11
+    ],
+    "sig_center": [
+      768
+    ],
+    "sig_scale": [
+      768
+    ],
+    "sig_weight": [
+      768,
+      11
+    ],
+    "sig_bias": [
+      11
+    ],
+    "sig_prior": [
+      11
+    ]
+  },
+  "policy": "Median of six nested inner-calibrated head thresholds. Stable descending organizer code order, >= threshold, at most three codes.",
+  "inner_thresholds": [
+    0.2,
+    0.3,
+    0.3,
+    0.2,
+    0.2,
+    0.2
+  ],
+  "deployment_threshold": 0.2,
+  "oof_fixed_deployment_threshold": {
+    "photos": 170,
+    "active_codes": 7,
+    "macro_f1": 0.2508313197285622,
+    "quantitative_points_out_of_70": 17.558192380999355,
+    "exact_set_matches": 53,
+    "no_hazard_photos": 66,
+    "no_hazard_false_alarms": 30,
+    "no_hazard_false_alarm_rate": 0.45454545454545453,
+    "hazard_photos": 104,
+    "hazard_completely_missed": 15,
+    "hazard_predicted_empty_rate": 0.14423076923076922,
+    "per_code": {
+      "fall_height": {
+        "support": 34,
+        "predicted": 52,
+        "tp": 14,
+        "fp": 38,
+        "fn": 20,
+        "f1": 0.32558139534883723,
+        "support_groups": 6
+      },
+      "slip_trip": {
+        "support": 56,
+        "predicted": 84,
+        "tp": 45,
+        "fp": 39,
+        "fn": 11,
+        "f1": 0.6428571428571429,
+        "support_groups": 6
+      },
+      "caught_in_machine": {
+        "support": 3,
+        "predicted": 1,
+        "tp": 0,
+        "fp": 1,
+        "fn": 3,
+        "f1": 0.0,
+        "support_groups": 2
+      },
+      "struck_by_lifting": {
+        "support": 19,
+        "predicted": 22,
+        "tp": 5,
+        "fp": 17,
+        "fn": 14,
+        "f1": 0.24390243902439024,
+        "support_groups": 6
+      },
+      "electrical_energy": {
+        "support": 1,
+        "predicted": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1,
+        "f1": 0.0,
+        "support_groups": 1
+      },
+      "drowning_inundation": {
+        "support": 0,
+        "predicted": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "f1": null,
+        "support_groups": 0
+      },
+      "fire_explosion": {
+        "support": 1,
+        "predicted": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1,
+        "f1": 0.0,
+        "support_groups": 1
+      },
+      "confined_space": {
+        "support": 0,
+        "predicted": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "f1": null,
+        "support_groups": 0
+      },
+      "chemical_exposure": {
+        "support": 0,
+        "predicted": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "f1": null,
+        "support_groups": 0
+      },
+      "thermal_weather": {
+        "support": 0,
+        "predicted": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "f1": null,
+        "support_groups": 0
+      },
+      "other": {
+        "support": 35,
+        "predicted": 57,
+        "tp": 25,
+        "fp": 32,
+        "fn": 10,
+        "f1": 0.5434782608695652,
+        "support_groups": 6
+      }
+    }
+  },
+  "oof_prediction_cardinality": {
+    "0": 51,
+    "1": 50,
+    "2": 41,
+    "3": 28
+  },
+  "prior_nested_macro_f1": 0.24705349860629364,
+  "delta_vs_prior_nested_macro_f1": 0.003777821122268571,
+  "oof_changed_code_sets_vs_prior_nested": 12
+}
