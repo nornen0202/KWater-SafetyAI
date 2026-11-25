@@ -37,6 +37,19 @@ def prefix_cohort(inventory):
     return {p: sorted(buckets[p]) for p in ordered[:6]}
 
 
+def write_exposure(audit_path, output):
+    audit = json.loads(audit_path.read_text(encoding="utf-8"))
+    buckets = prefix_cohort(audit["inventory"])
+    record = {"scope": "predeclared exploratory use; exclude these photos and all related incidents from final holdout",
+              "labels_sha256": audit["labels_sha256"], "by_prefix": buckets,
+              "exposed_ids": sorted(k for subset in buckets.values() for k in subset)}
+    # The original manifest was written on Windows. Preserve its byte fingerprint on every host.
+    payload = (json.dumps(record, indent=2) + "\n").replace("\n", "\r\n").encode()
+    if output.exists() and output.read_bytes() != payload:
+        raise ValueError("An existing exposure manifest differs from the reconstructed cohort")
+    save_atomic(output, lambda stream: stream.write(payload))
+
+
 def filtered_training(pool, validation, linked):
     forbidden = set(validation)
     for key in validation:
@@ -230,9 +243,15 @@ def main():
         parser.add_argument(f"--{name}", type=Path, required=True)
     parser.add_argument("--summary", type=Path, help="optional aggregate report without photo IDs or row labels")
     parser.add_argument("--feature-cache", type=Path, help="read/write local pilot-only frozen image features")
+    parser.add_argument("--exposure", type=Path, help="also reconstruct the original local exposure manifest")
     args = parser.parse_args()
     if args.summary and args.output.resolve() == args.summary.resolve():
         parser.error("summary and diagnostic paths must differ")
+    if args.exposure:
+        if args.exposure.resolve() in {p.resolve() for p in (args.audit, args.labels, args.output, args.summary,
+                                                             args.feature_cache) if p is not None}:
+            parser.error("Use a distinct file for the exposure manifest")
+        write_exposure(args.audit, args.exposure)
     report = run(args.audit, args.labels, args.image_root, args.model, args.output, args.feature_cache)
     if args.summary:
         save_summary(report, args.output, args.summary)

@@ -176,7 +176,7 @@ def main():
     parser.add_argument("--source-map", type=Path, help="known research image_id,sample_id mapping in JSONL")
     for name in ("output", "report"):
         parser.add_argument("--" + name, type=Path, required=True)
-    defaults = {"laws": "data/prefix-pilot/laws.jsonl", "rag": "data/prefix-pilot/rag.py",
+    defaults = {"laws": "data/baseline/assets/laws.jsonl", "rag": "data/baseline/scripts/rag.py",
                 "labels": "data/train/train.jsonl", "exposure": "data/prefix-pilot/exposure.json",
                 "audit": "results/train_audit_full.json"}
     for key, path in defaults.items():

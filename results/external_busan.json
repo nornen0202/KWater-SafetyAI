@@ -1,0 +1,17 @@
+{
+  "pairs": 1274,
+  "families": {
+    "침수위험 수치모델 이미지 데이터": 274,
+    "침수위험 지역 라벨링 데이터": 1000
+  },
+  "cctv_folder_groups": 727,
+  "cctv_image_field_mismatches": 29,
+  "cctv_provider_danger_level": {
+    "1": 295,
+    "0": 705
+  },
+  "cctv_region_level_cross_tab": {
+    "01. 외수 / 1": 295,
+    "02. 내수 / 0": 705
+  }
+}

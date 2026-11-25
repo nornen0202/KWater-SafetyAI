@@ -15,6 +15,7 @@ LOCAL_REPORTS = (
     "prevention_replay.json", "public_law_replay.json", "public_law_replay_review.json",
     "train_audit_full.json", "train_audit_reviewed.json",
 )
+TEMPORARY_SUFFIXES = {".pyc", ".copying", ".partial", ".part", ".crdownload", ".tmp"}
 
 
 def is_link(path):
@@ -32,7 +33,9 @@ def eligible_files(root):
         dirs[:] = sorted(d for d in dirs if d != "__pycache__" and not is_link(base / d))
         for name in files:
             p = base / name
-            if p.suffix not in (".pyc", ".copying") and not is_link(p) and p.is_file():
+            if p.is_relative_to(data / "external/aihub") and name in {"transfer.log", "transfer-status.json"}:
+                continue
+            if p.suffix.lower() not in TEMPORARY_SUFFIXES and not is_link(p) and p.is_file():
                 yield p
     for name in LOCAL_REPORTS:
         p = root / "results" / name
@@ -43,28 +46,42 @@ def eligible_files(root):
             yield p
 
 
-def inventory(root):
+def inventory(root, previous=None):
+    recorded = {r["path"]: r for r in previous["artifacts"]} if previous else {}
     rows = []
     for p in sorted(eligible_files(root)):
         size = p.stat().st_size
+        name = p.relative_to(root).as_posix()
+        existing = recorded.pop(name, None)
+        if existing is not None:
+            if size != existing["bytes"]:
+                raise ValueError(f"Previously recorded file changed size; run a full index: {name}")
+            rows.append(existing)
+            continue
         with p.open("rb") as stream:
             checksum = hashlib.file_digest(stream, "sha256").hexdigest()
         if p.stat().st_size != size:
             raise RuntimeError(f"Size changed during hash: {p.name}")
-        rows.append({"path": p.relative_to(root).as_posix(), "bytes": size, "sha256": checksum})
+        rows.append({"path": name, "bytes": size, "sha256": checksum})
+    if recorded:
+        raise ValueError("Previously recorded files are missing. Inspect the changes before refreshing the index.")
     return {"algorithm": "SHA-256", "files": len(rows), "total_bytes": sum(r["bytes"] for r in rows),
-            "scope": "Project data and local-only research outputs. Environment caches are excluded.",
+            "scope": "Completed project data files and local-only research outputs. In-progress downloads, live transfer status and environment caches are excluded.",
             "artifacts": rows}
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[1])
-    parser.add_argument("--check", action="store_true", help="Compare without changing the existing index")
+    modes = parser.add_mutually_exclusive_group()
+    modes.add_argument("--check", action="store_true", help="Rehash and compare without changing the existing index")
+    modes.add_argument("--append-new", action="store_true",
+                       help="Hash new outputs only; keep existing digests, checking their presence and size. Use --check to reverify bytes.")
     args = parser.parse_args()
     root = args.root.resolve()
     dest = root / "results/local_artifacts.json"
-    report = inventory(root)
+    previous = json.loads(dest.read_text(encoding="utf-8")) if args.append_new else None
+    report = inventory(root, previous)
     if args.check:
         if report != json.loads(dest.read_text(encoding="utf-8")):
             raise SystemExit("Local inventory differs from the recorded commit")

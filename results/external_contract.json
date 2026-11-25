@@ -1,0 +1,48 @@
+{
+  "rows": 1045,
+  "original": {
+    "slip_trip": 317,
+    "fall_height": 224,
+    "caught_in_machine": 48,
+    "other": 168,
+    "electrical_energy": 47,
+    "struck_by_lifting": 72,
+    "confined_space": 1,
+    "fire_explosion": 44,
+    "chemical_exposure": 19,
+    "drowning_inundation": 1,
+    "thermal_weather": 1
+  },
+  "legacy": {
+    "fall_height": 224,
+    "slip_trip": 317,
+    "caught_in_machine": 48,
+    "struck_by_lifting": 72,
+    "electrical_energy": 47,
+    "drowning_inundation": 0,
+    "fire_explosion": 44,
+    "confined_space": 0,
+    "chemical_exposure": 19,
+    "thermal_weather": 0,
+    "other": 168
+  },
+  "candidate": {
+    "slip_trip": 317,
+    "fall_height": 224,
+    "caught_in_machine": 48,
+    "other": 168,
+    "electrical_energy": 47,
+    "struck_by_lifting": 72,
+    "confined_space": 1,
+    "fire_explosion": 44,
+    "chemical_exposure": 19,
+    "drowning_inundation": 1,
+    "thermal_weather": 1
+  },
+  "legacy_missing_rows": 1,
+  "candidate_missing_rows": 0,
+  "official_checker_valid": 14,
+  "official_checker_total": 14,
+  "prototype_prevention_overrides": 47,
+  "scope": "Structural round trips only. The prototype replaces electrical prevention and empties references."
+}

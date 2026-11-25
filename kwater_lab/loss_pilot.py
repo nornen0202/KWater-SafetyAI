@@ -84,7 +84,7 @@ def run(root):
                 bool(labels) and labels.isdisjoint(pred[s]) for s, labels in gold.items())
             scores[policy][name] = metrics
         paired[policy] = paired_bootstrap(gold, by_name["bce"], by_name["asymmetric"], groups)
-    return {"protocol": "docs/improvement-experiments.md#e2", "scope": "Previously exposed 170 photos; not independent incidents",
+    return {"protocol": "docs/improvement-experiments.md", "protocol_section": "E2", "scope": "Previously exposed 170 photos; not independent incidents",
             "exposure_sha256": file_hash(exposure), "feature_sha256": file_hash(cache), "photos": len(gold),
             "steps": 500, "step_scale": 0.25, "l2": 0.01, "negative_margin": 0.05, "negative_power": 4,
             "thresholds_by_outer_group": folds, "pooled": scores, "paired_asymmetric_minus_bce": paired}

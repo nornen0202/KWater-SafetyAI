@@ -1,5 +1,6 @@
 {
-  "protocol": "docs/improvement-experiments.md#e2",
+  "protocol": "docs/improvement-experiments.md",
+  "protocol_section": "E2",
   "scope": "Previously exposed 170 photos; not independent incidents",
   "exposure_sha256": "3e049cac60ec3db236ad3a98bcf44785ccf24621eadd1d16286f72855f0643e4",
   "feature_sha256": "00d1f8ba49ba97b6d108ab580d4fd50d9eb2024a75af0d625420840436419158",

@@ -1,5 +1,7 @@
 # K-water 현장 안전 AI 연구 기록
 
+[시각화 연구 보고서](reports/competition-research-2026-11-25.md) · [PDF 보고서](reports/competition-research-2026-11-25.pdf) · [후속 실험 설계와 연구 출처](docs/improvement-experiments.md)
+
 제5회 K-water AI 경진대회 현장 사진 위험성평가 부문 연구. 2026년 11월 25일 Codex에 등록한 로컬 프로젝트는 `G:\Projects\KWater-SafetyAI`이다. 새 Codex 대화에서는 이 폴더를 열면 코드·실험 기록·참가자 자료를 이어서 사용할 수 있다. 기존 공개 실험과 첨부 계획서를 옮겼고 공식 배포 ZIP 세 개를 확보했다. 2026년 11월 25일 20:42(KST)에 공식 베이스라인으로 첫 Public 제출을 접수했다. 결과 카드에 표시된 공개 예정 시각은 11월 26일 13:00이며, 접수 시점에 공개된 팀 점수는 0개였다. [접수 기록](results/public_submission_001.json)
 
 ## 참가자 데이터와 연구 결과
@@ -33,6 +35,8 @@
 | 내부 오경보율 20% 이하에서 Macro F1 최대화 | 0.189 | 9/66 | 41/104 |
 
 20%는 첫 결과를 보고 도입한 연구용 목표다. 접두사 묶음 둘에서는 외부 오경보율이 20%를 넘었다. 탐색 사진에는 희귀 3종 양성이 없으므로 별도로 기존 CLIP 텍스트 12개의 순위를 조사했다. 밀폐공간이 170장 중 72장에서 상위 3개에 들어갔다. 희귀 후보를 단순히 상위 3개에서 가져오면 잘못된 밀폐공간 후보가 많다. 우선 시각 근거를 재확인할 조건을 검증하고, 희귀 유형의 재현율 판단은 양성 검증 자료를 확보한 뒤 진행한다. [희귀 후보별 결과](results/rare_candidate_pilot.json)
+
+같은 탐색 자료에서 유사 사진 검색과 선형 분류기를 반씩 결합하면 내측 F1 보정 조건의 Macro F1이 0.223에서 0.244로 올랐다. 위험 사진 중 정답 코드를 하나도 맞히지 못한 사진은 47장에서 37장으로 줄고, 무위험 오경보는 31장에서 37장으로 늘었다. 내측 오경보를 20%로 제한하면 분류기와 결합의 F1은 각각 0.189와 0.197이었다. 비대칭 손실은 내측 F1 보정에서 0.240을 기록했으나 무위험 사진 66장 중 53장에 경보를 냈다. [검색·가중치 편집 집계](results/weight_pilot.json) · [손실함수 비교](results/loss_pilot.json)
 
 ### 공식 모델 10장 실행
 
@@ -121,3 +125,26 @@ python -m kwater_lab.train_head --audit results/train_audit_reviewed.json --feat
 개발용 통제 이미지 24장을 21개 그룹으로 묶어 학습 16장·개발 4장·보류 4장으로 분할했다. 임시 보류 이미지 파일 4개를 제거한 후에도 중앙 크롭과 전체 화면의 특징 추출, 분류기 학습, 해시 확인이 모두 완료됐다. 이 검사는 코드 연결과 보류셋 격리를 확인한다. 공개 사진 1장은 해당 통제 실험에 들어가지 않았다.
 
 코딩 도구는 실험 코드, 프롬프트, 채점기, 테스트 및 결과 정리에 사용했다. 공개 예시의 정답은 운영진이 제공했다. 기반 모델, 양자화 리비전, 추론기, 프롬프트와 원본 해시는 실행 기록에서 확인할 수 있다. [CLIP 모델 카드](https://huggingface.co/Xenova/clip-vit-base-patch32) · [Qwen 모델 카드](https://huggingface.co/Qwen/Qwen3-VL-4B-Instruct-GGUF)
+
+## Git 관리와 후속 실험 재현
+
+비공개 원격 저장소 `git@github.com:nornen0202/KWater-SafetyAI.git`의 `main`에서 연구 코드·문서·도표·집계 결과를 관리한다. 대회가 GitHub를 포함한 외부 저장소로의 제공 데이터 업로드를 제한하므로, 참가자가 직접 받은 ZIP과 해제 자료, 이미지 특징·행별 예측은 G: 프로젝트에 둔다. 기존 공개 모델 실험의 다운로드 캐시는 G:의 별도 경로를 유지한다. [대회 이용 조건](https://hackathon.imaginationgroup.co.kr/kwater/#core-data) · [프로젝트 로컬 파일 원장](results/local_artifacts.json) · [초기 모델·런타임 의존성](results/public_probe_dependencies.json)
+
+새 체크아웃에서는 공식 ZIP 세 개를 참가 계정으로 다운로드한 뒤 `results/package_manifest.json`의 SHA-256과 대조한다. ZIP을 `data/packages`에 보관하고 각각 `data/train`, `data/local-kit`, `data/baseline`에 압축을 푼다. 아래 명령은 프로젝트 루트에서 실행한다. CLIP 실험은 NumPy·Pillow·ONNX Runtime·tokenizers가 필요하다. 공개 모델 리비전과 플랫폼별 환경은 위 실행 기록을 따른다.
+
+```powershell
+$clipModel = 'G:/CodexData/kwater-rd-20261125/clip-vit-base-patch32'
+python -m kwater_lab.clip_probe fetch --model $clipModel
+python -m kwater_lab.audit data/train/train.jsonl --image-root data/train --output results/train_audit_full.json
+python -m kwater_lab.prefix_pilot --audit results/train_audit_full.json --labels data/train/train.jsonl --image-root data/train --model $clipModel --feature-cache data/prefix-pilot/features.npz --exposure data/prefix-pilot/exposure.json --output data/prefix-pilot/diagnostic_fpr20.json --summary results/prefix_pilot_fpr20.json
+python -m kwater_lab.weight_pilot
+python -m kwater_lab.loss_pilot
+python -m kwater_lab.adapter_spectrum
+python -m unittest discover -s tests -q
+```
+
+새 환경에서 수치 파일을 재생성하면 라이브러리·직렬화 방법에 따라 파일 해시가 달라질 수 있다. 새 실행에서 만든 `prefix_pilot_fpr20.json`을 `weight_pilot --reference`로 지정하면 같은 특징·같은 대조군에서 비교한다. 실제 Qwen 배율 실험은 [Windows GPU 환경](docs/official-baseline-windows.md)에서 `$runner -m kwater_lab.adapter_scale_pilot`을 실행한다(PowerShell 호출 연산자는 `&`). 실험은 같은 모델을 메모리에 한 번 적재하고 원본 가중치 파일을 유지한다.
+
+연구 보고서의 그림은 `python tools/plot_research.py`로, PDF는 `python tools/render_research.py`로 다시 만든다. 그림에는 Matplotlib와 한글 글꼴이, PDF 출력에는 markdown-it-py와 Chromium 계열 브라우저가 필요하다. 다른 운영체제에서는 `--font`와 `--browser`로 경로를 지정할 수 있다.
+
+로컬 파일 원장은 `python -m kwater_lab.local_artifacts`로 완료된 파일의 전체 해시를 작성한다. 전송 중 파일과 내려받기 상태 로그는 제외한다. 기존 자료가 그대로이고 새 결과만 추가한 경우 `--append-new`를 쓸 수 있다. 전체 바이트를 다시 대조할 때는 `--check`로 실행한다. 대회 종료 후 자료 처리에는 주최 측 안내를 따른다.
