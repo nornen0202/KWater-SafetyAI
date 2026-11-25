@@ -1,0 +1,55 @@
+{
+  "previously_exposed_pool": 170,
+  "final_holdout_exclusions_checked": 182,
+  "new_exposures": 0,
+  "candidate_pairs": 26,
+  "model_reviewed_unique_full_frames": 50,
+  "model_reviewed_pairs": 26,
+  "human_reviewed_pairs": 0,
+  "human_unreviewed_pairs": 26,
+  "usable_visual_contrasts": 3,
+  "unresolved_state_comparisons": 23,
+  "by_hazard": {
+    "fall_height": {
+      "candidate_pairs": 6,
+      "model_reviewed_pairs": 6,
+      "embedding_selected": 6,
+      "post_review_rematched": 0,
+      "usable_embedding_selected": 1,
+      "usable_post_review_rematched": 0,
+      "usable_visual_contrasts": 1,
+      "unresolved_state_comparisons": 5,
+      "visible_relation_counts": {
+        "elevated_foot_above_open_scaffold_vs_supports_on_visible_floor": 1
+      },
+      "incident_relationship": {
+        "same": 0,
+        "different": 0,
+        "unresolved": 6
+      },
+      "human_reviewed_pairs": 0,
+      "human_unreviewed_pairs": 6
+    },
+    "struck_by_lifting": {
+      "candidate_pairs": 20,
+      "model_reviewed_pairs": 20,
+      "embedding_selected": 19,
+      "post_review_rematched": 1,
+      "usable_embedding_selected": 1,
+      "usable_post_review_rematched": 1,
+      "usable_visual_contrasts": 2,
+      "unresolved_state_comparisons": 18,
+      "visible_relation_counts": {
+        "extended_rigging_with_people_beside_work_zone_vs_folded_boom": 1,
+        "raised_loaded_forklift_attachment_vs_empty_lowered_forks": 1
+      },
+      "incident_relationship": {
+        "same": 0,
+        "different": 0,
+        "unresolved": 20
+      },
+      "human_reviewed_pairs": 0,
+      "human_unreviewed_pairs": 20
+    }
+  }
+}
