@@ -143,7 +143,7 @@ def run(root, local, cache):
     inventory = json.loads((root / "results/train_audit_full.json").read_text(encoding="utf-8"))["inventory"]
     measured, blind, key = {arm:{} for arm in ARMS}, [], {}
     jobs = [(i, ARMS[(i+j) % len(ARMS)]) for j in range(len(ARMS)) for i in range(len(anchors))]
-    with local_server(cache, output / "model.log") as (port, secret, runtime):
+    with local_server(cache, output / "model.log", startup_timeout=900) as (port, secret, runtime):
         for i, arm in jobs:
             anchor = anchors[i]
             case = anchors[(i+1) % len(anchors)] if arm == "swapped_11" else anchor

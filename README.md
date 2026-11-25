@@ -1,10 +1,12 @@
 # K-water 현장 안전 AI 연구 기록
 
-[시각화 연구 보고서](reports/competition-research-2026-11-25.md) · [PDF 보고서](reports/competition-research-2026-11-25.pdf) · [후속 실험 설계와 연구 출처](docs/improvement-experiments.md)
+[시각화 연구 보고서](reports/competition-research-2026-11-25.md) · [PDF 보고서](reports/competition-research-2026-11-25.pdf) · [CLIP·SigLIP 2 실측과 생성 VLM 도입 검토](docs/vlm-model-selection.md) · [후속 실험 설계](docs/improvement-experiments.md) · [외부 데이터 전후 비교](reports/external-first-experiment.md)
 
 제5회 K-water AI 경진대회 현장 사진 위험성평가 부문 연구. 2026년 11월 25일 Codex에 등록한 로컬 프로젝트는 `G:\Projects\KWater-SafetyAI`이다. 새 Codex 대화에서는 이 폴더를 열면 코드·실험 기록·참가자 자료를 이어서 사용할 수 있다. 기존 공개 실험과 첨부 계획서를 옮겼고 공식 배포 ZIP 세 개를 확보했다. 2026년 11월 25일 20:42(KST)에 공식 베이스라인으로 첫 Public 제출을 접수했다. 결과 카드에 표시된 공개 예정 시각은 11월 26일 13:00이며, 접수 시점에 공개된 팀 점수는 0개였다. [접수 기록](results/public_submission_001.json)
 
 ## 참가자 데이터와 연구 결과
+
+같은 170장의 내측 F1 보정 결과는 CLIP 224 **0.223**, SigLIP 2 224 **0.209**, SigLIP 2 384 **0.239**였다. 고해상도 SigLIP 2와 CLIP의 분류 점수를 절반씩 섞으면 **0.247**이었다. CLIP 대비 무위험 오경보는 31→26/66, 정답 위험을 하나도 맞히지 못한 사진은 47→42/104, 추락 적중은 12→13/34건이었다. 이 결합을 독립 검증에 올린다. 전체 사진의 한국어 근거·예방조치를 생성하는 첫 교체 후보는 Qwen3.5-4B다. [비교 그림과 연구 보고서](reports/competition-research-2026-11-25.md) · [모델별 평가와 선택 근거](docs/vlm-model-selection.md)
 
 | 공식 패키지 | 원본 바이트 | 프로젝트에서의 용도 |
 |---|---:|---|
@@ -139,6 +141,7 @@ python -m kwater_lab.audit data/train/train.jsonl --image-root data/train --outp
 python -m kwater_lab.prefix_pilot --audit results/train_audit_full.json --labels data/train/train.jsonl --image-root data/train --model $clipModel --feature-cache data/prefix-pilot/features.npz --exposure data/prefix-pilot/exposure.json --output data/prefix-pilot/diagnostic_fpr20.json --summary results/prefix_pilot_fpr20.json
 python -m kwater_lab.weight_pilot
 python -m kwater_lab.loss_pilot
+python -m kwater_lab.encoder_pilot --prepare --clip $clipModel
 python -m kwater_lab.adapter_spectrum
 python -m unittest discover -s tests -q
 ```
@@ -147,4 +150,4 @@ python -m unittest discover -s tests -q
 
 연구 보고서의 그림은 `python tools/plot_research.py`로, PDF는 `python tools/render_research.py`로 다시 만든다. 그림에는 Matplotlib와 한글 글꼴이, PDF 출력에는 markdown-it-py와 Chromium 계열 브라우저가 필요하다. 다른 운영체제에서는 `--font`와 `--browser`로 경로를 지정할 수 있다.
 
-로컬 파일 원장은 `python -m kwater_lab.local_artifacts`로 완료된 파일의 전체 해시를 작성한다. 전송 중 파일과 내려받기 상태 로그는 제외한다. 기존 자료가 그대로이고 새 결과만 추가한 경우 `--append-new`를 쓸 수 있다. 전체 바이트를 다시 대조할 때는 `--check`로 실행한다. 대회 종료 후 자료 처리에는 주최 측 안내를 따른다.
+로컬 파일 원장은 `python -m kwater_lab.local_artifacts`로 완료된 파일의 전체 해시를 작성한다. 전송 중인 파일과 내려받기 상태 로그는 제외한다. `--append-new`는 기존 자료의 존재·크기를 확인하고 새 파일을 추가한다. 새 AI-Hub 정식 ZIP은 수신 중 계산한 SHA-256과 완성된 ZIP의 항목 수·크기·파일명을 기록한 영수증을 사용한다. 전체 바이트를 다시 대조할 때는 `--check`로 실행한다. 대회 종료 후 자료 처리에는 주최 측 안내를 따른다.

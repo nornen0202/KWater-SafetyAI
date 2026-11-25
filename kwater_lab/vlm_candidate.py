@@ -47,7 +47,8 @@ def run(root, cache, folder):
     expected = set(json.loads(label.read_text(encoding="utf-8"))["target"]["hazards"])
     photo = encoded_image(image)
     flags = ("--reasoning", "off", "--chat-template-kwargs", '{"enable_thinking":false}')
-    with local_server(folder, local / "model.log", weights=WEIGHTS, runtime_root=cache, extra_flags=flags) as (port, key, runtime):
+    with local_server(folder, local / "model.log", weights=WEIGHTS, runtime_root=cache,
+                      extra_flags=flags, startup_timeout=900) as (port, key, runtime):
         if runtime["server_sha256"] != ref["server_sha256"]:
             raise ValueError("Runtime binary differs from the comparison baseline")
         trials = {name: run_trial(port, key, photo, prompt) for name, prompt in CONDITIONS.items()}

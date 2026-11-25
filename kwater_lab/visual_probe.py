@@ -187,7 +187,7 @@ def encoded_image(image):
 
 
 @contextmanager
-def local_server(cache, log, *, weights=None, runtime_root=None, extra_flags=()):
+def local_server(cache, log, *, weights=None, runtime_root=None, extra_flags=(), startup_timeout=300):
     weights = weights or {name: sha for name, sha in FILES.items() if name.endswith(".gguf")}
     model, projector = [cache / name for name in weights]
     for name, expected in weights.items():
@@ -208,8 +208,11 @@ def local_server(cache, log, *, weights=None, runtime_root=None, extra_flags=())
                                    creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
         try:
             while True:
-                if process.poll() is not None or time.perf_counter() - start > 300:
-                    raise RuntimeError(f"Server startup failed. Inspect {log}")
+                status = process.poll()
+                if status is not None:
+                    raise RuntimeError(f"Server exited during startup with status {status}. Inspect {log}")
+                if time.perf_counter() - start > startup_timeout:
+                    raise TimeoutError(f"Server was not ready within {startup_timeout} seconds. Inspect {log}")
                 try:
                     if local_request(port, key, "/health", timeout=2)[0] == 200:
                         break

@@ -84,6 +84,19 @@ def draw(out):
     ax.set(xlim=(-8,8),ylim=(3.5,-.5),xlabel="기존 분류기 대비 Macro F1 차이 (퍼센트포인트)")
     save(fig,out,"paired-changes")
 
+    enc = read("encoder_pilot")["pooled"]
+    enc384 = read("encoder_pilot_384")["pooled"]["siglip2"]
+    fusion = read("encoder_fusion")["pooled"]
+    names = ["CLIP 224", "SigLIP 2 224", "SigLIP 2 384", "CLIP 224 + SigLIP 2 384"]
+    methods = (enc["clip"], enc["siglip2"], enc384, fusion)
+    values = [method["head"]["inner_calibrated"]["macro_f1"] for method in methods]
+    fig, ax = axes(2.35)
+    bars = ax.barh(names, values, color=[BLUE, GRAY, TEAL, INK], height=.57)
+    ax.bar_label(bars, labels=[f"{v:.3f}" for v in values], padding=5, fontsize=10)
+    ax.invert_yaxis()
+    ax.set(xlim=(0, .29), xlabel="위험 코드 Macro F1 (0~1 중 관측 구간)")
+    save(fig, out, "encoder-comparison")
+
     loss = read("loss_pilot")["pooled"]
     fig, ax = axes(2.5)
     methods = ("bce", "negative_clip", "asymmetric")

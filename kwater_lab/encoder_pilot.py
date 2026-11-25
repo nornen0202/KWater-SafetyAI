@@ -81,12 +81,12 @@ def scores(train, valid, features, gold):
     return {"head": head, "blend": (head + neighbor_scores(x, y, probe)) / 2}
 
 
-def cross_validate(buckets, features, gold, groups, linked):
+def cross_validate(buckets, features, gold, groups, linked, score_fn=scores):
     collected = {m: {p: {} for p in POLICIES} for m in MODELS}
     folds = {}
     for prefix, valid in buckets.items():
         train = filtered_training(gold, valid, linked)
-        outer = scores(train, valid, features, gold)
+        outer = score_fn(train, valid, features, gold)
         keys, inner = [], {m: [] for m in MODELS}
         for other_prefix, ids in buckets.items():
             if other_prefix == prefix:
@@ -94,7 +94,7 @@ def cross_validate(buckets, features, gold, groups, linked):
             dev = sorted(set(ids).intersection(train))
             if not dev:
                 continue
-            result = scores(filtered_training(train, dev, linked), dev, features, gold)
+            result = score_fn(filtered_training(train, dev, linked), dev, features, gold)
             keys.extend(dev)
             for m in MODELS:
                 inner[m].append(result[m])
