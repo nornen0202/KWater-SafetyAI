@@ -1,0 +1,186 @@
+{
+  "scope": "Real local generation replay. Repeated public arms share one photo. Top1/top3 compare article IDs only.",
+  "ranking_inputs": "predicted code and generated evidence/prevention when present; remove explicit article mentions",
+  "source_exclusion": "self, same pilot prefix, pixel match or dHash<=4, and reviewed incident if available",
+  "reviewed_incidents": false,
+  "retrieval_hashes": {
+    "audit": "9ea46cd904b181405052304c4f439cf2e4252a44b8c094c218c989f63e92d502",
+    "exposure": "3e049cac60ec3db236ad3a98bcf44785ccf24621eadd1d16286f72855f0643e4",
+    "labels": "ab427fed4615b32627b76001e27124e99ae9202c855ba4170916ebe4fdc4de55",
+    "rag": "4fdd5046e93cf0689b40fdf209b9f8a5344a5dbe5a6ac43641c14a755043e640",
+    "laws": "1408b69db444cf90b31f9bebb4a773a30fa4362739e50b22c95f3bbe0e75bd9d"
+  },
+  "generation_hashes": {
+    "public_structured": "763373f74d3f119465eedef2a1e9d2e1828251768f807cf088efadc01c66a917",
+    "public_qwen3": "b149d67e3ec95788628f7dd1b27fb7906661820b47be33beb8ea7d5c49ccdbb5",
+    "public_qwen35": "da3f8258fa53520dc1e924829eece22e077b1b505440cd18591698749df6857c"
+  },
+  "evidence_for_legal_support_reviewed": false,
+  "arms": {
+    "public_structured": {
+      "photos": 1,
+      "predicted_codes": 2,
+      "gold_with_law": 2,
+      "missing_prevention": 0,
+      "correct_codes": 1,
+      "methods": {
+        "code_frequency": {
+          "cited": 2,
+          "joint_top1": 1,
+          "joint_top3": 1,
+          "cited_wrong_code": 1
+        },
+        "article_body": {
+          "cited": 2,
+          "joint_top1": 0,
+          "joint_top3": 1,
+          "cited_wrong_code": 1
+        },
+        "fold_examples": {
+          "cited": 2,
+          "joint_top1": 1,
+          "joint_top3": 1,
+          "cited_wrong_code": 1
+        },
+        "prevention_rerank": {
+          "cited": 2,
+          "joint_top1": 1,
+          "joint_top3": 1,
+          "cited_wrong_code": 1
+        }
+      }
+    },
+    "public_qwen3_direct": {
+      "photos": 1,
+      "predicted_codes": 3,
+      "gold_with_law": 2,
+      "missing_prevention": 3,
+      "correct_codes": 1,
+      "methods": {
+        "code_frequency": {
+          "cited": 2,
+          "joint_top1": 1,
+          "joint_top3": 1,
+          "cited_wrong_code": 1
+        },
+        "article_body": {
+          "cited": 3,
+          "joint_top1": 1,
+          "joint_top3": 1,
+          "cited_wrong_code": 2
+        },
+        "fold_examples": {
+          "cited": 3,
+          "joint_top1": 1,
+          "joint_top3": 1,
+          "cited_wrong_code": 2
+        },
+        "prevention_rerank": {
+          "cited": 3,
+          "joint_top1": 1,
+          "joint_top3": 1,
+          "cited_wrong_code": 2
+        }
+      }
+    },
+    "public_qwen3_evidence_gate": {
+      "photos": 1,
+      "predicted_codes": 3,
+      "gold_with_law": 2,
+      "missing_prevention": 3,
+      "correct_codes": 1,
+      "methods": {
+        "code_frequency": {
+          "cited": 2,
+          "joint_top1": 1,
+          "joint_top3": 1,
+          "cited_wrong_code": 1
+        },
+        "article_body": {
+          "cited": 3,
+          "joint_top1": 1,
+          "joint_top3": 1,
+          "cited_wrong_code": 2
+        },
+        "fold_examples": {
+          "cited": 3,
+          "joint_top1": 1,
+          "joint_top3": 1,
+          "cited_wrong_code": 2
+        },
+        "prevention_rerank": {
+          "cited": 3,
+          "joint_top1": 1,
+          "joint_top3": 1,
+          "cited_wrong_code": 2
+        }
+      }
+    },
+    "public_qwen35_direct": {
+      "photos": 1,
+      "predicted_codes": 1,
+      "gold_with_law": 2,
+      "missing_prevention": 1,
+      "correct_codes": 0,
+      "methods": {
+        "code_frequency": {
+          "cited": 1,
+          "joint_top1": 0,
+          "joint_top3": 0,
+          "cited_wrong_code": 1
+        },
+        "article_body": {
+          "cited": 1,
+          "joint_top1": 0,
+          "joint_top3": 0,
+          "cited_wrong_code": 1
+        },
+        "fold_examples": {
+          "cited": 1,
+          "joint_top1": 0,
+          "joint_top3": 0,
+          "cited_wrong_code": 1
+        },
+        "prevention_rerank": {
+          "cited": 1,
+          "joint_top1": 0,
+          "joint_top3": 0,
+          "cited_wrong_code": 1
+        }
+      }
+    },
+    "public_qwen35_evidence_gate": {
+      "photos": 1,
+      "predicted_codes": 1,
+      "gold_with_law": 2,
+      "missing_prevention": 1,
+      "correct_codes": 0,
+      "methods": {
+        "code_frequency": {
+          "cited": 1,
+          "joint_top1": 0,
+          "joint_top3": 0,
+          "cited_wrong_code": 1
+        },
+        "article_body": {
+          "cited": 1,
+          "joint_top1": 0,
+          "joint_top3": 0,
+          "cited_wrong_code": 1
+        },
+        "fold_examples": {
+          "cited": 1,
+          "joint_top1": 0,
+          "joint_top3": 0,
+          "cited_wrong_code": 1
+        },
+        "prevention_rerank": {
+          "cited": 1,
+          "joint_top1": 0,
+          "joint_top3": 0,
+          "cited_wrong_code": 1
+        }
+      }
+    }
+  }
+}
