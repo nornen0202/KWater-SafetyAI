@@ -9,7 +9,6 @@ import os
 from pathlib import Path
 import platform
 import random
-import resource
 import statistics
 import subprocess
 import sys
@@ -39,10 +38,24 @@ def synthetic(root, count, seed):
         (root.parent / "synthetic-provenance.csv").open("w", newline="") as f,
     ):
         writer = csv.writer(f)
-        writer.writerow(["image_id", "width", "height", "jpeg_sha256"])
+        writer.writerow(
+            [
+                "image_id",
+                "width",
+                "height",
+                "quality",
+                "subsampling",
+                "grain",
+                "jpeg_bytes",
+                "jpeg_sha256",
+            ]
+        )
         for i in range(count):
             w, h = SIZES[i % len(SIZES)]
-            small = Image.frombytes("RGB", (96, 72), rng.randbytes(96 * 72 * 3))
+            texture = rng.choice((40, 96, 160, 256))
+            small = Image.frombytes(
+                "RGB", (texture, texture), rng.randbytes(texture**2 * 3)
+            )
             img = small.resize((w, h), Image.Resampling.BILINEAR)
             d = ImageDraw.Draw(img)
             for _ in range(23):
@@ -60,12 +73,23 @@ def synthetic(root, count, seed):
                 :32
             ]
             p = images / (sid + ".jpg")
-            img.save(p, quality=rng.randrange(74, 94), optimize=False)
-            digest = hashlib.sha256(p.read_bytes()).hexdigest()
+            grain = rng.choice((0.0, 0.025, 0.06, 0.12))
+            if grain:
+                noise = Image.frombytes("L", (w, h), rng.randbytes(w * h)).convert(
+                    "RGB"
+                )
+                img = Image.blend(img, noise, grain)
+                noise.close()
+            quality, subsampling = rng.randrange(74, 95), rng.choice((0, 1, 2, 2))
+            img.save(p, quality=quality, subsampling=subsampling, optimize=False)
+            with p.open("rb") as content:
+                digest = hashlib.file_digest(content, "sha256").hexdigest()
             assert digest not in digests
             digests.add(digest)
             manifest.write(json.dumps({"image_id": sid}) + "\n")
-            writer.writerow((sid, w, h, digest))
+            writer.writerow(
+                (sid, w, h, quality, subsampling, grain, p.stat().st_size, digest)
+            )
 
 
 def timed(cmd, log, env, cwd=None):
@@ -80,6 +104,8 @@ def timed(cmd, log, env, cwd=None):
 
 
 def run(a):
+    import resource
+
     job = a.out
     job.mkdir(parents=True, exist_ok=False)
     env = dict(
@@ -109,6 +135,7 @@ def run(a):
         "arch": platform.machine(),
         "kernel": platform.release(),
         "python": sys.version,
+        "timer": time.get_clock_info("monotonic").implementation,
         "affinity": sorted(os.sched_getaffinity(0)),
         "meminfo": Path("/proc/meminfo").read_text().splitlines()[:3],
         "netdev": Path("/proc/net/dev").read_text(),
@@ -130,6 +157,9 @@ def run(a):
             )
         },
     }
+    read_ahead = Path("/sys/block/vda/queue/read_ahead_kb")
+    if read_ahead.is_file():
+        clocks["guest_vda_read_ahead_kib"] = int(read_ahead.read_text())
     assert platform.machine() == "x86_64"
     assert {
         line.split(":")[0].strip() for line in clocks["netdev"].splitlines()[2:]
@@ -259,6 +289,15 @@ def run(a):
     if rc or len(photos) != a.n or last_close is None:
         raise RuntimeError(f"main rc={rc} rows={len(photos)}; see main.log")
     phases["after_close_until_exit_s"] = end - last_close
+    sync_started = time.monotonic()
+    with (job / "output/submission.jsonl").open("r+b") as result:
+        os.fsync(result.fileno())
+    output_dir = os.open(job / "output", os.O_RDONLY | os.O_DIRECTORY)
+    try:
+        os.fsync(output_dir)
+    finally:
+        os.close(output_dir)
+    phases["post_exit_output_fsync_s"] = time.monotonic() - sync_started
     phases["vision_import_and_setup_residual_s"] = (
         phases["backbones_s"]
         - phases["sig_load_s_rounded"]
@@ -295,6 +334,20 @@ def run(a):
             env,
         )
     assert f"{a.n}/{a.n}" in (job / "output-check.log").read_text()
+    network_probe = (
+        "import errno,socket\n"
+        "try:\n socket.socket(socket.AF_INET,socket.SOCK_STREAM)\n"
+        "except OSError as e:\n assert e.errno == errno.EACCES; print(e.errno)\n"
+        "else:\n raise RuntimeError('AF_INET socket unexpectedly available')"
+    )
+    clocks["seccomp_ipv4_socket_errno"] = int(
+        subprocess.check_output(
+            [*cmd[: cmd.index("--") + 1], str(py), "-c", network_probe],
+            cwd=artifacts,
+            env=env,
+            text=True,
+        )
+    )
     clocks.update(phases)
     clocks["install_plus_process_s"] = clocks["install_s"] + clocks["main_process_s"]
     clocks["max_child_rss_kib"] = resource.getrusage(resource.RUSAGE_CHILDREN).ru_maxrss

@@ -1,0 +1,110 @@
+{
+  "subgroups": {
+    "multiple_gold": {
+      "photos": 93,
+      "severe_instances": 117,
+      "baseline_complete_miss": 28,
+      "candidate_complete_miss": 34,
+      "candidate_rank_only": 12,
+      "candidate_threshold_only": 11,
+      "candidate_threshold_and_rank": 10,
+      "candidate_rank_only+threshold_and_rank": 1
+    },
+    "multiple_severe": {
+      "photos": 24,
+      "severe_instances": 48,
+      "baseline_complete_miss": 2,
+      "candidate_complete_miss": 4,
+      "candidate_threshold_only": 2,
+      "candidate_threshold_and_rank": 1,
+      "candidate_rank_only+threshold_and_rank": 1
+    },
+    "severe_and_lower": {
+      "photos": 77,
+      "severe_instances": 85,
+      "baseline_complete_miss": 26,
+      "candidate_complete_miss": 30,
+      "candidate_rank_only": 12,
+      "candidate_threshold_and_rank": 9,
+      "candidate_threshold_only": 9
+    },
+    "multiple_severe_and_lower": {
+      "photos": 8,
+      "severe_instances": 16,
+      "baseline_complete_miss": 0,
+      "candidate_complete_miss": 0
+    }
+  },
+  "severe_by_code": {
+    "caught_in_machine": {
+      "gold": 16,
+      "baseline_missed": 4,
+      "candidate_missed": 3,
+      "lost": 1,
+      "gained": 2
+    },
+    "drowning_inundation": {
+      "gold": 1,
+      "baseline_missed": 1,
+      "candidate_missed": 1,
+      "lost": 0,
+      "gained": 0
+    },
+    "electrical_energy": {
+      "gold": 12,
+      "baseline_missed": 2,
+      "candidate_missed": 6,
+      "lost": 4,
+      "gained": 0
+    },
+    "fall_height": {
+      "gold": 107,
+      "baseline_missed": 38,
+      "candidate_missed": 49,
+      "lost": 16,
+      "gained": 5
+    },
+    "fire_explosion": {
+      "gold": 4,
+      "baseline_missed": 2,
+      "candidate_missed": 3,
+      "lost": 2,
+      "gained": 1
+    },
+    "other": {
+      "gold": 108,
+      "baseline_missed": 37,
+      "candidate_missed": 42,
+      "lost": 9,
+      "gained": 4
+    },
+    "slip_trip": {
+      "gold": 4,
+      "baseline_missed": 2,
+      "candidate_missed": 2,
+      "lost": 0,
+      "gained": 0
+    },
+    "struck_by_lifting": {
+      "gold": 42,
+      "baseline_missed": 28,
+      "candidate_missed": 24,
+      "lost": 1,
+      "gained": 5
+    }
+  },
+  "policy_order": {
+    "single_fixed": {
+      "exact_final_order_matches": 920,
+      "any_raw_logit_tie_photos": 370,
+      "any_admitted_utility_tie_photos": 0,
+      "admitted_third_fourth_tie_photos": 0
+    },
+    "multi_class": {
+      "exact_final_order_matches": 920,
+      "any_raw_logit_tie_photos": 370,
+      "any_admitted_utility_tie_photos": 0,
+      "admitted_third_fourth_tie_photos": 0
+    }
+  }
+}

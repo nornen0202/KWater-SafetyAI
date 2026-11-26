@@ -77,6 +77,42 @@ def csvout(path, rows):
         w.writerows(rows)
 
 
+def severity_subgroups(photos):
+    subgroups = {}
+    codes = {}
+    for row in photos:
+        severe = set(row["severe"].split())
+        if not severe:
+            continue
+        gold = set(row["gold"].split())
+        base = set(row[BASE].split())
+        candidate = set(row[MULTI].split())
+        for code in severe:
+            counts = codes.setdefault(code, Counter())
+            counts["gold"] += 1
+            counts["baseline_missed"] += code not in base
+            counts["candidate_missed"] += code not in candidate
+            counts["lost"] += code in base and code not in candidate
+            counts["gained"] += code not in base and code in candidate
+        groups = {
+            "multiple_gold": len(gold) > 1,
+            "multiple_severe": len(severe) > 1,
+            "severe_and_lower": bool(gold - severe),
+            "multiple_severe_and_lower": len(severe) > 1 and bool(gold - severe),
+        }
+        for group, applies in groups.items():
+            if not applies:
+                continue
+            counts = subgroups.setdefault(group, Counter())
+            counts["photos"] += 1
+            counts["severe_instances"] += len(severe)
+            counts["baseline_complete_miss"] += not (severe & base)
+            counts["candidate_complete_miss"] += not (severe & candidate)
+            if not severe & candidate:
+                counts["candidate_" + row["candidate_causes"]] += 1
+    return dict(subgroups=subgroups, severe_by_code=dict(sorted(codes.items())))
+
+
 def evaluate(y, severe, pred):
     denom = y.sum(0) + pred.sum(0)
     active = denom > 0
@@ -142,6 +178,7 @@ def run(args):
     labels = read_dev_labels(args.labels, ids)
     m = json.loads((run / "dev_fold-metrics.json").read_bytes())
     forecasts = {k: [] for k in (BASE, MULTI, RULE)}
+    order_checks = {k: Counter() for k in (BASE, MULTI)}
     fold = np.array([r["fold"] for r in records])
     groups = np.array([r["group"] for r in records])
     assert len(set(groups)) == 29 and set(fold) == set(range(5))
@@ -194,13 +231,25 @@ def run(args):
             tag = f"dev_fold-{mode}-{r['fold']}"
             cfg = m["policies"][tag][policy]
             pred, rows = trace(r["logits"][mode], cfg)
-            assert set(pred) == set(r["predictions"][arm])
+            assert [code for code in CODES if code in pred] == r["predictions"][arm]
             preds[arm] = pred
             photo[arm + "_raw_top3"] = " ".join(
                 e["code"] for e in sorted(rows, key=lambda e: e["raw_rank"])[:3]
             )
             admitted = sorted(
                 (e for e in rows if e["passed"]), key=lambda e: e["eligible_rank"]
+            )
+            utility = [e["utility"] for e in admitted]
+            checks = order_checks[arm]
+            checks["exact_final_order_matches"] += 1
+            checks["any_raw_logit_tie_photos"] += len({e["logit"] for e in rows}) < len(
+                rows
+            )
+            checks["any_admitted_utility_tie_photos"] += len(set(utility)) < len(
+                utility
+            )
+            checks["admitted_third_fourth_tie_photos"] += bool(
+                len(utility) > 3 and utility[2] == utility[3]
             )
             photo[arm + "_admitted_order"] = " ".join(e["code"] for e in admitted)
             for entry in rows:
@@ -281,7 +330,17 @@ def run(args):
     csvout(out / "audit-photos.csv", photos)
     csvout(out / "audit-270.csv", [p for p in photos if p["pair"]])
     csvout(out / "audit-codes.csv", details)
-    (out / "audit.json").write_text(json.dumps(outdata, indent=2), encoding="utf8")
+    (out / "audit.json").write_text(
+        json.dumps(outdata, indent=2), encoding="utf8", newline="\r\n"
+    )
+    (out / "audit-severity-subgroups.json").write_text(
+        json.dumps(severity_subgroups(photos), indent=2),
+        encoding="utf8",
+        newline="\r\n",
+    )
+    (out / "audit-policy-order-check.json").write_text(
+        json.dumps(order_checks, indent=2), encoding="utf8", newline="\r\n"
+    )
     print(json.dumps(outdata["pooled"]))
     print(json.dumps(outdata["paired"]))
 

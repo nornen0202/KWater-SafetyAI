@@ -43,8 +43,15 @@ manifest = json.loads(m)
 def fetch(layer):
     digest = layer["digest"][7:]
     dest = path / digest
-    if dest.exists() and dest.stat().st_size == layer["size"]:
-        return
+    if dest.exists():
+        with dest.open("rb") as f:
+            valid = (
+                dest.stat().st_size == layer["size"]
+                and hashlib.file_digest(f, "sha256").hexdigest() == digest
+            )
+        if valid:
+            return
+        dest.replace(dest.with_name(dest.name + ".invalid-" + str(time.time_ns())))
     part = dest.with_suffix(".part")
     for attempt in range(10):
         try:
@@ -61,13 +68,22 @@ def fetch(layer):
                             == f"bytes {start}-{end}/{layer['size']}"
                         )
                     elif start != 0:
+                        part.replace(
+                            part.with_name(
+                                part.name + ".no-range-" + str(time.time_ns())
+                            )
+                        )
                         raise ValueError("registry ignored resume range")
                     with part.open("ab") as f:
                         for buf in r.iter_content(2**20):
                             f.write(buf)
             with part.open("rb") as f:
-                if hashlib.file_digest(f, "sha256").hexdigest() != digest:
-                    raise ValueError("content digest mismatch")
+                valid = hashlib.file_digest(f, "sha256").hexdigest() == digest
+            if not valid:
+                part.replace(
+                    part.with_name(part.name + ".invalid-" + str(time.time_ns()))
+                )
+                raise ValueError("content digest mismatch")
             part.replace(dest)
             print(digest, dest.stat().st_size, flush=True)
             return

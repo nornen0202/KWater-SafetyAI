@@ -1,7 +1,7 @@
 {
   "algorithm": "SHA-256",
-  "files": 2493,
-  "total_bytes": 90765733970,
+  "files": 2498,
+  "total_bytes": 90765742753,
   "scope": "Completed project data files and local-only research outputs. In-progress downloads, live transfer status and environment caches are excluded.",
   "artifacts": [
     {
@@ -12446,8 +12446,8 @@
     },
     {
       "path": "data/phase01-runs/item39-2155e8fa/audit-replay-verification.json",
-      "bytes": 521,
-      "sha256": "b1c548e189cd13ca5b18956e55dfc4674b6ac4db23371933dafce1b33149180b"
+      "bytes": 733,
+      "sha256": "93b3e2ae007ff66aa01e7479fbe27c55c7e71b7975d7577ea19f7a111b3b5ac6"
     },
     {
       "path": "data/phase01-runs/item39-2155e8fa/development-code-severity.jsonl",
@@ -12468,6 +12468,31 @@
       "path": "data/phase01-runs/item39-2155e8fa/vm/pre-avx-guest.log",
       "bytes": 3543,
       "sha256": "dda77ef3b771056ab0eb6ddf9491e6d8816acf1676855217afc8ef278589123b"
+    },
+    {
+      "path": "data/phase01-runs/item39-2155e8fa/audit-policy-order-check.json",
+      "bytes": 382,
+      "sha256": "a8193cfe78e563060f2d6cb1dc47d1d47fdd973ae99e6c30a98eb6e1d9a9998e"
+    },
+    {
+      "path": "data/phase01-runs/item39-2155e8fa/audit-severity-subgroups.json",
+      "bytes": 2300,
+      "sha256": "ff466466d9b32c4c268d565a6388710be230941df55ac72bcef19ca11dea7a7a"
+    },
+    {
+      "path": "data/phase01-runs/item39-2155e8fa/wheel-compatibility.json",
+      "bytes": 3652,
+      "sha256": "3766d8fcc0140f0f61f108c110311f1b6f18fdbbf39fb7608bf7e9aec6553ed2"
+    },
+    {
+      "path": "data/phase01-runs/item39-2155e8fa/vm/guest-maintenance-timers.log",
+      "bytes": 2049,
+      "sha256": "230e93473f3b4f5aac5d9cef083bbe959c5a6571deeb90820f2ea231af08e156"
+    },
+    {
+      "path": "data/phase01-runs/item39-2155e8fa/vm/unpack-sequential-advice.log",
+      "bytes": 188,
+      "sha256": "c348df74a68c3dcf6cc2bd7e4abdb21989a3ae84ddd79bde2431c10249c30bda"
     }
   ]
 }
