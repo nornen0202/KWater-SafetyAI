@@ -1,6 +1,6 @@
 {
   "event": "K-water 5th Public leaderboard",
-  "stage": "accepted_awaiting_release",
+  "stage": "scored",
   "submitted_at_kst": "2026-11-25T23:57:00+09:00",
   "time_precision": "minute",
   "release_from_kst": "2026-11-26T13:00:00+09:00",
@@ -29,7 +29,7 @@
   },
   "remaining_attempts_today": 0,
   "daily_quota": 2,
-  "public_score": null,
+  "public_score": 16.12,
   "public_rank": null,
   "private_release": "https://github.com/nornen0202/KWater-SafetyAI/releases/tag/submission-20261125-02",
   "final_submission_selection": "Automatic selection of the highest Public score at the competition deadline, as shown in My Submissions.",
@@ -38,5 +38,10 @@
     "confined_space",
     "chemical_exposure",
     "thermal_weather"
-  ]
+  ],
+  "score_source": "Authenticated My Submissions",
+  "team_public_rank_at_release": 11,
+  "ranked_teams_at_release": 18,
+  "automatically_selected_at_release": false,
+  "release_updated_at_kst": "2026-11-26T13:00:00+09:00"
 }

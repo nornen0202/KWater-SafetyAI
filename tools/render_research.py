@@ -110,7 +110,7 @@ def render(source, dest, browser, tmp):
         body = md.renderer.render(tokens,md.options,{})
         pages.append('<article class="paper"><div class="running"><span>K-water 현장 안전 AI</span>'
                      '<span>연구·평가 보고서</span></div>' + body +
-                     f'<footer><span>2026년 11월 25일 기준 · 연구팀 실험 기록</span><span>{index} / {len(sections)}</span></footer></article>')
+                     f'<footer><span>2026년 11월 26일 기준 · 연구팀 실험 기록</span><span>{index} / {len(sections)}</span></footer></article>')
     tmp.mkdir(parents=True,exist_ok=True)
     print_source = tmp / "research-print.html"
     print_source.write_text('<!doctype html><html lang="ko"><meta charset="utf-8"><title>' +

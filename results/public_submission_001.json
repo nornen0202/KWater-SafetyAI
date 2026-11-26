@@ -1,6 +1,6 @@
 {
   "event": "K-water 5th Public leaderboard",
-  "stage": "accepted_awaiting_release",
+  "stage": "scored",
   "observed_at_kst": "2026-11-25T20:44:00+09:00",
   "submitted_at_kst": "2026-11-25T20:42:00+09:00",
   "release_from_kst": "2026-11-26T13:00:00+09:00",
@@ -15,7 +15,7 @@
   "remaining_attempts_today": 1,
   "daily_quota": 2,
   "published_teams_at_observation": 0,
-  "public_score": null,
+  "public_score": 42.04,
   "public_rank": null,
   "public_leaderboard_recheck": {
     "observed_at_kst": "2026-11-25T23:14:51+09:00",
@@ -25,5 +25,10 @@
     "sample": false,
     "teams": 0,
     "updated_at": null
-  }
+  },
+  "score_source": "Authenticated My Submissions",
+  "team_public_rank_at_release": 11,
+  "ranked_teams_at_release": 18,
+  "automatically_selected_at_release": true,
+  "release_updated_at_kst": "2026-11-26T13:00:00+09:00"
 }
