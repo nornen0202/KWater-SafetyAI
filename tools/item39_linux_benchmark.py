@@ -126,6 +126,7 @@ def run(a):
         MKL_NUM_THREADS="2",
         OPENBLAS_NUM_THREADS="1",
         CUBLAS_WORKSPACE_CONFIG=":4096:8",
+        LD_LIBRARY_PATH="/usr/local/cuda/lib64",
     )
     for p in ("cache", "scratch", "output"):
         (job / p).mkdir()
@@ -141,6 +142,7 @@ def run(a):
         "netdev": Path("/proc/net/dev").read_text(),
         "network_namespace": os.readlink("/proc/self/ns/net"),
         "uid": os.geteuid(),
+        "ld_library_path": env["LD_LIBRARY_PATH"],
         "input_count": a.n,
         "seed": a.seed,
         "library_base": {
@@ -272,13 +274,23 @@ def run(a):
                 if tag == "PROFILE_IMPORT":
                     phases["entry_import_s"] = float(s)
                     phases["startup_until_import_s"] = time.monotonic() - t
+                    print("IMPORT_READY", a.n, phases["entry_import_s"], flush=True)
                 elif tag == "PROFILE_LOAD":
                     phases.update(json.loads(s))
+                    print("MODEL_READY", a.n, s, flush=True)
                 elif tag == "loaded" and s.startswith(("sig ", "dino ")):
                     name, seconds = s.split()
                     phases[name + "_load_s_rounded"] = float(seconds)
                 elif tag == "PROFILE_PHOTO":
                     photos.append(json.loads(s))
+                    if len(photos) == 1 or len(photos) % 10 == 0 or len(photos) == a.n:
+                        print(
+                            "PHOTO_PROGRESS",
+                            a.n,
+                            len(photos),
+                            photos[-1]["total_s"],
+                            flush=True,
+                        )
                 elif tag == "PROFILE_CLOSE":
                     phases["output_close_rename_s"] = float(s)
                     last_close = time.monotonic()
