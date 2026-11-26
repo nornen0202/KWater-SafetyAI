@@ -39,7 +39,9 @@ SOURCES_BASE = {
 
 def dump(path, data):
     path.write_text(
-        json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf8"
+        json.dumps(data, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf8",
+        newline="\r\n",
     )
 
 
@@ -133,7 +135,7 @@ def build(run, out, extras):
         paths[name] = stage / name
     dump(paths["assets.json"], assets)
     paths["requirements.lock"].write_text(
-        "\n".join(sorted(lock)) + "\n", encoding="ascii"
+        "\n".join(sorted(lock)) + "\n", encoding="ascii", newline="\r\n"
     )
     img = Image.new("RGB", (640, 480), (184, 211, 234))
     draw = ImageDraw.Draw(img)
@@ -151,7 +153,9 @@ def build(run, out, extras):
     img.save(paths[p], quality=87)
     p = "example/manifest.jsonl"
     paths[p] = stage / p
-    paths[p].write_text(json.dumps({"image_id": eid}) + "\n", encoding="utf8")
+    paths[p].write_text(
+        json.dumps({"image_id": eid}) + "\n", encoding="utf8", newline="\r\n"
+    )
     archive = out / "kwater-phase1-dev920-linux-x86_64.zip"
     tmp = archive.with_suffix(".partial")
     members = {}

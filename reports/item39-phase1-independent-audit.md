@@ -86,3 +86,29 @@ python -B -m tools.item39_package --run $run --out $out --extras "$out/stage"
 
 네 휠의 내용 해시는 `requirements.lock`에 고정했다. 원래 Windows 개발은 PyTorch 2.5.1과 NumPy 1.26.4를 썼다. 공식 키트는 CPU 6개·RAM 56GiB·L4 전용 GPU를 전제로 하며 Public 200장 제한은 1,800초, Private 300장은 3,600초다. 키트의 ZIP 검사기가 구현한 32GiB 기준과 별도로 공고의 십진 20GB 제한을 직접 대조했다. [로컬 공식 키트의 환경 명세](G:/Projects/KWater-SafetyAI/data/local-kit/README.txt)
 
+### 런타임과 입력 재현
+
+호스트는 Windows 11 Home, i5-12400F 6코어, 물리 RAM 15.85GiB, RTX 3060 12,288MiB다. WSL과 Docker CLI가 설치되지 않아 일반 사용자 권한으로 QEMU/WHPX의 Ubuntu 24.04.5 x86-64를 부팅했다. 학습에 사용 중인 GPU는 VM에 할당하지 않았다. Linux 첫 부팅에서 커널 `6.8.0-147-generic`, vCPU 2개, 게스트 RAM 3,411MiB를 확인했다. 팀 장비 목록과 Tailscale에서 접속 가능한 Linux 장비는 0대였다. 지정 계정의 전날 Colab 점검에서 잔여 유료 연산 단위는 0이고 L4가 비활성화되어 있었다. 오늘 Orca 브라우저는 로그인 상태가 아니었고 기존 Chrome의 자동화 연결은 사용할 수 없었다. [QEMU WHPX 문서](https://www.qemu.org/docs/master/system/whpx.html) · [Ubuntu 공식 이미지](https://cloud-images.ubuntu.com/noble/current/) · [계정·장비 점검](../docs/external-compute.md)
+
+공식 Linux 이미지 `ghcr.io/jiwoochris/kwater-runtime`의 manifest SHA-256은 `2e924d941c41876e9eb1de79a1af7eaf796aacb1210fb86f6ff3345cc7c58d64`다. Windows에서 이미지 레이어와 구성을 내려받고 내용 해시를 확인했다. 호스트가 루프백 SSH로 게스트 준비 스크립트를 시작한다. 게스트는 호스트의 루프백 전용 HTTP 서버에서 공식 이미지와 ZIP을 받고 해시를 다시 검증한다. Linux에서는 umoci 0.6.0으로 공식 레이어를 합치고, 일반 사용자 UID 10001의 별도 네트워크 네임스페이스에서 검사·설치·추론을 실행한다. [umoci 0.6.0 배포본](https://github.com/opencontainers/umoci/releases/tag/v0.6.0)
+
+기존 G: 재현 폴더에는 QEMU, Ubuntu 원본 이미지, umoci, 공개 wheel과 토크나이저가 보존되어 있다. ZIP 조립에 쓴 Windows Python은 3.14.3, Pillow는 12.3.0이다. 새 폴더에서 공개 의존성·토크나이저·라이선스를 재구성하려면 아래 첫 명령으로 고정한 9개 파일을 받는다. 각 파일은 제출 ZIP 원장의 해시와 대조한다. 개발 헤드와 백본은 기존 개발 스냅샷에서 가져온다.
+
+```powershell
+python tools/item39_stage_public.py "$out/stage"
+$vm = "$out/vm"
+$kit = 'G:/Projects/KWater-SafetyAI/data/local-kit/kit'
+python tools/item39_fetch_runtime.py "$vm/runtime"
+python tools/item39_vm_seed.py $vm
+./tools/item39_vm_start.ps1 -VmRoot $vm
+# 각각 별도 PowerShell에서 실행
+python tools/item39_vm_files.py --run $out --kit $kit
+python -u tools/item39_vm_run.py $out 3 200 300
+```
+
+명령은 새 Ubuntu 오버레이와 빈 작업 디렉터리에서 시작한다. 기존 실행의 원본 타이밍 로그를 보존하려면 재현용 VM 폴더와 출력 폴더를 별도로 사용한다.
+
+각 크기의 입력은 seed `20261126+장수`로 생성한 독립 JPEG다. 가로·세로 8종 규격(640×480~4032×3024), 색상과 질감, 도형, JPEG 품질을 바꿨다. 파일마다 크기와 SHA-256을 기록하고 같은 실행 안에 중복 해시가 있으면 중단한다. 3장 cold 실행은 공식 `check_zip.py`로 새 디렉터리에 해제한다. 이후 실행은 이 파일들을 읽기 전용으로 마운트하고 매번 빈 홈·캐시와 새 가상환경을 사용한다. 각 실행 전 게스트 페이지 캐시를 비우고 가중치에 `POSIX_FADV_DONTNEED`를 적용한다. 호스트의 디스크 캐시는 통제할 수 없다.
+
+측정 스크립트는 공식 기본 패키지에 ZIP의 고정 해시 휠을 `--no-index`로 설치하고 공식 `sandbox_exec.py --mode seccomp`로 `main.py`를 호출한다. Linux의 단조 시계로 설치, import, 백본·헤드 로딩, 첫 장 및 이후 각 장, 전처리·기록·종료를 잰다. CPU 연산은 동기적으로 완료되고 CUDA 장치가 할당된 경우 측정 경계에서 `torch.cuda.synchronize`를 호출한다. Windows는 SSH의 시작·끝 이벤트를 독립 단조 시계로 기록한다. 기기 준비·ZIP 검사·합성 입력 생성과 공식 JSONL 출력 검사 시간은 설치·추론 제한 시간 바깥으로 구분한다.
+

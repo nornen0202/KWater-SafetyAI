@@ -1,7 +1,7 @@
 {
   "algorithm": "SHA-256",
-  "files": 2474,
-  "total_bytes": 84944959782,
+  "files": 2488,
+  "total_bytes": 90765681408,
   "scope": "Completed project data files and local-only research outputs. In-progress downloads, live transfer status and environment caches are excluded.",
   "artifacts": [
     {
@@ -12373,6 +12373,76 @@
       "path": "results/visual_probe.json",
       "bytes": 6702,
       "sha256": "b149d67e3ec95788628f7dd1b27fb7906661820b47be33beb8ea7d5c49ccdbb5"
+    },
+    {
+      "path": "data/phase01-runs/item39-2155e8fa/audit-270.csv",
+      "bytes": 130574,
+      "sha256": "9c2eab36c0b5233aa7cdeab2e6806adbd5316e033f866fcbeb69d1997d33c432"
+    },
+    {
+      "path": "data/phase01-runs/item39-2155e8fa/audit-codes.csv",
+      "bytes": 3465948,
+      "sha256": "b5103fad0e38ee47c4f565651a7a53103c25e017d4ac6ee7fab487516a5771aa"
+    },
+    {
+      "path": "data/phase01-runs/item39-2155e8fa/audit-photos.csv",
+      "bytes": 415465,
+      "sha256": "387c02921a184215e5fed85205fee477573d9764742bf3e2c9f253205923b064"
+    },
+    {
+      "path": "data/phase01-runs/item39-2155e8fa/audit.json",
+      "bytes": 7009,
+      "sha256": "4fd1c1e0d0304f0dc4953ead1c68a4bad2830389056d4cd55f712ef4996e4604"
+    },
+    {
+      "path": "data/phase01-runs/item39-2155e8fa/host-capabilities.json",
+      "bytes": 1235,
+      "sha256": "6d9ec0d1e18c5ea40bbeb61b1109d428bb7e8586b0dc3aabf8ed13762cf55d6c"
+    },
+    {
+      "path": "data/phase01-runs/item39-2155e8fa/kwater-phase1-dev920-linux-x86_64.zip",
+      "bytes": 5816690916,
+      "sha256": "1006bb157da7df77b5bdd8858b0c7198e2348b973153ac33dba849992f640d6f"
+    },
+    {
+      "path": "data/phase01-runs/item39-2155e8fa/metrics-tests.log",
+      "bytes": 923,
+      "sha256": "2e52faf7c2571228146b0e0390f01370afa4722f2b6ce4910db1f79d3e8b40b7"
+    },
+    {
+      "path": "data/phase01-runs/item39-2155e8fa/official-checker-hashes.json",
+      "bytes": 453,
+      "sha256": "649599a5a0c380489732a5bcaf4103c45c14a61c035db3c09e7c999026cef511"
+    },
+    {
+      "path": "data/phase01-runs/item39-2155e8fa/upstream-assets.json",
+      "bytes": 1910,
+      "sha256": "c2388717731305b0ebb2b291ce662b43ff1d86eb394613d659243ad6f0f8d872"
+    },
+    {
+      "path": "data/phase01-runs/item39-2155e8fa/vm/guest-cpu.log",
+      "bytes": 461,
+      "sha256": "f0a9568d2f396e76d84d8b37457faadcf03efebfe5f8ef4d88df7d3ca7174ddb"
+    },
+    {
+      "path": "data/phase01-runs/item39-2155e8fa/vm/guest-preflight.log",
+      "bytes": 739,
+      "sha256": "3bd27c7f302775a14e48b2995d62797650f5ecfdfc438c50cebd97ea975bb3ed"
+    },
+    {
+      "path": "data/phase01-runs/item39-2155e8fa/vm/guest-preparation.log",
+      "bytes": 472,
+      "sha256": "6979fedaee23713b007496b6862ff344c218bd507a22e55dca14d641ca1b364d"
+    },
+    {
+      "path": "data/phase01-runs/item39-2155e8fa/vm/max-cpu-paused-whpx.log",
+      "bytes": 271,
+      "sha256": "bf28d72aac05d5c3ab32d61e5d3b4eb4ea88bc6b1eabe3fcd873c4c99383fdd2"
+    },
+    {
+      "path": "data/phase01-runs/item39-2155e8fa/zip-manifest.json",
+      "bytes": 5250,
+      "sha256": "8c4de0fa6f1f4eb7d8efe50a389251a66213fa9a107af24adfb608a7bdb2d6e9"
     }
   ]
 }
