@@ -20,7 +20,7 @@ def verify(run, counts):
     for filename, digest in checkers.items():
         if not re.search(rf"^{digest}  [^\n]*/kit/{re.escape(filename)}$", log, re.M):
             raise ValueError(f"Missing Linux hash for {filename}")
-    if not re.search(rf"^{manifest['sha256']}  [^\n]*submission\.zip$", log, re.M):
+    if not re.search(rf"^{manifest['sha256']} +[^\n]*submission\.zip$", log, re.M):
         raise ValueError("Missing Linux verification of the submission archive")
     seen_ids, seen_hashes = set(), set()
     cohorts = {}

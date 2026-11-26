@@ -1,7 +1,7 @@
 {
   "algorithm": "SHA-256",
-  "files": 2498,
-  "total_bytes": 90765742753,
+  "files": 2511,
+  "total_bytes": 90765785708,
   "scope": "Completed project data files and local-only research outputs. In-progress downloads, live transfer status and environment caches are excluded.",
   "artifacts": [
     {
@@ -12493,6 +12493,71 @@
       "path": "data/phase01-runs/item39-2155e8fa/vm/unpack-sequential-advice.log",
       "bytes": 188,
       "sha256": "c348df74a68c3dcf6cc2bd7e4abdb21989a3ae84ddd79bde2431c10249c30bda"
+    },
+    {
+      "path": "data/phase01-runs/item39-2155e8fa/vm/layer-read-comparison.log",
+      "bytes": 158,
+      "sha256": "5253d243896335d21a49d9d9f6322d9d1cce0cff482cf3df4168b496cc59f642"
+    },
+    {
+      "path": "data/phase01-runs/item39-2155e8fa/vm/oci-stream-mount.log",
+      "bytes": 142,
+      "sha256": "8bd80eab7df7d27b072b3a5948d86571647644ee68efb83aaf88a2c6abdbb464"
+    },
+    {
+      "path": "data/phase01-runs/item39-2155e8fa/vm/oci-stream-ranges.log",
+      "bytes": 1177,
+      "sha256": "04c3e1f09d3b976ca4d397623120ded4a258fdd251f1a0a2b774dfee30adebed"
+    },
+    {
+      "path": "data/phase01-runs/item39-2155e8fa/vm/unpack-official-status.log",
+      "bytes": 112,
+      "sha256": "34991a21c8969bf177aa75e898b093982cc3f03023f672e93756b3d04f2402c1"
+    },
+    {
+      "path": "data/phase01-runs/item39-2155e8fa/vm/host-memory-pressure.json",
+      "bytes": 269,
+      "sha256": "0544b5b96cf79d97a73fa9119d4fff86e312bb29762d5100a87f32b31c2eb238"
+    },
+    {
+      "path": "data/phase01-runs/item39-2155e8fa/vm/contention-host.csv",
+      "bytes": 5343,
+      "sha256": "ee85e845b5ccc093cb8bdb07aa58bfe22d36de582ea0d285e3c01031a786fa10"
+    },
+    {
+      "path": "data/phase01-runs/item39-2155e8fa/vm/contention-host-fast.csv",
+      "bytes": 22803,
+      "sha256": "7f3d26ed30be8b7f0e5d79dbd6e102e7b152f61d221c5f33d12e53ccac4e106c"
+    },
+    {
+      "path": "data/phase01-runs/item39-2155e8fa/vm/contention-guest.log",
+      "bytes": 2815,
+      "sha256": "583196e0f6190d343ebe508c06a61c1a4a8cfa46088d7fea04705e000e778e1c"
+    },
+    {
+      "path": "data/phase01-runs/item39-2155e8fa/vm/contention-summary.json",
+      "bytes": 2552,
+      "sha256": "159fa7958d2bf5569e9c4b843e767976127f6f769ee32a20f56004b14876864e"
+    },
+    {
+      "path": "data/phase01-runs/item39-2155e8fa/vm/contention-compare.py",
+      "bytes": 2513,
+      "sha256": "a57056652c289c0a6939e2744f38e319b0267a2a31ccce7651b241a609ccea7c"
+    },
+    {
+      "path": "data/phase01-runs/item39-2155e8fa/vm/contention-host-fast.py",
+      "bytes": 1641,
+      "sha256": "b88edb79e35e9be4988bf3731cb1cc1e12b6b7a6b9d4bdb8b937a727c53ad840"
+    },
+    {
+      "path": "data/phase01-runs/item39-2155e8fa/vm/contention-guest.py",
+      "bytes": 2489,
+      "sha256": "e70f52f19c8c5cc077884141a6da3db953e832cdf9fc46658dd121e0cc86f269"
+    },
+    {
+      "path": "data/phase01-runs/item39-2155e8fa/vm/prep-monitor.sh",
+      "bytes": 941,
+      "sha256": "001dc942605db962f6a8e1de74a21f6826d118db8a8cbc4689d18b72b2baac7f"
     }
   ]
 }
