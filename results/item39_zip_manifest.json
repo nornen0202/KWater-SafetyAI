@@ -1,0 +1,138 @@
+{
+  "archive": "kwater-phase1-dev920-linux-x86_64.zip",
+  "bytes": 5816690916,
+  "sha256": "1006bb157da7df77b5bdd8858b0c7198e2348b973153ac33dba849992f640d6f",
+  "GB": 5.816690916,
+  "GiB": 5.417215559631586,
+  "headroom_bytes": 14183309084,
+  "members": {
+    "Apache-2.0.txt": {
+      "bytes": 11560,
+      "sha256": "3ddf9be5c28fe27dad143a5dc76eea25222ad1dd68934a047064e56ed2fa40c5"
+    },
+    "assets.json": {
+      "bytes": 3122,
+      "sha256": "bccbf7d937a972f846c44e7a0cfe5c96598fb7728416bb26b9c29d359bc6425f"
+    },
+    "example/images/00000000000000000000000000000001.jpg": {
+      "bytes": 11036,
+      "sha256": "455f464d51505010b5d8b5432662d59604e1566f09de3f7a1de9eb6421f953e7"
+    },
+    "example/manifest.jsonl": {
+      "bytes": 50,
+      "sha256": "5f25cd04a26c3cc77e2fead6f13c511b28ad5a14d69ed85d3f562644e9d37d8b"
+    },
+    "kwater_lab/__init__.py": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "kwater_lab/metrics.py": {
+      "bytes": 13501,
+      "sha256": "a93dfe1834b38f700448224bff959bcad689d8b6d2a96a7e0810d72537ee8fc3"
+    },
+    "kwater_lab/phase01_head.py": {
+      "bytes": 6923,
+      "sha256": "c67fe9acd9867086ffebac21b0c0c5831706e05323cca86d508d10c6a4e65462"
+    },
+    "kwater_lab/phase01_infer.py": {
+      "bytes": 4071,
+      "sha256": "bb171564aad0ef1dfd89a789c967b3ce748d8fcd79c39a784c7de4be44bd1745"
+    },
+    "kwater_lab/phase01_vision.py": {
+      "bytes": 7482,
+      "sha256": "f7ec881e50b878cbb8877f0eef9b9de26bd24c30cdcbc218786b6ae47010c1bf"
+    },
+    "kwater_lab/submission2_output.py": {
+      "bytes": 7376,
+      "sha256": "d29f1e59eb7c44d1e7ea6105d22d5234642550bcca553d5ed3e12a844a4ca71b"
+    },
+    "licenses/accelerate/licenses/LICENSE": {
+      "bytes": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    },
+    "licenses/huggingface-hub/LICENSE": {
+      "bytes": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    },
+    "licenses/tokenizers/LICENSE": {
+      "bytes": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    },
+    "licenses/transformers/licenses/LICENSE": {
+      "bytes": 11418,
+      "sha256": "77fd4710def9ec3c0f6225800e0235f15a425abd4a8b03559127fcd782612049"
+    },
+    "main.py": {
+      "bytes": 387,
+      "sha256": "ef2521f57348165042b7cb67871a7e8de6ff852c987baa08d77c9c8b5b59084d"
+    },
+    "models/dino/config.json": {
+      "bytes": 549,
+      "sha256": "12df51c069a2dc1305e34ba71ef58bc2407ea553b75f4722a1715c1bce3bbed0"
+    },
+    "models/dino/model.safetensors": {
+      "bytes": 1217522888,
+      "sha256": "399fba97a95f22c36834418bc69373364a99af3a1153da1c0fb31db567c92e23"
+    },
+    "models/dino/preprocessor_config.json": {
+      "bytes": 436,
+      "sha256": "14e780d86fa1861f8751f868d7f45425b5feb55c38ca26f152ca5097ab30f828"
+    },
+    "models/sig/config.json": {
+      "bytes": 559,
+      "sha256": "73477b47ae9a395f008f993ebd8fb5c16ce0b5e8419ffdf2f5b2183b260f9cff"
+    },
+    "models/sig/model.safetensors": {
+      "bytes": 4544143072,
+      "sha256": "9f4f4a49f908ef0c979bce8ff5a5c0e88882dc6c5dc4304387cbbd152558e2c2"
+    },
+    "models/sig/preprocessor_config.json": {
+      "bytes": 394,
+      "sha256": "fb2817d3523ca3b666c859f15320c7138416bc38ffc515e2963f78c868c51c90"
+    },
+    "models/sig/special_tokens_map.json": {
+      "bytes": 636,
+      "sha256": "baec30ea10906f16adb8c18af7a34023002c1746542612b8b41c9f09e1351351"
+    },
+    "models/sig/tokenizer.json": {
+      "bytes": 34363039,
+      "sha256": "cb9140fae3ac5122c972d37adf83e1248471a38147ad76f8215c8872c6fd8322"
+    },
+    "models/sig/tokenizer.model": {
+      "bytes": 4241003,
+      "sha256": "61a7b147390c64585d6c3543dd6fc636906c9af3865a5548f27f31aee1d4c8e2"
+    },
+    "models/sig/tokenizer_config.json": {
+      "bytes": 47164,
+      "sha256": "14afe629fe4959b9e0d51e1852b8d9f7ad074f90a1a7125a4fcdd17f06e78fc8"
+    },
+    "policy.json": {
+      "bytes": 1103,
+      "sha256": "895ac20771d4565baf363a34d89d74491c3048c2a1c870997696e9ea6dcfd95f"
+    },
+    "requirements.lock": {
+      "bytes": 403,
+      "sha256": "debf446ad15a652e65a04db9df1b1d302c8fc5dfc3c230dfab887e9922b0afc7"
+    },
+    "single-dev.pt": {
+      "bytes": 71906,
+      "sha256": "bd83ca5c175e56adea5b4851009a7c71d909db3f66b4038fad8e7e3149637302"
+    },
+    "wheelhouse/accelerate-1.10.1-py3-none-any.whl": {
+      "bytes": 374909,
+      "sha256": "3621cff60b9a27ce798857ece05e2b9f56fcc71631cfb31ccf71f0359c311f11"
+    },
+    "wheelhouse/huggingface_hub-0.36.0-py3-none-any.whl": {
+      "bytes": 566094,
+      "sha256": "7bcc9ad17d5b3f07b57c78e79d527102d08313caa278a641993acddcb894548d"
+    },
+    "wheelhouse/tokenizers-0.22.1-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl": {
+      "bytes": 3250221,
+      "sha256": "e2ef6063d7a84994129732b47e7915e8710f27f99f3a3260b8a38fc7ccd083f4"
+    },
+    "wheelhouse/transformers-4.57.1-py3-none-any.whl": {
+      "bytes": 11990925,
+      "sha256": "b10d05da8fa67dc41644dbbf9bc45a44cb86ae33da6f9295f5fbf5b7890bd267"
+    }
+  }
+}

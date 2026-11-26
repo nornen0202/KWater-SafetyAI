@@ -210,6 +210,13 @@ def run(args):
             pred, rows = trace(r["logits"][mode], cfg)
             assert set(pred) == set(r["predictions"][arm])
             preds[arm] = pred
+            photo[arm + "_raw_top3"] = " ".join(
+                e["code"] for e in sorted(rows, key=lambda e: e["raw_rank"])[:3]
+            )
+            admitted = sorted(
+                (e for e in rows if e["passed"]), key=lambda e: e["eligible_rank"]
+            )
+            photo[arm + "_admitted_order"] = " ".join(e["code"] for e in admitted)
             for entry in rows:
                 code = entry["code"]
                 details.append(

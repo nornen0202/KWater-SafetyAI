@@ -1,0 +1,285 @@
+{
+  "pooled": {
+    "single_fixed": {
+      "photos": 920,
+      "macro_f1": 0.26578578706017536,
+      "severe_photos": 270,
+      "complete_misses": 96,
+      "severe_code_instances": 294,
+      "missed_severe_codes": 114,
+      "no_hazard": 308,
+      "alarms": 308
+    },
+    "multi_class": {
+      "photos": 920,
+      "macro_f1": 0.2926000370424903,
+      "severe_photos": 270,
+      "complete_misses": 109,
+      "severe_code_instances": 294,
+      "missed_severe_codes": 130,
+      "no_hazard": 308,
+      "alarms": 285
+    },
+    "one_slot": {
+      "photos": 920,
+      "macro_f1": 0.2691834334889546,
+      "severe_photos": 270,
+      "complete_misses": 104,
+      "severe_code_instances": 294,
+      "missed_severe_codes": 125,
+      "no_hazard": 308,
+      "alarms": 285
+    }
+  },
+  "fold": {
+    "0": {
+      "single_fixed": {
+        "photos": 179,
+        "macro_f1": 0.28052315963606284,
+        "severe_photos": 65,
+        "complete_misses": 27,
+        "severe_code_instances": 68,
+        "missed_severe_codes": 29,
+        "no_hazard": 55,
+        "alarms": 55
+      },
+      "multi_class": {
+        "photos": 179,
+        "macro_f1": 0.3186979011127618,
+        "severe_photos": 65,
+        "complete_misses": 28,
+        "severe_code_instances": 68,
+        "missed_severe_codes": 30,
+        "no_hazard": 55,
+        "alarms": 55
+      },
+      "one_slot": {
+        "photos": 179,
+        "macro_f1": 0.2957464349376114,
+        "severe_photos": 65,
+        "complete_misses": 28,
+        "severe_code_instances": 68,
+        "missed_severe_codes": 30,
+        "no_hazard": 55,
+        "alarms": 55
+      }
+    },
+    "1": {
+      "single_fixed": {
+        "photos": 193,
+        "macro_f1": 0.28728205615580304,
+        "severe_photos": 45,
+        "complete_misses": 7,
+        "severe_code_instances": 48,
+        "missed_severe_codes": 9,
+        "no_hazard": 63,
+        "alarms": 63
+      },
+      "multi_class": {
+        "photos": 193,
+        "macro_f1": 0.3373228201679487,
+        "severe_photos": 45,
+        "complete_misses": 13,
+        "severe_code_instances": 48,
+        "missed_severe_codes": 16,
+        "no_hazard": 63,
+        "alarms": 54
+      },
+      "one_slot": {
+        "photos": 193,
+        "macro_f1": 0.27076687586101333,
+        "severe_photos": 45,
+        "complete_misses": 13,
+        "severe_code_instances": 48,
+        "missed_severe_codes": 16,
+        "no_hazard": 63,
+        "alarms": 54
+      }
+    },
+    "2": {
+      "single_fixed": {
+        "photos": 179,
+        "macro_f1": 0.22596605444958612,
+        "severe_photos": 47,
+        "complete_misses": 23,
+        "severe_code_instances": 51,
+        "missed_severe_codes": 26,
+        "no_hazard": 72,
+        "alarms": 72
+      },
+      "multi_class": {
+        "photos": 179,
+        "macro_f1": 0.20400303696972596,
+        "severe_photos": 47,
+        "complete_misses": 22,
+        "severe_code_instances": 51,
+        "missed_severe_codes": 26,
+        "no_hazard": 72,
+        "alarms": 71
+      },
+      "one_slot": {
+        "photos": 179,
+        "macro_f1": 0.2236193157490673,
+        "severe_photos": 47,
+        "complete_misses": 22,
+        "severe_code_instances": 51,
+        "missed_severe_codes": 26,
+        "no_hazard": 72,
+        "alarms": 71
+      }
+    },
+    "3": {
+      "single_fixed": {
+        "photos": 177,
+        "macro_f1": 0.26893016855865154,
+        "severe_photos": 60,
+        "complete_misses": 18,
+        "severe_code_instances": 70,
+        "missed_severe_codes": 25,
+        "no_hazard": 54,
+        "alarms": 54
+      },
+      "multi_class": {
+        "photos": 177,
+        "macro_f1": 0.31918871462215115,
+        "severe_photos": 60,
+        "complete_misses": 22,
+        "severe_code_instances": 70,
+        "missed_severe_codes": 31,
+        "no_hazard": 54,
+        "alarms": 48
+      },
+      "one_slot": {
+        "photos": 177,
+        "macro_f1": 0.2988242903563277,
+        "severe_photos": 60,
+        "complete_misses": 17,
+        "severe_code_instances": 70,
+        "missed_severe_codes": 26,
+        "no_hazard": 54,
+        "alarms": 48
+      }
+    },
+    "4": {
+      "single_fixed": {
+        "photos": 192,
+        "macro_f1": 0.25116673089701386,
+        "severe_photos": 53,
+        "complete_misses": 21,
+        "severe_code_instances": 57,
+        "missed_severe_codes": 25,
+        "no_hazard": 64,
+        "alarms": 64
+      },
+      "multi_class": {
+        "photos": 192,
+        "macro_f1": 0.23397880019006165,
+        "severe_photos": 53,
+        "complete_misses": 24,
+        "severe_code_instances": 57,
+        "missed_severe_codes": 27,
+        "no_hazard": 64,
+        "alarms": 57
+      },
+      "one_slot": {
+        "photos": 192,
+        "macro_f1": 0.2332274881244567,
+        "severe_photos": 53,
+        "complete_misses": 24,
+        "severe_code_instances": 57,
+        "missed_severe_codes": 27,
+        "no_hazard": 64,
+        "alarms": 57
+      }
+    }
+  },
+  "paired": {
+    "both_miss": 81,
+    "baseline_hit_only": 28,
+    "both_hit": 146,
+    "candidate_hit_only": 15
+  },
+  "code_causes": {
+    "single_fixed": {
+      "rank_only": 112,
+      "hit": 180,
+      "threshold_and_rank": 2
+    },
+    "multi_class": {
+      "threshold_and_rank": 40,
+      "threshold_only": 49,
+      "hit": 164,
+      "rank_only": 41
+    }
+  },
+  "complete_miss_photo_causes": {
+    "single_fixed": {
+      "rank_only": 94,
+      "threshold_and_rank": 2
+    },
+    "multi_class": {
+      "threshold_and_rank": 34,
+      "threshold_only": 42,
+      "rank_only": 32,
+      "rank_only+threshold_and_rank": 1
+    }
+  },
+  "new_complete_miss_photo_causes": {
+    "multi_class": {
+      "threshold_only": 18,
+      "rank_only": 7,
+      "threshold_and_rank": 3
+    }
+  },
+  "bootstrap_ci": {
+    "multi_class minus single_fixed": [
+      [
+        0.006538716230864413,
+        0.04245206499673641
+      ],
+      [
+        0.003333056478405337,
+        0.09274193548387094
+      ],
+      [
+        -0.10591185188277535,
+        -0.04246933708064455
+      ]
+    ],
+    "one_slot minus single_fixed": [
+      [
+        -0.014319755377354032,
+        0.018929484633637347
+      ],
+      [
+        -0.009649444368800877,
+        0.07604666060505871
+      ],
+      [
+        -0.10591185188277535,
+        -0.04246933708064455
+      ]
+    ],
+    "one_slot minus multi_class": [
+      [
+        -0.038675436864843635,
+        -0.007473868509416679
+      ],
+      [
+        -0.04545454545454547,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ]
+  },
+  "bootstrap_columns": [
+    "macro_f1",
+    "complete_miss_rate",
+    "no_hazard_alarm_rate"
+  ],
+  "bootstrap_seed": 20261126,
+  "bootstrap_draws": 5000
+}

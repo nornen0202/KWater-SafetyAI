@@ -69,3 +69,20 @@ python -B -m tools.item39_package --run $run --out $out --extras "$out/stage"
 
 국내 G: 실행 폴더의 `audit-photos.csv`는 개발 920장 전체, `audit-270.csv`는 중대 사진 전부, `audit-codes.csv`는 920장 × 2개 모델 × 11개 코드의 20,240행을 담는다. 사진별 코드와 ID는 로컬에 보관한다.
 
+## 제출 ZIP과 공식 환경
+
+국내 파일은 `G:/Projects/KWater-SafetyAI/data/phase01-runs/item39-2155e8fa/kwater-phase1-dev920-linux-x86_64.zip`이다. 5,816,690,916바이트(5.816690916 GB, 5.417215560 GiB)이며 20,000,000,000바이트까지 14,183,309,084바이트가 남는다. ZIP SHA-256은 `1006bb157da7df77b5bdd8858b0c7198e2348b973153ac33dba849992f640d6f`이다. 32개 항목의 해제 크기는 5,816,686,298바이트다. ZIP64에 압축 없이 저장했고 고정한 경로·시각·순서로 조립했다.
+
+실제 SigLIP 2 So400m/14-384와 DINOv2-Large 원본 체크포인트, 전처리 설정, SigLIP 2 토크나이저, 소스·라이선스, 920장 `single-dev.pt`와 고정 0.20 정책, 합성 예시 한 장을 담았다. 두 가중치의 SHA-256은 각각 `9f4f4a49f908ef0c979bce8ff5a5c0e88882dc6c5dc4304387cbbd152558e2c2`, `399fba97a95f22c36834418bc69373364a99af3a1153da1c0fb31db567c92e23`이다. 헤드는 `bd83ca5c175e56adea5b4851009a7c71d909db3f66b4038fad8e7e3149637302`, 정책은 `895ac20771d4565baf363a34d89d74491c3048c2a1c870997696e9ea6dcfd95f`이다. 추론은 이미지 인코더만 호출한다. 공개 휠은 PyPI의 동일 파일 해시로, 토크나이저는 원래 모델 revision의 Git blob 또는 LFS 식별자로 검증했다. 파일별 크기·해시는 실행 폴더의 `zip-manifest.json`에 있다. 대회 사진·라벨, 훈련 특징, 예측 원문, 기기 로그인 키는 ZIP 허용 목록에 포함되지 않는다.
+
+| 라이브러리 | 공식 Ubuntu 24.04 / Python 3.12 이미지 | 제출 ZIP 적용 버전 |
+|---|---|---|
+| torch / torchvision | 2.11.0+cu128 / 0.26.0+cu128 | 기본 이미지 |
+| NumPy / Pillow / safetensors | 2.2.6 / 11.3.0 / 0.8.0 | 기본 이미지 |
+| Transformers | 4.52.4 | 4.57.1 |
+| tokenizers | 0.21.4 | 0.22.1 · Linux x86-64 abi3 |
+| huggingface-hub | 0.32.4 | 0.36.0 |
+| accelerate | 1.7.0 | 1.10.1 |
+
+네 휠의 내용 해시는 `requirements.lock`에 고정했다. 원래 Windows 개발은 PyTorch 2.5.1과 NumPy 1.26.4를 썼다. 공식 키트는 CPU 6개·RAM 56GiB·L4 전용 GPU를 전제로 하며 Public 200장 제한은 1,800초, Private 300장은 3,600초다. 키트의 ZIP 검사기가 구현한 32GiB 기준과 별도로 공고의 십진 20GB 제한을 직접 대조했다. [로컬 공식 키트의 환경 명세](G:/Projects/KWater-SafetyAI/data/local-kit/README.txt)
+

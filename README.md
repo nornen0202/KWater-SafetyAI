@@ -1,5 +1,7 @@
 # K-water 현장 안전 AI 연구 기록
 
+항목 39에서 개발 920장·29그룹의 예측을 독립 재현했다. 중대성 4 완전 미탐은 단일 기준선 96장, 다중 후보 109장, 사전 고정 수정안 104장이어서 단일 기준선의 개발 전용 헤드를 배포 정책으로 유지한다. [OOF 원인 대조와 Linux 제출물 검증](reports/item39-phase1-independent-audit.md)
+
 [시각화 연구 보고서](reports/competition-research-2026-11-25.md) · [PDF 보고서](reports/competition-research-2026-11-25.pdf) · [CLIP·SigLIP 2 실측과 생성 VLM 도입 검토](docs/vlm-model-selection.md) · [후속 실험 설계](docs/improvement-experiments.md) · [외부 데이터 전후 비교](reports/external-first-experiment.md)
 
 제5회 K-water AI 경진대회 현장 사진 위험성평가 부문 연구. 2026년 11월 25일 Codex에 등록한 로컬 프로젝트는 `G:\Projects\KWater-SafetyAI`이다. 새 Codex 대화에서는 이 폴더를 열면 코드·실험 기록·참가자 자료를 이어서 사용할 수 있다. 기존 공개 실험과 첨부 계획서를 옮겼고 공식 배포 ZIP 세 개를 확보했다. 11월 25일 20:42(KST) 공식 Qwen3-VL-4B+LoRA와 23:57(KST) CLIP 224 + SigLIP 2 384 결합 모델을 각각 접수했다. 두 번째 접수 직후 당일 잔여는 **0/2**였고, 두 제출의 공개 예정 시각은 **11월 26일 13:00(KST)**다. [1차 접수](results/public_submission_001.json) · [2차 접수](results/public_submission_002.json)

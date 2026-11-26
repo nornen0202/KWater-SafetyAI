@@ -76,7 +76,8 @@ class Vision:
             print("loaded", name, round(time.monotonic() - started, 2), flush=True)
 
     @torch.inference_mode()
-    def encode(self, image, multiscale=True, augmentation_seed=None):
+    def encode(self, image, multiscale=True, augmentation_seed=None, profile=None):
+        started = time.perf_counter()
         original = ImageOps.exif_transpose(image).convert("RGB")
         frames = views(original) if multiscale else [original]
         if augmentation_seed is not None:
@@ -95,8 +96,10 @@ class Vision:
             stream.seek(0)
             with Image.open(stream) as jpeg:
                 frames.append(jpeg.convert("RGB"))
+        preparation = time.perf_counter() - started
         emb = []
         for name, model in self.models.items():
+            started = time.perf_counter()
             edge, mean, std, method = self.norm[name]
             fill = tuple(int(round(float(m) * 255)) for m in mean)
             pixels = np.stack(
@@ -111,6 +114,7 @@ class Vision:
             pixels = np.ascontiguousarray(
                 ((pixels / 255.0 - mean) / std).transpose(0, 3, 1, 2)
             )
+            preparation += time.perf_counter() - started
             out = model(
                 pixel_values=torch.from_numpy(pixels).to(self.device, dtype=self.dtype)
             )
@@ -133,6 +137,8 @@ class Vision:
         data = np.concatenate(emb, axis=-1).astype(np.float16)
         if data.shape != (len(frames), 17, 128) or not np.isfinite(data).all():
             raise ValueError("Invalid vision tokens")
+        if profile is not None:
+            profile["preprocess_s"] = preparation
         return data
 
 
