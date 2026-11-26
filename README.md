@@ -1,5 +1,7 @@
 # K-water 현장 안전 AI 연구 기록
 
+**11월 27일 인계.** 00:05 KST 공개 순위는 도니 30/52위(42.04점), 10위 48.49점이었다. 같은 사진에서 기준 모델과 새 11종 모델을 비교하는 실험, 과거 보류 표본의 노출 이력, 전문가 후보의 적중·오탐 및 인용 재생 결과는 [11월 27일 실험 인계 및 제출 판단 근거](reports/turnaround-handoff-20261127.md)에 있다.
+
 [시각화 연구 보고서](reports/competition-research-2026-11-25.md) · [PDF 보고서](reports/competition-research-2026-11-25.pdf) · [CLIP·SigLIP 2 실측과 생성 VLM 도입 검토](docs/vlm-model-selection.md) · [후속 실험 설계](docs/improvement-experiments.md) · [외부 데이터 전후 비교](reports/external-first-experiment.md) · [F1 0.25 돌파 심층 분석 및 혁신 전략](docs/f1-breakthrough-strategy-2026-11-26.md)
 
 제5회 K-water AI 경진대회 현장 사진 위험성평가 부문 연구. 2026년 11월 25일 Codex에 등록한 로컬 프로젝트는 `G:\Projects\KWater-SafetyAI`이다. 새 Codex 대화에서는 이 폴더를 열면 코드·실험 기록·참가자 자료를 이어서 사용할 수 있다. 기존 공개 실험과 첨부 계획서를 옮겼고 공식 배포 ZIP 세 개를 확보했다. 11월 25일 20:42(KST) 공식 Qwen3-VL-4B+LoRA와 23:57(KST) CLIP 224 + SigLIP 2 384 결합 모델을 각각 접수했다. 11월 26일 13시 공식 Public 점수는 **1차 42.04, 2차 16.12**, 팀 순위는 **11/18위**다. 최고점 자동 선택은 1차다. [1차 접수](results/public_submission_001.json) · [2차 접수](results/public_submission_002.json)

@@ -1,0 +1,161 @@
+{
+  "case_scope": "Both replays use development rows excluding every evaluated incident group; production cache used the organizer's original bundled examples.",
+  "max_refs_per_hazard": 1,
+  "case_training_photos": 172,
+  "excluded_incident_groups": 20,
+  "cache_outside_development_skipped": {
+    "prototype18": 0,
+    "fresh64": 7
+  },
+  "interpretation": "Cached official LoRA used official training images. Unannotated citations are disagreements with provided labels. No new generation or independent VLM accuracy estimate.",
+  "panels": {
+    "prototype18": {
+      "photos": 18,
+      "fold0_overlap_photos": 0,
+      "hazard_counts": {
+        "raw_valid_photos": 18,
+        "matched_codes": 12,
+        "missed_gold_codes": 11,
+        "extra_predicted_codes": 5
+      },
+      "generated_text_and_predicted_codes": {
+        "original_production": {
+          "gold": 29,
+          "predicted": 17,
+          "true_positive": 10,
+          "unannotated_citations": 7,
+          "missing_gold_citations": 19,
+          "matched_gold_hazards_with_citation": 12,
+          "matched_gold_hazards_exact": 9,
+          "matched_gold_hazards_hit_at_1": 10,
+          "matched_gold_hazards_missed_all": 2,
+          "citation_micro_f1": 0.4348
+        },
+        "legacy_train_only": {
+          "gold": 29,
+          "predicted": 17,
+          "true_positive": 9,
+          "unannotated_citations": 8,
+          "missing_gold_citations": 20,
+          "matched_gold_hazards_with_citation": 12,
+          "matched_gold_hazards_exact": 9,
+          "matched_gold_hazards_hit_at_1": 9,
+          "matched_gold_hazards_missed_all": 3,
+          "citation_micro_f1": 0.3913
+        },
+        "native_train_only": {
+          "gold": 29,
+          "predicted": 17,
+          "true_positive": 9,
+          "unannotated_citations": 8,
+          "missing_gold_citations": 20,
+          "matched_gold_hazards_with_citation": 12,
+          "matched_gold_hazards_exact": 9,
+          "matched_gold_hazards_hit_at_1": 9,
+          "matched_gold_hazards_missed_all": 3,
+          "citation_micro_f1": 0.3913
+        }
+      },
+      "oracle_gold_text_and_codes": {
+        "legacy_train_only": {
+          "gold": 29,
+          "predicted": 23,
+          "true_positive": 21,
+          "unannotated_citations": 2,
+          "missing_gold_citations": 8,
+          "matched_gold_hazards_with_citation": 23,
+          "matched_gold_hazards_exact": 16,
+          "matched_gold_hazards_hit_at_1": 21,
+          "matched_gold_hazards_missed_all": 2,
+          "citation_micro_f1": 0.8077
+        },
+        "native_train_only": {
+          "gold": 29,
+          "predicted": 23,
+          "true_positive": 22,
+          "unannotated_citations": 1,
+          "missing_gold_citations": 7,
+          "matched_gold_hazards_with_citation": 23,
+          "matched_gold_hazards_exact": 17,
+          "matched_gold_hazards_hit_at_1": 22,
+          "matched_gold_hazards_missed_all": 1,
+          "citation_micro_f1": 0.8462
+        }
+      }
+    },
+    "fresh64": {
+      "photos": 21,
+      "fold0_overlap_photos": 2,
+      "hazard_counts": {
+        "raw_valid_photos": 21,
+        "matched_codes": 11,
+        "missed_gold_codes": 14,
+        "extra_predicted_codes": 4
+      },
+      "generated_text_and_predicted_codes": {
+        "original_production": {
+          "gold": 30,
+          "predicted": 15,
+          "true_positive": 10,
+          "unannotated_citations": 5,
+          "missing_gold_citations": 20,
+          "matched_gold_hazards_with_citation": 11,
+          "matched_gold_hazards_exact": 9,
+          "matched_gold_hazards_hit_at_1": 10,
+          "matched_gold_hazards_missed_all": 1,
+          "citation_micro_f1": 0.4444
+        },
+        "legacy_train_only": {
+          "gold": 30,
+          "predicted": 15,
+          "true_positive": 11,
+          "unannotated_citations": 4,
+          "missing_gold_citations": 19,
+          "matched_gold_hazards_with_citation": 11,
+          "matched_gold_hazards_exact": 10,
+          "matched_gold_hazards_hit_at_1": 11,
+          "matched_gold_hazards_missed_all": 0,
+          "citation_micro_f1": 0.4889
+        },
+        "native_train_only": {
+          "gold": 30,
+          "predicted": 15,
+          "true_positive": 11,
+          "unannotated_citations": 4,
+          "missing_gold_citations": 19,
+          "matched_gold_hazards_with_citation": 11,
+          "matched_gold_hazards_exact": 10,
+          "matched_gold_hazards_hit_at_1": 11,
+          "matched_gold_hazards_missed_all": 0,
+          "citation_micro_f1": 0.4889
+        }
+      },
+      "oracle_gold_text_and_codes": {
+        "legacy_train_only": {
+          "gold": 30,
+          "predicted": 25,
+          "true_positive": 17,
+          "unannotated_citations": 8,
+          "missing_gold_citations": 13,
+          "matched_gold_hazards_with_citation": 25,
+          "matched_gold_hazards_exact": 14,
+          "matched_gold_hazards_hit_at_1": 17,
+          "matched_gold_hazards_missed_all": 8,
+          "citation_micro_f1": 0.6182
+        },
+        "native_train_only": {
+          "gold": 30,
+          "predicted": 25,
+          "true_positive": 18,
+          "unannotated_citations": 7,
+          "missing_gold_citations": 12,
+          "matched_gold_hazards_with_citation": 25,
+          "matched_gold_hazards_exact": 15,
+          "matched_gold_hazards_hit_at_1": 18,
+          "matched_gold_hazards_missed_all": 7,
+          "citation_micro_f1": 0.6545
+        }
+      }
+    }
+  }
+}

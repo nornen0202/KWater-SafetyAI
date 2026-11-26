@@ -1,0 +1,215 @@
+{
+  "version": "clean-split-v1",
+  "seed": 20261127,
+  "labels_sha256": "ab427fed4615b32627b76001e27124e99ae9202c855ba4170916ebe4fdc4de55",
+  "exclusions_sha256": "ba500320718fda2924907a9fe0cf225693097f1f2ca6846c882f68840435ce51",
+  "dev_manifest_sha256": "3864848fe26b951ec070710499d2694078b17c76ffd2aaf38d312b99ad3b2f60",
+  "sealed_manifest_sha256": "d7d0f9d72bd4e33f9b5529095cf39e9087d3cdc366f14a4e657d2aae3edb79a5",
+  "reviewed_groups_csv_sha256": "4f8a3a6cfaf86bfd54e89db775098ccec1f913ed7633474086cfada180b8d353",
+  "total_photos": 1045,
+  "total_incident_groups": 239,
+  "geometric_cross_links_applied": 6,
+  "visual_similarity_merges_applied": 1,
+  "used_cached_dual_encoder_similarity": false,
+  "holdout_exposed_overlap": 0,
+  "cross_split_group_violations": 0,
+  "dev_summary": {
+    "photos": 966,
+    "groups": 192,
+    "hazard_photos": 676,
+    "no_hazard_photos": 290,
+    "families": {
+      "ADD": 55,
+      "CNEW": 6,
+      "SBE": 24,
+      "S_C": 790,
+      "stage3": 36,
+      "stage6": 16,
+      "stage9": 39
+    },
+    "codes": {
+      "fall_height": 209,
+      "slip_trip": 290,
+      "caught_in_machine": 44,
+      "struck_by_lifting": 66,
+      "electrical_energy": 40,
+      "drowning_inundation": 1,
+      "fire_explosion": 39,
+      "confined_space": 1,
+      "chemical_exposure": 17,
+      "thermal_weather": 1,
+      "other": 148
+    }
+  },
+  "holdout_summary": {
+    "photos": 79,
+    "groups": 47,
+    "hazard_photos": 54,
+    "no_hazard_photos": 25,
+    "families": {
+      "ADD": 12,
+      "CNEW": 2,
+      "SBC": 2,
+      "SBE": 5,
+      "S_C": 37,
+      "stage3": 8,
+      "stage6": 4,
+      "stage9": 9
+    },
+    "codes": {
+      "fall_height": 15,
+      "slip_trip": 27,
+      "caught_in_machine": 4,
+      "struck_by_lifting": 6,
+      "electrical_energy": 7,
+      "drowning_inundation": 0,
+      "fire_explosion": 5,
+      "confined_space": 0,
+      "chemical_exposure": 2,
+      "thermal_weather": 0,
+      "other": 20
+    }
+  },
+  "dev_folds": {
+    "0": {
+      "photos": 216,
+      "groups": 36,
+      "hazard_photos": 151,
+      "no_hazard_photos": 65,
+      "families": {
+        "ADD": 12,
+        "CNEW": 2,
+        "SBE": 4,
+        "S_C": 181,
+        "stage3": 7,
+        "stage6": 3,
+        "stage9": 7
+      },
+      "codes": {
+        "fall_height": 43,
+        "slip_trip": 65,
+        "caught_in_machine": 13,
+        "struck_by_lifting": 12,
+        "electrical_energy": 8,
+        "drowning_inundation": 0,
+        "fire_explosion": 8,
+        "confined_space": 1,
+        "chemical_exposure": 3,
+        "thermal_weather": 0,
+        "other": 27
+      }
+    },
+    "1": {
+      "photos": 177,
+      "groups": 41,
+      "hazard_photos": 136,
+      "no_hazard_photos": 41,
+      "families": {
+        "ADD": 12,
+        "CNEW": 1,
+        "SBE": 5,
+        "S_C": 139,
+        "stage3": 8,
+        "stage6": 4,
+        "stage9": 8
+      },
+      "codes": {
+        "fall_height": 48,
+        "slip_trip": 56,
+        "caught_in_machine": 8,
+        "struck_by_lifting": 15,
+        "electrical_energy": 8,
+        "drowning_inundation": 1,
+        "fire_explosion": 8,
+        "confined_space": 0,
+        "chemical_exposure": 4,
+        "thermal_weather": 0,
+        "other": 29
+      }
+    },
+    "2": {
+      "photos": 197,
+      "groups": 38,
+      "hazard_photos": 130,
+      "no_hazard_photos": 67,
+      "families": {
+        "ADD": 9,
+        "CNEW": 1,
+        "SBE": 5,
+        "S_C": 164,
+        "stage3": 7,
+        "stage6": 3,
+        "stage9": 8
+      },
+      "codes": {
+        "fall_height": 37,
+        "slip_trip": 61,
+        "caught_in_machine": 8,
+        "struck_by_lifting": 12,
+        "electrical_energy": 8,
+        "drowning_inundation": 0,
+        "fire_explosion": 8,
+        "confined_space": 0,
+        "chemical_exposure": 3,
+        "thermal_weather": 1,
+        "other": 34
+      }
+    },
+    "3": {
+      "photos": 201,
+      "groups": 38,
+      "hazard_photos": 133,
+      "no_hazard_photos": 68,
+      "families": {
+        "ADD": 11,
+        "CNEW": 1,
+        "SBE": 5,
+        "S_C": 166,
+        "stage3": 7,
+        "stage6": 3,
+        "stage9": 8
+      },
+      "codes": {
+        "fall_height": 45,
+        "slip_trip": 53,
+        "caught_in_machine": 8,
+        "struck_by_lifting": 13,
+        "electrical_energy": 8,
+        "drowning_inundation": 0,
+        "fire_explosion": 8,
+        "confined_space": 0,
+        "chemical_exposure": 3,
+        "thermal_weather": 0,
+        "other": 29
+      }
+    },
+    "4": {
+      "photos": 175,
+      "groups": 39,
+      "hazard_photos": 126,
+      "no_hazard_photos": 49,
+      "families": {
+        "ADD": 11,
+        "CNEW": 1,
+        "SBE": 5,
+        "S_C": 140,
+        "stage3": 7,
+        "stage6": 3,
+        "stage9": 8
+      },
+      "codes": {
+        "fall_height": 36,
+        "slip_trip": 55,
+        "caught_in_machine": 7,
+        "struck_by_lifting": 14,
+        "electrical_energy": 8,
+        "drowning_inundation": 0,
+        "fire_explosion": 7,
+        "confined_space": 0,
+        "chemical_exposure": 4,
+        "thermal_weather": 0,
+        "other": 29
+      }
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "evaluated_hazards_with_law_refs": 810,
+  "legacy_8code_top1": {
+    "hit_at_1": 0.858,
+    "exact_set_match": 0.6765,
+    "micro_f1": 0.7752
+  },
+  "native_11code_reranker_top1_2": {
+    "hit_at_1": 0.8543,
+    "exact_set_match": 0.6716,
+    "micro_f1": 0.7719
+  },
+  "per_code_hit_at_1": {
+    "fall_height": {
+      "support": 203,
+      "legacy_hit1": 178,
+      "native_hit1": 178
+    },
+    "slip_trip": {
+      "support": 281,
+      "legacy_hit1": 265,
+      "native_hit1": 260
+    },
+    "caught_in_machine": {
+      "support": 41,
+      "legacy_hit1": 30,
+      "native_hit1": 30
+    },
+    "struck_by_lifting": {
+      "support": 63,
+      "legacy_hit1": 47,
+      "native_hit1": 48
+    },
+    "electrical_energy": {
+      "support": 38,
+      "legacy_hit1": 32,
+      "native_hit1": 33
+    },
+    "drowning_inundation": {
+      "support": 1,
+      "legacy_hit1": 0,
+      "native_hit1": 1
+    },
+    "fire_explosion": {
+      "support": 38,
+      "legacy_hit1": 34,
+      "native_hit1": 34
+    },
+    "chemical_exposure": {
+      "support": 16,
+      "legacy_hit1": 15,
+      "native_hit1": 15
+    },
+    "other": {
+      "support": 129,
+      "legacy_hit1": 94,
+      "native_hit1": 93
+    }
+  }
+}
