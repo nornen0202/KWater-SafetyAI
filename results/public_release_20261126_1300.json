@@ -1,0 +1,160 @@
+{
+  "source": "https://hackathon.imaginationgroup.co.kr/kwater/api/leaderboard",
+  "updated_at_utc": "2026-11-26T04:00:00.000Z",
+  "observed_at_utc": "2026-11-26T04:01:36.175Z",
+  "team_count": 18,
+  "standings": [
+    {
+      "rank": 1,
+      "team": "물 들어올 때 노 젓는 중",
+      "publicScore": 49.56,
+      "judgePending": false
+    },
+    {
+      "rank": 2,
+      "team": "물은답을알고있다",
+      "publicScore": 47.79,
+      "judgePending": false
+    },
+    {
+      "rank": 3,
+      "team": "야간택배기사",
+      "publicScore": 46.04,
+      "judgePending": false
+    },
+    {
+      "rank": 4,
+      "team": "쩰리리",
+      "publicScore": 43.64,
+      "judgePending": false
+    },
+    {
+      "rank": 5,
+      "team": "chamdom",
+      "publicScore": 43.56,
+      "judgePending": false
+    },
+    {
+      "rank": 6,
+      "team": "현장안전눈",
+      "publicScore": 43.14,
+      "judgePending": false
+    },
+    {
+      "rank": 7,
+      "team": "뱅봉",
+      "publicScore": 42.39,
+      "judgePending": false
+    },
+    {
+      "rank": 8,
+      "team": "물샐틈없조",
+      "publicScore": 42.04,
+      "judgePending": false
+    },
+    {
+      "rank": 9,
+      "team": "김아랑김아윤",
+      "publicScore": 42.04,
+      "judgePending": false
+    },
+    {
+      "rank": 10,
+      "team": "세이프가드",
+      "publicScore": 42.04,
+      "judgePending": false
+    },
+    {
+      "rank": 11,
+      "team": "도니",
+      "publicScore": 42.04,
+      "judgePending": false
+    },
+    {
+      "rank": 12,
+      "team": "byte",
+      "publicScore": 42.04,
+      "judgePending": false
+    },
+    {
+      "rank": 13,
+      "team": "물안전지기",
+      "publicScore": 42.04,
+      "judgePending": false
+    },
+    {
+      "rank": 14,
+      "team": "Bluetwin",
+      "publicScore": 42.04,
+      "judgePending": false
+    },
+    {
+      "rank": 15,
+      "team": "한장점검",
+      "publicScore": 42.04,
+      "judgePending": false
+    },
+    {
+      "rank": 16,
+      "team": "한눈점검",
+      "publicScore": 39.72,
+      "judgePending": false
+    },
+    {
+      "rank": 17,
+      "team": "팀-E220BE",
+      "publicScore": 39.32,
+      "judgePending": false
+    },
+    {
+      "rank": 18,
+      "team": "도스",
+      "publicScore": 1.46,
+      "judgePending": false
+    }
+  ],
+  "account_submissions": [
+    {
+      "attempt": 1,
+      "file": "kwater-baseline.zip",
+      "public_score": 42.04,
+      "score_source": "Authenticated My Submissions, verified by project main session",
+      "official_individual_rank": null,
+      "gap_to_displayed_rank": {
+        "1": "7.52",
+        "3": "4.00",
+        "10": "0.00"
+      },
+      "other_teams_strictly_above": 7
+    },
+    {
+      "attempt": 2,
+      "file": "kwater-fusion-20261125.zip",
+      "public_score": 16.12,
+      "score_source": "Authenticated My Submissions, verified by project main session",
+      "official_individual_rank": null,
+      "gap_to_displayed_rank": {
+        "1": "33.44",
+        "3": "29.92",
+        "10": "25.92"
+      },
+      "other_teams_strictly_above": 16
+    }
+  ],
+  "team": {
+    "name": "도니",
+    "published_rank": 11,
+    "selected_attempt": 1,
+    "tied_displayed_ranks": [
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ]
+  },
+  "item_scores_published": false
+}
