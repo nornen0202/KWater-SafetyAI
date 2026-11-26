@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import hashlib
 from pathlib import Path
 import runpy
 import subprocess
@@ -12,9 +13,13 @@ from types import SimpleNamespace
 import unittest
 
 from kwater_lab.fold0_official_resume import infer_cached
+from kwater_lab.fold0_production_compare import generation_conditions
+from kwater_lab.hybrid_pipeline import count_added_predictions
 from kwater_lab.law_reranker_11code import export_compact_case_bank, Native11LawRetriever
 from kwater_lab.metrics import CODES
 from kwater_lab.package_submission import build_submission_package, render_entrypoint
+from kwater_lab.verifier_cache import verify_with_cache
+from kwater_lab.vlm_11code import infer_batched_vlm
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -40,7 +45,7 @@ class ReleasePipelineTests(unittest.TestCase):
         output_dir.mkdir()
         rows = []
         for index, code in enumerate(CODES):
-            hazard = {"code": code, "evidence": "사진 속 작업구간 단부에 보호 난간이 없다.\n", "prevention": "단부에 고정 난간을 설치한다.",
+            hazard = {"code": code, "evidence": "사진 속 작업구간 단부에 보호 난간이 없다.", "prevention": "단부에 고정 난간을 설치한다.",
                       "likelihood_score": 4, "severity_score": 4}
             self.assertIsNone(runtime["verified_hazard"]({"decision": "accept", "hazard": hazard}, "not_the_candidate"))
             verified = runtime["verified_hazard"]({"decision": "accept", "hazard": hazard}, code)
@@ -112,6 +117,91 @@ class ReleasePipelineTests(unittest.TestCase):
         self.assertEqual(calls, ["a", "b", "b"])
         self.assertEqual(timings["generated_photos"], 1)
         self.assertLessEqual(timings["model_load_seconds"], timings["generation_and_load_seconds"])
+
+    def test_complete_vlm_cache_skips_model_loading_and_rejects_reordering(self):
+        images = {"a.png": b"cached-image-a", "b.png": b"cached-image-b"}
+        for name, data in images.items():
+            (self.path / name).write_bytes(data)
+        rows = [{"sample_id": "a", "image": "a.png"}, {"sample_id": "b", "image": "b.png"}]
+        sizes = {"shortest_edge": 1, "longest_edge": 2}
+        proc = SimpleNamespace(image_processor=SimpleNamespace(size=sizes), tokenizer=SimpleNamespace(),
+                               apply_chat_template=lambda *args, **kwargs: "prefix")
+        cache_path = self.path / "raw-cache.json"
+        cache_path.write_text(json.dumps({
+            "identity": {"version": 2, "image_root": str(self.path.resolve()),
+                         "samples": [[r["sample_id"], r["image"]] for r in rows],
+                         "image_sha256": {p: hashlib.sha256(b).hexdigest() for p, b in images.items()},
+                         "model_key": "test", "prefix_sha256": hashlib.sha256(b"prefix").hexdigest(),
+                         "processor_size": sizes, "max_new_tokens": 8, "batch_size": 2},
+            "outputs": {r["sample_id"]: {"sample_id": r["sample_id"], "parse_error": None, "parsed": {},
+                                          "vlm_schema_errors": [], "token_cap_hit": False} for r in rows},
+            "seconds": 0.3, "effective_batch_size": 2,
+        }), encoding="utf-8")
+
+        def no_weight_load():
+            self.fail("Complete cache must not load model weights")
+
+        def replay(items):
+            return infer_batched_vlm(None, proc, items, self.path, "prompt", batch_size=2,
+                                     max_new_tokens=8, cache_path=cache_path, cache_key="test",
+                                     model_factory=no_weight_load)
+
+        self.assertEqual(replay(rows)[1]["cache_reused_rows"], 2)
+        with self.assertRaisesRegex(ValueError, "Inference settings differ"):
+            replay(rows[::-1])
+
+    def test_generation_conditions_bind_to_prediction_bytes(self):
+        original, candidate = self.path / "official.jsonl", self.path / "candidate.jsonl"
+        for path in (original, candidate):
+            path.write_bytes(b'{}\n')
+        digest = hashlib.sha256(original.read_bytes()).hexdigest()
+        official_report = self.path / "official.json"
+        official_report.write_text(json.dumps({"output_sha256": digest,
+                                               "generation_settings": {"max_new_tokens": 900}}), encoding="utf-8")
+        candidate_report = self.path / "candidate.json"
+        candidate_report.write_text(json.dumps({"formatted_output_sha256": digest, "qlora_inference_weight_mode": "BF16 base",
+                                                 "vlm_max_pixels": 524288, "inspect_max_new_tokens": 620, "vlm_batch_size": 1,
+                                                 "finetuned_vlm_11code_standalone": {"generation": {"final_effective_batch_size": 1}}}),
+                                    encoding="utf-8")
+        generation = generation_conditions(official_report, candidate_report, original, candidate)
+        self.assertEqual(generation["official"]["max_new_tokens"], 900)
+        self.assertEqual(generation["candidate"]["max_new_tokens"], 620)
+        candidate.write_bytes(b'{}\r\n')
+        with self.assertRaisesRegex(ValueError, "different prediction file"):
+            generation_conditions(official_report, candidate_report, original, candidate)
+
+    def test_verifier_cache_resumes_without_repeating_a_candidate(self):
+        proposals = [{"sample_id": sid, "code": "fall_height"} for sid in ("a", "b")]
+        cache = self.path / "verification.json"
+        calls = []
+
+        def verify(batch):
+            item = batch[0]
+            calls.append(item["sample_id"])
+            if calls == ["a", "b"]:
+                raise RuntimeError("interrupted")
+            return [{**item, "accepted": False, "raw_verify_text": "rejected"}]
+
+        with self.assertRaisesRegex(RuntimeError, "interrupted"):
+            verify_with_cache(proposals, verify, cache, {"model": "original"}, 1)
+        results, stats = verify_with_cache(proposals, verify, cache, {"model": "original"}, 1)
+        self.assertEqual([row["sample_id"] for row in results], ["a", "b"])
+        self.assertEqual(calls, ["a", "b", "b"])
+        self.assertEqual(stats["cache_reused_candidates"], 1)
+        for items, identity in ((proposals[::-1], {"model": "original"}), (proposals, {"model": "changed"})):
+            with self.assertRaisesRegex(ValueError, "settings or candidate order differ"):
+                verify_with_cache(items, verify, cache, identity, 1)
+
+    def test_added_hazard_metrics_keep_before_after_and_normal_alarm_separate(self):
+        gold = {"a": {"fall_height"}, "b": set(), "c": {"other"}}
+        before = {"a": set(), "b": set(), "c": {"other"}}
+        after = {"a": {"fall_height"}, "b": {"slip_trip"}, "c": {"other", "fall_height"}}
+        self.assertEqual(count_added_predictions(gold, before, after), {
+            "new_true_positive_codes": 1, "new_false_positive_codes": 2, "new_false_alarm_photos": 1,
+        })
+        after["c"].remove("other")
+        with self.assertRaisesRegex(ValueError, "removed a primary hazard prediction"):
+            count_added_predictions(gold, before, after)
 
 
 if __name__ == "__main__":

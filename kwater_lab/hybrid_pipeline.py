@@ -12,6 +12,8 @@ from __future__ import annotations
 
 import argparse
 import copy
+from dataclasses import dataclass
+from functools import cache
 import hashlib
 import importlib.metadata
 import json
@@ -25,15 +27,62 @@ import torch
 
 from .audit import digest
 from .clean_specialist import SpatialDualSpecialistHead, apply_calibrated_policy, predict_probs
+from .fold0_production_compare import EXPECTED_FOLD0_PHOTOS, generation_conditions, image_id
 from .law_reranker_11code import Native11LawRetriever, read_selected_cases
-from .metrics import CODES, decode_target, evaluate, paired_bootstrap
+from .metrics import CODES, decode_target, evaluate, paired_bootstrap, read_index
 from .train_head import save_atomic
+from .verifier_cache import verify_with_cache
 from .vlm_11code import (
+    CANDIDATE_MAX_PIXELS,
+    INSPECT_MAX_NEW_TOKENS,
+    VERIFY_MAX_NEW_TOKENS,
     format_competition_record,
     infer_batched_vlm,
-    load_qwen_4bit_or_bf16,
+    load_qwen_model,
+    load_qwen_processor,
     verify_specialist_candidates_with_vlm,
 )
+
+
+@dataclass(frozen=True)
+class Fold0Followup:
+    primary_summary: Path
+    official_predictions: Path
+    official_summary: Path
+    paired_summary: Path
+
+
+def verify_followup_pair(paths, eval_ids, primary_prediction_path):
+    paired = json.loads(paths.paired_summary.read_text(encoding="utf-8"))
+    conditions = generation_conditions(paths.official_summary, paths.primary_summary,
+                                       paths.official_predictions, primary_prediction_path)
+    official = json.loads(paths.official_summary.read_text(encoding="utf-8"))
+    if (paired.get("photos") != EXPECTED_FOLD0_PHOTOS or len(eval_ids) != EXPECTED_FOLD0_PHOTOS
+        or official.get("official_checker_valid_rows") != EXPECTED_FOLD0_PHOTOS
+        or paired.get("generation_conditions") != conditions):
+        raise ValueError("Finish the full, fingerprinted 216-photo paired comparison before verification")
+    baseline = read_index(paths.official_predictions, decode_target, limit_size=True)
+    keys = {image_id(sid): sid for sid in eval_ids}
+    if baseline.keys() != keys.keys():
+        raise ValueError("Official comparison predictions do not match the verification cohort")
+    return {keys[anon]: codes for anon, codes in baseline.items()}, conditions
+
+
+def count_added_predictions(gold, before, after):
+    if gold.keys() != before.keys() or before.keys() != after.keys():
+        raise ValueError("Verification must cover the same photos as the primary prediction")
+    true_positives = 0
+    false_positives = 0
+    new_false_alarm_photos = 0
+    for sid, prior in before.items():
+        if not prior <= after[sid]:
+            raise ValueError("Verification removed a primary hazard prediction")
+        additions = after[sid] - prior
+        true_positives += len(additions & gold[sid])
+        false_positives += len(additions - gold[sid])
+        new_false_alarm_photos += int(not gold[sid] and not prior and bool(additions))
+    return {"new_true_positive_codes": true_positives, "new_false_positive_codes": false_positives,
+            "new_false_alarm_photos": new_false_alarm_photos}
 
 
 def severity4_miss_stats(gold_rows_by_id: dict[str, dict], preds_codes: dict[str, frozenset[str]]) -> dict[str, Any]:
@@ -173,7 +222,7 @@ def merge_verified_candidates(
     merged = copy.deepcopy(vlm_outputs)
     by_idx: dict[int, list[dict[str, Any]]] = {}
     for v in verified:
-        if v.get("accepted") and isinstance(v.get("hazard"), dict):
+        if v.get("accepted") is True and isinstance(v.get("hazard"), dict) and v["hazard"].get("code") == v.get("code"):
             by_idx.setdefault(int(v["row_idx"]), []).append(v["hazard"])
 
     for idx, new_hazards in by_idx.items():
@@ -181,10 +230,13 @@ def merge_verified_candidates(
         if not isinstance(cur, dict):
             cur = {"scene_note": "현장 작업 구간에서 안전 위험요인이 확인된다.", "status": "hazard", "hazards": []}
         hazards = usable_draft_hazards(cur)
+        had_draft_hazards = bool(hazards)
         for nh in new_hazards:
             if nh.get("code") in CODES and nh["code"] not in hazards and len(hazards) < 3:
                 hazards[nh["code"]] = nh
         if hazards:
+            if not had_draft_hazards:
+                cur["scene_note"] = next(iter(hazards.values()))["evidence"]
             cur["status"] = "hazard"
             cur["hazards"] = list(hazards.values())[:3]
         merged[idx]["parsed"] = cur
@@ -212,15 +264,18 @@ def evaluate_split(
     out_summary_path: Path,
     split_mode: str = "fold0",  # "fold0" or "holdout"
     run_zeroshot_base: bool = True,
-    max_pixels_infer: int = 512 * 32 * 32,
+    max_pixels_infer: int = CANDIDATE_MAX_PIXELS,
     prediction_dir: Path | None = None,
     use_4bit: bool = True,
     batch_size: int = 4,
     run_verifier: bool = True,
+    followup: Fold0Followup | None = None,
 ) -> dict[str, Any]:
     eval_start = time.perf_counter()
     if batch_size < 1:
         raise ValueError("Batch size must be positive")
+    if followup and (split_mode != "fold0" or not run_verifier or out_summary_path.resolve() == followup.primary_summary.resolve()):
+        raise ValueError("Use a separate Fold0 verification report for the paired follow-up")
     expected_fold = {"fold0": 0, "holdout": -1}.get(split_mode)
     if expected_fold is None:
         raise ValueError(f"Unknown split_mode: {split_mode}")
@@ -231,6 +286,9 @@ def evaluate_split(
         or not training_summary.get("epochs")
         or len(training_summary.get("history", ())) != training_summary["epochs"]):
         raise ValueError("Completed adapter training provenance must match the evaluation split and weights")
+    training_prompt = training_summary.get("configuration", {}).get("prompt_sha256")
+    if training_prompt is not None and training_prompt != digest(prompt_path):
+        raise ValueError("Evaluation prompt differs from the adapter training prompt")
     local_pred_dir = (prediction_dir or root / "data/local-eval-predictions" / split_mode).resolve()
     if not local_pred_dir.is_relative_to((root / "data").resolve()):
         raise ValueError("Raw and formatted evaluation outputs must remain under data/")
@@ -266,6 +324,11 @@ def evaluate_split(
     ))
     gold_codes = {r["sample_id"]: frozenset(r["codes"]) for r in eval_rows}
     group_map = {r["sample_id"]: r["group_id"] for r in eval_rows}
+    if followup:
+        official_preds, generation = verify_followup_pair(followup, gold_codes, local_pred_dir / "ft_vlm_11code.jsonl")
+        primary_summary = json.loads(followup.primary_summary.read_text(encoding="utf-8"))
+        if primary_summary["manifest_sha256"] != digest(manifest_path) or primary_summary["adapter_sha256"] != adapter_sha256:
+            raise ValueError("Follow-up manifest or adapter differs from the completed primary run")
 
     # The supplied fold-0 calibration uses OOF models trained on fold 0. Use fixed
     # thresholds for fold 0 until there is calibration built wholly outside the fold.
@@ -314,11 +377,13 @@ def evaluate_split(
                 base_cache_parts[path.name] = [details.st_size, details.st_mtime_ns]
             else:
                 base_cache_parts[path.name] = digest(path)
+    inference_packages = ("torch", "transformers", "peft") + (("bitsandbytes",) if use_4bit else ())
     cache_base_identity = {
         "base": base_cache_parts,
         "device": torch.cuda.get_device_name(device),
-        "packages": {p: importlib.metadata.version(p) for p in ("torch", "transformers", "peft")},
-        "inference_source_sha256": digest(Path(infer_batched_vlm.__code__.co_filename)),
+        "packages": {p: importlib.metadata.version(p) for p in inference_packages},
+        "torch_cuda_version": torch.version.cuda,
+        "inference_source_sha256": digest(Path(__file__).with_name("vlm_11code.py")),
         "use_4bit": use_4bit,
     }
 
@@ -336,6 +401,9 @@ def evaluate_split(
         "adapter_sha256": adapter_sha256,
         "qlora_inference_weight_mode": "NF4 language / BF16 vision" if use_4bit else "BF16 base",
         "vlm_batch_size": batch_size,
+        "vlm_max_pixels": max_pixels_infer,
+        "inspect_max_new_tokens": INSPECT_MAX_NEW_TOKENS,
+        "verify_max_new_tokens": VERIFY_MAX_NEW_TOKENS,
         "specialist_standalone": {
             "calibration": "unfitted_fixed_0.5" if split_mode == "fold0" else "development_oof",
             "metrics": spec_eval,
@@ -344,10 +412,10 @@ def evaluate_split(
     }
     local_pred_dir.mkdir(parents=True, exist_ok=True)
 
-    def save_predictions(filename, rows):
+    def save_predictions(filename, rows, *, raw=False):
         save_atomic(
             local_pred_dir / filename,
-            lambda f: f.write("".join(json.dumps(x, ensure_ascii=False) + "\n" for x in rows).encode("utf-8")),
+            lambda f: f.write("".join(json.dumps(x, ensure_ascii=raw) + "\n" for x in rows).encode("utf-8")),
         )
 
     def write_summary():
@@ -357,39 +425,65 @@ def evaluate_split(
         save_atomic(out_summary_path, lambda f: f.write((json.dumps(results_out, indent=2, ensure_ascii=False) + "\n").encode("utf-8")))
 
     # Optional Zero-Shot Base Qwen3-VL-4B-Instruct control (100% leak-free base VLM benchmark)
+    processor = load_qwen_processor(base_model_dir, max_pixels_infer)
     zs_preds: dict[str, frozenset[str]] | None = None
-    if run_zeroshot_base:
+    zero_cache_path = local_pred_dir / "zeroshot_vlm_raw_cache.json"
+
+    def disabled_adapter_zero_key():
+        return hashlib.sha256(f"{cache_key(adapter_sha256)}:disabled-adapter".encode()).hexdigest()
+
+    def evaluate_zero_shot(model_factory, *, disabled_adapter=False):
         print(f"Running Zero-Shot Base Qwen3-VL-4B-Instruct on {split_mode} (n={len(eval_rows)})...", flush=True)
-        zs_model, zs_proc = load_qwen_4bit_or_bf16(base_model_dir, max_pixels=max_pixels_infer, use_4bit=use_4bit, adapter_dir=None)
         zs_raw, zs_gen = infer_batched_vlm(
-            zs_model, zs_proc, eval_rows, image_root, system_prompt, batch_size=batch_size,
-            cache_path=local_pred_dir / "zeroshot_vlm_raw_cache.json", cache_key=cache_key(),
+            None, processor, eval_rows, image_root, system_prompt, batch_size=batch_size,
+            cache_path=zero_cache_path, cache_key=disabled_adapter_zero_key() if disabled_adapter else cache_key(),
+            model_factory=model_factory,
         )
-        del zs_model, zs_proc
         torch.cuda.empty_cache()
 
         zs_recs = [format_competition_record(r["sample_id"], o["parsed"], law_retriever) for r, o in zip(eval_rows, zs_raw)]
-        save_predictions("zeroshot_raw.jsonl", zs_raw)
+        save_predictions("zeroshot_raw.jsonl", zs_raw, raw=True)
         save_predictions("zeroshot_formatted.jsonl", zs_recs)
-        zs_preds = validate_official_records(zs_recs, eval_rows, validator)
+        zero_predictions = validate_official_records(zs_recs, eval_rows, validator)
         results_out["zeroshot_base_vlm_11code"] = {
             "generation": zs_gen,
             "kit_schema_valid_rate": 1.0,
-            "metrics": evaluate(gold_codes, zs_preds, group_map),
-            "severity4": severity4_miss_stats(raw_train_by_id, zs_preds),
+            "metrics": evaluate(gold_codes, zero_predictions, group_map),
+            "severity4": severity4_miss_stats(raw_train_by_id, zero_predictions),
         }
+        return zero_predictions
+
+    def zero_shot_model():
+        return load_qwen_model(base_model_dir, use_4bit=use_4bit)
+
+    if run_zeroshot_base and not followup:
+        zs_preds = evaluate_zero_shot(zero_shot_model)
 
     # Fine-tuned 11-Code Multimodal LoRA VLM + Hybrid Visual Candidate Verification
     print(f"Running Fine-Tuned 11-Code Qwen3-VL-4B LoRA ({adapter_dir}) on {split_mode} (n={len(eval_rows)})...", flush=True)
-    ft_model, ft_proc = load_qwen_4bit_or_bf16(base_model_dir, max_pixels=max_pixels_infer, use_4bit=use_4bit, adapter_dir=adapter_dir)
+    @cache
+    def finetuned_model():
+        return load_qwen_model(base_model_dir, use_4bit=use_4bit, adapter_dir=adapter_dir)
+
+    def missing_primary_cache():
+        raise ValueError("The full, matching primary 216-photo generation cache is required for the follow-up")
+
     ft_raw, ft_gen = infer_batched_vlm(
-        ft_model, ft_proc, eval_rows, image_root, system_prompt, batch_size=batch_size,
+        None, processor, eval_rows, image_root, system_prompt, batch_size=batch_size,
         cache_path=local_pred_dir / "ft_vlm_raw_cache.json", cache_key=cache_key(adapter_sha256),
+        model_factory=missing_primary_cache if followup else finetuned_model,
     )
 
     ft_recs = [format_competition_record(r["sample_id"], o["parsed"], law_retriever) for r, o in zip(eval_rows, ft_raw)]
-    save_predictions("ft_vlm_raw.jsonl", ft_raw)
-    save_predictions("ft_vlm_11code.jsonl", ft_recs)
+    if followup:
+        saved = [json.loads(line) for line in (local_pred_dir / "ft_vlm_11code.jsonl").read_text(encoding="utf-8").splitlines()]
+        if saved != ft_recs:
+            raise ValueError("Formatted primary predictions differ from their cached generations")
+        results_out["generation_conditions"] = generation
+    else:
+        save_predictions("ft_vlm_raw.jsonl", ft_raw, raw=True)
+        save_predictions("ft_vlm_11code.jsonl", ft_recs)
+    results_out["formatted_output_sha256"] = digest(local_pred_dir / "ft_vlm_11code.jsonl")
     ft_preds = validate_official_records(ft_recs, eval_rows, validator)
     ft_eval = evaluate(gold_codes, ft_preds, group_map)
     ft_sev4 = severity4_miss_stats(raw_train_by_id, ft_preds)
@@ -408,24 +502,36 @@ def evaluate_split(
         )
     results_out["paired_bootstrap_comparisons"] = comparisons
     results_out["hybrid_verification_status"] = "pending" if run_verifier else "skipped"
-    write_summary()
+    if not followup:
+        write_summary()
     if not run_verifier:
+        finetuned_model.cache_clear()
         return results_out
 
     # Propose high-confidence missed hazards from Specialist -> VLM Visual Verification
     t_ver = time.perf_counter()
+    max_candidates = 1 if split_mode == "fold0" else 2
     cands = select_booster_candidates(
-        eval_rows, ft_raw, spec_code_p, spec_scene_p, spec_calib, code_precisions=code_precs
+        eval_rows, ft_raw, spec_code_p, spec_scene_p, spec_calib, code_precisions=code_precs,
+        max_candidates_per_photo=max_candidates,
     )
-    verified = verify_specialist_candidates_with_vlm(ft_model, ft_proc, cands, image_root, system_prompt, batch_size=batch_size)
-    save_predictions("specialist_verification_raw.jsonl", verified)
+    ver_identity = {
+        "model_key": cache_key(adapter_sha256), "manifest_sha256": digest(manifest_path),
+        "primary_sha256": results_out["formatted_output_sha256"], "prompt_sha256": digest(prompt_path),
+        "policy_source_sha256": digest(Path(__file__)), "specialist_sha256": digest(specialist_dir / "specialist_5fold_ensemble.pt"),
+        "selected_images_sha256": {c["image"]: digest(image_root / c["image"]) for c in cands},
+        "processor_size": dict(processor.image_processor.size), "max_new_tokens": VERIFY_MAX_NEW_TOKENS,
+    }
+    verified, ver_cache = verify_with_cache(cands, lambda batch: verify_specialist_candidates_with_vlm(
+        finetuned_model(), processor, batch, image_root, system_prompt, batch_size=batch_size
+    ), local_pred_dir / "specialist_verification_cache.json", ver_identity, batch_size)
+    save_predictions("specialist_verification_raw.jsonl", verified, raw=True)
     ver_sec = round(time.perf_counter() - t_ver, 2)
-    del ft_model, ft_proc
-    torch.cuda.empty_cache()
 
     hyb_raw = merge_verified_candidates(ft_raw, verified)
     hyb_recs = [format_competition_record(r["sample_id"], o["parsed"], law_retriever) for r, o in zip(eval_rows, hyb_raw)]
     save_predictions("hybrid_vlm_verified_specialist.jsonl", hyb_recs)
+    results_out["hybrid_output_sha256"] = digest(local_pred_dir / "hybrid_vlm_verified_specialist.jsonl")
     hyb_preds = validate_official_records(hyb_recs, eval_rows, validator)
     hyb_eval = evaluate(gold_codes, hyb_preds, group_map)
     hyb_sev4 = severity4_miss_stats(raw_train_by_id, hyb_preds)
@@ -433,9 +539,12 @@ def evaluate_split(
     results_out["hybrid_verification_status"] = "completed"
     results_out["hybrid_vlm_plus_verified_specialist"] = {
         "proposed_candidates": len(cands),
+        "max_proposals_per_photo": max_candidates,
         "vlm_accepted_candidates": sum(bool(v.get("accepted")) for v in verified),
         "vlm_rejected_candidates": sum(not bool(v.get("accepted")) for v in verified),
         "verification_seconds": ver_sec,
+        **ver_cache,
+        **count_added_predictions(gold_codes, ft_preds, hyb_preds),
         "kit_schema_valid_rate": 1.0,
         "metrics": hyb_eval,
         "severity4": hyb_sev4,
@@ -444,6 +553,35 @@ def evaluate_split(
         "hybrid_vs_ft_vlm": paired_bootstrap(gold_codes, ft_preds, hyb_preds, group_map, resamples=2000, seed=42),
         "hybrid_vs_specialist": paired_bootstrap(gold_codes, spec_preds, hyb_preds, group_map, resamples=2000, seed=42),
     })
+    if followup:
+        comparisons["hybrid_vs_official_lora"] = paired_bootstrap(
+            gold_codes, official_preds, hyb_preds, group_map, resamples=2000, seed=42
+        )
+        results_out["official_production_lora"] = {"metrics": evaluate(gold_codes, official_preds, group_map),
+                                                   "severity4": severity4_miss_stats(raw_train_by_id, official_preds)}
+        results_out["followup_complete"] = not run_zeroshot_base
+        write_summary()
+        if run_zeroshot_base:
+            if zero_cache_path.exists():
+                prior_zero_key = json.loads(zero_cache_path.read_text(encoding="utf-8"))["identity"]["model_key"]
+                reuse_resident = prior_zero_key == disabled_adapter_zero_key()
+            else:
+                reuse_resident = bool(finetuned_model.cache_info().currsize)
+            if reuse_resident:
+                with torch.inference_mode(), finetuned_model().disable_adapter():
+                    zs_preds = evaluate_zero_shot(finetuned_model, disabled_adapter=True)
+                results_out["zeroshot_weight_source"] = "resident base with PEFT adapter disabled"
+            else:
+                finetuned_model.cache_clear()
+                torch.cuda.empty_cache()
+                zs_preds = evaluate_zero_shot(zero_shot_model)
+                results_out["zeroshot_weight_source"] = "standalone base or complete zero-shot cache"
+            comparisons["ft_vlm_vs_zeroshot_base"] = paired_bootstrap(
+                gold_codes, zs_preds, ft_preds, group_map, resamples=2000, seed=42
+            )
+            results_out["followup_complete"] = True
+    finetuned_model.cache_clear()
+    torch.cuda.empty_cache()
     if zs_preds is not None:
         comparisons["hybrid_vs_zeroshot_base"] = paired_bootstrap(
             gold_codes, zs_preds, hyb_preds, group_map, resamples=2000, seed=42
@@ -467,6 +605,8 @@ def main() -> None:
     parser.add_argument("--bf16", action="store_true", help="Use the submission entrypoint's unquantized BF16 base weights")
     parser.add_argument("--batch-size", type=int, default=4)
     parser.add_argument("--skip-verifier", action="store_true")
+    parser.add_argument("--paired-followup", nargs=4, type=Path,
+                        metavar=("PRIMARY_SUMMARY", "OFFICIAL_PREDICTIONS", "OFFICIAL_SUMMARY", "PAIRED_SUMMARY"))
     args = parser.parse_args()
 
     manifest = args.manifest or args.root / "data/clean-split-v1" / (
@@ -485,6 +625,7 @@ def main() -> None:
         use_4bit=not args.bf16,
         batch_size=args.batch_size,
         run_verifier=not args.skip_verifier,
+        followup=Fold0Followup(*args.paired_followup) if args.paired_followup else None,
     )
     ft_m = res["finetuned_vlm_11code_standalone"]["metrics"]
     sp_m = res["specialist_standalone"]["metrics"]

@@ -100,7 +100,7 @@ def infer_cached(entry, rows, inputs, output, batch_size, timings=None):
             records = [{**row, "raw_text": text} for row, text in zip(parsed, raw_text, strict=True)]
             if [row["sample_id"] for row in records] != ids:
                 raise ValueError("Official inference did not return the requested ordered IDs")
-            write_atomic(path, json.dumps(records, ensure_ascii=False) + "\n")
+            write_atomic(path, json.dumps(records) + "\n")
             print(f"saved official raw {start + len(batch)}/{len(rows)}", flush=True)
         if [row["sample_id"] for row in records] != ids:
             raise ValueError(f"Saved batch does not match requested IDs: {path}")
@@ -178,6 +178,9 @@ def run(inputs: Path, run_dir: Path, batch_size: int, root: Path) -> dict:
     generated_photos = timings.get("generated_photos", 0)
     result = {"mode": "official stock inference and formatter, batch-resumable native host wrapper", "gpu": gpu,
               "competition_container_tested": False, "native_versions": versions, "kw_batch": batch_size,
+              "generation_settings": {"precision": "BF16", "max_pixels": 384 * 32 * 32,
+                                      "max_new_tokens": 900, "batch_size": batch_size,
+                                      "organizer_default_batch_size": 16},
               "input_count": len(rows), "official_model_schema_valid_count": len(valid),
               "official_checker_valid_rows": int(matched[1]), "current_invocation_seconds": round(time.perf_counter() - before, 2),
               "current_invocation_provenance_seconds": round(provenance_seconds, 2),

@@ -59,11 +59,12 @@ python -B -u -m kwater_lab.fold0_official_resume --input-dir data/fold0-producti
   --batch-size 1 --run-dir data/linux-official-fold0 --out results/linux_official_fold0.json
 ```
 
-공식 216/216 출력과 바이트 해시가 확인된 뒤 기존 Fold0 대응 비교와 눈가림 검토에 사용한다. `CANDIDATE_PREDICTIONS`는 로컬 학습 모델의 실제 포맷 출력 `ft_vlm_11code.jsonl`로 지정한다. 판단 본문과 행별 출력은 승인된 로컬 `data/`에서 관리한다. ZIP과 배치 원문은 원격 저장소에 커밋하지 않는다.
+공식 216/216 출력과 바이트 해시가 확인된 뒤 기존 Fold0 대응 비교와 눈가림 검토에 사용한다. `CANDIDATE_PREDICTIONS`는 로컬 학습 모델의 실제 포맷 출력 `ft_vlm_11code.jsonl`로, `CANDIDATE_SUMMARY`는 그 출력의 해시와 생성 설정을 담은 실행 요약으로 지정한다. 운영체제를 옮길 때 줄바꿈을 변환하면 원래 출력 해시와 일치하지 않는다. 판단 본문과 행별 출력은 승인된 로컬 `data/`에서 관리한다. ZIP과 배치 원문은 원격 저장소에 커밋하지 않는다.
 
 ```bash
 python -m kwater_lab.fold0_production_compare compare \
   --baseline data/linux-official-fold0/output/submission.jsonl --candidate "$CANDIDATE_PREDICTIONS" \
+  --baseline-summary results/linux_official_fold0.json --candidate-summary "$CANDIDATE_SUMMARY" \
   --output results/linux_official_fold0_paired.json
 python -m kwater_lab.fold0_qualitative_review \
   --baseline data/linux-official-fold0/output/submission.jsonl --candidate "$CANDIDATE_PREDICTIONS" \

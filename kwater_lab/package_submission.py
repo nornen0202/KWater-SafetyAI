@@ -110,14 +110,13 @@ def load_vlm(base_dir: Path, adapter_dir: Path, max_pixels: int):
         str(base_dir), local_files_only=True, dtype=torch.bfloat16,
         low_cpu_mem_usage=True, device_map={"": 0}, attn_implementation="sdpa",
     )
-    batch_sz = 4
     model = PeftModel.from_pretrained(model, str(adapter_dir), local_files_only=True)
     model.eval()
     model.generation_config.do_sample = False
     model.generation_config.temperature = None
     model.generation_config.top_p = None
     model.generation_config.top_k = None
-    return model, proc, batch_sz
+    return model, proc
 
 
 def main() -> None:
@@ -144,8 +143,9 @@ def main() -> None:
         spec_code_p, spec_scene_p, spec_calib = run_vision_specialist(image_paths, ROOT / "specialist", device)
 
     prompt = (ROOT / "system_prompt_11code.txt").read_text(encoding="utf-8")
-    max_pixels = int(cfg.get("max_pixels_infer", 512 * 32 * 32))
-    model, proc, batch_sz = load_vlm(ROOT / "base_model", ROOT / "adapter", max_pixels=max_pixels)
+    max_pixels = cfg["max_pixels_infer"]
+    batch_sz = cfg["batch_size"]
+    model, proc = load_vlm(ROOT / "base_model", ROOT / "adapter", max_pixels=max_pixels)
 
     msgs = [{"role": "system", "content": prompt}, {"role": "user", "content": [{"type": "image"}, {"type": "text", "text": INSPECT_USER_TEXT}]}]
     prefix = proc.apply_chat_template(msgs, tokenize=False, add_generation_prompt=True)
@@ -159,7 +159,7 @@ def main() -> None:
                 with Image.open(p) as im:
                     pics.append(ImageOps.exif_transpose(im).convert("RGB"))
             batch = proc(text=[prefix] * len(sub_p), images=pics, padding=True, return_tensors="pt").to("cuda")
-            gen = model.generate(**batch, do_sample=False, max_new_tokens=620, use_cache=True)
+            gen = model.generate(**batch, do_sample=False, max_new_tokens=INSPECT_MAX_NEW_TOKENS, use_cache=True)
             in_len = batch["input_ids"].shape[-1]
             for li in range(len(sub_p)):
                 txt = proc.decode(gen[li, in_len:], skip_special_tokens=True, clean_up_tokenization_spaces=False)
@@ -186,12 +186,11 @@ def main() -> None:
                     with Image.open(candidate["image"]) as im:
                         v_pics.append(ImageOps.exif_transpose(im).convert("RGB"))
                 vb = proc(text=v_txts, images=v_pics, padding=True, return_tensors="pt").to("cuda")
-                vgen = model.generate(**vb, do_sample=False, max_new_tokens=320, use_cache=True)
+                vgen = model.generate(**vb, do_sample=False, max_new_tokens=VERIFY_MAX_NEW_TOKENS, use_cache=True)
                 vin_len = vb["input_ids"].shape[-1]
                 for li, candidate in enumerate(chunk):
                     vtxt = proc.decode(vgen[li, vin_len:], skip_special_tokens=True, clean_up_tokenization_spaces=False)
-                    vobj, _ = parse_json_loose(vtxt)
-                    hazard = verified_hazard(vobj, candidate["code"])
+                    hazard = parse_verified_hazard(vtxt, candidate["code"])
                     if hazard is not None:
                         accepted.append({**candidate, "accepted": True, "hazard": hazard})
                 del vb, vgen
@@ -227,6 +226,8 @@ def render_entrypoint() -> str:
         "RISK_BANDS": RISK_BANDS,
         "KOR_CODE_NAMES": vlm_11code.KOR_CODE_NAMES,
         "INSPECT_USER_TEXT": vlm_11code.INSPECT_USER_TEXT,
+        "INSPECT_MAX_NEW_TOKENS": vlm_11code.INSPECT_MAX_NEW_TOKENS,
+        "VERIFY_MAX_NEW_TOKENS": vlm_11code.VERIFY_MAX_NEW_TOKENS,
         "STATUTORY_CODE_PRIORS": law_reranker_11code.STATUTORY_CODE_PRIORS,
         "_STOP": sorted(law_reranker_11code._STOP),
         "SIG_DIM": clean_specialist.SIG_DIM,
@@ -248,7 +249,7 @@ def render_entrypoint() -> str:
         law_reranker_11code.Native11LawRetriever,
         vlm_11code.seed_all, vlm_11code.verify_user_text, vlm_11code.sanitize_text,
         vlm_11code.parse_json_loose, vlm_11code.validate_vlm_11code_obj,
-        vlm_11code.verified_hazard, vlm_11code.format_competition_record,
+        vlm_11code.verified_hazard, vlm_11code.parse_verified_hazard, vlm_11code.format_competition_record,
         clean_specialist.make_spatial_crops, clean_specialist._pil_list_to_sig_tensor,
         clean_specialist._pil_list_to_dino_tensor, clean_specialist.extract_batch_7view_features,
         clean_specialist.SpatialDualSpecialistHead, clean_specialist.predict_probs,
@@ -339,7 +340,10 @@ def build_submission_package(
     dest_dir: Path,
     zip_path: Path | None,
     enable_hybrid: bool = True,
+    batch_size: int = 4,
 ) -> dict:
+    if batch_size < 1:
+        raise ValueError("Batch size must be positive")
     dest_dir = dest_dir.resolve()
     zip_path = zip_path.resolve() if zip_path is not None else None
     if dest_dir.exists() or (zip_path is not None and zip_path.exists()):
@@ -374,7 +378,8 @@ def build_submission_package(
                 json.dumps(
                     {
                         "enable_hybrid_booster": enable_hybrid,
-                        "max_pixels_infer": 512 * 32 * 32,
+                        "max_pixels_infer": vlm_11code.CANDIDATE_MAX_PIXELS,
+                        "batch_size": batch_size,
                         "margin_boost_when_hazard": 0.04,
                         "margin_boost_when_empty": 0.12,
                         "specialist_oof_code_precisions": oof_code_precs,
@@ -531,6 +536,7 @@ def build_submission_package(
         "law_case_bank_train_photos": len(release_train_rows),
         "adapter_validation_fold": summary["val_fold"],
         "enable_hybrid": enable_hybrid,
+        "batch_size": batch_size,
     }
 
 
@@ -543,6 +549,7 @@ def main() -> None:
     ap.add_argument("--zip-path", type=Path, default=Path("data/submissions/kwater-safeground-v5-20261127.zip"))
     ap.add_argument("--vlm-only", action="store_true")
     ap.add_argument("--stage-only", action="store_true")
+    ap.add_argument("--batch-size", type=int, default=4)
     args = ap.parse_args()
 
     info = build_submission_package(
@@ -552,6 +559,7 @@ def main() -> None:
         dest_dir=args.dest_dir.resolve(),
         zip_path=None if args.stage_only else args.zip_path.resolve(),
         enable_hybrid=not args.vlm_only,
+        batch_size=args.batch_size,
     )
     print(json.dumps(info, indent=2, ensure_ascii=False))
 

@@ -35,7 +35,7 @@ import torch.nn.functional as F
 
 from .audit import digest
 from .law_reranker_11code import Native11LawRetriever
-from .metrics import CODES, LIKELIHOOD, RISK_BANDS, SEVERITY, decode_target, evaluate, paired_bootstrap, unique_keys
+from .metrics import CODES, LIKELIHOOD, RISK_BANDS, SEVERITY, check_text, decode_target, evaluate, paired_bootstrap, reject_constant, unique_keys
 from .train_head import save_atomic
 
 
@@ -64,6 +64,9 @@ MINORITY_CODES = frozenset({
 })
 
 INSPECT_USER_TEXT = "이 현장사진을 평가하고 지정된 JSON 하나만 출력한다."
+CANDIDATE_MAX_PIXELS = 512 * 32 * 32
+INSPECT_MAX_NEW_TOKENS = 620
+VERIFY_MAX_NEW_TOKENS = 320
 DECISION_SPAN_RE = re.compile(
     r'"(?:status|decision|code)"\s*:\s*"[^"]+"|"(?:likelihood_score|severity_score)"\s*:\s*\d+'
 )
@@ -193,12 +196,30 @@ def validate_vlm_11code_obj(obj: dict[str, Any] | None) -> list[str]:
 
 
 def verified_hazard(obj: dict[str, Any] | None, code: str) -> dict[str, Any] | None:
-    if not isinstance(obj, dict) or obj.get("decision") != "accept":
+    if not isinstance(obj, dict) or obj.keys() != {"decision", "hazard"} or obj["decision"] != "accept":
         return None
     hazard = obj.get("hazard")
-    if not isinstance(hazard, dict) or hazard.get("code") != code:
+    if (not isinstance(hazard, dict)
+            or hazard.keys() != {"code", "likelihood_score", "severity_score", "evidence", "prevention"}
+            or hazard["code"] != code):
         return None
     if validate_vlm_11code_obj({"status": "hazard", "hazards": [hazard]}):
+        return None
+    try:
+        check_text(hazard["evidence"], "verification evidence", 240).encode("utf-8")
+        check_text(hazard["prevention"], "verification prevention", 480).encode("utf-8")
+    except ValueError:
+        return None
+    if not all(any(char.isalnum() for char in hazard[key]) for key in ("evidence", "prevention")):
+        return None
+    evidence = hazard["evidence"].strip()
+    denies_risk = re.search(
+        r"(?:위험(?:요인|요소|상황)?|불안전\s*상태)(?:은|는|이|가|도)?\s*"
+        r"(?:(?:확인|관찰|발견)되지\s*않|(?:확인|관찰|발견)할\s*수\s*없|보이지\s*않|없(?:다|음|습니다))"
+        r"|\bno\s+(?:visible\s+)?(?:hazard|risk)(?:\s+(?:is\s+)?(?:visible|observed|detected))?\s*[.!]?$",
+        evidence, flags=re.IGNORECASE,
+    )
+    if denies_risk:
         return None
     return {
         "code": code,
@@ -207,6 +228,15 @@ def verified_hazard(obj: dict[str, Any] | None, code: str) -> dict[str, Any] | N
         "evidence": hazard["evidence"].strip(),
         "prevention": hazard["prevention"].strip(),
     }
+
+
+def parse_verified_hazard(text: str, code: str) -> dict[str, Any] | None:
+    """Accept only the complete verifier JSON object specified in the training prompt."""
+    try:
+        obj = json.loads(text, object_pairs_hook=unique_keys, parse_constant=reject_constant)
+    except (TypeError, ValueError, RecursionError):
+        return None
+    return verified_hazard(obj, code)
 
 
 def format_competition_record(
@@ -396,13 +426,8 @@ def build_training_curriculum(
     return curriculum
 
 
-def load_qwen_4bit_or_bf16(
-    base_model_dir: Path,
-    max_pixels: int,
-    use_4bit: bool = True,
-    adapter_dir: Path | None = None,
-):
-    from transformers import AutoProcessor, BitsAndBytesConfig, Qwen3VLForConditionalGeneration
+def load_qwen_processor(base_model_dir: Path, max_pixels: int):
+    from transformers import AutoProcessor
 
     min_px = 128 * 32 * 32
     processor = AutoProcessor.from_pretrained(
@@ -413,6 +438,11 @@ def load_qwen_4bit_or_bf16(
         processor.image_processor.min_pixels = min_px
     if hasattr(processor.image_processor, "max_pixels"):
         processor.image_processor.max_pixels = max_pixels
+    return processor
+
+
+def load_qwen_model(base_model_dir: Path, use_4bit: bool = True, adapter_dir: Path | None = None):
+    from transformers import BitsAndBytesConfig, Qwen3VLForConditionalGeneration
 
     if use_4bit:
         # Keep the compact ViT + DeepStack mergers in crisp native BF16 while 4-bit NF4 quantizing the 3.7B LLM
@@ -450,7 +480,17 @@ def load_qwen_4bit_or_bf16(
     model.generation_config.temperature = None
     model.generation_config.top_p = None
     model.generation_config.top_k = None
-    return model, processor
+    return model
+
+
+def load_qwen_4bit_or_bf16(
+    base_model_dir: Path,
+    max_pixels: int,
+    use_4bit: bool = True,
+    adapter_dir: Path | None = None,
+):
+    processor = load_qwen_processor(base_model_dir, max_pixels)
+    return load_qwen_model(base_model_dir, use_4bit, adapter_dir), processor
 
 
 def encode_weighted_example(
@@ -717,7 +757,7 @@ def train_multimodal_qlora(
     elapsed = 0.0
     t_all = time.perf_counter()
     if resume is not None:
-        optimizer.load_state_dict(resume["optimizer"])
+        optimizer.load_state_dict(resume.pop("optimizer"))
         scheduler.load_state_dict(resume["scheduler"])
         torch.set_rng_state(resume["cpu_rng"])
         torch.cuda.set_rng_state(resume["cuda_rng"])
@@ -793,7 +833,7 @@ def train_multimodal_qlora(
             next_offset = b_start + grad_accum
             epoch_done = next_offset >= len(ordered)
             stop_now = global_step == stop_after_steps and global_step < total_steps
-            if epoch_done or stop_now or global_step % checkpoint_steps == 0:
+            if epoch_done or stop_now or global_step == 2 or global_step % checkpoint_steps == 0:
                 ckpt_dir = out_dir / (f"epoch-{epoch}" if epoch_done else f"checkpoint-{global_step}")
                 if epoch_done:
                     ep_entry = {
@@ -873,13 +913,15 @@ def infer_batched_vlm(
     image_root: Path,
     system_prompt: str,
     batch_size: int = 4,
-    max_new_tokens: int = 620,
+    max_new_tokens: int = INSPECT_MAX_NEW_TOKENS,
     cache_path: Path | None = None,
     cache_key: str | None = None,
+    model_factory=None,
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     if batch_size < 1 or max_new_tokens < 1:
         raise ValueError("Batch size and max_new_tokens must be positive")
-    model.eval()
+    if (model is None) == (model_factory is None):
+        raise ValueError("Supply a model or a lazy model factory")
     proc.tokenizer.padding_side = "left"
     messages = [
         {"role": "system", "content": system_prompt},
@@ -897,9 +939,9 @@ def infer_batched_vlm(
         if not cache_key:
             raise ValueError("cache_key must identify model weights and precision")
         cache_identity = {
-            "version": 1,
+            "version": 2,
             "image_root": str(image_root.resolve()),
-            "samples": ids,
+            "samples": [[sample_id, name] for sample_id, name in ids.items()],
             "image_sha256": {name: digest(image_root / name) for name in sorted(set(ids.values()))},
             "model_key": cache_key,
             "prefix_sha256": hashlib.sha256(prefix.encode()).hexdigest(),
@@ -912,7 +954,7 @@ def infer_batched_vlm(
             if cache["identity"] != cache_identity:
                 raise ValueError(f"Inference settings differ from the raw cache: {cache_path}")
             outputs = cache["outputs"]
-            if not outputs.keys() <= ids.keys() or any(key != row["sample_id"] for key, row in outputs.items()):
+            if list(outputs) != list(ids)[:len(outputs)] or any(key != row["sample_id"] for key, row in outputs.items()):
                 raise ValueError(f"Unexpected raw cache sample IDs: {cache_path}")
             previous_seconds = cache["seconds"]
             effective_batch_size = cache.get("effective_batch_size", batch_size)
@@ -920,9 +962,13 @@ def infer_batched_vlm(
                 raise ValueError(f"Invalid raw cache batch size: {cache_path}")
             print(f"  vlm_cache {len(outputs)}/{len(eval_rows)}", flush=True)
     reused_rows = len(outputs)
+    pending = eval_rows[reused_rows:]
+    if pending:
+        if model is None:
+            model = model_factory()
+        model.eval()
     t0 = time.perf_counter()
 
-    pending = [row for row in eval_rows if row["sample_id"] not in outputs]
     position = 0
     while position < len(pending):
         chunk = pending[position : position + effective_batch_size]
@@ -975,7 +1021,7 @@ def infer_batched_vlm(
                 "seconds": elapsed,
                 "effective_batch_size": effective_batch_size,
             }
-            save_atomic(cache_path, lambda f: f.write(json.dumps(result, ensure_ascii=False).encode("utf-8")))
+            save_atomic(cache_path, lambda f: f.write(json.dumps(result).encode("utf-8")))
         if len(outputs) % 24 == 0 or len(outputs) == len(eval_rows):
             print(f"  vlm_infer {len(outputs)}/{len(eval_rows)} elapsed={elapsed:.1f}s", flush=True)
 
@@ -1008,7 +1054,7 @@ def verify_specialist_candidates_with_vlm(
     image_root: Path,
     system_prompt: str,
     batch_size: int = 4,
-    max_new_tokens: int = 320,
+    max_new_tokens: int = VERIFY_MAX_NEW_TOKENS,
 ) -> list[dict[str, Any]]:
     """Run supervised VLM visual verification on high-confidence extra hazard candidates."""
     if not candidates:
@@ -1034,8 +1080,7 @@ def verify_specialist_candidates_with_vlm(
         in_len = inputs["input_ids"].shape[-1]
         for local_i, c in enumerate(chunk):
             txt = proc.decode(gen_ids[local_i, in_len:], skip_special_tokens=True, clean_up_tokenization_spaces=False)
-            obj, _ = parse_json_loose(txt)
-            hazard_item = verified_hazard(obj, c["code"])
+            hazard_item = parse_verified_hazard(txt, c["code"])
             results.append({**c, "accepted": hazard_item is not None, "hazard": hazard_item, "raw_verify_text": txt})
         del inputs, gen_ids
     return results

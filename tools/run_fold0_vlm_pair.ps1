@@ -4,6 +4,7 @@ param(
     [string]$VlmPython = 'C:/Users/JY/.antigravity_kwater_venv/Scripts/python.exe',
     [string]$BaselineRuntime = 'C:/Users/JY/anaconda3/envs/env_aias_test',
     [string]$TrainDir = 'data/vlm-11code-fold0',
+    [string]$GroupSensitivityExclusions = '',
     [switch]$SkipZeroShot
 )
 
@@ -22,6 +23,26 @@ catch [System.Threading.AbandonedMutexException] {
 if (-not $acquired) { throw 'The fold-0 VLM runner is already active.' }
 
 $manifest = 'data/clean-split-v1/split_manifest_dev.json'
+$confirmedMaskName = 'fold0-group-exclusions-confirmed.json'
+$confirmedMaskPath = "data/fold0-crosssplit-visual-review/$confirmedMaskName"
+$confirmedMaskSha = 'c97e83f55808db09372d3dc0e80f531b041fc7c6f38ee25b876a1213111fc41c'
+if (-not $GroupSensitivityExclusions -and (Test-Path -LiteralPath $confirmedMaskPath -PathType Leaf)) {
+    $GroupSensitivityExclusions = $confirmedMaskPath
+}
+
+function Assert-ConfirmedSensitivityMask {
+    if ([IO.Path]::GetFileName($GroupSensitivityExclusions) -cne $confirmedMaskName -or
+        (Get-FileHash -LiteralPath $GroupSensitivityExclusions -Algorithm SHA256).Hash -ne $confirmedMaskSha) {
+        throw 'Expected the exact confirmed two-wave Fold-0 sensitivity mask.'
+    }
+    $mask = Get-Content -LiteralPath $GroupSensitivityExclusions -Raw | ConvertFrom-Json
+    if ($mask.review_status -cne 'confirmed_06_09_11_after_two_blind_waves' -or
+        $mask.canonical_manifest_sha256 -ne (Get-FileHash -LiteralPath $manifest -Algorithm SHA256).Hash) {
+        throw 'The confirmed sensitivity mask does not match the canonical Fold-0 manifest.'
+    }
+}
+
+if ($GroupSensitivityExclusions) { Assert-ConfirmedSensitivityMask }
 $baselineRun = "$RunName-official"
 $baselineRunDir = "data/$baselineRun"
 $baselineInputDir = 'data/fold0-production-input'
@@ -79,22 +100,22 @@ $env:TOKENIZERS_PARALLELISM = 'false'
 $env:CUDA_CACHE_PATH = Join-Path (Get-Location).Path '.runtime/cuda-cache'
 $env:HF_HOME = Join-Path (Get-Location).Path '.runtime/hf'
 
-function Invoke-Fold0Vlm([string]$Precision, [switch]$CompareZeroShot) {
+function Invoke-Fold0Vlm([string]$Precision) {
     $evaluation = "$RunName-$Precision"
     $predictionDir = "data/local-eval-predictions/fold0/$evaluation"
-    $stage = if ($CompareZeroShot) { 'zeroshot_ablation' } else { 'vlm' }
+    $stage = 'vlm'
     $metricsPath = "results/$($evaluation.Replace('-', '_'))_$stage.json"
     $attempt = Get-Date -Format 'yyyyMMdd-HHmmss'
     $stdout = Join-Path $TrainDir "$evaluation-$stage-$attempt.stdout.log"
     $stderr = Join-Path $TrainDir "$evaluation-$stage-$attempt.stderr.log"
     if (-not (Test-Path -LiteralPath $metricsPath)) {
         $arguments = @('-B', '-u', '-m', 'kwater_lab.hybrid_pipeline', '--split', 'fold0', '--manifest', $manifest, '--skip-verifier', '--adapter-dir', ('"' + $adapterDir + '"'), '--out', $metricsPath, '--prediction-dir', $predictionDir, '--batch-size', '1')
-        if (-not $CompareZeroShot) { $arguments += '--skip-zeroshot' }
+        $arguments += '--skip-zeroshot'
         if ($Precision -eq 'bf16') { $arguments += '--bf16' }
         Write-Host "Starting $Precision $stage evaluation. See $stdout and $stderr."
         $worker = Start-Process -FilePath $VlmPython -ArgumentList $arguments -WorkingDirectory (Get-Location).Path -WindowStyle Hidden -RedirectStandardOutput $stdout -RedirectStandardError $stderr -Wait -PassThru
         if ($worker.ExitCode -ne 0) {
-            if (-not $CompareZeroShot -and $Precision -eq 'bf16' -and (Select-String -LiteralPath $stderr -Pattern '^torch(?:\.cuda)?\.OutOfMemoryError:|CUDA (?:error: )?out of memory' -Quiet)) {
+            if ($Precision -eq 'bf16' -and (Select-String -LiteralPath $stderr -Pattern '^torch(?:\.cuda)?\.OutOfMemoryError:|CUDA (?:error: )?out of memory' -Quiet)) {
                 Write-Host 'BF16 CUDA OOM. Continuing with the separate NF4 evaluation.'
                 return $null
             }
@@ -105,6 +126,9 @@ function Invoke-Fold0Vlm([string]$Precision, [switch]$CompareZeroShot) {
         Precision = $Precision
         Metrics = $metricsPath
         Prediction = "$predictionDir/ft_vlm_11code.jsonl"
+        PredictionDir = $predictionDir
+        HybridPrediction = "$predictionDir/hybrid_vlm_verified_specialist.jsonl"
+        Followup = "results/$($evaluation.Replace('-', '_'))_verified_followup.json"
         Pair = "results/$($evaluation.Replace('-', '_'))_paired.json"
         Qualitative = "results/$($evaluation.Replace('-', '_'))_qualitative_proxies.json"
         ReviewRoot = "$predictionDir/blind-review"
@@ -147,9 +171,17 @@ if ($official.official_checker_valid_rows -ne $ftReport.photos -or $official.sou
     throw 'Expected complete official predictions validated by the official checker.'
 }
 
-& $VlmPython -B -u -m kwater_lab.fold0_production_compare --manifest $manifest compare --baseline $baselinePredictions --candidate $evaluation.Prediction --output $evaluation.Pair
+& $VlmPython -B -u -m kwater_lab.fold0_production_compare --manifest $manifest compare --baseline $baselinePredictions --candidate $evaluation.Prediction --baseline-summary $baselineReport --candidate-summary $evaluation.Metrics --output $evaluation.Pair
 if ($LASTEXITCODE -ne 0) { throw 'Paired comparison failed.' }
 Write-Output "Paired fold-0 results saved to $($evaluation.Pair)"
+
+if ($GroupSensitivityExclusions) {
+    Assert-ConfirmedSensitivityMask
+    $primarySensitivity = $evaluation.Pair.Replace('_paired.json', '_primary_group_sensitivity.json')
+    & $VlmPython -B -u -m kwater_lab.fold0_group_sensitivity --manifest $manifest --baseline $baselinePredictions --candidate $evaluation.Prediction --exclusions $GroupSensitivityExclusions --output $primarySensitivity
+    if ($LASTEXITCODE -ne 0) { throw 'Fold-0 primary group exclusion sensitivity audit failed.' }
+    Write-Output "Supplemental primary group exclusion sensitivity saved to $primarySensitivity"
+}
 
 if (-not (Test-Path -LiteralPath $evaluation.Qualitative)) {
     $review = $evaluation.ReviewRoot
@@ -161,9 +193,29 @@ if (-not (Test-Path -LiteralPath $evaluation.Qualitative)) {
     Write-Output "Blinded 36-photo review prepared in $review"
 }
 
-if (-not $SkipZeroShot) {
-    $ablation = Invoke-Fold0Vlm -Precision $evaluation.Precision -CompareZeroShot
-    Write-Output "Same-precision zero-shot ablation saved to $($ablation.Metrics)"
+$followup = if (Test-Path -LiteralPath $evaluation.Followup) {
+    Get-Content -LiteralPath $evaluation.Followup -Raw | ConvertFrom-Json
+} else { $null }
+$hybridHash = if (Test-Path -LiteralPath $evaluation.HybridPrediction) {
+    (Get-FileHash -LiteralPath $evaluation.HybridPrediction -Algorithm SHA256).Hash
+} else { '' }
+if (-not $followup.followup_complete -or (-not $SkipZeroShot -and -not $followup.zeroshot_base_vlm_11code) -or
+    (-not $hybridHash -or $followup.hybrid_output_sha256 -ne $hybridHash) -or
+    $followup.generation_conditions.official_output_sha256 -ne $officialOutputHash -or
+    $followup.formatted_output_sha256 -ne $ftReport.formatted_output_sha256) {
+    $extraArgs = @()
+    if ($evaluation.Precision -eq 'bf16') { $extraArgs += '--bf16' }
+    if ($SkipZeroShot) { $extraArgs += '--skip-zeroshot' }
+    & $VlmPython -B -u -m kwater_lab.hybrid_pipeline --split fold0 --manifest $manifest --adapter-dir $adapterDir --out $evaluation.Followup --prediction-dir $evaluation.PredictionDir --batch-size 1 --paired-followup $evaluation.Metrics $baselinePredictions $baselineReport $evaluation.Pair @extraArgs
+    if ($LASTEXITCODE -ne 0) { throw 'Fold-0 verifier follow-up failed. Resume against the same cache.' }
+}
+Write-Output "Same-precision verifier and requested zero-shot ablation saved to $($evaluation.Followup)"
+if ($GroupSensitivityExclusions) {
+    Assert-ConfirmedSensitivityMask
+    $sensitivity = $evaluation.Pair.Replace('_paired.json', '_verified_group_sensitivity.json')
+    & $VlmPython -B -u -m kwater_lab.fold0_group_sensitivity --manifest $manifest --baseline $baselinePredictions --candidate $evaluation.Prediction --hybrid $evaluation.HybridPrediction --exclusions $GroupSensitivityExclusions --output $sensitivity
+    if ($LASTEXITCODE -ne 0) { throw 'Fold-0 group exclusion sensitivity audit failed.' }
+    Write-Output "Supplemental group exclusion sensitivity saved to $sensitivity"
 }
 $gpuLock.ReleaseMutex()
 $gpuLock.Dispose()

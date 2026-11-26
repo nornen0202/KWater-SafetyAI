@@ -1,0 +1,166 @@
+{
+  "scope": "Development-only reconstruction of existing links; no new fold assignment",
+  "input_sha256": {
+    "data/clean-split-v1/split_manifest_dev.json": "3864848fe26b951ec070710499d2694078b17c76ffd2aaf38d312b99ad3b2f60",
+    "results/train_audit_full.json": "9ea46cd904b181405052304c4f439cf2e4252a44b8c094c218c989f63e92d502",
+    "data/phase01-runs/phase01-20261126-0513-2155e8fa/pairs.json": "d58f9a15869dbd7f7b9d19aa98c9026701964335c5008a07f89cbceb719c66bd",
+    "data/phase01-runs/phase01-20261126-0513-2155e8fa/semantic-pairs.json": "a2c8049a6f850722d282c27b6b810b04b163880f6439fbfbc491a2dc79911160"
+  },
+  "photos": 966,
+  "groups": 192,
+  "successful_union_by_mechanism": {
+    "initial_numeric_prefix": 767,
+    "exact_pixel_sha256": 0,
+    "pairs.json:recorded_quarantine": 2,
+    "pairs.json:geometric_threshold": 2,
+    "semantic-pairs.json:recorded_quarantine": 0,
+    "semantic-pairs.json:geometric_threshold": 2,
+    "dhash_within_6": 1,
+    "dhash_within_12_near_consecutive_id": 0
+  },
+  "by_source": {
+    "ADD": {
+      "photos": 55,
+      "groups": 55,
+      "top_five_group_sizes_within_source": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "CNEW": {
+      "photos": 6,
+      "groups": 6,
+      "top_five_group_sizes_within_source": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "SBE": {
+      "photos": 24,
+      "groups": 24,
+      "top_five_group_sizes_within_source": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "S_C": {
+      "photos": 790,
+      "groups": 17,
+      "top_five_group_sizes_within_source": [
+        181,
+        93,
+        90,
+        49,
+        48
+      ]
+    },
+    "stage3": {
+      "photos": 36,
+      "groups": 36,
+      "top_five_group_sizes_within_source": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "stage6": {
+      "photos": 16,
+      "groups": 16,
+      "top_five_group_sizes_within_source": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "stage9": {
+      "photos": 39,
+      "groups": 39,
+      "top_five_group_sizes_within_source": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "by_fold": {
+    "0": {
+      "photos": 216,
+      "groups": 36,
+      "largest_group_photos": 181,
+      "largest_group_photo_share": 0.8379629629629629
+    },
+    "1": {
+      "photos": 177,
+      "groups": 41,
+      "largest_group_photos": 90,
+      "largest_group_photo_share": 0.5084745762711864
+    },
+    "2": {
+      "photos": 197,
+      "groups": 38,
+      "largest_group_photos": 48,
+      "largest_group_photo_share": 0.2436548223350254
+    },
+    "3": {
+      "photos": 201,
+      "groups": 38,
+      "largest_group_photos": 94,
+      "largest_group_photo_share": 0.46766169154228854
+    },
+    "4": {
+      "photos": 175,
+      "groups": 39,
+      "largest_group_photos": 49,
+      "largest_group_photo_share": 0.28
+    }
+  },
+  "largest_fold0_group": {
+    "photos": 181,
+    "source_photo_counts": {
+      "S_C": 181
+    },
+    "initial_prefix_group_sizes": [
+      127,
+      54
+    ],
+    "internal_union_by_mechanism": {
+      "initial_numeric_prefix": 179,
+      "exact_pixel_sha256": 0,
+      "pairs.json:recorded_quarantine": 0,
+      "pairs.json:geometric_threshold": 1,
+      "semantic-pairs.json:recorded_quarantine": 0,
+      "semantic-pairs.json:geometric_threshold": 0,
+      "dhash_within_6": 0,
+      "dhash_within_12_near_consecutive_id": 0
+    },
+    "post_prefix_union_sequence": [
+      {
+        "mechanism": "pairs.json:geometric_threshold",
+        "premerge_component_sizes": [
+          54,
+          127
+        ],
+        "geometric_evidence": {
+          "inliers": 47,
+          "inlier_fraction": 0.7014925373134329,
+          "prior_decision": "unresolved"
+        }
+      }
+    ]
+  }
+}

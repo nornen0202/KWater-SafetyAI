@@ -62,6 +62,25 @@ def compare(rows: list[dict], baseline_path: Path, candidate_path: Path) -> dict
     }
 
 
+def generation_conditions(baseline_summary, candidate_summary, baseline_path, candidate_path):
+    baseline = json.loads(baseline_summary.read_text(encoding="utf-8"))
+    candidate = json.loads(candidate_summary.read_text(encoding="utf-8"))
+    for path, expected in ((baseline_path, baseline["output_sha256"]), (candidate_path, candidate["formatted_output_sha256"])):
+        with path.open("rb") as stream:
+            if hashlib.file_digest(stream, "sha256").hexdigest() != expected:
+                raise ValueError("Generation settings describe a different prediction file")
+    effective = candidate["finetuned_vlm_11code_standalone"]["generation"]["final_effective_batch_size"]
+    return {
+        "comparison": "Production-system comparison. Model, prompt, image budget, token cap, and any batching or precision differences are not controlled ablations.",
+        "official_output_sha256": baseline["output_sha256"],
+        "candidate_output_sha256": candidate["formatted_output_sha256"],
+        "official": baseline["generation_settings"],
+        "candidate": {"precision": candidate["qlora_inference_weight_mode"], "max_pixels": candidate["vlm_max_pixels"],
+                      "max_new_tokens": candidate["inspect_max_new_tokens"], "batch_size": candidate["vlm_batch_size"],
+                      "final_effective_batch_size": effective},
+    }
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--manifest", type=Path, default=Path("data/clean-split-v1/split_manifest_dev.json"))
@@ -72,6 +91,8 @@ def main() -> None:
     evaluate_parser = commands.add_parser("compare")
     evaluate_parser.add_argument("--baseline", type=Path, required=True)
     evaluate_parser.add_argument("--candidate", type=Path, required=True)
+    evaluate_parser.add_argument("--baseline-summary", type=Path)
+    evaluate_parser.add_argument("--candidate-summary", type=Path)
     evaluate_parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     rows = fold_rows(args.manifest)
@@ -79,7 +100,13 @@ def main() -> None:
         prepare_inputs(rows, args.train_dir, args.output)
         print(f"Staged {len(rows)} photos")
     else:
+        if bool(args.baseline_summary) != bool(args.candidate_summary):
+            parser.error("Supply both generation summaries, or neither")
         result = compare(rows, args.baseline, args.candidate)
+        if args.baseline_summary:
+            result["generation_conditions"] = generation_conditions(
+                args.baseline_summary, args.candidate_summary, args.baseline, args.candidate
+            )
         args.output.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
