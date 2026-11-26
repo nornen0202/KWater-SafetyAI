@@ -65,10 +65,20 @@ def baseline_fingerprint(base: Path, archive_path: Path) -> dict:
     return fingerprints
 
 
-def infer_cached(entry, rows, inputs, output, batch_size):
+def infer_cached(entry, rows, inputs, output, batch_size, timings=None):
     raw_text = []
+    timings = {} if timings is None else timings
     parse_prediction = entry.parse_prediction
-    entry.load_model = lru_cache(maxsize=1)(entry.load_model)
+    original_load = entry.load_model
+
+    @lru_cache(maxsize=1)
+    def load_once(*args):
+        start = time.perf_counter()
+        model_and_processor = original_load(*args)
+        timings["model_load_seconds"] = time.perf_counter() - start
+        return model_and_processor
+
+    entry.load_model = load_once
 
     def capture(text):
         raw_text.append(text)
@@ -83,7 +93,10 @@ def infer_cached(entry, rows, inputs, output, batch_size):
             records = json.loads(path.read_text(encoding="utf-8"), object_pairs_hook=unique_keys)
         else:
             raw_text.clear()
+            started = time.perf_counter()
             parsed = entry.infer_batched(batch, inputs)
+            timings["generation_and_load_seconds"] = timings.get("generation_and_load_seconds", 0.0) + time.perf_counter() - started
+            timings["generated_photos"] = timings.get("generated_photos", 0) + len(batch)
             records = [{**row, "raw_text": text} for row, text in zip(parsed, raw_text, strict=True)]
             if [row["sample_id"] for row in records] != ids:
                 raise ValueError("Official inference did not return the requested ordered IDs")
@@ -93,6 +106,16 @@ def infer_cached(entry, rows, inputs, output, batch_size):
             raise ValueError(f"Saved batch does not match requested IDs: {path}")
         yield from records
     entry.load_model.cache_clear()
+
+
+def cuda_identity() -> dict:
+    import torch
+
+    if torch.cuda.device_count() != 1 or torch.cuda.get_device_capability()[0] < 8 or not torch.cuda.is_bf16_supported():
+        raise RuntimeError("The organizer's model needs one CUDA GPU with native BF16 support")
+    props = torch.cuda.get_device_properties(0)
+    return {"name": props.name, "compute_capability": [props.major, props.minor],
+            "memory_bytes": props.total_memory, "torch_cuda_version": torch.version.cuda}
 
 
 def run(inputs: Path, run_dir: Path, batch_size: int, root: Path) -> dict:
@@ -105,12 +128,14 @@ def run(inputs: Path, run_dir: Path, batch_size: int, root: Path) -> dict:
     base = root / "data/baseline"
     archive = root / "data/packages/kwater-baseline.zip"
     versions = {pkg: importlib.metadata.version(pkg) for pkg in PACKAGES}
+    gpu = cuda_identity()
     os.environ.update({"HF_HUB_OFFLINE": "1", "TRANSFORMERS_OFFLINE": "1", "HF_HUB_DISABLE_TELEMETRY": "1",
                        "TOKENIZERS_PARALLELISM": "false", "KW_BATCH": str(batch_size), "KWATER_SEED": "42"})
     print(f"Validating fingerprints for the organizer files and {len(rows)} images", flush=True)
-    fingerprint = {"version": 1, "batch_size": batch_size, "versions": versions,
+    fingerprint = {"version": 2, "batch_size": batch_size, "versions": versions, "gpu": gpu,
                    "files": baseline_fingerprint(base, archive), "manifest": sha256(inputs / "manifest.jsonl"),
                    "inputs": [[r["sample_id"], r["image"], sha256(inputs / r["image"])] for r in rows]}
+    provenance_seconds = time.perf_counter() - before
     cache = run_dir / "raw-batches"
     cache.mkdir(parents=True, exist_ok=True)
     config_path = cache / "config.json"
@@ -126,7 +151,8 @@ def run(inputs: Path, run_dir: Path, batch_size: int, root: Path) -> dict:
     spec = importlib.util.spec_from_file_location("official_kwater_entrypoint", base / "main.py")
     entry = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(entry)
-    parsed = list(infer_cached(entry, rows, inputs, cache, batch_size))
+    timings = {}
+    parsed = list(infer_cached(entry, rows, inputs, cache, batch_size, timings=timings))
     if len(parsed) != len(rows):
         raise ValueError("Official inference coverage is incomplete")
     valid = [{"sample_id": r["sample_id"], "prediction": r["prediction"]}
@@ -148,10 +174,16 @@ def run(inputs: Path, run_dir: Path, batch_size: int, root: Path) -> dict:
     matched = re.search(r"유효 결과\s+(\d+)/(\d+)", checked.stdout)
     if checked.returncode or not matched or int(matched[1]) != len(rows) or int(matched[2]) != len(rows):
         raise RuntimeError(f"Official output checker did not accept every photo: {run_dir / 'checker.log'}")
-    result = {"mode": "official stock inference and formatter, batch-resumable native host wrapper",
+    model_load_seconds = timings.get("model_load_seconds", 0.0)
+    generated_photos = timings.get("generated_photos", 0)
+    result = {"mode": "official stock inference and formatter, batch-resumable native host wrapper", "gpu": gpu,
               "competition_container_tested": False, "native_versions": versions, "kw_batch": batch_size,
               "input_count": len(rows), "official_model_schema_valid_count": len(valid),
               "official_checker_valid_rows": int(matched[1]), "current_invocation_seconds": round(time.perf_counter() - before, 2),
+              "current_invocation_provenance_seconds": round(provenance_seconds, 2),
+              "current_invocation_model_load_seconds": round(model_load_seconds, 2),
+              "current_invocation_generation_seconds": round(timings.get("generation_and_load_seconds", 0.0) - model_load_seconds, 2),
+              "current_invocation_generated_photos": generated_photos,
               "source_manifest_sha256": fingerprint["manifest"], "main_sha256": fingerprint["files"]["main.py"],
               **summarize_rows(submission, base / "assets/laws.jsonl")}
     print(json.dumps(result, ensure_ascii=False, indent=2), flush=True)

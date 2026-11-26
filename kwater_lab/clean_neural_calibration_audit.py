@@ -17,6 +17,7 @@ from .clean_specialist import (
     train_single_head,
 )
 from .metrics import CODES
+from .train_head import save_atomic
 
 
 def evaluate_policies(root, policies):
@@ -112,12 +113,10 @@ def inner_predictions(root, ids, folds, groups, labels, features, train, test, o
 
     inner_code, inner_scene = cross_prob[train], cross_scene[train]
     if cache is not None:
-        cache.parent.mkdir(parents=True, exist_ok=True)
-        temp = cache.with_suffix(".tmp")
-        with temp.open("wb") as stream:
-            np.savez(stream, fingerprint=np.array(json.dumps(fingerprint)), train_ids=inner_ids,
-                     code_scores=inner_code, scene_scores=inner_scene)
-        temp.replace(cache)
+        save_atomic(cache, lambda stream: np.savez(
+            stream, fingerprint=np.array(json.dumps(fingerprint)), train_ids=inner_ids,
+            code_scores=inner_code, scene_scores=inner_scene,
+        ))
     return inner_code, inner_scene
 
 
@@ -198,13 +197,13 @@ def main():
                 policies[fold] = cached
             else:
                 policies[fold] = run(args.root, fold, args.epochs, args.seeds)
-                temp = cache.with_suffix(".tmp")
-                temp.write_text(json.dumps(policies[fold], allow_nan=False), encoding="utf-8")
-                temp.replace(cache)
+                cache_bytes = json.dumps(policies[fold], allow_nan=False).encode("utf-8")
+                save_atomic(cache, lambda stream: stream.write(cache_bytes))
         result = evaluate_policies(args.root, policies)
     else:
         result = run(args.root, args.outer_fold, args.epochs, args.seeds)
-    args.output.write_text(json.dumps(result, indent=2, allow_nan=False) + "\n", encoding="utf-8")
+    output = (json.dumps(result, indent=2, allow_nan=False) + "\n").encode("utf-8")
+    save_atomic(args.output, lambda stream: stream.write(output))
 
 
 if __name__ == "__main__":

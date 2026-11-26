@@ -106,9 +106,12 @@ class ReleasePipelineTests(unittest.TestCase):
             list(infer_cached(stub_entry(True), rows, self.path, self.path, 1))
         self.assertTrue((self.path / "000000.json").is_file())
         self.assertFalse((self.path / "000001.json").exists())
-        resumed = list(infer_cached(stub_entry(False), rows, self.path, self.path, 1))
+        timings = {}
+        resumed = list(infer_cached(stub_entry(False), rows, self.path, self.path, 1, timings=timings))
         self.assertEqual([r["raw_text"] for r in resumed], ["raw-a", "raw-b"])
         self.assertEqual(calls, ["a", "b", "b"])
+        self.assertEqual(timings["generated_photos"], 1)
+        self.assertLessEqual(timings["model_load_seconds"], timings["generation_and_load_seconds"])
 
 
 if __name__ == "__main__":
