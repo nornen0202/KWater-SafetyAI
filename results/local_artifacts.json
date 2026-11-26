@@ -1,7 +1,7 @@
 {
   "algorithm": "SHA-256",
-  "files": 2488,
-  "total_bytes": 90765681408,
+  "files": 2493,
+  "total_bytes": 90765733970,
   "scope": "Completed project data files and local-only research outputs. In-progress downloads, live transfer status and environment caches are excluded.",
   "artifacts": [
     {
@@ -12443,6 +12443,31 @@
       "path": "data/phase01-runs/item39-2155e8fa/zip-manifest.json",
       "bytes": 5250,
       "sha256": "8c4de0fa6f1f4eb7d8efe50a389251a66213fa9a107af24adfb608a7bdb2d6e9"
+    },
+    {
+      "path": "data/phase01-runs/item39-2155e8fa/audit-replay-verification.json",
+      "bytes": 521,
+      "sha256": "b1c548e189cd13ca5b18956e55dfc4674b6ac4db23371933dafce1b33149180b"
+    },
+    {
+      "path": "data/phase01-runs/item39-2155e8fa/development-code-severity.jsonl",
+      "bytes": 47321,
+      "sha256": "ea1467e11ef2eccb62d89fd1bfaa92358172824ee4719e2aa4369a14742eadfe"
+    },
+    {
+      "path": "data/phase01-runs/item39-2155e8fa/vm/cpu-avx2-probe.log",
+      "bytes": 996,
+      "sha256": "d596604bddfdd288f2481c2d9bef701f68fe2b82667a3e0202c2968a152da5ba"
+    },
+    {
+      "path": "data/phase01-runs/item39-2155e8fa/vm/resume-range-linux.log",
+      "bytes": 181,
+      "sha256": "e3730946a38116d7fa3d957707764b0c32111d5d1706171ccb70783a8c2e86f8"
+    },
+    {
+      "path": "data/phase01-runs/item39-2155e8fa/vm/pre-avx-guest.log",
+      "bytes": 3543,
+      "sha256": "dda77ef3b771056ab0eb6ddf9491e6d8816acf1676855217afc8ef278589123b"
     }
   ]
 }

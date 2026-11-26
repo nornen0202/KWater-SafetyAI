@@ -4,7 +4,6 @@ import argparse
 import csv
 import hashlib
 import json
-import mmap
 from collections import Counter
 from pathlib import Path
 import numpy as np
@@ -14,26 +13,13 @@ BASE, MULTI, RULE = "single_fixed", "multi_class", "one_slot"
 
 
 def read_dev_labels(path, ids):
-    # Look up only whitelisted record prefixes. Materialize and decode only matching rows.
-    labels = {}
-    with (
-        path.open("rb") as stream,
-        mmap.mmap(stream.fileno(), 0, access=mmap.ACCESS_READ) as index,
-    ):
-        for sid in ids:
-            key = b'{"sample_id":' + json.dumps(sid).encode() + b","
-            start = index.find(key)
-            if start < 0:
-                start = index.find(b'{"sample_id": ' + json.dumps(sid).encode() + b",")
-            assert start >= 0 and (start == 0 or index[start - 1 : start] == b"\n")
-            end = index.find(b"\n", start)
-            row = json.loads(index[start : end if end >= 0 else len(index)])
-            assert row["sample_id"] == sid
-            labels[sid] = {
-                k: v["risk_level"]["severity"]["score"]
-                for k, v in row["target"]["hazards"].items()
-            }
-    return labels
+    raw = path.read_bytes()
+    assert hashlib.sha256(raw).hexdigest() == (
+        "ea1467e11ef2eccb62d89fd1bfaa92358172824ee4719e2aa4369a14742eadfe"
+    )
+    rows = [json.loads(line) for line in raw.splitlines()]
+    assert [row["sample_id"] for row in rows] == ids
+    return {row["sample_id"]: row["severity"] for row in rows}
 
 
 def trace(z, cfg):

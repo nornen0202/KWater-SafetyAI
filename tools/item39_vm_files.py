@@ -4,6 +4,7 @@ import argparse
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 import json
 from pathlib import Path
+import re
 
 ap = argparse.ArgumentParser()
 for arg in ("run", "kit"):
@@ -42,6 +43,42 @@ class Handler(SimpleHTTPRequestHandler):
     def list_directory(self, path):
         self.send_error(404)
         return None
+
+    def send_head(self):
+        self.remaining = None
+        requested = self.headers.get("Range")
+        if not requested:
+            return super().send_head()
+        path = files.get(self.path)
+        match = re.fullmatch(r"bytes=(\d+)-(\d*)", requested)
+        if not path or not path.is_file() or not match:
+            self.send_error(404 if not path else 416)
+            return None
+        size = path.stat().st_size
+        start = int(match[1])
+        end = min(int(match[2]), size - 1) if match[2] else size - 1
+        if start > end:
+            self.send_error(416)
+            return None
+        f = path.open("rb")
+        f.seek(start)
+        self.remaining = end - start + 1
+        self.send_response(206)
+        self.send_header("Content-Range", f"bytes {start}-{end}/{size}")
+        self.send_header("Content-Length", str(self.remaining))
+        self.send_header("Accept-Ranges", "bytes")
+        self.end_headers()
+        return f
+
+    def copyfile(self, src, dst):
+        if self.remaining is None:
+            return super().copyfile(src, dst)
+        while self.remaining:
+            block = src.read(min(self.remaining, 1024 * 1024))
+            if not block:
+                break
+            dst.write(block)
+            self.remaining -= len(block)
 
 
 ThreadingHTTPServer(("127.0.0.1", a.port), Handler).serve_forever()

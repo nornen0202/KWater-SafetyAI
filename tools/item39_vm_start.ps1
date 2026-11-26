@@ -4,7 +4,7 @@ param(
     [ValidateRange(2048,8192)][int]$MemoryMiB=3584,
     [string]$RuntimeBin,
     [string]$LogDir,
-    [string]$CpuModel='qemu64,vendor=GenuineIntel,+ssse3,+sse4.1,+sse4.2,+popcnt,+xsave,+avx,+avx2,+fma,+f16c,+bmi1,+bmi2,-svm'
+    [string]$CpuModel='qemu64,vendor=GenuineIntel,+ssse3,+sse4.1,+sse4.2,+popcnt,+xsave,+xsaveopt,+xsavec,+avx,+avx2,+fma,+f16c,+bmi1,+bmi2,-svm'
 )
 $ErrorActionPreference='Stop'
 $vm=(Resolve-Path -LiteralPath $VmRoot).Path

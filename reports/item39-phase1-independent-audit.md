@@ -63,11 +63,13 @@
 ```powershell
 $run = 'G:/Projects/KWater-SafetyAI/data/phase01-runs/phase01-20261126-0513-2155e8fa'
 $out = 'G:/Projects/KWater-SafetyAI/data/phase01-runs/item39-2155e8fa'
-python -B -m tools.item39_oof --run $run --out $out --labels G:/Projects/KWater-SafetyAI/data/train/train.jsonl
+python -B -m tools.item39_oof --run $run --out $out --labels "$out/development-code-severity.jsonl"
 python -B -m tools.item39_package --run $run --out $out --extras "$out/stage"
 ```
 
 국내 G: 실행 폴더의 `audit-photos.csv`는 개발 920장 전체, `audit-270.csv`는 중대 사진 전부, `audit-codes.csv`는 920장 × 2개 모델 × 11개 코드의 20,240행을 담는다. 사진별 코드와 ID는 로컬에 보관한다.
+
+재실행에 필요한 정답은 `development-code-severity.jsonl` 한 파일이며 SHA-256은 `ea1467e11ef2eccb62d89fd1bfaa92358172824ee4719e2aa4369a14742eadfe`다. 최초 대조에서는 원본 JSONL에서 개발 ID 레코드 시작점을 찾아 해당 행만 역직렬화했다. 두 원본 모델의 사진별 중대성 원장이 같음을 확인한 뒤 920개 개발 행을 별도 파일로 보존했다. 재현 명령은 이 파일의 해시와 ID 순서를 먼저 확인한다.
 
 ## 제출 ZIP과 공식 환경
 

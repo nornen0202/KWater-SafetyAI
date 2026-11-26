@@ -10,22 +10,40 @@ fetch_checked() {
   python3 - "$1" "$2" "$3" <<'PY'
 import hashlib, os, pathlib, sys, time, urllib.request
 url, dest, expected = sys.argv[1], pathlib.Path(sys.argv[2]), sys.argv[3]
+part = dest.with_name(dest.name + ".part")
 for attempt in range(4):
     try:
+        with urllib.request.urlopen(urllib.request.Request(url, method="HEAD"), timeout=180) as r:
+            size = int(r.headers["Content-Length"])
         h = hashlib.sha256()
-        part = dest.with_name(dest.name + ".part")
-        with urllib.request.urlopen(url, timeout=180) as response, part.open("wb") as out:
-            while buf := response.read(4 * 1024 * 1024):
-                out.write(buf)
+        with part.open("a+b") as out:
+            start = out.tell()
+            if start > size:
+                raise ValueError("partial file is larger than source")
+            out.seek(0)
+            while buf := out.read(4 * 1024 * 1024):
                 h.update(buf)
+            if start < size:
+                headers = {"Range": f"bytes={start}-"} if start else {}
+                req = urllib.request.Request(url, headers=headers)
+                with urllib.request.urlopen(req, timeout=180) as response:
+                    if start and (response.status != 206 or response.headers["Content-Range"] != f"bytes {start}-{size-1}/{size}"):
+                        raise ValueError("unexpected range response")
+                    while buf := response.read(4 * 1024 * 1024):
+                        out.write(buf)
+                        h.update(buf)
             out.flush()
             os.fsync(out.fileno())
+            if out.tell() != size:
+                raise OSError("incomplete transfer")
         if h.hexdigest() != expected:
             raise ValueError("unexpected transfer SHA-256")
         part.replace(dest)
         print(h.hexdigest(), dest, flush=True)
         break
-    except (OSError, ValueError):
+    except (OSError, ValueError) as exc:
+        if isinstance(exc, ValueError) and part.exists():
+            part.replace(part.with_name(part.name + ".invalid-" + str(time.time_ns())))
         if attempt == 3:
             raise
         time.sleep(5)
