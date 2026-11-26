@@ -28,6 +28,19 @@ $env:PYTHONUTF8 = '1'
 
 2026-11-27 00:27 KST에는 완료된 fold0 가중치가 없어 실제 후보 staging 명령이 출력 폴더를 만들기 전에 안전하게 종료했다. L4 호환 모델 실행, 오프라인 설치, seccomp 및 시간·메모리 상한은 후보 ZIP에서 검증이 필요하다. Windows 호스트에 Docker CLI와 설치된 WSL 배포판이 없다. G:의 Item 39에는 QEMU Ubuntu guest와 OCI manifest가 요구하는 blob 15개가 있고, 15개 모두 바이트 수가 manifest와 일치했다. 현재 실행 프로세스는 없고 과거 로그에는 준비 중단까지 기록되어 있으므로 공식 컨테이너 실행 여부는 확인되지 않았다.
 
+### v2 실가중치 평가용 staging
+
+v2 학습이 118/118 스텝을 마친 뒤, 기존 BF16 평가의 두 모델 shard 로드 완료를 확인하고 G:에 Fold0 평가 전용 디렉터리를 만들었다. 패키저가 v2 학습 요약과 기대 스텝 수를 검증하도록 보완했다. 원래 완료 요약과 현재 요약의 SHA-256이 동일했고, 두 요약에 기록된 어댑터 SHA-256이 staging 파일 `327c3bb13a5ba3c7e304db44972c2ff6660610f567a13c6e2e7a631dc6945c40`과 일치했다. 프롬프트와 기반 모델 설정 해시도 확인했다. [검증 집계](../results/v2_fold0_evaluation_stage.json)
+
+디렉터리는 28개 파일, 논리 크기 9,043,642,968바이트였다. 기반 가중치·어댑터·오프라인 휠·조문 등 22개 파일은 원본과 같은 NTFS 파일을 가리키는 하드링크였다. 링크를 제외한 논리 크기는 337,932바이트다. 법령 사례집은 Fold0 밖 학습 manifest의 750장으로부터 얻은 위험 사례 643개였고, 같은 범위로 재생성한 결과와 바이트 단위로 일치했다. 기존 manifest의 학습·평가 그룹 ID 교집합은 0이었다. 확인된 시각적 교차 장면의 별도 민감도는 원래 Fold0 평가와 구분한다. [Fold0 후속 기록](../docs/fold0-verifier-followup-20261127.md)
+
+실제 stage의 `main.py`가 CPU 컴파일과 import를 통과했다. 공식 키트의 `zipcheck.manifest`가 구성 신고, 시드 42, 오프라인 잠금 파일을 확인했다. 생성된 진입점의 11종 포맷, 중복 제거와 3개 상한, 파싱 실패 대체를 자체 작성 입력 13행에 적용했고 공식 `check_output.py`가 13/13을 통과시켰다. 휠은 패키저에서 잠금 파일의 해시와 대조했다. 이번 stage는 배치 1의 VLM-only 분할 평가용이다. 실제 ZIP, ZIP 추출 검사, Linux 오프라인 설치, stage의 GPU 이미지 판독 및 L4 실행은 수행하지 않았다.
+
+```powershell
+python -m kwater_lab.package_submission --adapter-dir data/vlm-11code-fold0-v2/adapter `
+  --dest-dir data/submissions/v2-fold0-evaluation-only-stage --batch-size 1 --vlm-only --stage-only
+```
+
 ## 법령 재생
 
 원본 공식 LoRA가 이미 생성한 원문을 재사용했다. Prototype 18장과 fresh 개발 21장에 대해, 두 재생기는 조회 사례에서 평가 사진의 사건 그룹을 모두 제외한 동일한 172장 개발 사진과 위험별 인용 1개 상한을 적용했다. 비교 기준인 원본 production 인용은 원래 대회 사례집을 사용했다. [정량 집계](../results/native_11code_production_law_replay.json)

@@ -275,7 +275,12 @@ def validated_release_inputs(root: Path, adapter_dir: Path, specialist_ckpt: Pat
         if not path.is_file():
             raise FileNotFoundError(f"Completed native 11-code training artifact required: {path}")
     summary = json.loads(summary_path.read_text(encoding="utf-8"))
-    if summary.get("version") != "vlm-11code-multimodal-qlora-v1" or not summary.get("epochs") or len(summary.get("history", ())) != summary["epochs"]:
+    completed_versions = {"vlm-11code-multimodal-qlora-v1", "vlm-11code-multimodal-qlora-v2"}
+    epochs, examples, accumulation = (summary.get(key) for key in ("epochs", "curriculum_examples", "grad_accum"))
+    if (summary.get("version") not in completed_versions
+        or not all(type(value) is int and value > 0 for value in (epochs, examples, accumulation))
+        or len(summary.get("history", ())) != epochs
+        or summary.get("optimizer_steps") != epochs * ((examples + accumulation - 1) // accumulation)):
         raise ValueError("A completed native 11-code training summary is required")
     if summary.get("adapter_safetensors_sha256") != digest(adapter_weights):
         raise ValueError("Adapter weights do not match the completed training summary")
@@ -305,6 +310,9 @@ def validated_release_inputs(root: Path, adapter_dir: Path, specialist_ckpt: Pat
             if not path.is_file():
                 raise FileNotFoundError(f"Hybrid artifact required: {path}")
     base = root / "data/baseline/base_model"
+    training_base = summary.get("configuration", {}).get("base_config_sha256")
+    if training_base is not None and training_base != digest(base / "config.json"):
+        raise ValueError("Bundled base model config differs from the training config")
     index = json.loads((base / "model.safetensors.index.json").read_text(encoding="utf-8"))
     for name in set(index["weight_map"].values()):
         with safe_open(base / name, framework="pt", device="cpu") as shard:
@@ -493,10 +501,18 @@ def build_submission_package(
 
     assets_manifest = {"schema_version": "1.0", "seed": 42, "assets": assets_list}
     (dest_dir / "assets.json").write_text(json.dumps(assets_manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
+    title = "SafeGround v5 · Native 11-Code Qwen3-VL-4B"
+    if enable_hybrid:
+        title += " + Verified Dual-Vision Specialist"
+    purpose = (
+        f"- Scope: Fold {summary['val_fold']} validation adapter and matching training-only case bank.\n"
+        if summary["val_fold"] >= 0 else "- Scope: Development-wide adapter and matching development case bank.\n"
+    )
     (dest_dir / "README.md").write_text(
-        "# SafeGround v5 (Native 11-Code Multimodal Qwen3-VL-4B + Verified Dual-Vision Specialist)\n\n"
-        "- Entrypoint: `python main.py --input-dir /input --output-dir /output`\n"
-        "- 100% offline, single-process GPU execution (no network or localhost sockets).\n",
+        f"# {title}\n\n"
+        + purpose
+        + "- Entrypoint: `python main.py --input-dir /input --output-dir /output`\n"
+        "- Model loading uses local files in a single GPU process.\n",
         encoding="utf-8",
         newline="\n",
     )
@@ -529,6 +545,7 @@ def build_submission_package(
 
     return {
         "dest_dir": str(dest_dir),
+        "unpacked_bytes": total_bytes,
         "unpacked_gib": round(total_bytes / 2**30, 3),
         "zip_path": str(zip_path) if zip_path else None,
         "zip_gib": round(zip_bytes / 2**30, 3) if zip_bytes is not None else None,

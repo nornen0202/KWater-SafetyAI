@@ -1,0 +1,25 @@
+{
+  "scope": "Fold-0 VLM-only local evaluation stage",
+  "optimizer_steps": 118,
+  "validation_fold": 0,
+  "training_summary_sha256": "72bb066385f5680ff54ee9dd5e0d902b8b69fdcc4fff39a1dc6e79bfb95ef7c4",
+  "original_training_summary_sha256": "72bb066385f5680ff54ee9dd5e0d902b8b69fdcc4fff39a1dc6e79bfb95ef7c4",
+  "adapter_sha256": "327c3bb13a5ba3c7e304db44972c2ff6660610f567a13c6e2e7a631dc6945c40",
+  "main_sha256": "269b71d1d1d603937e42c61ad00ffdf97732ab643177cb177227e453df8fa0d5",
+  "stage_files": 28,
+  "stage_logical_bytes": 9043642968,
+  "hardlinked_files": 22,
+  "hardlinked_logical_bytes": 9043305036,
+  "train_case_source_photos": 750,
+  "legal_case_entries": 643,
+  "legal_case_bank_sha256": "8547ca98ef42890e30675fe93f1a893717f2773f21de5fef935dfcced16a5192",
+  "stage_manifest_checker": {
+    "seed": "42",
+    "offline_lock_present": true
+  },
+  "official_output_check_synthetic_records": 13,
+  "gpu_generation_performed": false,
+  "zip_created": false,
+  "zip_checker_performed": false,
+  "container_offline_install_performed": false
+}

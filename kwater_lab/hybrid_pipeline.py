@@ -295,6 +295,7 @@ def evaluate_split(
     if not torch.cuda.is_available():
         raise RuntimeError("Qwen3-VL evaluation requires a CUDA GPU")
     device = torch.device("cuda:0")
+    torch.cuda.init()
     torch.cuda.reset_peak_memory_stats(device)
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     laws = [

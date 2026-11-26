@@ -1,3 +1,5 @@
+# From the project root:
+# pwsh -NoProfile -File tools/run_fold0_vlm_pair.ps1 -TrainDir data/vlm-11code-fold0-v2 -RunName fold0-qlora-v2-118
 param(
     [int]$TrainingPid = 0,
     [string]$RunName = 'fold0-qlora-118',
@@ -10,6 +12,9 @@ param(
 
 $ErrorActionPreference = 'Stop'
 Set-Location -LiteralPath (Split-Path $PSScriptRoot -Parent)
+if (-not (Get-Command Get-FileHash -ErrorAction SilentlyContinue)) {
+    Import-Module (Join-Path $PSHOME 'Modules/Microsoft.PowerShell.Utility/Microsoft.PowerShell.Utility.psd1')
+}
 if ($RunName -cnotmatch '^[a-z0-9][a-z0-9-]+$') {
     throw 'RunName must use lowercase alphanumerics and hyphens.'
 }
