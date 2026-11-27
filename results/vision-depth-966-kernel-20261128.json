@@ -1,0 +1,373 @@
+{
+  "photos": 966,
+  "groups": 192,
+  "positive": 66,
+  "normal": 290,
+  "inputs": {
+    "depth_signature": "7119dff17da26eea84a34ee07aa1793a31e27a61de4f4abd1b8752a2b9adbba4",
+    "rgb_signature": "c7fecadd2bdd2219a7fe9b40de0683704bfeb60453c0fd4676e971b585ce7738",
+    "manifest_sha256": "3864848fe26b951ec070710499d2694078b17c76ffd2aaf38d312b99ad3b2f60",
+    "depth_cache_sha256": "841c6831580b35933091eb6571e5c00cc7bdbf8e9c4cda02280b749c0aab763c"
+  },
+  "pooled": {
+    "rgb": {
+      "tp": 20,
+      "fp": 99,
+      "fn": 46,
+      "f1": 0.21621621621621623,
+      "normal_alerts": 24
+    },
+    "brightness": {
+      "tp": 18,
+      "fp": 68,
+      "fn": 48,
+      "f1": 0.23684210526315788,
+      "normal_alerts": 17
+    },
+    "edge": {
+      "tp": 19,
+      "fp": 63,
+      "fn": 47,
+      "f1": 0.25675675675675674,
+      "normal_alerts": 14
+    },
+    "depth": {
+      "tp": 13,
+      "fp": 63,
+      "fn": 53,
+      "f1": 0.18309859154929578,
+      "normal_alerts": 16
+    },
+    "wrong_0": {
+      "tp": 18,
+      "fp": 66,
+      "fn": 48,
+      "f1": 0.24,
+      "normal_alerts": 16
+    },
+    "wrong_1": {
+      "tp": 18,
+      "fp": 53,
+      "fn": 48,
+      "f1": 0.26277372262773724,
+      "normal_alerts": 14
+    },
+    "wrong_2": {
+      "tp": 15,
+      "fp": 74,
+      "fn": 51,
+      "f1": 0.1935483870967742,
+      "normal_alerts": 20
+    },
+    "wrong_3": {
+      "tp": 21,
+      "fp": 71,
+      "fn": 45,
+      "f1": 0.26582278481012656,
+      "normal_alerts": 19
+    },
+    "wrong_4": {
+      "tp": 17,
+      "fp": 73,
+      "fn": 49,
+      "f1": 0.21794871794871795,
+      "normal_alerts": 17
+    },
+    "wrong_5": {
+      "tp": 16,
+      "fp": 62,
+      "fn": 50,
+      "f1": 0.2222222222222222,
+      "normal_alerts": 17
+    },
+    "wrong_6": {
+      "tp": 15,
+      "fp": 73,
+      "fn": 51,
+      "f1": 0.19480519480519481,
+      "normal_alerts": 21
+    },
+    "wrong_7": {
+      "tp": 16,
+      "fp": 78,
+      "fn": 50,
+      "f1": 0.2,
+      "normal_alerts": 22
+    },
+    "wrong_8": {
+      "tp": 20,
+      "fp": 76,
+      "fn": 46,
+      "f1": 0.24691358024691357,
+      "normal_alerts": 16
+    },
+    "wrong_9": {
+      "tp": 16,
+      "fp": 65,
+      "fn": 50,
+      "f1": 0.21768707482993196,
+      "normal_alerts": 14
+    },
+    "wrong_10": {
+      "tp": 16,
+      "fp": 61,
+      "fn": 50,
+      "f1": 0.22377622377622378,
+      "normal_alerts": 14
+    },
+    "wrong_11": {
+      "tp": 18,
+      "fp": 75,
+      "fn": 48,
+      "f1": 0.22641509433962265,
+      "normal_alerts": 15
+    },
+    "wrong_12": {
+      "tp": 18,
+      "fp": 76,
+      "fn": 48,
+      "f1": 0.225,
+      "normal_alerts": 20
+    },
+    "wrong_13": {
+      "tp": 14,
+      "fp": 74,
+      "fn": 52,
+      "f1": 0.18181818181818182,
+      "normal_alerts": 12
+    },
+    "wrong_14": {
+      "tp": 15,
+      "fp": 79,
+      "fn": 51,
+      "f1": 0.1875,
+      "normal_alerts": 19
+    },
+    "wrong_15": {
+      "tp": 22,
+      "fp": 65,
+      "fn": 44,
+      "f1": 0.2875816993464052,
+      "normal_alerts": 13
+    },
+    "wrong_16": {
+      "tp": 15,
+      "fp": 64,
+      "fn": 51,
+      "f1": 0.20689655172413793,
+      "normal_alerts": 16
+    },
+    "wrong_17": {
+      "tp": 20,
+      "fp": 69,
+      "fn": 46,
+      "f1": 0.25806451612903225,
+      "normal_alerts": 13
+    },
+    "wrong_18": {
+      "tp": 17,
+      "fp": 68,
+      "fn": 49,
+      "f1": 0.2251655629139073,
+      "normal_alerts": 20
+    },
+    "wrong_19": {
+      "tp": 14,
+      "fp": 73,
+      "fn": 52,
+      "f1": 0.1830065359477124,
+      "normal_alerts": 15
+    }
+  },
+  "by_fold": {
+    "0": {
+      "rgb": {
+        "tp": 2,
+        "fp": 16,
+        "fn": 10,
+        "f1": 0.13333333333333333,
+        "normal_alerts": 4
+      },
+      "brightness": {
+        "tp": 1,
+        "fp": 14,
+        "fn": 11,
+        "f1": 0.07407407407407407,
+        "normal_alerts": 4
+      },
+      "edge": {
+        "tp": 1,
+        "fp": 14,
+        "fn": 11,
+        "f1": 0.07407407407407407,
+        "normal_alerts": 6
+      },
+      "depth": {
+        "tp": 0,
+        "fp": 15,
+        "fn": 12,
+        "f1": 0.0,
+        "normal_alerts": 4
+      },
+      "purged_training_photos": 79
+    },
+    "1": {
+      "rgb": {
+        "tp": 6,
+        "fp": 17,
+        "fn": 9,
+        "f1": 0.3157894736842105,
+        "normal_alerts": 2
+      },
+      "brightness": {
+        "tp": 5,
+        "fp": 7,
+        "fn": 10,
+        "f1": 0.37037037037037035,
+        "normal_alerts": 0
+      },
+      "edge": {
+        "tp": 5,
+        "fp": 11,
+        "fn": 10,
+        "f1": 0.3225806451612903,
+        "normal_alerts": 1
+      },
+      "depth": {
+        "tp": 3,
+        "fp": 9,
+        "fn": 12,
+        "f1": 0.2222222222222222,
+        "normal_alerts": 0
+      },
+      "purged_training_photos": 38
+    },
+    "2": {
+      "rgb": {
+        "tp": 4,
+        "fp": 18,
+        "fn": 8,
+        "f1": 0.23529411764705882,
+        "normal_alerts": 3
+      },
+      "brightness": {
+        "tp": 4,
+        "fp": 16,
+        "fn": 8,
+        "f1": 0.25,
+        "normal_alerts": 2
+      },
+      "edge": {
+        "tp": 5,
+        "fp": 12,
+        "fn": 7,
+        "f1": 0.3448275862068966,
+        "normal_alerts": 0
+      },
+      "depth": {
+        "tp": 3,
+        "fp": 14,
+        "fn": 9,
+        "f1": 0.20689655172413793,
+        "normal_alerts": 3
+      },
+      "purged_training_photos": 234
+    },
+    "3": {
+      "rgb": {
+        "tp": 5,
+        "fp": 25,
+        "fn": 8,
+        "f1": 0.23255813953488372,
+        "normal_alerts": 8
+      },
+      "brightness": {
+        "tp": 5,
+        "fp": 15,
+        "fn": 8,
+        "f1": 0.30303030303030304,
+        "normal_alerts": 6
+      },
+      "edge": {
+        "tp": 5,
+        "fp": 13,
+        "fn": 8,
+        "f1": 0.3225806451612903,
+        "normal_alerts": 4
+      },
+      "depth": {
+        "tp": 3,
+        "fp": 11,
+        "fn": 10,
+        "f1": 0.2222222222222222,
+        "normal_alerts": 4
+      },
+      "purged_training_photos": 206
+    },
+    "4": {
+      "rgb": {
+        "tp": 3,
+        "fp": 23,
+        "fn": 11,
+        "f1": 0.15,
+        "normal_alerts": 7
+      },
+      "brightness": {
+        "tp": 3,
+        "fp": 16,
+        "fn": 11,
+        "f1": 0.18181818181818182,
+        "normal_alerts": 5
+      },
+      "edge": {
+        "tp": 3,
+        "fp": 13,
+        "fn": 11,
+        "f1": 0.2,
+        "normal_alerts": 3
+      },
+      "depth": {
+        "tp": 4,
+        "fp": 14,
+        "fn": 10,
+        "f1": 0.25,
+        "normal_alerts": 5
+      },
+      "purged_training_photos": 76
+    }
+  },
+  "alias_purged_pooled": {
+    "rgb": {
+      "tp": 20,
+      "fp": 86,
+      "fn": 46,
+      "f1": 0.23255813953488372,
+      "normal_alerts": 18
+    },
+    "depth": {
+      "tp": 14,
+      "fp": 53,
+      "fn": 52,
+      "f1": 0.21052631578947367,
+      "normal_alerts": 13
+    },
+    "wrong_0": {
+      "tp": 13,
+      "fp": 67,
+      "fn": 53,
+      "f1": 0.1780821917808219,
+      "normal_alerts": 14
+    }
+  },
+  "alias_purged_groups": 186,
+  "depth_beats_wrong": 2,
+  "group_bootstrap_delta_f1_95pct": [
+    -0.10535655578113806,
+    0.04472891684763783
+  ],
+  "cpu_seconds_all_966": 1074.4005019991891,
+  "cpu_seconds_mean": 1.1122158405788707,
+  "cpu_seconds_median": 1.020989449985791,
+  "cpu_seconds_p95": 1.6038979750010185,
+  "timing_scope": "Read, SHA, decode, CPU ONNX, three descriptors. Excludes model load and checkpoint writes."
+}

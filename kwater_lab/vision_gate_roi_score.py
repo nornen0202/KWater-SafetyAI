@@ -44,20 +44,29 @@ def score(cache_dir, panel_dir):
         outputs[arm] = {}
         stats = Counter()
         for sid, rec in indexed.items():
+            gold = truth[sid]["source"]["codes"]
+            code = truth[sid]["family"]
             if rec["vlm_schema_errors"] or rec["parse_error"]:
                 outputs[arm][sid] = None
                 stats["invalid"] += 1
+                stats["invalid_positive"] += code in gold
+                stats["invalid_negative"] += code not in gold
+                stats["invalid_normal"] += not gold
                 continue
             codes = {h["code"] for h in rec["parsed"]["hazards"]}
             outputs[arm][sid] = codes
-            gold = truth[sid]["source"]["codes"]
-            code = truth[sid]["family"]
             stats["valid"] += 1
             stats["target_tp"] += code in gold and code in codes
             stats["target_fp"] += code not in gold and code in codes
             stats["target_fn"] += code in gold and code not in codes
             stats["normal_any_alert"] += not gold and bool(codes)
-        totals[arm] = stats
+        def f1(tp, fp, fn):
+            return 2 * tp / max(1, 2 * tp + fp + fn)
+        tp, fp, fn = (stats[k] for k in ("target_tp", "target_fp", "target_fn"))
+        totals[arm] = dict(stats, valid_target_f1=f1(tp, fp, fn), all_48_target_f1_bounds=[
+            f1(tp, fp + stats["invalid_negative"], fn + stats["invalid_positive"]),
+            f1(tp + stats["invalid_positive"], fp, fn)],
+            all_normal_alert_bounds=[stats["normal_any_alert"], stats["normal_any_alert"] + stats["invalid_normal"]])
     comparisons = {}
     for arm in ARMS[1:]:
         strata = {}
