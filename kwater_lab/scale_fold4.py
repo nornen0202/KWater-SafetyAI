@@ -1,8 +1,10 @@
 """Run the matched Fold 4 VLM training or evaluate a selected epoch with the v3 formatter."""
 import argparse
+import hashlib
 import json
 import os
 from pathlib import Path
+import struct
 
 from .audit import digest
 from .train_head import save_atomic
@@ -44,10 +46,12 @@ def score(scale_run, output):
     if controls[0] != controls[1] or any((f["train_photos"], f["optimizer_steps"]) != (791, 138) for f in fits):
         raise ValueError("Models differ in their declared matched training controls")
     logs = [[json.loads(s) for s in (d / "steps.jsonl").read_bytes().splitlines()] for d in (four, eight)]
-    keys = ("epoch", "step", "examples", "decision_tokens", "supervised_tokens", "applied_lr")
+    keys = ("epoch", "step", "examples", "decision_tokens", "supervised_tokens")
     if any(len(log) != 138 for log in logs):
         raise ValueError("Both arms require 138 recorded updates")
-    matching = all(all(a[k] == b[k] for k in keys) for a, b in zip(*logs, strict=True))
+    discrete_match = all(all(a[k] == b[k] for k in keys) for a, b in zip(*logs, strict=True))
+    rates = [(a["applied_lr"], b["applied_lr"]) for a, b in zip(*logs, strict=True)]
+    lr_differences = [abs(a - b) for a, b in rates if a != b]
     arms = {
         "4b_epoch1": V3_EVAL / "v3_epoch1_11code_standalone.jsonl",
         "8b_epoch1": scale_run / "eval1/predictions.jsonl",
@@ -57,7 +61,27 @@ def score(scale_run, output):
     if output.resolve() in {p.resolve() for p in arms.values()}:
         raise ValueError("Aggregate destination must differ from predictions")
     result = _score_panels(LOCAL, arms, None, "paired_qwen_4b_8b_fold4")
-    result.update(training_controls=controls[0], step_controls_match=matching,
+    inference = {}
+    for epoch in (1, 2):
+        paths = (V3_EVAL / f"v3_epoch{epoch}_infer_cache.json", scale_run / f"eval{epoch}/cache.json")
+        caches = [json.loads(path.read_bytes()) for path in paths]
+        # The absolute image root and the adapter fingerprint legitimately differ across hosts/arms.
+        protocols = [{k: v for k, v in cache["identity"].items() if k not in ("image_root", "model_key")}
+                     for cache in caches]
+        receipts = [hashlib.sha256(json.dumps(proto, sort_keys=True).encode()).hexdigest() for proto in protocols]
+        inference[f"epoch{epoch}"] = {
+            "input_and_generation_controls_match": receipts[0] == receipts[1],
+            "controls_sha256_4b_8b": receipts,
+            "final_batch_size_4b_8b": [cache["effective_batch_size"] for cache in caches],
+            "eight_b_generation": json.loads((scale_run / f"eval{epoch}/generation.json").read_bytes()),
+        }
+    result.update(training_controls=controls[0], step_controls_match=discrete_match and not lr_differences,
+                  example_and_supervision_step_controls_match=discrete_match,
+                  learning_rate_receipt={"unequal_logged_steps": len(lr_differences),
+                                         "max_absolute_logged_difference": max(lr_differences, default=0.0),
+                                         "all_equal_as_float32": all(struct.pack("!f", a) == struct.pack("!f", b)
+                                                                     for a, b in rates)},
+                  inference_controls=inference,
                   steps_sha256=[digest(d / "steps.jsonl") for d in (four, eight)],
                   base_config_sha256=[f["configuration"]["base_config_sha256"] for f in fits])
     save_atomic(output, lambda f: f.write((json.dumps(result, ensure_ascii=False, indent=2) + "\n").encode()))

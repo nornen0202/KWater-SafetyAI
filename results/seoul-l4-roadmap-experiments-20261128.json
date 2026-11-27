@@ -161,5 +161,24 @@
     "unpacked_bytes": 17801898949,
     "binary_release": "b12721",
     "binary_tar_gz_sha256": "f150cc31b798b334a11682812897e287c3e8041912df9936f95d52a2f9d5f7f5"
+  },
+  "scale_full_run_results": {
+    "local_directory": "data/vlm-scale-seoul-8b-fold4-20261128",
+    "private_bundle_bytes": 359198720,
+    "private_bundle_sha256": "70a86a6ac45740073a11da862546ee943ab23f6b618057b6862eb202eac94f39",
+    "curriculum_sha256": "57527215c3ffa8c568041ba6b19873ae3d38f8f07199aab45b1c831b7417f446",
+    "step_seconds_sum": 6782.57,
+    "examples_both_epochs": 2184,
+    "supervised_tokens": 271946,
+    "decision_tokens": 42352,
+    "paired_evaluation": "results/paired-qwen-4b-8b-fold4-20261128.json",
+    "all_discrete_step_controls_match": true,
+    "learning_rates": {
+      "unequal_logged_steps": 4,
+      "max_absolute_logged_difference": 1.3552527156068805e-20,
+      "all_equal_as_float32": true
+    },
+    "frozen_inference_identical": true,
+    "local_8b_source_shards_verified": 4
   }
 }

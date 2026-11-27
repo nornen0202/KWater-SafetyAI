@@ -1,6 +1,6 @@
 # K-water 현장 안전 AI 연구 기록
 
-**서울 L4에서 4B·8B가 같은 32장으로 16스텝을 학습했다.** 스텝 시간 합계는 64.29초·102.47초였고, 저장한 어댑터를 다시 열어 두 모델 모두 2/2장의 원생성 스키마를 통과했다. [클라우드 실험 원장](reports/seoul-l4-roadmap-experiments-20261128.md)
+**4B·8B를 791장, 같은 138개 학습 업데이트로 비교했다.** 첫 에폭에서 8B의 macro-F1은 175장 0.63415, 교차 현장을 제외한 107장 0.62091로 4B보다 각각 0.09214·0.05838 높았다. 107장 중대 위험 완전 미탐은 18→20장으로 늘었다. 27B 4비트 실물 ZIP은 17,801,904,701바이트다. [서울 L4 실험 원장](reports/seoul-l4-roadmap-experiments-20261128.md) · [두 에폭의 그룹별 불확실성 그림](reports/figures/qwen-scale-fold4-20261128.png)
 
 **11월 28일 연구 로드맵.** 4B·8B는 같은 11종 사진·학습 예산으로 비교하고, Qwen3.8-27B 4비트는 비전 프로젝터를 포함한 실제 ZIP으로 200장 실행시간을 잰다. 어댑터 분리와 오경보 제거는 서로 다른 실험으로 검증한다. [카본 리뷰 재검토와 마스터 로드맵](reports/comprehensive-audit-and-vlm-roadmap-20261128.md) · [모델별 비교 조건](reports/comprehensive-audit-and-vlm-roadmap-20261128.md#paired-models) · [비전 태스크 모델(SAM·YOLO·Anything) 감사 및 3단계 게이트](reports/vision-task-models-audit-and-roadmap-20261128.md) · [이슈 #2 심층 감사 및 정성 30점 보완 설계](reports/issue-2-deep-review-and-roadmap-alignment-20261128.md)
 
