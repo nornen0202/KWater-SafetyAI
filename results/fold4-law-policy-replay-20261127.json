@@ -1,0 +1,247 @@
+{
+  "scope": "Read-only CPU replay of existing Fold 4 text. Hit means first article matches any provided gold law ID.",
+  "cases": {
+    "training_photos": 791,
+    "compact_cases": 658
+  },
+  "fixed_query_text": {
+    "eight": "Official formatted evidence/prevention; raw legacy scene note.",
+    "v3": "Exact query traced from archived formatter, including existing sanitization and action repair."
+  },
+  "published": {
+    "eight": "Official eight-code formatter run with Fold 4 train-only cases.",
+    "v3": "Actual submitted archive formatter, verified against frozen Fold 4 output."
+  },
+  "input_sha256": {
+    "data\\clean-split-v1\\split_manifest_dev.json": "3864848fe26b951ec070710499d2694078b17c76ffd2aaf38d312b99ad3b2f60",
+    "data\\fold4-crosssplit-visual-review\\fold4-group-exclusions-local.json": "ec85cb77fa974c63ba750d2c8201db679921bd91099a015fafe5ca1c2c334060",
+    "data\\train\\train.jsonl": "ab427fed4615b32627b76001e27124e99ae9202c855ba4170916ebe4fdc4de55",
+    "data\\local-eval-predictions\\fold4-v3-benchmark\\raw8_generations_cache.json": "7cc0ef9d9071beabcd1c688f78787273473f7610366976228916024dd315f9f0",
+    "data\\local-eval-predictions\\fold4-v3-benchmark\\v3_epoch1_raw_175.jsonl": "67bfe15328c6edd4208a621291fd31f7a194e7973b02b918160a199034c4ba20",
+    "data\\local-eval-predictions\\fold4-v3-benchmark\\clean_8code_baseline.jsonl": "345ecc9d8065587aecf8e2441879a2eeadd6735b0cbbc3049d2a0a7aff14dafa",
+    "data\\local-eval-predictions\\fold4-v3-benchmark\\v3_epoch1_11code_standalone.jsonl": "5ebbe7a7b3198b944d241a68dd2733e7dc3cca4afe8fb42b4c98a6ac2f9f7a2d"
+  },
+  "archive_entrypoint_sha256": "b728c3be183cc3cfa4e49ee8bc38076ea7b572c8b91a11c159091eee3a9b1e98",
+  "law_corpus_sha256": "1408b69db444cf90b31f9bebb4a773a30fa4362739e50b22c95f3bbe0e75bd9d",
+  "compact_cases_sha256": "b18b0d03534972b55876dbdff01fb7aaa772920257f11653023c8281c60ff7ad",
+  "panels": {
+    "primary_175": {
+      "photos": 175,
+      "common_annotated_law_hazards": 71,
+      "common_hits": {
+        "eight": {
+          "published": 60,
+          "native": 61,
+          "action": 59
+        },
+        "v3": {
+          "published": 54,
+          "native": 61,
+          "action": 54
+        }
+      },
+      "common_paired_comparisons": {
+        "eight_native_to_eight_action": {
+          "gained": 1,
+          "lost": 3,
+          "both_hit": 58,
+          "neither_hit": 9,
+          "changed_first": 9
+        },
+        "eight_published_to_eight_native": {
+          "gained": 1,
+          "lost": 0,
+          "both_hit": 60,
+          "neither_hit": 10,
+          "changed_first": 1
+        },
+        "eight_published_to_eight_action": {
+          "gained": 2,
+          "lost": 3,
+          "both_hit": 57,
+          "neither_hit": 9,
+          "changed_first": 10
+        },
+        "v3_native_to_v3_action": {
+          "gained": 1,
+          "lost": 8,
+          "both_hit": 53,
+          "neither_hit": 9,
+          "changed_first": 9
+        },
+        "v3_published_to_v3_native": {
+          "gained": 8,
+          "lost": 1,
+          "both_hit": 53,
+          "neither_hit": 9,
+          "changed_first": 9
+        },
+        "v3_published_to_v3_action": {
+          "gained": 0,
+          "lost": 0,
+          "both_hit": 54,
+          "neither_hit": 17,
+          "changed_first": 0
+        },
+        "eight_published_to_v3_published": {
+          "gained": 4,
+          "lost": 10,
+          "both_hit": 50,
+          "neither_hit": 7,
+          "changed_first": 17
+        },
+        "eight_native_to_v3_native": {
+          "gained": 2,
+          "lost": 2,
+          "both_hit": 59,
+          "neither_hit": 8,
+          "changed_first": 7
+        },
+        "eight_action_to_v3_action": {
+          "gained": 4,
+          "lost": 9,
+          "both_hit": 50,
+          "neither_hit": 8,
+          "changed_first": 15
+        }
+      },
+      "eligible_annotated_law_hazards": {
+        "eight": {
+          "denominator": 87,
+          "hits": {
+            "published": 72,
+            "native": 74,
+            "action": 72
+          }
+        },
+        "v3": {
+          "denominator": 81,
+          "hits": {
+            "published": 60,
+            "native": 68,
+            "action": 60
+          }
+        }
+      },
+      "v3_native_to_action_full_eligible": {
+        "gained": 1,
+        "lost": 9,
+        "both_hit": 59,
+        "neither_hit": 12,
+        "changed_first": 11
+      },
+      "v3_all_emitted_hazards": 130,
+      "v3_native_to_action_changed_first_all_emitted": 22,
+      "v3_published_to_action_changed_first_all_emitted": 0
+    },
+    "sensitivity_107": {
+      "photos": 107,
+      "common_annotated_law_hazards": 50,
+      "common_hits": {
+        "eight": {
+          "published": 40,
+          "native": 41,
+          "action": 39
+        },
+        "v3": {
+          "published": 35,
+          "native": 40,
+          "action": 35
+        }
+      },
+      "common_paired_comparisons": {
+        "eight_native_to_eight_action": {
+          "gained": 1,
+          "lost": 3,
+          "both_hit": 38,
+          "neither_hit": 8,
+          "changed_first": 7
+        },
+        "eight_published_to_eight_native": {
+          "gained": 1,
+          "lost": 0,
+          "both_hit": 40,
+          "neither_hit": 9,
+          "changed_first": 1
+        },
+        "eight_published_to_eight_action": {
+          "gained": 2,
+          "lost": 3,
+          "both_hit": 37,
+          "neither_hit": 8,
+          "changed_first": 8
+        },
+        "v3_native_to_v3_action": {
+          "gained": 1,
+          "lost": 6,
+          "both_hit": 34,
+          "neither_hit": 9,
+          "changed_first": 7
+        },
+        "v3_published_to_v3_native": {
+          "gained": 6,
+          "lost": 1,
+          "both_hit": 34,
+          "neither_hit": 9,
+          "changed_first": 7
+        },
+        "v3_published_to_v3_action": {
+          "gained": 0,
+          "lost": 0,
+          "both_hit": 35,
+          "neither_hit": 15,
+          "changed_first": 0
+        },
+        "eight_published_to_v3_published": {
+          "gained": 3,
+          "lost": 8,
+          "both_hit": 32,
+          "neither_hit": 7,
+          "changed_first": 13
+        },
+        "eight_native_to_v3_native": {
+          "gained": 1,
+          "lost": 2,
+          "both_hit": 39,
+          "neither_hit": 8,
+          "changed_first": 5
+        },
+        "eight_action_to_v3_action": {
+          "gained": 3,
+          "lost": 7,
+          "both_hit": 32,
+          "neither_hit": 8,
+          "changed_first": 12
+        }
+      },
+      "eligible_annotated_law_hazards": {
+        "eight": {
+          "denominator": 60,
+          "hits": {
+            "published": 48,
+            "native": 50,
+            "action": 48
+          }
+        },
+        "v3": {
+          "denominator": 55,
+          "hits": {
+            "published": 37,
+            "native": 43,
+            "action": 37
+          }
+        }
+      },
+      "v3_native_to_action_full_eligible": {
+        "gained": 1,
+        "lost": 7,
+        "both_hit": 36,
+        "neither_hit": 11,
+        "changed_first": 8
+      },
+      "v3_all_emitted_hazards": 86,
+      "v3_native_to_action_changed_first_all_emitted": 13,
+      "v3_published_to_action_changed_first_all_emitted": 0
+    }
+  }
+}
