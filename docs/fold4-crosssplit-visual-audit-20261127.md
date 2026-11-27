@@ -40,3 +40,17 @@ $env:MKL_NUM_THREADS = '1'
 ```
 
 이 감사 시점에는 175장씩의 두 실제 출력 파일이 준비되지 않아 성능 수치는 쓰지 않았다. 로컬 검토의 기하 배열은 검증→훈련 순서로 계산했고 접촉 시트 방향은 별도로 가렸다.
+
+## 3개 모델의 175장·107장 쌍체 채점
+
+세 파일이 모두 준비된 뒤 아래 명령을 실행한다. 각 파일의 스키마와 원래 175개 로컬 ID를 전부 검사하고, 예측 순서가 달라도 같은 ID끼리 비교한다. 107장 패널은 사전 고정한 3개 검증 그룹을 세 모델에 동일하게 제외한다. 이 채점은 위험 코드, 정상 사진의 오경보, 심각도 4 사진과 코드의 미탐, 위험 코드 추가·제거율을 집계한다. 세 비교 모두 2,000회 그룹 단위 쌍체 부트스트랩을 사용하며, 차이의 방향은 두 번째 모델에서 첫 번째 모델을 뺀 값이다. 공식 평가 도구의 스키마 검사는 별도로 수행한다.
+
+```powershell
+$env:CUDA_VISIBLE_DEVICES = '-1'
+$env:OMP_NUM_THREADS = '1'
+$env:MKL_NUM_THREADS = '1'
+$env:OPENBLAS_NUM_THREADS = '1'
+& C:/Users/JY/anaconda3/envs/env_aias_test/python.exe -m kwater_lab.fold4_crosssplit_audit score-three
+```
+
+107장 중 최대 그룹 49장을 추가 제외한 58장·35그룹에서는 탐색적 ΔF1과 모델별로 활성 코드에서 빠진 코드도 함께 기록한다. 기본 집계 출력은 `results/fold4-paired-code-evaluation.json`이다.

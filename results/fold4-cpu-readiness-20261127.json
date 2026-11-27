@@ -1,0 +1,143 @@
+{
+  "cpu": {
+    "cuda_visible_devices": "-1",
+    "thread_limit": 1
+  },
+  "law_replay": {
+    "scope": "historical development outputs, not Fold 4 predictions",
+    "photos": 39,
+    "exact_report_sha256_match": true,
+    "sha256": "28d02a9527cddcbf45333368ad1878f710f4f8f8b1e28d35688c46c95490cd5f"
+  },
+  "fold4": {
+    "dev_manifest_sha256": "3864848fe26b951ec070710499d2694078b17c76ffd2aaf38d312b99ad3b2f60",
+    "mask_sha256": "ec85cb77fa974c63ba750d2c8201db679921bd91099a015fafe5ca1c2c334060",
+    "exact_full_manifest_fold4_order_and_labels_match": true,
+    "primary": {
+      "photos": 175,
+      "groups": 39,
+      "largest_group_photos": 49,
+      "safe_photos": 49,
+      "severity4_photos": 60,
+      "severity4_code_instances": 61
+    },
+    "same_mask_sensitivity": {
+      "photos": 107,
+      "groups": 36,
+      "largest_group_photos": 49,
+      "safe_photos": 27,
+      "severity4_photos": 39,
+      "severity4_code_instances": 39
+    },
+    "confirmed_excluded_groups": 3,
+    "excluded_photos": 68
+  },
+  "official_kit": {
+    "files_present": {
+      "check_zip.py": true,
+      "zipcheck.py": true,
+      "check_output.py": true,
+      "prediction.schema.json": true
+    },
+    "candidate_zip_present": false,
+    "observed_zip_count": 5,
+    "preexisting_files": [
+      "kwater-fusion-20261125.zip",
+      "kwater-qwen4b-lora1-mechanism-20261126.zip",
+      "kwater-qwen4b-lora1-observation-20261126.zip",
+      "kwater-qwen4b-lora1-scope-20261126.zip",
+      "kwater-qwen4b-lora1-scope-observation-20261126.zip"
+    ],
+    "historical_original": {
+      "return_code": 0,
+      "valid_rows": 10,
+      "total_rows": 10,
+      "checker_dependency_missing": null,
+      "all_rows_valid": true
+    },
+    "candidate_archive_check": null,
+    "candidate_output_check": null,
+    "linux_sandbox_execution": null,
+    "historical_original_archive": {
+      "files": 47,
+      "archive_bytes": 9032392642,
+      "offline_lock": true,
+      "offline_wheels": [
+        {
+          "package": "accelerate",
+          "version": "1.10.1",
+          "matching_wheels": [
+            {
+              "filename": "accelerate-1.10.1-py3-none-any.whl",
+              "sha256": "3621cff60b9a27ce798857ece05e2b9f56fcc71631cfb31ccf71f0359c311f11"
+            }
+          ]
+        },
+        {
+          "package": "huggingface-hub",
+          "version": "0.36.0",
+          "matching_wheels": [
+            {
+              "filename": "huggingface_hub-0.36.0-py3-none-any.whl",
+              "sha256": "7bcc9ad17d5b3f07b57c78e79d527102d08313caa278a641993acddcb894548d"
+            }
+          ]
+        },
+        {
+          "package": "peft",
+          "version": "0.17.1",
+          "matching_wheels": [
+            {
+              "filename": "peft-0.17.1-py3-none-any.whl",
+              "sha256": "3d129d64def3d74779c32a080d2567e5f7b674e77d546e3585138216d903f99e"
+            }
+          ]
+        },
+        {
+          "package": "tokenizers",
+          "version": "0.22.1",
+          "matching_wheels": [
+            {
+              "filename": "tokenizers-0.22.1-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+              "sha256": "e2ef6063d7a84994129732b47e7915e8710f27f99f3a3260b8a38fc7ccd083f4"
+            }
+          ]
+        },
+        {
+          "package": "transformers",
+          "version": "4.57.1",
+          "matching_wheels": [
+            {
+              "filename": "transformers-4.57.1-py3-none-any.whl",
+              "sha256": "b10d05da8fa67dc41644dbbf9bc45a44cb86ae33da6f9295f5fbf5b7890bd267"
+            }
+          ]
+        }
+      ],
+      "stream_crc_checked": false,
+      "official_full_zip_extraction_executed": false
+    }
+  },
+  "eval_inputs": {
+    "default_baseline8_final_adapter": false,
+    "default_v3_final_adapter": false,
+    "planned_jsonl_present": {
+      "clean_8code_baseline.jsonl": false,
+      "v3_11code_standalone.jsonl": false,
+      "v3_hybrid_margin_verified.jsonl": false
+    },
+    "local_jsonl_keys": [
+      "schema_version",
+      "image_id",
+      "status",
+      "hazards"
+    ],
+    "conditional_safe_jsonl_key": "scene_evidence",
+    "cache_limitations": [
+      "Eight-code raw cache has no manifest, prompt, adapter or row-identity verification in evaluation caller.",
+      "V3 raw and verifier generation do not pass optional cache parameters.",
+      "Margin calibration is loaded by path existence with no adapter, prompt or pair fingerprint."
+    ],
+    "kit_schema_rate_measured_by_v3_cli": false
+  }
+}

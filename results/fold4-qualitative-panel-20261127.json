@@ -1,0 +1,46 @@
+{
+  "blinding": "Each of the six three-arm A/B/C permutations occurs four times. Machine-random assignment is sealed locally. Show original photo with neutral QID and A/B/C records, with gold and arm mapping withheld. Lock ratings before opening the key. No ratings collected.",
+  "cohort": {
+    "eligible_gold_strata": {
+      "other_hazard": 41,
+      "safe": 27,
+      "severity4": 39
+    },
+    "eligible_groups": 36,
+    "eligible_photos": 107,
+    "eligible_source_families": 7,
+    "groups": 36,
+    "photos": 107,
+    "previous_blind_review_ids": 12,
+    "previous_blind_review_overlap": 0
+  },
+  "method": "Use official gold strata and source families after applying the frozen mask and excluding the historical 12 review IDs. Find the feasible distinct-group quota nearest (6,9,9) by total absolute deviation, squared deviation, then ascending tuple in safe/severity4/other order. At each step select an unused group and photo preserving quota feasibility. Prefer new source families, rarer new families, larger fractional quota deficits, lower family occupancy relative to available groups, and seeded SHA-256 order. Order display IDs by a separate seeded SHA-256 domain.",
+  "panel": {
+    "gold_strata": {
+      "other_hazard": 10,
+      "safe": 5,
+      "severity4": 9
+    },
+    "groups": 24,
+    "photos": 24,
+    "source_families": {
+      "ADD": 7,
+      "CNEW": 1,
+      "SBE": 3,
+      "S_C": 2,
+      "stage3": 4,
+      "stage6": 2,
+      "stage9": 5
+    }
+  },
+  "selection_seed": "kwater-fold4-qualitative-panel-v1-20261127",
+  "sha256": {
+    "confirmed_mask": "ec85cb77fa974c63ba750d2c8201db679921bd91099a015fafe5ca1c2c334060",
+    "dev_manifest": "3864848fe26b951ec070710499d2694078b17c76ffd2aaf38d312b99ad3b2f60",
+    "local_manifest": "2f845195dd46412ad1340e09f8d50b8767e4cbd1254ed367dbb0d9456959bd67",
+    "prior_review_freeze": "30060bbffecf63aba8c41ddc408486edc0165b26466e8b317386f3b4e3129ac4",
+    "sealed_assignment": "5b8dc2670a9ed536b8c579d104c30dfe81ec223f811e335d54da516a9c2bcaf0",
+    "selected_id_list": "a0131167390b468c797be1afe24614f932207160234f3d9a8126060409b388fb",
+    "selected_original_image_list": "f416f45e390634bdeb503fbe2b5a9a8ccb97a4bad19683a894b1cafd086e5f4a"
+  }
+}

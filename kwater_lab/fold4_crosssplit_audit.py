@@ -21,6 +21,7 @@ CACHE = Path("data/clean-specialist-v1/features_multiview_2176d.npz")
 CACHE_WITNESS = Path("results/clean_specialist_v1_oof.json")
 LOCAL = Path("data/fold4-crosssplit-visual-review")
 RESULT = Path("results/fold4-crosssplit-audit.json")
+LABELS = Path("data/train/train.jsonl")
 V3_EVAL = Path("data/local-eval-predictions/fold4-v3-benchmark")
 SELECTION = {"top_distinct_group_pairs": 16, "extra_cross_family_pairs": 6, "extra_adjacent_id_group_pairs": 6}
 
@@ -286,20 +287,146 @@ def score(local, arms, output):
     })
 
 
+def score_three(local, arms, output):
+    from itertools import combinations
+
+    from .fold0_group_sensitivity import arm_metrics
+    from .law_reranker_11code import read_selected_cases
+    from .metrics import CODES, decode_target, evaluate, paired_bootstrap, read_index
+
+    required = {"legacy8", "v3", "hybrid"}
+    if not required <= arms.keys():
+        raise ValueError("Scoring requires legacy8, v3, and hybrid predictions")
+    mask_path = local / "fold4-group-exclusions-local.json"
+    inputs = (DEV, RESULT, LABELS, mask_path, *arms.values())
+    if output.resolve() in {path.resolve() for path in inputs}:
+        raise ValueError("Aggregate output must differ from every input")
+    mask = load(mask_path)
+    audit = load(RESULT)
+    manifest_sha = digest(DEV)
+    mask_sha = digest(mask_path)
+    if (audit["confirmed_mask_sha256"] != mask_sha
+            or mask["canonical_manifest_sha256"] != manifest_sha):
+        raise ValueError("Scoring requires the exact finalized Fold 4 mask and development manifest")
+    rows = [r for r in load(DEV) if r["split"] == "dev" and r["dev_fold"] == 4]
+    primary_gold = {r["sample_id"]: frozenset(r["codes"]) for r in rows}
+    primary_groups = {r["sample_id"]: r["group_id"] for r in rows}
+    if len(rows) != 175 or len(primary_gold) != 175 or len(set(primary_groups.values())) != 39:
+        raise ValueError("Expected the original exact 175-photo/39-group cohort")
+    predictions = {}
+    canonical_order = {}
+    for name, path in arms.items():
+        if not path.is_file():
+            raise FileNotFoundError(f"Missing {name} complete Fold 4 prediction file: {path}")
+        pred = read_index(path, lambda row: decode_target(row, local_ids=True), limit_size=True)
+        if pred.keys() != primary_gold.keys():
+            raise ValueError(f"{name} must contain every original Fold 4 canonical ID once")
+        predictions[name] = pred
+        canonical_order[name] = list(pred) == list(primary_gold)
+    excluded = {row["fold4_group_id"] for row in mask["confirmed_cross_group_links"]}
+    retained = {k: g for k, g in primary_groups.items() if g not in excluded}
+    if (len(retained), len(set(retained.values()))) != (107, 36) or (
+        audit["sensitivity_photos"], audit["sensitivity_groups"]
+    ) != (107, 36):
+        raise ValueError("Expected the frozen 107-photo/36-group sensitivity cohort")
+    severe = {}
+    for row in read_selected_cases(LABELS, set(primary_gold)):
+        sid = row["sample_id"]
+        target = row["target"]
+        if sid in severe:
+            raise ValueError("Duplicate official label for a primary photo")
+        if set(target["hazards"]) != primary_gold[sid]:
+            raise ValueError("Official labels differ from the canonical Fold 4 manifest")
+        severe[sid] = {c for c, item in target["hazards"].items() if item["risk_level"]["severity"]["score"] == 4}
+    if severe.keys() != primary_gold.keys():
+        raise ValueError("Missing severity annotations for primary photos")
+
+    panels = {}
+    for panel, groups in (("primary_175", primary_groups), ("sensitivity_107", retained)):
+        gold = {sid: primary_gold[sid] for sid in groups}
+        kept = {arm: {sid: pred[sid] for sid in groups} for arm, pred in predictions.items()}
+        metrics = {arm: arm_metrics(gold, pred, groups, severe) for arm, pred in kept.items()}
+        for arm, pred in kept.items():
+            metrics[arm]["severity4"]["code_instances"] = sum(len(severe[sid]) for sid in groups)
+            metrics[arm]["severity4"]["missed_code_instances"] = sum(len(severe[sid] - pred[sid]) for sid in groups)
+        comparisons = {}
+        for a, b in combinations(kept, 2):
+            first, second = kept[a], kept[b]
+            added = Counter(code for sid in groups for code in second[sid] - first[sid])
+            removed = Counter(code for sid in groups for code in first[sid] - second[sid])
+            changed = sum(first[sid] != second[sid] for sid in groups)
+            comparisons[f"{a}_vs_{b}"] = {
+                **paired_bootstrap(gold, first, second, groups),
+                "changed_code_set_photos": changed,
+                "changed_code_set_photo_rate": changed / len(groups),
+                "per_code_change": {
+                    c: {"added_by_b": added[c], "removed_by_b": removed[c],
+                        "photo_change_rate": (added[c] + removed[c]) / len(groups)}
+                    for c in CODES
+                },
+            }
+        panels[panel] = {
+            "photos": len(groups), "groups": len(set(groups.values())),
+            "arm_metrics": metrics, "comparisons": comparisons,
+        }
+    sizes = Counter(retained.values())
+    largest = min(sizes, key=lambda group: (-sizes[group], group))
+    remaining = {sid: primary_gold[sid] for sid, group in retained.items() if group != largest}
+    exploratory_metrics = {
+        arm: evaluate(remaining, {sid: pred[sid] for sid in remaining})
+        for arm, pred in predictions.items()
+    }
+    f1 = {arm: metrics["macro_f1"] for arm, metrics in exploratory_metrics.items()}
+    active_codes = {
+        arm: {code for code, counts in metrics["per_code"].items() if counts["f1"] is not None}
+        for arm, metrics in exploratory_metrics.items()
+    }
+    panels["sensitivity_107"]["leave_largest_group_out"] = {
+        "scope": "Exploratory point estimates after removing the largest retained group",
+        "excluded_photos": sizes[largest],
+        "photos": len(remaining), "groups": len(sizes) - 1,
+        "macro_f1": f1,
+        "macro_f1_active_codes": {arm: sorted(codes) for arm, codes in active_codes.items()},
+        "macro_f1_codes_lost_after_exclusion": {
+            arm: sorted({code for code, counts in metrics["per_code"].items()
+                         if counts["f1"] is not None} - active_codes[arm])
+            for arm, metrics in panels["sensitivity_107"]["arm_metrics"].items()
+        },
+        "macro_f1_delta_b_minus_a": {
+            f"{a}_vs_{b}": f1[b] - f1[a] if f1[a] is not None and f1[b] is not None else None
+            for a, b in combinations(f1, 2)
+        },
+    }
+    write(output, {
+        "scope": "Paired local code scoring. The 107-photo panel removes three confirmed cross-split scene groups.",
+        "manifest_sha256": manifest_sha, "mask_sha256": mask_sha, "official_labels_sha256": digest(LABELS),
+        "prediction_sha256": {name: digest(path) for name, path in arms.items()},
+        "prediction_rows_in_canonical_manifest_order": canonical_order,
+        "panels": panels,
+    })
+
+
 if __name__ == "__main__":
     import sys
 
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("stage", choices=("scan", "finalize", "score"))
+    parser.add_argument("stage", choices=("scan", "finalize", "score", "score-three"))
     parser.add_argument("--local", type=Path, default=LOCAL)
     parser.add_argument("--legacy8", type=Path, default=V3_EVAL / "clean_8code_baseline.jsonl")
     parser.add_argument("--v3", type=Path, default=V3_EVAL / "v3_11code_standalone.jsonl")
+    parser.add_argument("--hybrid", type=Path, default=V3_EVAL / "v3_hybrid_margin_verified.jsonl")
     parser.add_argument("--official", type=Path)
     parser.add_argument("--score-output", type=Path, default=Path("results/fold4-fixed-mask-sensitivity.json"))
+    parser.add_argument("--score-three-output", type=Path, default=Path("results/fold4-paired-code-evaluation.json"))
     args = parser.parse_args()
     if not args.local.resolve().is_relative_to(Path("data").resolve()):
         parser.error("Original IDs and review images must stay under data/")
-    if args.stage == "score":
+    if args.stage == "score-three":
+        if args.official is not None:
+            parser.error("--official applies to score only")
+        score_three(args.local, {"legacy8": args.legacy8, "v3": args.v3, "hybrid": args.hybrid},
+                    args.score_three_output)
+    elif args.stage == "score":
         arms = {"legacy8": args.legacy8, "v3": args.v3}
         if args.official is not None:
             arms["official"] = args.official
