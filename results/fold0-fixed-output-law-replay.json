@@ -1,0 +1,103 @@
+{
+  "scope": "Original predicted codes and raw evidence/action/scene text fixed within each 216-photo panel; compare existing first-citation rankers only.",
+  "case_training_photos": 750,
+  "case_ids_same": true,
+  "max_refs": 1,
+  "input_sha256": {
+    "data\\fold0-qlora-v2-118-official\\output\\submission.jsonl": "dadf8ecedbe47c85e69a7cdd3b3987a1bab68083ab7e5fbb6484ede624a93691",
+    "data\\local-eval-predictions\\fold0\\fold0-qlora-v2-118-bf16\\ft_vlm_11code.jsonl": "6d91d29ec5767a0f80c5c0fefd615befe891cb7afe8a686477efa37a731ae9b2",
+    "data\\local-eval-predictions\\fold0\\fold0-qlora-v2-118-bf16\\ft_vlm_raw.jsonl": "a8723dafdd9b1a1d88f97839b8bf7de421b685603676cee779bde9f9b77f32cd",
+    "official_raw_batch_hashes_sha256": "97d833a4e91894bf04abf168b4d0c8af2040fa45fe3a2292bd8d58247e57e015",
+    "data/clean-split-v1/split_manifest_dev.json": "3864848fe26b951ec070710499d2694078b17c76ffd2aaf38d312b99ad3b2f60",
+    "data/fold0-crosssplit-visual-review/fold0-group-exclusions-confirmed.json": "c97e83f55808db09372d3dc0e80f531b041fc7c6f38ee25b876a1213111fc41c",
+    "data/baseline/assets/laws.jsonl": "1408b69db444cf90b31f9bebb4a773a30fa4362739e50b22c95f3bbe0e75bd9d",
+    "data/train/train.jsonl": "ab427fed4615b32627b76001e27124e99ae9202c855ba4170916ebe4fdc4de55",
+    "data/baseline/assets/train.jsonl": "d2ffb2812c4cee95e69362b08023d4c3fd6d7dde8ab22b83dd39f60e80deb7b1"
+  },
+  "panels": {
+    "official": {
+      "all_fold0": {
+        "photos": 216,
+        "groups": 36,
+        "predicted_hazard_queries": 132,
+        "changed_top1_all_queries": 5,
+        "matched_annotated_code_with_law": 96,
+        "groups_with_matched_annotated_code_and_law": 21,
+        "original_top1_hits": 85,
+        "legacy_top1_hits": 86,
+        "native_top1_hits": 85,
+        "changed_top1_supported": 5,
+        "native_only_hit": 1,
+        "legacy_only_hit": 2,
+        "tie_correct": 84,
+        "tie_miss": 9,
+        "paired_group_bootstrap_native_minus_legacy_hit_rate_95_percent": [
+          -0.19047619047619047,
+          0.047619047619047616
+        ]
+      },
+      "confirmed_cross_group_exclusion": {
+        "photos": 34,
+        "groups": 34,
+        "predicted_hazard_queries": 28,
+        "changed_top1_all_queries": 3,
+        "matched_annotated_code_with_law": 19,
+        "groups_with_matched_annotated_code_and_law": 19,
+        "original_top1_hits": 13,
+        "legacy_top1_hits": 16,
+        "native_top1_hits": 14,
+        "changed_top1_supported": 3,
+        "native_only_hit": 0,
+        "legacy_only_hit": 2,
+        "tie_correct": 14,
+        "tie_miss": 3,
+        "paired_group_bootstrap_native_minus_legacy_hit_rate_95_percent": [
+          -0.2631578947368421,
+          0.0
+        ]
+      }
+    },
+    "v2_bf16": {
+      "all_fold0": {
+        "photos": 216,
+        "groups": 36,
+        "predicted_hazard_queries": 185,
+        "changed_top1_all_queries": 10,
+        "matched_annotated_code_with_law": 97,
+        "groups_with_matched_annotated_code_and_law": 20,
+        "original_top1_hits": 86,
+        "legacy_top1_hits": 86,
+        "native_top1_hits": 86,
+        "changed_top1_supported": 3,
+        "native_only_hit": 1,
+        "legacy_only_hit": 1,
+        "tie_correct": 85,
+        "tie_miss": 10,
+        "paired_group_bootstrap_native_minus_legacy_hit_rate_95_percent": [
+          -0.011904761904761904,
+          0.11121794871794813
+        ]
+      },
+      "confirmed_cross_group_exclusion": {
+        "photos": 34,
+        "groups": 34,
+        "predicted_hazard_queries": 40,
+        "changed_top1_all_queries": 3,
+        "matched_annotated_code_with_law": 20,
+        "groups_with_matched_annotated_code_and_law": 18,
+        "original_top1_hits": 16,
+        "legacy_top1_hits": 16,
+        "native_top1_hits": 16,
+        "changed_top1_supported": 0,
+        "native_only_hit": 0,
+        "legacy_only_hit": 0,
+        "tie_correct": 16,
+        "tie_miss": 4,
+        "paired_group_bootstrap_native_minus_legacy_hit_rate_95_percent": [
+          0.0,
+          0.0
+        ]
+      }
+    }
+  }
+}
