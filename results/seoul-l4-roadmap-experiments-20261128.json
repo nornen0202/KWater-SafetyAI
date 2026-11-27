@@ -150,5 +150,16 @@
       46.9,
       47.04
     ]
+  },
+  "gguf_27b_physical_archive": {
+    "bytes": 17801904701,
+    "sha256": "aa00a442eb9079cd5a00140be281071b1230a81cc72b0f5429a5aede6185ff6c",
+    "local_path": "data/submissions/kwater-qwen38-27b-q4-timing-aa00a442eb90.zip",
+    "maximum_bytes": 20000000000,
+    "margin_bytes": 2198095299,
+    "entries": 41,
+    "unpacked_bytes": 17801898949,
+    "binary_release": "b12721",
+    "binary_tar_gz_sha256": "f150cc31b798b334a11682812897e287c3e8041912df9936f95d52a2f9d5f7f5"
   }
 }
