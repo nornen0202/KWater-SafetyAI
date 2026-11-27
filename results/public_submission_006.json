@@ -1,0 +1,40 @@
+{
+  "event": "K-water 5th Public leaderboard",
+  "stage": "scored",
+  "submission_number": 6,
+  "submitted_at_kst": "2026-11-27T22:22:00+09:00",
+  "time_precision": "minute",
+  "receipt_source": "Organizer acceptance dialog and My Submissions",
+  "submission_page": "https://hackathon.imaginationgroup.co.kr/kwater/#my",
+  "leaderboard": "https://hackathon.imaginationgroup.co.kr/kwater/#leaderboard",
+  "submitted_archive": "kwater-safeground-v3-epoch1-vlmonly-20261127.zip",
+  "source": "SafeGround v3 standalone from the epoch-1 checkpoint of the two-epoch Fold 4 schedule, 69 of 138 updates",
+  "bytes": 9043673838,
+  "sha256": "5b6527c82bac445f76463ee183600d3c44c202dd4c448722ca09dc810455cfe6",
+  "remaining_attempts_today_at_receipt": 0,
+  "daily_quota": 2,
+  "score_source": "Authenticated My Submissions",
+  "local_evidence": {
+    "paired_panel_175_and_107": "results/fold4-v3-epoch1-paired-code-evaluation.json",
+    "official_output_format": "results/fold4-epoch1-official-output-check.json",
+    "archive_and_cached_raw_parity": "results/fold4-v3-epoch1-archive-check.json",
+    "decision_report": "reports/fold4-fifth-submission-decision.md",
+    "scope": "Developer measurements, separate from the leaderboard and contest runtime"
+  },
+  "observed_at_kst": "2026-11-27T23:16:00+09:00",
+  "public_score": 53.65,
+  "previous_best_public_score": 47.35,
+  "delta_public_points": 6.3,
+  "delta_against_42_04_baseline": 11.61,
+  "automatically_selected_at_observation": true,
+  "public_leaderboard_recheck": {
+    "observed_at_kst": "2026-11-27T23:16:18+09:00",
+    "team_public_rank": 12,
+    "ranked_teams": 100,
+    "top_10_cutoff": 55.2,
+    "distance_to_top_10": 1.55,
+    "top_20_cutoff": 52.17,
+    "margin_above_top_20": 1.48,
+    "leading_score": 68.1
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "event": "K-water 5th Public leaderboard",
+  "stage": "scored",
+  "submission_number": 5,
+  "observed_at_kst": "2026-11-27T22:15:00+09:00",
+  "submitted_at_kst": "2026-11-27T21:22:00+09:00",
+  "time_precision": "minute",
+  "receipt_source": "Organizer acceptance dialog and My Submissions",
+  "submission_page": "https://hackathon.imaginationgroup.co.kr/kwater/#my",
+  "leaderboard": "https://hackathon.imaginationgroup.co.kr/kwater/#leaderboard",
+  "submitted_archive": "kwater-fold4-eightcode-20261127.zip",
+  "source": "Fresh Fold 4 8-code comparison adapter, same organizer formatter with 790 Fold 4-excluded law cases",
+  "bytes": 9043971039,
+  "sha256": "1cd9cdcc92a2a2ffdf25ee7eda3865b04d95346855553b1cb42ef1edd305abfa",
+  "remaining_attempts_today_at_receipt": 1,
+  "daily_quota": 2,
+  "public_score": 47.35,
+  "previous_best_public_score": 42.04,
+  "delta_public_points": 5.31,
+  "score_source": "Authenticated My Submissions",
+  "team_public_rank_at_observation": 35,
+  "ranked_teams_at_observation": 97,
+  "automatically_selected_at_observation": true,
+  "local_evidence": {
+    "paired_panel_175_and_107": "results/fold4-v3-epoch1-paired-code-evaluation.json",
+    "official_output_format": "results/fold4-epoch1-official-output-check.json",
+    "decision_report": "reports/fold4-fifth-submission-decision.md",
+    "scope": "Developer measurements, separate from the leaderboard and contest runtime"
+  }
+}

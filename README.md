@@ -1,5 +1,7 @@
 # K-water 현장 안전 AI 연구 기록
 
+**11월 27일 제출 결과.** 21:22에 접수한 새 8종 모델은 Public **47.35**, 22:22에 접수한 11종 v3 첫 에폭 단독 모델은 **53.65**를 기록했다. 기존 42.04에서 **11.61점 상승**했다. 23:16 KST 기준 **100팀 중 12위**로 10위까지 1.55점 차이였다. 이 PC에서는 `data/local-reports/issue2-20261127/visual-review.html`을 열면 실제 사진 48장과 도표로 오류와 후속 실험을 검토할 수 있다. [이슈 #2 연구 로드맵](reports/issue-2-transfer-experiments-20261127.md) · [Fold 4 실험과 제출 판단](reports/fold4-fifth-submission-decision.md) · [5차 영수증](results/public_submission_005.json) · [6차 영수증](results/public_submission_006.json)
+
 [Ubuntu 26.04 보조 PC 복원 및 3050 실험 인계](docs/ubuntu-3050-handoff.md)
 
 **11월 27일 인계.** 00:05 KST 공개 순위는 도니 30/52위(42.04점), 10위 48.49점이었다. 같은 사진에서 기준 모델과 새 11종 모델을 비교하는 실험, 과거 보류 표본의 노출 이력, 전문가 후보의 적중·오탐 및 인용 재생 결과는 [11월 27일 실험 인계 및 제출 판단 근거](reports/turnaround-handoff-20261127.md)에 있다.
