@@ -1,0 +1,402 @@
+{
+  "question": "Within each pixel budget, does averaging the three strongest spatial cells increase correct top-one proposals over equal-parameter global pooling?",
+  "split_sha256": "3864848fe26b951ec070710499d2694078b17c76ffd2aaf38d312b99ad3b2f60",
+  "folds": [
+    1,
+    2,
+    3
+  ],
+  "photos": 575,
+  "seed": 20261127,
+  "steps": 160,
+  "results": {
+    "262144": {
+      "local_result_sha256": "8d1a952ca0bea87d391c470bf4bb1649d630b88420316f6b925003e591ecbd34",
+      "encoder_sha256": "c260ed2ccf2837df7e8f6a1b2f56aab0df1fbb2e4c6848d23bf3b54b404ff7e8",
+      "per_fold": {
+        "1": {
+          "fit_photos": 398,
+          "validation_photos": 177,
+          "fit_groups": 76,
+          "validation_groups": 41,
+          "global_linear": {
+            "macro_common_code_ap": 0.6035696329227939,
+            "common_codes": [
+              "fall_height",
+              "slip_trip",
+              "caught_in_machine",
+              "struck_by_lifting",
+              "electrical_energy",
+              "fire_explosion",
+              "chemical_exposure",
+              "other"
+            ],
+            "ranking_eligible_codes_from_fit_only": [
+              "fall_height",
+              "slip_trip",
+              "caught_in_machine",
+              "struck_by_lifting",
+              "electrical_energy",
+              "fire_explosion",
+              "chemical_exposure",
+              "thermal_weather",
+              "other"
+            ],
+            "ap_denominator_codes": 8,
+            "recall_at_1": 0.6691176470588235,
+            "recall_at_1_numerator": 91,
+            "recall_at_1_denominator": 136
+          },
+          "regional_mil_topk": {
+            "macro_common_code_ap": 0.5890867928755319,
+            "common_codes": [
+              "fall_height",
+              "slip_trip",
+              "caught_in_machine",
+              "struck_by_lifting",
+              "electrical_energy",
+              "fire_explosion",
+              "chemical_exposure",
+              "other"
+            ],
+            "ranking_eligible_codes_from_fit_only": [
+              "fall_height",
+              "slip_trip",
+              "caught_in_machine",
+              "struck_by_lifting",
+              "electrical_energy",
+              "fire_explosion",
+              "chemical_exposure",
+              "thermal_weather",
+              "other"
+            ],
+            "ap_denominator_codes": 8,
+            "recall_at_1": 0.7058823529411765,
+            "recall_at_1_numerator": 96,
+            "recall_at_1_denominator": 136
+          }
+        },
+        "2": {
+          "fit_photos": 378,
+          "validation_photos": 197,
+          "fit_groups": 79,
+          "validation_groups": 38,
+          "global_linear": {
+            "macro_common_code_ap": 0.5940932027982373,
+            "common_codes": [
+              "fall_height",
+              "slip_trip",
+              "caught_in_machine",
+              "struck_by_lifting",
+              "electrical_energy",
+              "fire_explosion",
+              "chemical_exposure",
+              "other"
+            ],
+            "ranking_eligible_codes_from_fit_only": [
+              "fall_height",
+              "slip_trip",
+              "caught_in_machine",
+              "struck_by_lifting",
+              "electrical_energy",
+              "drowning_inundation",
+              "fire_explosion",
+              "chemical_exposure",
+              "other"
+            ],
+            "ap_denominator_codes": 8,
+            "recall_at_1": 0.6384615384615384,
+            "recall_at_1_numerator": 83,
+            "recall_at_1_denominator": 130
+          },
+          "regional_mil_topk": {
+            "macro_common_code_ap": 0.6200394830095322,
+            "common_codes": [
+              "fall_height",
+              "slip_trip",
+              "caught_in_machine",
+              "struck_by_lifting",
+              "electrical_energy",
+              "fire_explosion",
+              "chemical_exposure",
+              "other"
+            ],
+            "ranking_eligible_codes_from_fit_only": [
+              "fall_height",
+              "slip_trip",
+              "caught_in_machine",
+              "struck_by_lifting",
+              "electrical_energy",
+              "drowning_inundation",
+              "fire_explosion",
+              "chemical_exposure",
+              "other"
+            ],
+            "ap_denominator_codes": 8,
+            "recall_at_1": 0.676923076923077,
+            "recall_at_1_numerator": 88,
+            "recall_at_1_denominator": 130
+          }
+        },
+        "3": {
+          "fit_photos": 374,
+          "validation_photos": 201,
+          "fit_groups": 79,
+          "validation_groups": 38,
+          "global_linear": {
+            "macro_common_code_ap": 0.6729980668610489,
+            "common_codes": [
+              "fall_height",
+              "slip_trip",
+              "caught_in_machine",
+              "struck_by_lifting",
+              "electrical_energy",
+              "fire_explosion",
+              "chemical_exposure",
+              "other"
+            ],
+            "ranking_eligible_codes_from_fit_only": [
+              "fall_height",
+              "slip_trip",
+              "caught_in_machine",
+              "struck_by_lifting",
+              "electrical_energy",
+              "drowning_inundation",
+              "fire_explosion",
+              "chemical_exposure",
+              "thermal_weather",
+              "other"
+            ],
+            "ap_denominator_codes": 8,
+            "recall_at_1": 0.6616541353383458,
+            "recall_at_1_numerator": 88,
+            "recall_at_1_denominator": 133
+          },
+          "regional_mil_topk": {
+            "macro_common_code_ap": 0.5889104809943316,
+            "common_codes": [
+              "fall_height",
+              "slip_trip",
+              "caught_in_machine",
+              "struck_by_lifting",
+              "electrical_energy",
+              "fire_explosion",
+              "chemical_exposure",
+              "other"
+            ],
+            "ranking_eligible_codes_from_fit_only": [
+              "fall_height",
+              "slip_trip",
+              "caught_in_machine",
+              "struck_by_lifting",
+              "electrical_energy",
+              "drowning_inundation",
+              "fire_explosion",
+              "chemical_exposure",
+              "thermal_weather",
+              "other"
+            ],
+            "ap_denominator_codes": 8,
+            "recall_at_1": 0.6541353383458647,
+            "recall_at_1_numerator": 87,
+            "recall_at_1_denominator": 133
+          }
+        }
+      }
+    },
+    "393216": {
+      "local_result_sha256": "7816c9debe1acec5a88aa4b45411375624977755dc968a53f176291a15fa8865",
+      "encoder_sha256": "53a24ea7dd72c371c5d165f193bb1d409afe05cc78b34ce82d113a7dff7c5892",
+      "per_fold": {
+        "1": {
+          "fit_photos": 398,
+          "validation_photos": 177,
+          "fit_groups": 76,
+          "validation_groups": 41,
+          "global_linear": {
+            "macro_common_code_ap": 0.6029779342872938,
+            "common_codes": [
+              "fall_height",
+              "slip_trip",
+              "caught_in_machine",
+              "struck_by_lifting",
+              "electrical_energy",
+              "fire_explosion",
+              "chemical_exposure",
+              "other"
+            ],
+            "ranking_eligible_codes_from_fit_only": [
+              "fall_height",
+              "slip_trip",
+              "caught_in_machine",
+              "struck_by_lifting",
+              "electrical_energy",
+              "fire_explosion",
+              "chemical_exposure",
+              "thermal_weather",
+              "other"
+            ],
+            "ap_denominator_codes": 8,
+            "recall_at_1": 0.6691176470588235,
+            "recall_at_1_numerator": 91,
+            "recall_at_1_denominator": 136
+          },
+          "regional_mil_topk": {
+            "macro_common_code_ap": 0.5980950051912717,
+            "common_codes": [
+              "fall_height",
+              "slip_trip",
+              "caught_in_machine",
+              "struck_by_lifting",
+              "electrical_energy",
+              "fire_explosion",
+              "chemical_exposure",
+              "other"
+            ],
+            "ranking_eligible_codes_from_fit_only": [
+              "fall_height",
+              "slip_trip",
+              "caught_in_machine",
+              "struck_by_lifting",
+              "electrical_energy",
+              "fire_explosion",
+              "chemical_exposure",
+              "thermal_weather",
+              "other"
+            ],
+            "ap_denominator_codes": 8,
+            "recall_at_1": 0.7205882352941176,
+            "recall_at_1_numerator": 98,
+            "recall_at_1_denominator": 136
+          }
+        },
+        "2": {
+          "fit_photos": 378,
+          "validation_photos": 197,
+          "fit_groups": 79,
+          "validation_groups": 38,
+          "global_linear": {
+            "macro_common_code_ap": 0.6024161401835006,
+            "common_codes": [
+              "fall_height",
+              "slip_trip",
+              "caught_in_machine",
+              "struck_by_lifting",
+              "electrical_energy",
+              "fire_explosion",
+              "chemical_exposure",
+              "other"
+            ],
+            "ranking_eligible_codes_from_fit_only": [
+              "fall_height",
+              "slip_trip",
+              "caught_in_machine",
+              "struck_by_lifting",
+              "electrical_energy",
+              "drowning_inundation",
+              "fire_explosion",
+              "chemical_exposure",
+              "other"
+            ],
+            "ap_denominator_codes": 8,
+            "recall_at_1": 0.6461538461538462,
+            "recall_at_1_numerator": 84,
+            "recall_at_1_denominator": 130
+          },
+          "regional_mil_topk": {
+            "macro_common_code_ap": 0.5666640532965198,
+            "common_codes": [
+              "fall_height",
+              "slip_trip",
+              "caught_in_machine",
+              "struck_by_lifting",
+              "electrical_energy",
+              "fire_explosion",
+              "chemical_exposure",
+              "other"
+            ],
+            "ranking_eligible_codes_from_fit_only": [
+              "fall_height",
+              "slip_trip",
+              "caught_in_machine",
+              "struck_by_lifting",
+              "electrical_energy",
+              "drowning_inundation",
+              "fire_explosion",
+              "chemical_exposure",
+              "other"
+            ],
+            "ap_denominator_codes": 8,
+            "recall_at_1": 0.676923076923077,
+            "recall_at_1_numerator": 88,
+            "recall_at_1_denominator": 130
+          }
+        },
+        "3": {
+          "fit_photos": 374,
+          "validation_photos": 201,
+          "fit_groups": 79,
+          "validation_groups": 38,
+          "global_linear": {
+            "macro_common_code_ap": 0.7026788060219545,
+            "common_codes": [
+              "fall_height",
+              "slip_trip",
+              "caught_in_machine",
+              "struck_by_lifting",
+              "electrical_energy",
+              "fire_explosion",
+              "chemical_exposure",
+              "other"
+            ],
+            "ranking_eligible_codes_from_fit_only": [
+              "fall_height",
+              "slip_trip",
+              "caught_in_machine",
+              "struck_by_lifting",
+              "electrical_energy",
+              "drowning_inundation",
+              "fire_explosion",
+              "chemical_exposure",
+              "thermal_weather",
+              "other"
+            ],
+            "ap_denominator_codes": 8,
+            "recall_at_1": 0.6691729323308271,
+            "recall_at_1_numerator": 89,
+            "recall_at_1_denominator": 133
+          },
+          "regional_mil_topk": {
+            "macro_common_code_ap": 0.5982186550868442,
+            "common_codes": [
+              "fall_height",
+              "slip_trip",
+              "caught_in_machine",
+              "struck_by_lifting",
+              "electrical_energy",
+              "fire_explosion",
+              "chemical_exposure",
+              "other"
+            ],
+            "ranking_eligible_codes_from_fit_only": [
+              "fall_height",
+              "slip_trip",
+              "caught_in_machine",
+              "struck_by_lifting",
+              "electrical_energy",
+              "drowning_inundation",
+              "fire_explosion",
+              "chemical_exposure",
+              "thermal_weather",
+              "other"
+            ],
+            "ap_denominator_codes": 8,
+            "recall_at_1": 0.6390977443609023,
+            "recall_at_1_numerator": 85,
+            "recall_at_1_denominator": 133
+          }
+        }
+      }
+    }
+  }
+}
