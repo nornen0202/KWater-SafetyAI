@@ -1,0 +1,239 @@
+{
+  "photos": 48,
+  "arms": {
+    "fixed": {
+      "valid": 48,
+      "target_tp": 8,
+      "target_fp": 1,
+      "target_fn": 16,
+      "normal_any_alert": 1,
+      "valid_target_f1": 0.48484848484848486,
+      "all_48_target_f1_bounds": [
+        0.48484848484848486,
+        0.48484848484848486
+      ],
+      "all_normal_alert_bounds": [
+        1,
+        1
+      ]
+    },
+    "roi": {
+      "valid": 48,
+      "target_tp": 9,
+      "target_fp": 2,
+      "target_fn": 15,
+      "normal_any_alert": 3,
+      "valid_target_f1": 0.5142857142857142,
+      "all_48_target_f1_bounds": [
+        0.5142857142857142,
+        0.5142857142857142
+      ],
+      "all_normal_alert_bounds": [
+        3,
+        3
+      ]
+    },
+    "roi_full": {
+      "valid": 48,
+      "target_tp": 10,
+      "target_fp": 2,
+      "target_fn": 14,
+      "normal_any_alert": 3,
+      "valid_target_f1": 0.5555555555555556,
+      "all_48_target_f1_bounds": [
+        0.5555555555555556,
+        0.5555555555555556
+      ],
+      "all_normal_alert_bounds": [
+        3,
+        3
+      ]
+    }
+  },
+  "compared_to_fixed": {
+    "roi": {
+      "all": {
+        "n": 48,
+        "recovered_tp": 3,
+        "lost_tp": 2,
+        "new_fp": 1,
+        "removed_fp": 0,
+        "new_normal_alert": 2,
+        "removed_normal_alert": 0
+      },
+      "unclear": {
+        "n": 36,
+        "recovered_tp": 2,
+        "lost_tp": 0,
+        "new_fp": 0,
+        "removed_fp": 0,
+        "new_normal_alert": 2,
+        "removed_normal_alert": 0
+      },
+      "fall_height": {
+        "n": 16,
+        "recovered_tp": 1,
+        "lost_tp": 1,
+        "new_fp": 0,
+        "removed_fp": 0,
+        "new_normal_alert": 0,
+        "removed_normal_alert": 0
+      },
+      "struck_by_lifting": {
+        "n": 16,
+        "recovered_tp": 2,
+        "lost_tp": 1,
+        "new_fp": 0,
+        "removed_fp": 0,
+        "new_normal_alert": 1,
+        "removed_normal_alert": 0
+      },
+      "supported": {
+        "n": 11,
+        "recovered_tp": 1,
+        "lost_tp": 2,
+        "new_fp": 1,
+        "removed_fp": 0,
+        "new_normal_alert": 0,
+        "removed_normal_alert": 0
+      },
+      "slip_trip": {
+        "n": 16,
+        "recovered_tp": 0,
+        "lost_tp": 0,
+        "new_fp": 1,
+        "removed_fp": 0,
+        "new_normal_alert": 1,
+        "removed_normal_alert": 0
+      },
+      "contradicted": {
+        "n": 1,
+        "recovered_tp": 0,
+        "lost_tp": 0,
+        "new_fp": 0,
+        "removed_fp": 0,
+        "new_normal_alert": 0,
+        "removed_normal_alert": 0
+      }
+    },
+    "roi_full": {
+      "all": {
+        "n": 48,
+        "recovered_tp": 3,
+        "lost_tp": 1,
+        "new_fp": 1,
+        "removed_fp": 0,
+        "new_normal_alert": 2,
+        "removed_normal_alert": 0
+      },
+      "unclear": {
+        "n": 36,
+        "recovered_tp": 2,
+        "lost_tp": 0,
+        "new_fp": 0,
+        "removed_fp": 0,
+        "new_normal_alert": 2,
+        "removed_normal_alert": 0
+      },
+      "fall_height": {
+        "n": 16,
+        "recovered_tp": 2,
+        "lost_tp": 1,
+        "new_fp": 0,
+        "removed_fp": 0,
+        "new_normal_alert": 0,
+        "removed_normal_alert": 0
+      },
+      "struck_by_lifting": {
+        "n": 16,
+        "recovered_tp": 1,
+        "lost_tp": 0,
+        "new_fp": 0,
+        "removed_fp": 0,
+        "new_normal_alert": 1,
+        "removed_normal_alert": 0
+      },
+      "supported": {
+        "n": 11,
+        "recovered_tp": 1,
+        "lost_tp": 1,
+        "new_fp": 1,
+        "removed_fp": 0,
+        "new_normal_alert": 0,
+        "removed_normal_alert": 0
+      },
+      "slip_trip": {
+        "n": 16,
+        "recovered_tp": 0,
+        "lost_tp": 0,
+        "new_fp": 1,
+        "removed_fp": 0,
+        "new_normal_alert": 1,
+        "removed_normal_alert": 0
+      },
+      "contradicted": {
+        "n": 1,
+        "recovered_tp": 0,
+        "lost_tp": 0,
+        "new_fp": 0,
+        "removed_fp": 0,
+        "new_normal_alert": 0,
+        "removed_normal_alert": 0
+      }
+    }
+  },
+  "normal_denominator": 12,
+  "run_receipt": {
+    "start_utc": "2026-11-27T23:04:08+00:00",
+    "finish_utc": "2026-11-27T23:32:19+00:00",
+    "wall_seconds": 1691.0,
+    "returned_bundle_sha256": "f48d8de8148047377e2adff4005e86f39647de9a7ead3cdfa358bd6189f3a899",
+    "cache_sha256": {
+      "fixed": "f813d3859e99512e08f7ea1d7ddc902b1d9e183b3a4c0ddde9b3a34f373ce6af",
+      "roi": "e023ec04c55904176788ab99167b08d237602378faa7645e94cf73779d87b69a",
+      "roi_full": "71c49ed24abf853352c23dc5b188ac049fbffc61eaa1e4f8ac70fbbb66da262c"
+    },
+    "generation_stats": {
+      "fixed": {
+        "photos": 48,
+        "raw_json_parse_success": 48,
+        "raw_json_parse_rate": 1.0,
+        "strict_vlm_schema_success": 48,
+        "strict_vlm_schema_rate": 1.0,
+        "token_cap_hits": 0,
+        "cache_reused_rows": 48,
+        "initial_batch_size": 1,
+        "final_effective_batch_size": 1,
+        "total_seconds": 510.7,
+        "sec_per_photo": 10.641
+      },
+      "roi": {
+        "photos": 48,
+        "raw_json_parse_success": 48,
+        "raw_json_parse_rate": 1.0,
+        "strict_vlm_schema_success": 48,
+        "strict_vlm_schema_rate": 1.0,
+        "token_cap_hits": 0,
+        "cache_reused_rows": 48,
+        "initial_batch_size": 1,
+        "final_effective_batch_size": 1,
+        "total_seconds": 538.4,
+        "sec_per_photo": 11.217
+      },
+      "roi_full": {
+        "photos": 48,
+        "raw_json_parse_success": 48,
+        "raw_json_parse_rate": 1.0,
+        "strict_vlm_schema_success": 48,
+        "strict_vlm_schema_rate": 1.0,
+        "token_cap_hits": 0,
+        "cache_reused_rows": 34,
+        "initial_batch_size": 1,
+        "final_effective_batch_size": 1,
+        "total_seconds": 534.4,
+        "sec_per_photo": 11.134
+      }
+    },
+    "witness_sha256": "bb533ec0e59d300d40904bb5882c9f4371f1a4c1890d1331e2efe1d764ba1de3"
+  }
+}

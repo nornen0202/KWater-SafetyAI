@@ -3,8 +3,11 @@
 import argparse
 from collections import Counter
 import csv
+from datetime import datetime
+from hashlib import sha256
 import json
 from pathlib import Path
+import tarfile
 
 from .vision_gate_roi_run import ARMS, ROOT, WITNESS
 
@@ -90,9 +93,40 @@ def score(cache_dir, panel_dir):
                 normal_denominator=sum(not r["source"]["codes"] for r in rows))
 
 
+def seoul_receipt(folder):
+    def read_time(name):
+        return datetime.fromisoformat((folder / name).read_text().strip().replace("Z", "+00:00"))
+    start, finish = read_time("started.utc"), read_time("finished.utc")
+    bundle = folder / "outputs.tgz"
+    digest = sha256(bundle.read_bytes()).hexdigest()
+    if digest != (folder / "return.sha256").read_text().strip():
+        raise ValueError("Returned bundle differs from its transfer receipt")
+    with tarfile.open(bundle, "r:gz") as archive:
+        names = ["started.utc", "finished.utc"]
+        for arm in ARMS:
+            names.extend([f"raw/{arm}.json", f"raw/{arm}-stats.json"])
+        for name in names:
+            member = archive.extractfile(name)
+            if member is None or member.read() != (folder / Path(name).name).read_bytes():
+                raise ValueError(f"Local output differs from returned archive: {name}")
+    stats = {arm: json.loads((folder / f"{arm}-stats.json").read_bytes()) for arm in ARMS}
+    if any(s["photos"] != 48 for s in stats.values()):
+        raise ValueError("Incomplete arm statistics")
+    return dict(start_utc=start.isoformat(), finish_utc=finish.isoformat(),
+                wall_seconds=(finish-start).total_seconds(), returned_bundle_sha256=digest,
+                cache_sha256={arm: sha256((folder / f"{arm}.json").read_bytes()).hexdigest() for arm in ARMS},
+                generation_stats=stats, witness_sha256=sha256(WITNESS.read_bytes()).hexdigest())
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--caches", type=Path, required=True)
     parser.add_argument("--panel", type=Path, default=ROOT.parent)
+    parser.add_argument("--seoul-out", type=Path, help="Write an aggregate with the verified returned archive receipt")
     args = parser.parse_args()
-    print(json.dumps(score(args.caches, args.panel), ensure_ascii=False, indent=2))
+    result = score(args.caches, args.panel)
+    if args.seoul_out is not None:
+        result["run_receipt"] = seoul_receipt(args.caches)
+        args.seoul_out.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    else:
+        print(json.dumps(result, ensure_ascii=False, indent=2))
