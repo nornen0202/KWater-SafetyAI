@@ -353,7 +353,7 @@ def train_single_head(
     batch_size: int = 64,
 ) -> SpatialDualSpecialistHead:
     seed_everything(seed)
-    model = SpatialDualSpecialistHead().to(device)
+    model = SpatialDualSpecialistHead(feat_dim=x_train.shape[-1]).to(device)
 
     pos_counts = y_train.sum(axis=0)
     neg_counts = len(y_train) - pos_counts

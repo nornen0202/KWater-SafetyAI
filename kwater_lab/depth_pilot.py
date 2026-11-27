@@ -62,7 +62,7 @@ def descriptor(field):
 
 
 class DepthEncoder:
-    def __init__(self, folder):
+    def __init__(self, folder, provider="CPUExecutionProvider"):
         if any(file_hash(folder / Path(k).name) != value for k, value in ASSETS.items()):
             raise ValueError("Unexpected ONNX model or processor checksum")
         config = read(folder / "preprocessor_config.json")
@@ -73,9 +73,13 @@ class DepthEncoder:
         opts.intra_op_num_threads = 2
         opts.inter_op_num_threads = 1
         opts.enable_cpu_mem_arena = False
-        self.net = ort.InferenceSession(str(folder / "model.onnx"), sess_options=opts, providers=["CPUExecutionProvider"])
+        if provider not in ort.get_available_providers():
+            raise RuntimeError(f"Unavailable depth execution provider: {provider}")
+        self.net = ort.InferenceSession(str(folder / "model.onnx"), sess_options=opts, providers=[provider])
+        if self.net.get_providers()[0] != provider:
+            raise RuntimeError("Depth inference fell back to another execution provider")
 
-    def encode(self, source):
+    def encode(self, source, *, depth_only=False):
         picture = ImageOps.exif_transpose(source).convert("RGB")
         size = (self.edge, self.edge)
         resized = ImageOps.contain(picture, size, method=Image.Resampling.BICUBIC)
@@ -88,17 +92,20 @@ class DepthEncoder:
         depth, = self.net.run(["predicted_depth"], {"pixel_values": tensor})
         if depth.shape != (1, self.edge, self.edge):
             raise ValueError(f"Unexpected depth map size {depth.shape}")
+        relative = descriptor(depth[0, top:top+h, left:left+w])
+        if depth_only:
+            return relative
         gray = np.asarray(resized.convert("L"), dtype=np.float32)
         return np.stack([descriptor(gray), descriptor(np.hypot(*np.gradient(gray))),
-                         descriptor(depth[0, top:top+h, left:left+w])])
+                         relative])
 
 
-def collect(keys, inventory, image_root, model):
+def collect(keys, inventory, image_root, model, cache_path=CACHE):
     signature = sha256(json.dumps(["518-full-p2p98-grid4-v1", ASSETS, [(k, inventory[k]["sha256"]) for k in keys]],
                                   sort_keys=True).encode()).hexdigest()
     vectors, durations = {}, {}
-    if CACHE.is_file():
-        with np.load(CACHE, allow_pickle=False) as c:
+    if cache_path.is_file():
+        with np.load(cache_path, allow_pickle=False) as c:
             if str(c["signature"]) != signature:
                 raise ValueError("Cached depth input or method differs")
             seen = c["ids"].tolist()
@@ -126,7 +133,7 @@ def collect(keys, inventory, image_root, model):
             durations[key] = perf_counter() - start
             if index % 10 == 0 or index == len(remaining):
                 saved = sorted(vectors)
-                save_atomic(CACHE, lambda f: np.savez_compressed(
+                save_atomic(cache_path, lambda f: np.savez_compressed(
                     f, signature=signature, ids=np.array(saved), vectors=np.stack([vectors[k] for k in saved]),
                     seconds=np.asarray([durations[k] for k in saved])))
                 print(f"Depth descriptors {len(saved)}/{len(keys)}", flush=True)
