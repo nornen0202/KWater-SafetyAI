@@ -72,6 +72,8 @@ flowchart LR
 
 코드별로 다음 실험의 우선순위를 좁힐 수 있다. 175장에서 두 번째 에폭에 같은 검증기를 붙이면 걸림·미끄러짐 적중은 27→29건, 추락은 15→16건, 기타 위험은 10→13건으로 늘었다. 끼임 3건과 인양·낙하 2건은 그대로였다. 보조 PC의 48장 원경·고정 타일·수동 관심영역 비교는 걸림·추락·낙하/인양에 각 16장씩 배정돼 있다. 여기서 낙하 단서를 읽을 수 있는지 우선 확인하고, 끼임은 별도 표본에서 평가한다. 같은 v3 예방문을 고정한 법령 재생에서는 주석 첫 조문 적중이 61/71→54/71이었고, 바뀐 8장·2현장의 단독 눈가림 검토에서는 조문이 조치를 직접 지지한 수가 0→3건이었다. 두 지표를 따로 집계하고 다음 24개 그룹에서 재검증한다. [코드별 집계](../results/fold4-v3-fixed-verifier-paired-code-evaluation.json) · [법령 2×2 대조](../results/fold4-law-policy-replay-20261127.json) · [8장 눈가림 원장](../results/fold4-law-support-blind-review-20261128.json)
 
+**비전 태스크 보조 모델(`SAM` · `YOLO` · `Depth Anything` · `Grounding DINO`) 편입 범위 확정.** 지금까지 수행된 7종 비전 실험 원장(`Grounding DINO Tiny` 64장 안전 명사 검출 0건, `SAM 3.1` 초기화 오류, `Ubuntu 4×4 MIL` `+2.26%p` 기준 미달, `Depth Anything V2 Small` 인양 오탐 `13→6건` 감소, `48장 ROI` 생성 `0건`)과 라이선스(`YOLOE` AGPL-3.0, `DAv2-Large`/`DAM` 비상업, `SAM 3` 3.5GB 커스텀 라이선스)를 전수 대조해 무분별한 외장 모델 추가는 배제하고, 잔여 미탐(`struck_by_lifting`, `caught_in_machine`, 원거리 `fall_height`)을 겨냥한 **3단계 게이트(`Gate V1`: 48장 ROI 144입력 Qwen 오라클 실측 및 무가중치 패치/자기그라운딩 Zoom-Crop → `Gate V2`: Apache 2.0 `DAv2/DA3-Small` 깊이-공간 전문가 결합 OOF 대조 → `Gate V3`: 조건부 `Florence-2`/`Grounding DINO Base` GPU 크롭)**만 보조 트랙으로 편입했다. [비전 태스크 모델 전수 감사 및 3단계 게이트 설계](vision-task-models-audit-and-roadmap-20261128.md)
+
 <a id="paired-models"></a>
 
 ### 4B 대 8B 학습과 27B 4비트 실물 검사
