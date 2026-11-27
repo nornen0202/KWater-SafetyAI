@@ -1,0 +1,126 @@
+{
+  "date_kst": "2026-11-27",
+  "competition_public": {
+    "as_of_kst": "2026-11-27T13:56:30+09:00",
+    "teams": 79,
+    "team_rank": 52,
+    "team_score": 42.04,
+    "rank20": 48.16,
+    "rank10": 51.19,
+    "rank1": 62.18,
+    "source": "https://hackathon.imaginationgroup.co.kr/kwater/api/leaderboard"
+  },
+  "scope": "Label-blind feature cache, kit-only position and token controls, and legal corpus retrieval. No new Public evaluation.",
+  "gpu": "NVIDIA GeForce RTX 3050 OEM 8192 MiB",
+  "spatial_cache": {
+    "scanned_images": 1045,
+    "encoder_sha256": "c260ed2ccf2837df7e8f6a1b2f56aab0df1fbb2e4c6848d23bf3b54b404ff7e8",
+    "after_interruption": {
+      "resumed_images": 880,
+      "new_images": 165
+    },
+    "second_full_scan": {
+      "resumed_images": 1045,
+      "new_images": 0
+    },
+    "grid": [
+      16,
+      2560
+    ],
+    "max_pixels": 262144,
+    "precision": "bf16",
+    "implementation": "93d5966"
+  },
+  "position_control": {
+    "photo_count": 10,
+    "tile_count": 160,
+    "heldout_photo_count": 4,
+    "heldout_correlated_tile_count": 64,
+    "chance_accuracy": 0.25,
+    "true_quadrant_heldout_accuracy": 0.53125,
+    "train_only_shuffled_quadrant_heldout_accuracy": 0.265625,
+    "accuracy_difference": 0.265625,
+    "comparison_gate": "ADVANTAGE",
+    "fit_conditions": {
+      "seed": 20261127,
+      "steps": 160,
+      "learning_rate": 0.03,
+      "weight_decay": 0.02,
+      "device": "cuda"
+    },
+    "train_photos": 6,
+    "unit": "held-out tiles from 4 photos"
+  },
+  "token_control": {
+    "candidate_count": 1,
+    "decision_token_ids": {
+      "accept": 10330,
+      "reject": 46996
+    },
+    "processor_max_pixels": 524288,
+    "processor_and_model_load_seconds": 6.938,
+    "elapsed_seconds": 2.958,
+    "peak_cuda_allocated_bytes": 3960312832,
+    "accept_logprob": -0.18007636070251465,
+    "reject_logprob": -1.8050763607025146,
+    "accept_minus_reject_logprob": 1.625,
+    "precision": "nf4",
+    "adapter_model_sha256": "24037dbe4b3a6e165e5023031e16fc2fb4a0b34a7d536a0fcd628bc0cf743093",
+    "adapter_scope": "official baseline, diagnostic only",
+    "implementation": "09b20b5"
+  },
+  "law_title_control": {
+    "cpu": {
+      "input_sha256": "1408b69db444cf90b31f9bebb4a773a30fa4362739e50b22c95f3bbe0e75bd9d",
+      "split_sha256": "fcc37ab7b600f1626952e002e3f459f416a9d99ca94bf88f14e05640acbfb134",
+      "train_articles": 425,
+      "heldout_articles": 121,
+      "candidate_articles": 546,
+      "seed": 20261127,
+      "methods": {
+        "frozen_tfidf": {
+          "top1_hits": 39,
+          "mrr": 0.4523554517890979
+        },
+        "true_pairs": {
+          "top1_hits": 9,
+          "mrr": 0.24935994320399107
+        },
+        "permuted_train_pairs": {
+          "top1_hits": 7,
+          "mrr": 0.1464670403406766
+        }
+      }
+    },
+    "cuda": {
+      "input_sha256": "1408b69db444cf90b31f9bebb4a773a30fa4362739e50b22c95f3bbe0e75bd9d",
+      "split_sha256": "fcc37ab7b600f1626952e002e3f459f416a9d99ca94bf88f14e05640acbfb134",
+      "train_articles": 425,
+      "heldout_articles": 121,
+      "candidate_articles": 546,
+      "seed": 20261127,
+      "methods": {
+        "frozen_tfidf": {
+          "top1_hits": 39,
+          "mrr": 0.4523554517890979
+        },
+        "true_pairs": {
+          "top1_hits": 9,
+          "mrr": 0.2503575330609787
+        },
+        "permuted_train_pairs": {
+          "top1_hits": 10,
+          "mrr": 0.17594295915264144
+        }
+      }
+    }
+  },
+  "private_inputs_pending": [
+    "canonical development manifest",
+    "sealed manifest required by existing tests",
+    "39 fixed generations",
+    "81 frozen candidates and original v2 adapter",
+    "Fold 4 three-arm outputs plus local mask",
+    "candidate submission ZIP"
+  ]
+}
