@@ -1,0 +1,33 @@
+{
+  "photos": 48,
+  "relations": {
+    "unclear": 36,
+    "supported": 11,
+    "contradicted": 1
+  },
+  "boxes": {
+    "object": 41,
+    "counterpart": 23,
+    "barrier": 5
+  },
+  "fallback_photos": 4,
+  "clipped_union_photos": 24,
+  "byte_identical_pairs": 5,
+  "input_images": 144,
+  "canvas": [
+    1024,
+    384
+  ],
+  "model": "Qwen3-VL-4B + fold0 v2 118",
+  "adapter_path": "data/vlm-11code-fold0-v2/adapter",
+  "adapter_sha256": "327c3bb13a5ba3c7e304db44972c2ff6660610f567a13c6e2e7a631dc6945c40",
+  "prompt_sha256": "107142013bc95376c9044fc5025079f1e68dd56b4d95b20b1550deeafe4712fb",
+  "blind_read_sha256": "1a5d71d4eea12ed46f32630f98b6e9d1cb8d39ccfbe4842f419ce4110486b760",
+  "input_index_sha256": "12ad538c1fcc0044e96585e8f96138a5e1ed56e8384531b8a1e14cc027f461d4",
+  "qwen_generations": 0,
+  "verified_matching_contexts": 48,
+  "verified_image_hashes": 144,
+  "verified_matching_contexts_all_three": 48,
+  "full_roi_complete_coverage_photos": 48,
+  "full_geometry_sha256": "66d3cd3866c9a7dbd69d67b0dd28f45497a143c5cb7746e11f54e643a0e0b76c"
+}
