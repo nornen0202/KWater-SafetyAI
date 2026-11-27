@@ -1,0 +1,61 @@
+{
+  "mode": "official stock inference and formatter, batch-resumable native host wrapper",
+  "gpu": {
+    "name": "NVIDIA GeForce RTX 3060",
+    "compute_capability": [
+      8,
+      6
+    ],
+    "memory_bytes": 12884377600,
+    "torch_cuda_version": "12.4"
+  },
+  "competition_container_tested": false,
+  "native_versions": {
+    "torch": "2.5.1",
+    "torchvision": "0.20.1",
+    "transformers": "4.57.1",
+    "peft": "0.17.1",
+    "accelerate": "1.10.1",
+    "huggingface-hub": "0.36.0",
+    "tokenizers": "0.22.1",
+    "numpy": "1.26.4",
+    "Pillow": "11.3.0",
+    "safetensors": "0.8.0",
+    "jsonschema": "4.23.0"
+  },
+  "kw_batch": 1,
+  "generation_settings": {
+    "precision": "BF16",
+    "max_pixels": 393216,
+    "max_new_tokens": 900,
+    "batch_size": 1,
+    "organizer_default_batch_size": 16
+  },
+  "input_count": 216,
+  "official_model_schema_valid_count": 216,
+  "official_checker_valid_rows": 216,
+  "current_invocation_seconds": 2958.16,
+  "current_invocation_provenance_seconds": 263.07,
+  "current_invocation_model_load_seconds": 309.81,
+  "current_invocation_generation_seconds": 2325.19,
+  "current_invocation_generated_photos": 216,
+  "source_manifest_sha256": "bfb2449ca30eb0864798c5aec6be39970dcf09748e67560a4b56256382fd98b3",
+  "main_sha256": "6dff3c44b5b0331a1085ddb69545d153510c13e670c4e163442f57d3dd1ae9c6",
+  "n_rows": 216,
+  "n_hazard": 130,
+  "n_no_visible_hazard": 86,
+  "predicted_code_counts": {
+    "fall_height": 35,
+    "fire_explosion": 7,
+    "chemical_exposure": 2,
+    "slip_trip": 56,
+    "other": 13,
+    "electrical_energy": 7,
+    "caught_in_machine": 8,
+    "struck_by_lifting": 4
+  },
+  "reference_count": 130,
+  "law_reference_count": 130,
+  "law_reference_ids_resolved_in_official_corpus": 130,
+  "output_sha256": "dadf8ecedbe47c85e69a7cdd3b3987a1bab68083ab7e5fbb6484ede624a93691"
+}

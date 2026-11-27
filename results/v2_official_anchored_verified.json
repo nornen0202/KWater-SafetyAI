@@ -1,0 +1,1051 @@
+{
+  "phase": "actual BF16 verification of the frozen official-anchored proposals",
+  "official_checker_valid_rows": 216,
+  "output_sha256": "c53dfb6c55a62404c62b5869b8da2a1a75982b2847f70be91cb61c09f3c3f1f5",
+  "proposal_file_sha256": "51aec0f574241210b95d480fd06fc64a61a0ae1debcaff4623b195e0f8084977",
+  "accepted_proposals": 77,
+  "existing_official_hazard_records_preserved": 132,
+  "official_rows_unchanged": 139,
+  "official_negative_scenes_converted": 24,
+  "exact_ft_cache_reuses": 65,
+  "new_model_generations": 37,
+  "new_generation_seconds_including_load": 809.042,
+  "current_invocation_seconds": 942.939,
+  "cache_reused_candidates": 0,
+  "generation_and_model_load_seconds": 809.089,
+  "metrics": {
+    "full_fold0": {
+      "photos": 216,
+      "groups": 36,
+      "proposals": 102,
+      "proposal_codes": {
+        "fall_height": 28,
+        "other": 14,
+        "slip_trip": 45,
+        "chemical_exposure": 1,
+        "struck_by_lifting": 6,
+        "caught_in_machine": 4,
+        "electrical_energy": 4
+      },
+      "proposals_on_safe_photos": 20,
+      "proposed_annotated_codes": 31,
+      "proposed_unannotated_codes": 71,
+      "official": {
+        "photos": 216,
+        "active_codes": 9,
+        "macro_f1": 0.6030762167125804,
+        "quantitative_points_out_of_70": 42.215335169880625,
+        "exact_set_matches": 141,
+        "no_hazard_photos": 65,
+        "no_hazard_false_alarms": 6,
+        "no_hazard_false_alarm_rate": 0.09230769230769231,
+        "hazard_photos": 151,
+        "hazard_completely_missed": 27,
+        "hazard_predicted_empty_rate": 0.17880794701986755,
+        "per_code": {
+          "fall_height": {
+            "support": 43,
+            "predicted": 35,
+            "tp": 26,
+            "fp": 9,
+            "fn": 17,
+            "f1": 0.6666666666666666,
+            "support_groups": 2
+          },
+          "slip_trip": {
+            "support": 65,
+            "predicted": 56,
+            "tp": 41,
+            "fp": 15,
+            "fn": 24,
+            "f1": 0.6776859504132231,
+            "support_groups": 9
+          },
+          "caught_in_machine": {
+            "support": 13,
+            "predicted": 8,
+            "tp": 7,
+            "fp": 1,
+            "fn": 6,
+            "f1": 0.6666666666666666,
+            "support_groups": 1
+          },
+          "struck_by_lifting": {
+            "support": 12,
+            "predicted": 4,
+            "tp": 2,
+            "fp": 2,
+            "fn": 10,
+            "f1": 0.25,
+            "support_groups": 1
+          },
+          "electrical_energy": {
+            "support": 8,
+            "predicted": 7,
+            "tp": 7,
+            "fp": 0,
+            "fn": 1,
+            "f1": 0.9333333333333333,
+            "support_groups": 7
+          },
+          "drowning_inundation": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "fire_explosion": {
+            "support": 8,
+            "predicted": 7,
+            "tp": 7,
+            "fp": 0,
+            "fn": 1,
+            "f1": 0.9333333333333333,
+            "support_groups": 8
+          },
+          "confined_space": {
+            "support": 1,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 1,
+            "f1": 0.0,
+            "support_groups": 1
+          },
+          "chemical_exposure": {
+            "support": 3,
+            "predicted": 2,
+            "tp": 2,
+            "fp": 0,
+            "fn": 1,
+            "f1": 0.8,
+            "support_groups": 3
+          },
+          "thermal_weather": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "other": {
+            "support": 27,
+            "predicted": 13,
+            "tp": 10,
+            "fp": 3,
+            "fn": 17,
+            "f1": 0.5,
+            "support_groups": 15
+          }
+        },
+        "fixed_8_common_macro_f1": 0.6784607438016529,
+        "prediction_only_active_codes": [],
+        "severity4": {
+          "photos": 49,
+          "groups": 15,
+          "complete_misses": 20
+        }
+      },
+      "unguarded_all_proposed_codes_added": {
+        "photos": 216,
+        "active_codes": 9,
+        "macro_f1": 0.5827212354959623,
+        "quantitative_points_out_of_70": 40.79048648471736,
+        "exact_set_matches": 111,
+        "no_hazard_photos": 65,
+        "no_hazard_false_alarms": 25,
+        "no_hazard_false_alarm_rate": 0.38461538461538464,
+        "hazard_photos": 151,
+        "hazard_completely_missed": 7,
+        "hazard_predicted_empty_rate": 0.046357615894039736,
+        "per_code": {
+          "fall_height": {
+            "support": 43,
+            "predicted": 63,
+            "tp": 33,
+            "fp": 30,
+            "fn": 10,
+            "f1": 0.6226415094339622,
+            "support_groups": 2
+          },
+          "slip_trip": {
+            "support": 65,
+            "predicted": 101,
+            "tp": 55,
+            "fp": 46,
+            "fn": 10,
+            "f1": 0.6626506024096386,
+            "support_groups": 9
+          },
+          "caught_in_machine": {
+            "support": 13,
+            "predicted": 12,
+            "tp": 9,
+            "fp": 3,
+            "fn": 4,
+            "f1": 0.72,
+            "support_groups": 1
+          },
+          "struck_by_lifting": {
+            "support": 12,
+            "predicted": 10,
+            "tp": 3,
+            "fp": 7,
+            "fn": 9,
+            "f1": 0.2727272727272727,
+            "support_groups": 1
+          },
+          "electrical_energy": {
+            "support": 8,
+            "predicted": 11,
+            "tp": 7,
+            "fp": 4,
+            "fn": 1,
+            "f1": 0.7368421052631579,
+            "support_groups": 7
+          },
+          "drowning_inundation": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "fire_explosion": {
+            "support": 8,
+            "predicted": 7,
+            "tp": 7,
+            "fp": 0,
+            "fn": 1,
+            "f1": 0.9333333333333333,
+            "support_groups": 8
+          },
+          "confined_space": {
+            "support": 1,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 1,
+            "f1": 0.0,
+            "support_groups": 1
+          },
+          "chemical_exposure": {
+            "support": 3,
+            "predicted": 3,
+            "tp": 2,
+            "fp": 1,
+            "fn": 1,
+            "f1": 0.6666666666666666,
+            "support_groups": 3
+          },
+          "thermal_weather": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "other": {
+            "support": 27,
+            "predicted": 27,
+            "tp": 17,
+            "fp": 10,
+            "fn": 10,
+            "f1": 0.6296296296296297,
+            "support_groups": 15
+          }
+        },
+        "fixed_8_common_macro_f1": 0.6555613899329576,
+        "prediction_only_active_codes": [],
+        "severity4": {
+          "photos": 49,
+          "groups": 15,
+          "complete_misses": 11
+        }
+      },
+      "label_oracle_upper_bound": {
+        "photos": 216,
+        "active_codes": 9,
+        "macro_f1": 0.679656244128743,
+        "quantitative_points_out_of_70": 47.575937089012015,
+        "exact_set_matches": 161,
+        "no_hazard_photos": 65,
+        "no_hazard_false_alarms": 6,
+        "no_hazard_false_alarm_rate": 0.09230769230769231,
+        "hazard_photos": 151,
+        "hazard_completely_missed": 15,
+        "hazard_predicted_empty_rate": 0.09933774834437085,
+        "per_code": {
+          "fall_height": {
+            "support": 43,
+            "predicted": 42,
+            "tp": 33,
+            "fp": 9,
+            "fn": 10,
+            "f1": 0.7764705882352941,
+            "support_groups": 2
+          },
+          "slip_trip": {
+            "support": 65,
+            "predicted": 70,
+            "tp": 55,
+            "fp": 15,
+            "fn": 10,
+            "f1": 0.8148148148148148,
+            "support_groups": 9
+          },
+          "caught_in_machine": {
+            "support": 13,
+            "predicted": 10,
+            "tp": 9,
+            "fp": 1,
+            "fn": 4,
+            "f1": 0.782608695652174,
+            "support_groups": 1
+          },
+          "struck_by_lifting": {
+            "support": 12,
+            "predicted": 5,
+            "tp": 3,
+            "fp": 2,
+            "fn": 9,
+            "f1": 0.35294117647058826,
+            "support_groups": 1
+          },
+          "electrical_energy": {
+            "support": 8,
+            "predicted": 7,
+            "tp": 7,
+            "fp": 0,
+            "fn": 1,
+            "f1": 0.9333333333333333,
+            "support_groups": 7
+          },
+          "drowning_inundation": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "fire_explosion": {
+            "support": 8,
+            "predicted": 7,
+            "tp": 7,
+            "fp": 0,
+            "fn": 1,
+            "f1": 0.9333333333333333,
+            "support_groups": 8
+          },
+          "confined_space": {
+            "support": 1,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 1,
+            "f1": 0.0,
+            "support_groups": 1
+          },
+          "chemical_exposure": {
+            "support": 3,
+            "predicted": 2,
+            "tp": 2,
+            "fp": 0,
+            "fn": 1,
+            "f1": 0.8,
+            "support_groups": 3
+          },
+          "thermal_weather": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "other": {
+            "support": 27,
+            "predicted": 20,
+            "tp": 17,
+            "fp": 3,
+            "fn": 10,
+            "f1": 0.723404255319149,
+            "support_groups": 15
+          }
+        },
+        "fixed_8_common_macro_f1": 0.7646132746448359,
+        "prediction_only_active_codes": [],
+        "severity4": {
+          "photos": 49,
+          "groups": 15,
+          "complete_misses": 11
+        }
+      },
+      "verified": {
+        "photos": 216,
+        "active_codes": 9,
+        "macro_f1": 0.6052750814548483,
+        "quantitative_points_out_of_70": 42.369255701839386,
+        "exact_set_matches": 124,
+        "no_hazard_photos": 65,
+        "no_hazard_false_alarms": 17,
+        "no_hazard_false_alarm_rate": 0.26153846153846155,
+        "hazard_photos": 151,
+        "hazard_completely_missed": 14,
+        "hazard_predicted_empty_rate": 0.09271523178807947,
+        "per_code": {
+          "fall_height": {
+            "support": 43,
+            "predicted": 56,
+            "tp": 33,
+            "fp": 23,
+            "fn": 10,
+            "f1": 0.6666666666666666,
+            "support_groups": 2
+          },
+          "slip_trip": {
+            "support": 65,
+            "predicted": 94,
+            "tp": 54,
+            "fp": 40,
+            "fn": 11,
+            "f1": 0.6792452830188679,
+            "support_groups": 9
+          },
+          "caught_in_machine": {
+            "support": 13,
+            "predicted": 11,
+            "tp": 9,
+            "fp": 2,
+            "fn": 4,
+            "f1": 0.75,
+            "support_groups": 1
+          },
+          "struck_by_lifting": {
+            "support": 12,
+            "predicted": 7,
+            "tp": 3,
+            "fp": 4,
+            "fn": 9,
+            "f1": 0.3157894736842105,
+            "support_groups": 1
+          },
+          "electrical_energy": {
+            "support": 8,
+            "predicted": 9,
+            "tp": 7,
+            "fp": 2,
+            "fn": 1,
+            "f1": 0.8235294117647058,
+            "support_groups": 7
+          },
+          "drowning_inundation": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "fire_explosion": {
+            "support": 8,
+            "predicted": 7,
+            "tp": 7,
+            "fp": 0,
+            "fn": 1,
+            "f1": 0.9333333333333333,
+            "support_groups": 8
+          },
+          "confined_space": {
+            "support": 1,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 1,
+            "f1": 0.0,
+            "support_groups": 1
+          },
+          "chemical_exposure": {
+            "support": 3,
+            "predicted": 3,
+            "tp": 2,
+            "fp": 1,
+            "fn": 1,
+            "f1": 0.6666666666666666,
+            "support_groups": 3
+          },
+          "thermal_weather": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "other": {
+            "support": 27,
+            "predicted": 22,
+            "tp": 15,
+            "fp": 7,
+            "fn": 12,
+            "f1": 0.6122448979591837,
+            "support_groups": 15
+          }
+        },
+        "fixed_8_common_macro_f1": 0.6809344666367043,
+        "prediction_only_active_codes": [],
+        "severity4": {
+          "photos": 49,
+          "groups": 15,
+          "complete_misses": 12
+        }
+      },
+      "verified_delta": {
+        "new_true_positive_codes": 28,
+        "new_false_positive_codes": 49,
+        "new_false_alarm_photos": 11
+      },
+      "verified_vs_official": {
+        "groups": 36,
+        "seed": 42,
+        "resamples": 2000,
+        "defined_resamples": 2000,
+        "undefined_resamples": 0,
+        "macro_f1_delta_b_minus_a": 0.0021988647422679364,
+        "percentile_95_ci": [
+          -0.07122572889213763,
+          0.04672380150254862
+        ]
+      }
+    },
+    "confirmed_group_exclusion": {
+      "photos": 34,
+      "groups": 34,
+      "proposals": 18,
+      "proposal_codes": {
+        "fall_height": 5,
+        "other": 5,
+        "slip_trip": 7,
+        "chemical_exposure": 1
+      },
+      "proposals_on_safe_photos": 2,
+      "proposed_annotated_codes": 5,
+      "proposed_unannotated_codes": 13,
+      "official": {
+        "photos": 34,
+        "active_codes": 6,
+        "macro_f1": 0.646493783993784,
+        "quantitative_points_out_of_70": 45.25456487956488,
+        "exact_set_matches": 19,
+        "no_hazard_photos": 6,
+        "no_hazard_false_alarms": 1,
+        "no_hazard_false_alarm_rate": 0.16666666666666666,
+        "hazard_photos": 28,
+        "hazard_completely_missed": 2,
+        "hazard_predicted_empty_rate": 0.07142857142857142,
+        "per_code": {
+          "fall_height": {
+            "support": 1,
+            "predicted": 5,
+            "tp": 1,
+            "fp": 4,
+            "fn": 0,
+            "f1": 0.3333333333333333,
+            "support_groups": 1
+          },
+          "slip_trip": {
+            "support": 7,
+            "predicted": 6,
+            "tp": 3,
+            "fp": 3,
+            "fn": 4,
+            "f1": 0.46153846153846156,
+            "support_groups": 7
+          },
+          "caught_in_machine": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "struck_by_lifting": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "electrical_energy": {
+            "support": 6,
+            "predicted": 5,
+            "tp": 5,
+            "fp": 0,
+            "fn": 1,
+            "f1": 0.9090909090909091,
+            "support_groups": 6
+          },
+          "drowning_inundation": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "fire_explosion": {
+            "support": 7,
+            "predicted": 7,
+            "tp": 7,
+            "fp": 0,
+            "fn": 0,
+            "f1": 1.0,
+            "support_groups": 7
+          },
+          "confined_space": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "chemical_exposure": {
+            "support": 3,
+            "predicted": 2,
+            "tp": 2,
+            "fp": 0,
+            "fn": 1,
+            "f1": 0.8,
+            "support_groups": 3
+          },
+          "thermal_weather": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "other": {
+            "support": 13,
+            "predicted": 3,
+            "tp": 3,
+            "fp": 0,
+            "fn": 10,
+            "f1": 0.375,
+            "support_groups": 13
+          }
+        },
+        "fixed_8_common_macro_f1": 0.484870337995338,
+        "prediction_only_active_codes": [],
+        "severity4": {
+          "photos": 13,
+          "groups": 13,
+          "complete_misses": 5
+        }
+      },
+      "unguarded_all_proposed_codes_added": {
+        "photos": 34,
+        "active_codes": 6,
+        "macro_f1": 0.6373737373737374,
+        "quantitative_points_out_of_70": 44.61616161616162,
+        "exact_set_matches": 14,
+        "no_hazard_photos": 6,
+        "no_hazard_false_alarms": 3,
+        "no_hazard_false_alarm_rate": 0.5,
+        "hazard_photos": 28,
+        "hazard_completely_missed": 0,
+        "hazard_predicted_empty_rate": 0.0,
+        "per_code": {
+          "fall_height": {
+            "support": 1,
+            "predicted": 10,
+            "tp": 1,
+            "fp": 9,
+            "fn": 0,
+            "f1": 0.18181818181818182,
+            "support_groups": 1
+          },
+          "slip_trip": {
+            "support": 7,
+            "predicted": 13,
+            "tp": 4,
+            "fp": 9,
+            "fn": 3,
+            "f1": 0.4,
+            "support_groups": 7
+          },
+          "caught_in_machine": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "struck_by_lifting": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "electrical_energy": {
+            "support": 6,
+            "predicted": 5,
+            "tp": 5,
+            "fp": 0,
+            "fn": 1,
+            "f1": 0.9090909090909091,
+            "support_groups": 6
+          },
+          "drowning_inundation": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "fire_explosion": {
+            "support": 7,
+            "predicted": 7,
+            "tp": 7,
+            "fp": 0,
+            "fn": 0,
+            "f1": 1.0,
+            "support_groups": 7
+          },
+          "confined_space": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "chemical_exposure": {
+            "support": 3,
+            "predicted": 3,
+            "tp": 2,
+            "fp": 1,
+            "fn": 1,
+            "f1": 0.6666666666666666,
+            "support_groups": 3
+          },
+          "thermal_weather": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "other": {
+            "support": 13,
+            "predicted": 8,
+            "tp": 7,
+            "fp": 1,
+            "fn": 6,
+            "f1": 0.6666666666666666,
+            "support_groups": 13
+          }
+        },
+        "fixed_8_common_macro_f1": 0.478030303030303,
+        "prediction_only_active_codes": [],
+        "severity4": {
+          "photos": 13,
+          "groups": 13,
+          "complete_misses": 2
+        }
+      },
+      "label_oracle_upper_bound": {
+        "photos": 34,
+        "active_codes": 6,
+        "macro_f1": 0.7189754689754689,
+        "quantitative_points_out_of_70": 50.32828282828282,
+        "exact_set_matches": 21,
+        "no_hazard_photos": 6,
+        "no_hazard_false_alarms": 1,
+        "no_hazard_false_alarm_rate": 0.16666666666666666,
+        "hazard_photos": 28,
+        "hazard_completely_missed": 1,
+        "hazard_predicted_empty_rate": 0.03571428571428571,
+        "per_code": {
+          "fall_height": {
+            "support": 1,
+            "predicted": 5,
+            "tp": 1,
+            "fp": 4,
+            "fn": 0,
+            "f1": 0.3333333333333333,
+            "support_groups": 1
+          },
+          "slip_trip": {
+            "support": 7,
+            "predicted": 7,
+            "tp": 4,
+            "fp": 3,
+            "fn": 3,
+            "f1": 0.5714285714285714,
+            "support_groups": 7
+          },
+          "caught_in_machine": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "struck_by_lifting": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "electrical_energy": {
+            "support": 6,
+            "predicted": 5,
+            "tp": 5,
+            "fp": 0,
+            "fn": 1,
+            "f1": 0.9090909090909091,
+            "support_groups": 6
+          },
+          "drowning_inundation": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "fire_explosion": {
+            "support": 7,
+            "predicted": 7,
+            "tp": 7,
+            "fp": 0,
+            "fn": 0,
+            "f1": 1.0,
+            "support_groups": 7
+          },
+          "confined_space": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "chemical_exposure": {
+            "support": 3,
+            "predicted": 2,
+            "tp": 2,
+            "fp": 0,
+            "fn": 1,
+            "f1": 0.8,
+            "support_groups": 3
+          },
+          "thermal_weather": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "other": {
+            "support": 13,
+            "predicted": 7,
+            "tp": 7,
+            "fp": 0,
+            "fn": 6,
+            "f1": 0.7,
+            "support_groups": 13
+          }
+        },
+        "fixed_8_common_macro_f1": 0.5392316017316017,
+        "prediction_only_active_codes": [],
+        "severity4": {
+          "photos": 13,
+          "groups": 13,
+          "complete_misses": 2
+        }
+      },
+      "verified": {
+        "photos": 34,
+        "active_codes": 6,
+        "macro_f1": 0.6205209994683679,
+        "quantitative_points_out_of_70": 43.43646996278576,
+        "exact_set_matches": 13,
+        "no_hazard_photos": 6,
+        "no_hazard_false_alarms": 2,
+        "no_hazard_false_alarm_rate": 0.3333333333333333,
+        "hazard_photos": 28,
+        "hazard_completely_missed": 1,
+        "hazard_predicted_empty_rate": 0.03571428571428571,
+        "per_code": {
+          "fall_height": {
+            "support": 1,
+            "predicted": 9,
+            "tp": 1,
+            "fp": 8,
+            "fn": 0,
+            "f1": 0.2,
+            "support_groups": 1
+          },
+          "slip_trip": {
+            "support": 7,
+            "predicted": 12,
+            "tp": 4,
+            "fp": 8,
+            "fn": 3,
+            "f1": 0.42105263157894735,
+            "support_groups": 7
+          },
+          "caught_in_machine": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "struck_by_lifting": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "electrical_energy": {
+            "support": 6,
+            "predicted": 5,
+            "tp": 5,
+            "fp": 0,
+            "fn": 1,
+            "f1": 0.9090909090909091,
+            "support_groups": 6
+          },
+          "drowning_inundation": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "fire_explosion": {
+            "support": 7,
+            "predicted": 7,
+            "tp": 7,
+            "fp": 0,
+            "fn": 0,
+            "f1": 1.0,
+            "support_groups": 7
+          },
+          "confined_space": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "chemical_exposure": {
+            "support": 3,
+            "predicted": 3,
+            "tp": 2,
+            "fp": 1,
+            "fn": 1,
+            "f1": 0.6666666666666666,
+            "support_groups": 3
+          },
+          "thermal_weather": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "other": {
+            "support": 13,
+            "predicted": 6,
+            "tp": 5,
+            "fp": 1,
+            "fn": 8,
+            "f1": 0.5263157894736842,
+            "support_groups": 13
+          }
+        },
+        "fixed_8_common_macro_f1": 0.4653907496012759,
+        "prediction_only_active_codes": [],
+        "severity4": {
+          "photos": 13,
+          "groups": 13,
+          "complete_misses": 3
+        }
+      },
+      "verified_delta": {
+        "new_true_positive_codes": 3,
+        "new_false_positive_codes": 11,
+        "new_false_alarm_photos": 1
+      },
+      "verified_vs_official": {
+        "groups": 34,
+        "seed": 42,
+        "resamples": 2000,
+        "defined_resamples": 2000,
+        "undefined_resamples": 0,
+        "macro_f1_delta_b_minus_a": -0.02597278452541607,
+        "percentile_95_ci": [
+          -0.11589090307840309,
+          0.05768037518037512
+        ]
+      }
+    }
+  }
+}

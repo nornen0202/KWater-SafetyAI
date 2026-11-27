@@ -1,0 +1,84 @@
+{
+  "scope": "AI visual assessment of 12 frozen development groups after exact 216-row production coverage; no gold or model key until blinded judgements locked",
+  "reviewer": "one AI reviewer",
+  "panel_photos": 12,
+  "eligible_panel_photos": 36,
+  "freeze_sha256": "30060bbffecf63aba8c41ddc408486edc0165b26466e8b317386f3b4e3129ac4",
+  "locked_judgements_sha256": "828a6649e84d4ae246f3c9a017c82a2f87cd6ebf2e021f6138b3e3f935c563a9",
+  "source_and_prediction_sha256": {
+    "frozen_selection_sha256": "30060bbffecf63aba8c41ddc408486edc0165b26466e8b317386f3b4e3129ac4",
+    "laws_sha256": "1408b69db444cf90b31f9bebb4a773a30fa4362739e50b22c95f3bbe0e75bd9d",
+    "official_output_sha256": "dadf8ecedbe47c85e69a7cdd3b3987a1bab68083ab7e5fbb6484ede624a93691",
+    "candidate_output_sha256": "6d91d29ec5767a0f80c5c0fefd615befe891cb7afe8a686477efa37a731ae9b2",
+    "photos": 12
+  },
+  "scene_observations": {
+    "hazard": 8,
+    "uncertain": 2,
+    "normal": 2
+  },
+  "both_empty_scene_assessments": {
+    "normal_tie": 2,
+    "unresolved_both_empty": 1,
+    "preferred_scene_text_candidate": 1
+  },
+  "standalone_arm_counts": {
+    "official": {
+      "emitted_hazards": 8,
+      "photo_has_miss": 2,
+      "visible_hazards_missed": 2,
+      "unsupported_facts": 6,
+      "visibility_supported": 7,
+      "action_actionable": 4,
+      "harmful_action": 0,
+      "law_references": 7,
+      "law_direct": 5,
+      "contradicted_facts": 1,
+      "photo_has_unsupported_or_contradicted_fact": 5,
+      "action_partial": 4,
+      "emitted_hazards_no_reference": 1,
+      "visibility_uncertain": 1,
+      "law_partial-topic": 2,
+      "hazard_photo_empty": 1
+    },
+    "candidate": {
+      "emitted_hazards": 10,
+      "photo_has_miss": 1,
+      "visible_hazards_missed": 1,
+      "unsupported_facts": 6,
+      "visibility_supported": 8,
+      "action_actionable": 3,
+      "harmful_action": 2,
+      "law_references": 10,
+      "law_partial-topic": 7,
+      "contradicted_facts": 2,
+      "photo_has_unsupported_or_contradicted_fact": 7,
+      "action_irrelevant": 1,
+      "visibility_uncertain": 1,
+      "action_partial": 6,
+      "visibility_false": 1,
+      "law_unrelated": 2,
+      "law_direct": 1
+    }
+  },
+  "same_visible_hazard_preference": {
+    "evidence": {
+      "official": 4,
+      "candidate": 3
+    },
+    "action": {
+      "official": 5,
+      "candidate": 2
+    },
+    "citation": {
+      "official": 5,
+      "candidate": 2
+    }
+  },
+  "visible_omission_pair_counts": {
+    "equal_scene_visible_misses": 11,
+    "fewer_missed_candidate": 1
+  },
+  "human_review_completed": false,
+  "official_qualitative_score": null
+}

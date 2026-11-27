@@ -1,0 +1,264 @@
+{
+  "protocol": "Fold 0, exact image coverage. Official production LoRA used official training data and is an exposed reference.",
+  "photos": 216,
+  "previous_local_exposure_photos": 5,
+  "official_production_lora": {
+    "photos": 216,
+    "active_codes": 9,
+    "macro_f1": 0.6030762167125804,
+    "quantitative_points_out_of_70": 42.215335169880625,
+    "exact_set_matches": 141,
+    "no_hazard_photos": 65,
+    "no_hazard_false_alarms": 6,
+    "no_hazard_false_alarm_rate": 0.09230769230769231,
+    "hazard_photos": 151,
+    "hazard_completely_missed": 27,
+    "hazard_predicted_empty_rate": 0.17880794701986755,
+    "per_code": {
+      "fall_height": {
+        "support": 43,
+        "predicted": 35,
+        "tp": 26,
+        "fp": 9,
+        "fn": 17,
+        "f1": 0.6666666666666666,
+        "support_groups": 2
+      },
+      "slip_trip": {
+        "support": 65,
+        "predicted": 56,
+        "tp": 41,
+        "fp": 15,
+        "fn": 24,
+        "f1": 0.6776859504132231,
+        "support_groups": 9
+      },
+      "caught_in_machine": {
+        "support": 13,
+        "predicted": 8,
+        "tp": 7,
+        "fp": 1,
+        "fn": 6,
+        "f1": 0.6666666666666666,
+        "support_groups": 1
+      },
+      "struck_by_lifting": {
+        "support": 12,
+        "predicted": 4,
+        "tp": 2,
+        "fp": 2,
+        "fn": 10,
+        "f1": 0.25,
+        "support_groups": 1
+      },
+      "electrical_energy": {
+        "support": 8,
+        "predicted": 7,
+        "tp": 7,
+        "fp": 0,
+        "fn": 1,
+        "f1": 0.9333333333333333,
+        "support_groups": 7
+      },
+      "drowning_inundation": {
+        "support": 0,
+        "predicted": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "f1": null,
+        "support_groups": 0
+      },
+      "fire_explosion": {
+        "support": 8,
+        "predicted": 7,
+        "tp": 7,
+        "fp": 0,
+        "fn": 1,
+        "f1": 0.9333333333333333,
+        "support_groups": 8
+      },
+      "confined_space": {
+        "support": 1,
+        "predicted": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1,
+        "f1": 0.0,
+        "support_groups": 1
+      },
+      "chemical_exposure": {
+        "support": 3,
+        "predicted": 2,
+        "tp": 2,
+        "fp": 0,
+        "fn": 1,
+        "f1": 0.8,
+        "support_groups": 3
+      },
+      "thermal_weather": {
+        "support": 0,
+        "predicted": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "f1": null,
+        "support_groups": 0
+      },
+      "other": {
+        "support": 27,
+        "predicted": 13,
+        "tp": 10,
+        "fp": 3,
+        "fn": 17,
+        "f1": 0.5,
+        "support_groups": 15
+      }
+    }
+  },
+  "candidate": {
+    "photos": 216,
+    "active_codes": 9,
+    "macro_f1": 0.4955729385224,
+    "quantitative_points_out_of_70": 34.690105696568,
+    "exact_set_matches": 102,
+    "no_hazard_photos": 65,
+    "no_hazard_false_alarms": 11,
+    "no_hazard_false_alarm_rate": 0.16923076923076924,
+    "hazard_photos": 151,
+    "hazard_completely_missed": 35,
+    "hazard_predicted_empty_rate": 0.23178807947019867,
+    "per_code": {
+      "fall_height": {
+        "support": 43,
+        "predicted": 57,
+        "tp": 30,
+        "fp": 27,
+        "fn": 13,
+        "f1": 0.6,
+        "support_groups": 2
+      },
+      "slip_trip": {
+        "support": 65,
+        "predicted": 77,
+        "tp": 40,
+        "fp": 37,
+        "fn": 25,
+        "f1": 0.5633802816901409,
+        "support_groups": 9
+      },
+      "caught_in_machine": {
+        "support": 13,
+        "predicted": 12,
+        "tp": 9,
+        "fp": 3,
+        "fn": 4,
+        "f1": 0.72,
+        "support_groups": 1
+      },
+      "struck_by_lifting": {
+        "support": 12,
+        "predicted": 10,
+        "tp": 2,
+        "fp": 8,
+        "fn": 10,
+        "f1": 0.18181818181818182,
+        "support_groups": 1
+      },
+      "electrical_energy": {
+        "support": 8,
+        "predicted": 9,
+        "tp": 7,
+        "fp": 2,
+        "fn": 1,
+        "f1": 0.8235294117647058,
+        "support_groups": 7
+      },
+      "drowning_inundation": {
+        "support": 0,
+        "predicted": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "f1": null,
+        "support_groups": 0
+      },
+      "fire_explosion": {
+        "support": 8,
+        "predicted": 9,
+        "tp": 7,
+        "fp": 2,
+        "fn": 1,
+        "f1": 0.8235294117647058,
+        "support_groups": 8
+      },
+      "confined_space": {
+        "support": 1,
+        "predicted": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 1,
+        "f1": 0.0,
+        "support_groups": 1
+      },
+      "chemical_exposure": {
+        "support": 3,
+        "predicted": 4,
+        "tp": 2,
+        "fp": 2,
+        "fn": 1,
+        "f1": 0.5714285714285714,
+        "support_groups": 3
+      },
+      "thermal_weather": {
+        "support": 0,
+        "predicted": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "f1": null,
+        "support_groups": 0
+      },
+      "other": {
+        "support": 27,
+        "predicted": 7,
+        "tp": 3,
+        "fp": 4,
+        "fn": 24,
+        "f1": 0.17647058823529413,
+        "support_groups": 15
+      }
+    }
+  },
+  "candidate_vs_official_production_lora": {
+    "groups": 36,
+    "seed": 42,
+    "resamples": 2000,
+    "defined_resamples": 2000,
+    "undefined_resamples": 0,
+    "macro_f1_delta_b_minus_a": -0.1075032781901804,
+    "percentile_95_ci": [
+      -0.22674693807869117,
+      -0.03627940115440116
+    ]
+  },
+  "generation_conditions": {
+    "comparison": "Production-system comparison. Model, prompt, image budget, token cap, and any batching or precision differences are not controlled ablations.",
+    "official_output_sha256": "dadf8ecedbe47c85e69a7cdd3b3987a1bab68083ab7e5fbb6484ede624a93691",
+    "candidate_output_sha256": "6d91d29ec5767a0f80c5c0fefd615befe891cb7afe8a686477efa37a731ae9b2",
+    "official": {
+      "precision": "BF16",
+      "max_pixels": 393216,
+      "max_new_tokens": 900,
+      "batch_size": 1,
+      "organizer_default_batch_size": 16
+    },
+    "candidate": {
+      "precision": "BF16 base",
+      "max_pixels": 524288,
+      "max_new_tokens": 620,
+      "batch_size": 1,
+      "final_effective_batch_size": 1
+    }
+  }
+}
