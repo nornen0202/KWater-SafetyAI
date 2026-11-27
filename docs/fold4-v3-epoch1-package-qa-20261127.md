@@ -25,3 +25,11 @@ python -B -m kwater_lab.fold4_native_archive_replay --archive $CandidateZip --ra
 그룹 쌍체 95% 구간은 전체 −0.06745~+0.10178, 민감도 −0.09888~+0.06793으로 두 범위 모두 0을 포함했다. F1 이득은 약 0.02이며 사전 승격 기준 +0.03에 미달했다. 정상 오경보율도 두 범위에서 20%를 넘었다. [쌍체 평가 집계](../results/fold4-v3-epoch1-paired-code-evaluation.json)
 
 Windows RTX 3060의 BF16 배치 4에서 적재는 403.87초, Fold 4 원생성 175장은 1,060.7초였다. 출력 토큰 상한 도달과 배치 감소는 0건이었다. 공식 Linux L4의 전체 설치·추론 시간과 seccomp 실실행은 미측정이다.
+
+## 2에폭 하이브리드의 배포 조건
+
+정규 2에폭 평가에 사용된 재판독은 사진마다 전문가 제안 최대 1개를 사용한다. Fold 4 훈련측의 내측 OOF 정밀도, Fold 4 외측 OOF 전문 점수, 마진과 생성 재검증 배치 2를 적용했다. 마진 공식은 BF16 모델의 단일 토큰 로그오즈와 전문가 로그오즈의 가중합이며, 적합된 값은 `beta=0.6`, 위험이 있는 판독의 `tau=-0.9`, 빈 판독의 `tau=1.489`다. 이 보정 자료에는 기존 검사 학습의 사진·그룹 노출이 일부 있다. [정규 평가 함수](../kwater_lab/v3_turnaround.py)
+
+배포 제작기는 `MAIN_PY_SOURCE`와 `build_submission_package`에서 같은 마진 공식을 지원한다. 기본 배포 경로는 전체 개발 데이터용 5-fold 전문 앙상블과 해당 정밀도를 사용하고 사진당 기본 제안은 최대 2개다. 이미지 생성과 재판독은 기본 배치 설정을 공유한다. `margin_gate_calibration.json`이 없으면 마진 관문을 생략한다. `--allow-fold-hybrid`는 Fold 4 어댑터의 제작 제한만 해제한다. 평가와 배포는 `format_v3_record`와 `ActionSupportedLawRetriever`를 공유한다. 평가 사례는 훈련측 791장 전체 대상 행이며, 제작기는 이를 압축한 658개 조문 사례를 동봉한다. [제작기와 배포 진입점](../kwater_lab/package_submission.py) · [기본 제안 수](../kwater_lab/hybrid_pipeline.py)
+
+정규 2에폭 하이브리드 ZIP은 아직 없다. 다음 실물 검증에는 후보 수·전문가 정밀도·재판독 배치와 마진 관문을 고정한 뒤, 같은 비교 행에서 법령 및 출력 형식 패리티를 확인하는 절차가 필요하다. 평가의 재판독 580.75초에는 훈련측 보정 89건이 포함되어 있다. 공식 Linux L4에서 설치를 포함한 200장 전체 시간은 미측정이다.

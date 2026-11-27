@@ -1,0 +1,153 @@
+{
+  "scope": "Actual serialized calibration pairs and completed curriculum SHA matched by exact AST replay, seed42.",
+  "files_sha256": {
+    "data/clean-split-v1/split_manifest_full_sealed.json": "d7d0f9d72bd4e33f9b5529095cf39e9087d3cdc366f14a4e657d2aae3edb79a5",
+    "data/train/train.jsonl": "ab427fed4615b32627b76001e27124e99ae9202c855ba4170916ebe4fdc4de55",
+    "data/clean-specialist-v1/strict-inner-oof/fold-4.npz": "fd9d725a771f024ecc23f7199b81b7aab91e870801066697cd900c60417cf248",
+    "data/v3-11code-fold4/inner_margin_cal_pairs.json": "0ccc0b3e6afe28246673b61ff775a94ee57a44b8def93e6774d2161a69943649",
+    "kwater_lab/vlm_11code.py": "a95fa26d5823ab3135806a76b8c5bf3ee8fcef85693f886442b55721d43c79f7",
+    "kwater_lab/v3_turnaround.py": "16ceae744ab92ecfd0353b6a8ec98281a3284397cedfb41b1b01af069d9885e9"
+  },
+  "regular_final_adapter_sha256": "87fdaff0b57299f9bc66502950e1a5c0a630e052ae3f9914d67c58b0fbac6be2",
+  "trainer_curriculum_sha256": "57527215c3ffa8c568041ba6b19873ae3d38f8f07199aab45b1c831b7417f446",
+  "curriculum": {
+    "rows": 1092,
+    "photos": 791,
+    "groups": 153
+  },
+  "train_by_kind": {
+    "inspect": {
+      "rows": 791,
+      "photos": 791,
+      "groups": 153
+    },
+    "inspect_minority": {
+      "rows": 72,
+      "photos": 72,
+      "groups": 47
+    },
+    "inspect_other": {
+      "rows": 28,
+      "photos": 28,
+      "groups": 18
+    },
+    "inspect_safe_balance": {
+      "rows": 44,
+      "photos": 44,
+      "groups": 15
+    },
+    "verify_neg_hard": {
+      "rows": 44,
+      "photos": 42,
+      "groups": 15
+    },
+    "verify_neg_safe": {
+      "rows": 34,
+      "photos": 34,
+      "groups": 11
+    },
+    "verify_pos": {
+      "rows": 79,
+      "photos": 78,
+      "groups": 32
+    },
+    "inspect_resample": {
+      "rows": 144,
+      "photos": 144,
+      "groups": 63
+    },
+    "all_verify": {
+      "rows": 157,
+      "photos": 148,
+      "groups": 40
+    }
+  },
+  "calibration": {
+    "rows": 89,
+    "photos": 65,
+    "groups": 24
+  },
+  "calibration_by_kind": {
+    "verify_neg_hard": {
+      "rows": 24,
+      "photos": 20,
+      "groups": 12
+    },
+    "verify_neg_safe": {
+      "rows": 15,
+      "photos": 15,
+      "groups": 3
+    },
+    "verify_pos": {
+      "rows": 50,
+      "photos": 42,
+      "groups": 20
+    }
+  },
+  "calibration_vs_train_by_kind": {
+    "inspect": {
+      "photos": 65,
+      "groups": 24,
+      "train_rows_in_calibration_groups": 75,
+      "calibration_pairs_with_same_photo": 89,
+      "calibration_pairs_in_shared_groups": 89
+    },
+    "inspect_minority": {
+      "photos": 8,
+      "groups": 6,
+      "train_rows_in_calibration_groups": 8,
+      "calibration_pairs_with_same_photo": 10,
+      "calibration_pairs_in_shared_groups": 30
+    },
+    "inspect_other": {
+      "photos": 3,
+      "groups": 2,
+      "train_rows_in_calibration_groups": 3,
+      "calibration_pairs_with_same_photo": 5,
+      "calibration_pairs_in_shared_groups": 26
+    },
+    "inspect_safe_balance": {
+      "photos": 2,
+      "groups": 2,
+      "train_rows_in_calibration_groups": 4,
+      "calibration_pairs_with_same_photo": 2,
+      "calibration_pairs_in_shared_groups": 55
+    },
+    "verify_neg_hard": {
+      "photos": 0,
+      "groups": 0,
+      "train_rows_in_calibration_groups": 0,
+      "calibration_pairs_with_same_photo": 0,
+      "calibration_pairs_in_shared_groups": 0
+    },
+    "verify_neg_safe": {
+      "photos": 0,
+      "groups": 0,
+      "train_rows_in_calibration_groups": 0,
+      "calibration_pairs_with_same_photo": 0,
+      "calibration_pairs_in_shared_groups": 0
+    },
+    "verify_pos": {
+      "photos": 3,
+      "groups": 2,
+      "train_rows_in_calibration_groups": 3,
+      "calibration_pairs_with_same_photo": 3,
+      "calibration_pairs_in_shared_groups": 55
+    },
+    "inspect_resample": {
+      "photos": 13,
+      "groups": 8,
+      "train_rows_in_calibration_groups": 15,
+      "calibration_pairs_with_same_photo": 17,
+      "calibration_pairs_in_shared_groups": 63
+    },
+    "all_verify": {
+      "photos": 3,
+      "groups": 2,
+      "train_rows_in_calibration_groups": 3,
+      "calibration_pairs_with_same_photo": 3,
+      "calibration_pairs_in_shared_groups": 55
+    }
+  },
+  "same_photo_and_code_calibration_vs_verify_train": 0
+}

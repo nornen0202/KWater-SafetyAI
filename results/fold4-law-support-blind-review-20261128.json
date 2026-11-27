@@ -1,0 +1,40 @@
+{
+  "scope": "Single blinded textual judgment of first-article switches in the three visually excluded Fold 4 groups. Exploratory; no official qualitative score or legal determination.",
+  "selection": {
+    "excluded_groups_changed_hazard_rows": 9,
+    "eligible_changed_hazard_rows": 8,
+    "removed_by_gallery_or_sealed": 1,
+    "reviewed_photos": 8,
+    "reviewed_groups": 2
+  },
+  "ratings_by_policy": {
+    "native": {
+      "unrelated": 6,
+      "partial": 2,
+      "direct": 0
+    },
+    "action": {
+      "unrelated": 2,
+      "partial": 3,
+      "direct": 3
+    }
+  },
+  "paired_comparison": {
+    "action_wins": 6,
+    "tie": 2,
+    "action_losses": 0,
+    "ties_both_unrelated": 2,
+    "ties_both_partial": 0,
+    "ties_both_direct": 0
+  },
+  "frozen_sha256": {
+    "blinded_prompt": "1e064cb642149173a2849035df13874b749f43e00fd0aaab67d3b0557590e1cf",
+    "ratings_before_unblinding": "8fd0abb6e7f7dcc16ab48c8715b54e1983a85f182161e924bebb46d8c387683e",
+    "sealed_assignment": "1ef68994aad92a4330a015fbed615c943bb270c68c178a3d3181d5694bfa0724"
+  },
+  "rubric": {
+    "direct": "Article directly supports the core prescribed action",
+    "partial": "Only a component or conditional case supported",
+    "unrelated": "Different action or work context"
+  }
+}

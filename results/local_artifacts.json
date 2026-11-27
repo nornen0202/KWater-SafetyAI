@@ -1,7 +1,7 @@
 {
   "algorithm": "SHA-256",
-  "files": 2477,
-  "total_bytes": 103036404793,
+  "files": 2481,
+  "total_bytes": 103037092523,
   "scope": "Completed project data files and local-only research outputs. In-progress downloads, live transfer status and environment caches are excluded.",
   "artifacts": [
     {
@@ -12376,8 +12376,8 @@
     },
     {
       "path": "data/local-reports/issue2-20261127/visual-review.html",
-      "bytes": 3800134,
-      "sha256": "b1ef23d2c77fab4febdc4c4c32c269ff6e5046754ec261cbbe599990bb381d1d"
+      "bytes": 3978773,
+      "sha256": "96492c3aa4588427a14bbef663978abe75ad31dbf45d8d6cce72d8e23018170a"
     },
     {
       "path": "data/submissions/kwater-fold4-eightcode-20261127.zip",
@@ -12388,6 +12388,26 @@
       "path": "data/submissions/kwater-safeground-v3-epoch1-vlmonly-20261127.zip",
       "bytes": 9043673838,
       "sha256": "5b6527c82bac445f76463ee183600d3c44c202dd4c448722ca09dc810455cfe6"
+    },
+    {
+      "path": "data/local-eval-predictions/fold4-v3-benchmark/v3_epoch2_infer_cache.json",
+      "bytes": 223418,
+      "sha256": "721e18cce627a45e4200aac808e1767b176a1481ce06d9a182d9fe4bb7f1281d"
+    },
+    {
+      "path": "data/local-eval-predictions/fold4-v3-benchmark/v3_epoch2_raw_175.jsonl",
+      "bytes": 136921,
+      "sha256": "a5dbdda3c008412d62e84cbd7651975dce56dc55ebde7d98f91ed28e2b8f67a9"
+    },
+    {
+      "path": "data/local-eval-predictions/fold4-v3-benchmark/v3_11code_standalone.jsonl",
+      "bytes": 71484,
+      "sha256": "399cf2eda57734e87e12d98819fe98176d2a00754947701ce9489b475def2e05"
+    },
+    {
+      "path": "data/local-eval-predictions/fold4-v3-benchmark/v3_hybrid_margin_verified.jsonl",
+      "bytes": 77268,
+      "sha256": "f4404561f896b2c311a0564fbabe895720e66f88de544cc8df59c29c306125a0"
     }
   ]
 }

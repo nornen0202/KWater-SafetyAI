@@ -982,7 +982,33 @@ def evaluate_fold4_benchmark(
     print(f"[2/3] Evaluating v3 11-Code Standalone ({v3_dir / 'adapter'}) on Fold 4 (n={len(eval_rows)})...", flush=True)
     mv3, pv3 = load_qwen_4bit_or_bf16(base_model_dir, max_pixels=TRAIN_EVAL_MAX_PIXELS, use_4bit=False, adapter_dir=v3_dir / "adapter")
     prompt_v3 = prompt_v3_path.read_text(encoding="utf-8")
-    raw_v3_outs, gen_v3_stats = infer_batched_vlm(mv3, pv3, eval_rows, image_root, prompt_v3, batch_size=4, max_new_tokens=620)
+    v3_ep2_cache = local_eval_dir / "v3_epoch2_infer_cache.json"
+    v3_ep2_key = f"bf16:{digest(v3_dir / 'adapter/adapter_model.safetensors')}:{digest(prompt_v3_path)}:px{TRAIN_EVAL_MAX_PIXELS}"
+    raw_v3_outs, gen_v3_stats = infer_batched_vlm(
+        mv3, pv3, eval_rows, image_root, prompt_v3, batch_size=4, max_new_tokens=620, cache_path=v3_ep2_cache, cache_key=v3_ep2_key
+    )
+    save_atomic(
+        local_eval_dir / "v3_epoch2_raw_175.jsonl",
+        lambda f: f.write(
+            "".join(
+                json.dumps(
+                    {
+                        "sample_id": r["sample_id"],
+                        "image": r["image"],
+                        "raw_text": o["raw_text"],
+                        "parsed": o["parsed"],
+                        "parse_error": o["parse_error"],
+                        "vlm_schema_errors": o["vlm_schema_errors"],
+                        "token_cap_hit": o["token_cap_hit"],
+                    },
+                    ensure_ascii=False,
+                    separators=(",", ":"),
+                )
+                + "\n"
+                for r, o in zip(eval_rows, raw_v3_outs, strict=True)
+            ).encode("utf-8")
+        ),
+    )
 
     retriever_v3 = ActionSupportedLawRetriever(laws, [raw_train_by_id[r["sample_id"]] for r in train_rows])
     comp_v3_recs = [format_v3_record(r["sample_id"], o["parsed"], retriever_v3) for r, o in zip(eval_rows, raw_v3_outs)]

@@ -1,0 +1,591 @@
+{
+  "protocol": "Fold-4 Clean Unseen Benchmark (175 photos, 39 groups, max group share 28.0%, matched BF16 384*32*32 inference)",
+  "photos": 175,
+  "groups": 39,
+  "manifest_sha256": "d7d0f9d72bd4e33f9b5529095cf39e9087d3cdc366f14a4e657d2aae3edb79a5",
+  "baseline8_adapter_sha256": "00386e3407ef361738341ab38091f43b9f7191021b73532a2b06c023c04c4bf4",
+  "v3_adapter_sha256": "87fdaff0b57299f9bc66502950e1a5c0a630e052ae3f9914d67c58b0fbac6be2",
+  "arms": {
+    "clean_8code_baseline": {
+      "generation": {
+        "photos": 175,
+        "raw_json_parse_success": 174,
+        "raw_json_parse_rate": 0.9943,
+        "strict_vlm_schema_success": 124,
+        "strict_vlm_schema_rate": 0.7086,
+        "token_cap_hits": 1,
+        "cache_reused_rows": 0,
+        "initial_batch_size": 4,
+        "final_effective_batch_size": 4,
+        "total_seconds": 2182.0,
+        "sec_per_photo": 12.469
+      },
+      "valid_8code_schema_rows": 174,
+      "kit_schema_valid_rate": 1.0,
+      "metrics": {
+        "photos": 175,
+        "active_codes": 8,
+        "macro_f1": 0.5216200466200466,
+        "quantitative_points_out_of_70": 36.51340326340326,
+        "exact_set_matches": 75,
+        "no_hazard_photos": 49,
+        "no_hazard_false_alarms": 10,
+        "no_hazard_false_alarm_rate": 0.20408163265306123,
+        "hazard_photos": 126,
+        "hazard_completely_missed": 27,
+        "hazard_predicted_empty_rate": 0.21428571428571427,
+        "per_code": {
+          "fall_height": {
+            "support": 36,
+            "predicted": 41,
+            "tp": 20,
+            "fp": 21,
+            "fn": 16,
+            "f1": 0.5194805194805194,
+            "support_groups": 10
+          },
+          "slip_trip": {
+            "support": 55,
+            "predicted": 57,
+            "tp": 39,
+            "fp": 18,
+            "fn": 16,
+            "f1": 0.6964285714285714,
+            "support_groups": 16
+          },
+          "caught_in_machine": {
+            "support": 7,
+            "predicted": 8,
+            "tp": 5,
+            "fp": 3,
+            "fn": 2,
+            "f1": 0.6666666666666666,
+            "support_groups": 7
+          },
+          "struck_by_lifting": {
+            "support": 14,
+            "predicted": 2,
+            "tp": 0,
+            "fp": 2,
+            "fn": 14,
+            "f1": 0.0,
+            "support_groups": 4
+          },
+          "electrical_energy": {
+            "support": 8,
+            "predicted": 5,
+            "tp": 5,
+            "fp": 0,
+            "fn": 3,
+            "f1": 0.7692307692307693,
+            "support_groups": 7
+          },
+          "drowning_inundation": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "fire_explosion": {
+            "support": 7,
+            "predicted": 9,
+            "tp": 7,
+            "fp": 2,
+            "fn": 0,
+            "f1": 0.875,
+            "support_groups": 7
+          },
+          "confined_space": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "chemical_exposure": {
+            "support": 4,
+            "predicted": 9,
+            "tp": 2,
+            "fp": 7,
+            "fn": 2,
+            "f1": 0.3076923076923077,
+            "support_groups": 4
+          },
+          "thermal_weather": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "other": {
+            "support": 29,
+            "predicted": 36,
+            "tp": 11,
+            "fp": 25,
+            "fn": 18,
+            "f1": 0.3384615384615385,
+            "support_groups": 12
+          }
+        }
+      },
+      "severity4": {
+        "sev4_photos": 60,
+        "sev4_photo_completely_missed": 32,
+        "sev4_photo_without_any_prediction": 14,
+        "sev4_instances": 61,
+        "sev4_instance_missed": 33,
+        "sev4_instance_recall": 0.459
+      }
+    },
+    "specialist_inner_calibrated_standalone": {
+      "metrics": {
+        "photos": 175,
+        "active_codes": 8,
+        "macro_f1": 0.6776167587435533,
+        "quantitative_points_out_of_70": 47.433173112048735,
+        "exact_set_matches": 79,
+        "no_hazard_photos": 49,
+        "no_hazard_false_alarms": 17,
+        "no_hazard_false_alarm_rate": 0.3469387755102041,
+        "hazard_photos": 126,
+        "hazard_completely_missed": 22,
+        "hazard_predicted_empty_rate": 0.1746031746031746,
+        "per_code": {
+          "fall_height": {
+            "support": 36,
+            "predicted": 32,
+            "tp": 23,
+            "fp": 9,
+            "fn": 13,
+            "f1": 0.6764705882352942,
+            "support_groups": 10
+          },
+          "slip_trip": {
+            "support": 55,
+            "predicted": 58,
+            "tp": 39,
+            "fp": 19,
+            "fn": 16,
+            "f1": 0.6902654867256637,
+            "support_groups": 16
+          },
+          "caught_in_machine": {
+            "support": 7,
+            "predicted": 12,
+            "tp": 6,
+            "fp": 6,
+            "fn": 1,
+            "f1": 0.631578947368421,
+            "support_groups": 7
+          },
+          "struck_by_lifting": {
+            "support": 14,
+            "predicted": 31,
+            "tp": 6,
+            "fp": 25,
+            "fn": 8,
+            "f1": 0.26666666666666666,
+            "support_groups": 4
+          },
+          "electrical_energy": {
+            "support": 8,
+            "predicted": 6,
+            "tp": 6,
+            "fp": 0,
+            "fn": 2,
+            "f1": 0.8571428571428571,
+            "support_groups": 7
+          },
+          "drowning_inundation": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "fire_explosion": {
+            "support": 7,
+            "predicted": 9,
+            "tp": 7,
+            "fp": 2,
+            "fn": 0,
+            "f1": 0.875,
+            "support_groups": 7
+          },
+          "confined_space": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "chemical_exposure": {
+            "support": 4,
+            "predicted": 3,
+            "tp": 3,
+            "fp": 0,
+            "fn": 1,
+            "f1": 0.8571428571428571,
+            "support_groups": 4
+          },
+          "thermal_weather": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "other": {
+            "support": 29,
+            "predicted": 31,
+            "tp": 17,
+            "fp": 14,
+            "fn": 12,
+            "f1": 0.5666666666666667,
+            "support_groups": 12
+          }
+        }
+      },
+      "severity4": {
+        "sev4_photos": 60,
+        "sev4_photo_completely_missed": 18,
+        "sev4_photo_without_any_prediction": 12,
+        "sev4_instances": 61,
+        "sev4_instance_missed": 18,
+        "sev4_instance_recall": 0.7049
+      }
+    },
+    "v3_11code_standalone": {
+      "generation": {
+        "photos": 175,
+        "raw_json_parse_success": 175,
+        "raw_json_parse_rate": 1.0,
+        "strict_vlm_schema_success": 175,
+        "strict_vlm_schema_rate": 1.0,
+        "token_cap_hits": 0,
+        "cache_reused_rows": 0,
+        "initial_batch_size": 4,
+        "final_effective_batch_size": 4,
+        "total_seconds": 987.6,
+        "sec_per_photo": 5.643
+      },
+      "kit_schema_valid_rate": 1.0,
+      "metrics": {
+        "photos": 175,
+        "active_codes": 8,
+        "macro_f1": 0.5310261094735118,
+        "quantitative_points_out_of_70": 37.17182766314583,
+        "exact_set_matches": 80,
+        "no_hazard_photos": 49,
+        "no_hazard_false_alarms": 8,
+        "no_hazard_false_alarm_rate": 0.16326530612244897,
+        "hazard_photos": 126,
+        "hazard_completely_missed": 47,
+        "hazard_predicted_empty_rate": 0.373015873015873,
+        "per_code": {
+          "fall_height": {
+            "support": 36,
+            "predicted": 23,
+            "tp": 15,
+            "fp": 8,
+            "fn": 21,
+            "f1": 0.5084745762711864,
+            "support_groups": 10
+          },
+          "slip_trip": {
+            "support": 55,
+            "predicted": 37,
+            "tp": 27,
+            "fp": 10,
+            "fn": 28,
+            "f1": 0.5869565217391305,
+            "support_groups": 16
+          },
+          "caught_in_machine": {
+            "support": 7,
+            "predicted": 5,
+            "tp": 3,
+            "fp": 2,
+            "fn": 4,
+            "f1": 0.5,
+            "support_groups": 7
+          },
+          "struck_by_lifting": {
+            "support": 14,
+            "predicted": 6,
+            "tp": 2,
+            "fp": 4,
+            "fn": 12,
+            "f1": 0.2,
+            "support_groups": 4
+          },
+          "electrical_energy": {
+            "support": 8,
+            "predicted": 7,
+            "tp": 6,
+            "fp": 1,
+            "fn": 2,
+            "f1": 0.8,
+            "support_groups": 7
+          },
+          "drowning_inundation": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "fire_explosion": {
+            "support": 7,
+            "predicted": 9,
+            "tp": 7,
+            "fp": 2,
+            "fn": 0,
+            "f1": 0.875,
+            "support_groups": 7
+          },
+          "confined_space": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "chemical_exposure": {
+            "support": 4,
+            "predicted": 2,
+            "tp": 1,
+            "fp": 1,
+            "fn": 3,
+            "f1": 0.3333333333333333,
+            "support_groups": 4
+          },
+          "thermal_weather": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "other": {
+            "support": 29,
+            "predicted": 16,
+            "tp": 10,
+            "fp": 6,
+            "fn": 19,
+            "f1": 0.4444444444444444,
+            "support_groups": 12
+          }
+        }
+      },
+      "severity4": {
+        "sev4_photos": 60,
+        "sev4_photo_completely_missed": 34,
+        "sev4_photo_without_any_prediction": 22,
+        "sev4_instances": 61,
+        "sev4_instance_missed": 35,
+        "sev4_instance_recall": 0.4262
+      }
+    },
+    "v3_hybrid_1token_margin_verified": {
+      "margin_gate": {
+        "beta": 0.6,
+        "tau_when_hazard": -0.9,
+        "tau_when_empty": 1.489,
+        "inner_pairs_n": 89,
+        "inner_tp_accepted": 41,
+        "inner_fp_accepted": 9
+      },
+      "raw_specialist_proposals": 66,
+      "passed_1token_margin_gate": 26,
+      "final_accepted_additions": 13,
+      "added_tp_fp": {
+        "new_true_positive_codes": 8,
+        "new_false_positive_codes": 5,
+        "new_false_alarm_photos": 0
+      },
+      "verification_seconds_total": 580.75,
+      "kit_schema_valid_rate": 1.0,
+      "metrics": {
+        "photos": 175,
+        "active_codes": 8,
+        "macro_f1": 0.5957400809581159,
+        "quantitative_points_out_of_70": 41.701805667068115,
+        "exact_set_matches": 80,
+        "no_hazard_photos": 49,
+        "no_hazard_false_alarms": 8,
+        "no_hazard_false_alarm_rate": 0.16326530612244897,
+        "hazard_photos": 126,
+        "hazard_completely_missed": 46,
+        "hazard_predicted_empty_rate": 0.36507936507936506,
+        "per_code": {
+          "fall_height": {
+            "support": 36,
+            "predicted": 24,
+            "tp": 16,
+            "fp": 8,
+            "fn": 20,
+            "f1": 0.5333333333333333,
+            "support_groups": 10
+          },
+          "slip_trip": {
+            "support": 55,
+            "predicted": 39,
+            "tp": 29,
+            "fp": 10,
+            "fn": 26,
+            "f1": 0.6170212765957447,
+            "support_groups": 16
+          },
+          "caught_in_machine": {
+            "support": 7,
+            "predicted": 5,
+            "tp": 3,
+            "fp": 2,
+            "fn": 4,
+            "f1": 0.5,
+            "support_groups": 7
+          },
+          "struck_by_lifting": {
+            "support": 14,
+            "predicted": 6,
+            "tp": 2,
+            "fp": 4,
+            "fn": 12,
+            "f1": 0.2,
+            "support_groups": 4
+          },
+          "electrical_energy": {
+            "support": 8,
+            "predicted": 7,
+            "tp": 6,
+            "fp": 1,
+            "fn": 2,
+            "f1": 0.8,
+            "support_groups": 7
+          },
+          "drowning_inundation": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "fire_explosion": {
+            "support": 7,
+            "predicted": 9,
+            "tp": 7,
+            "fp": 2,
+            "fn": 0,
+            "f1": 0.875,
+            "support_groups": 7
+          },
+          "confined_space": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "chemical_exposure": {
+            "support": 4,
+            "predicted": 4,
+            "tp": 3,
+            "fp": 1,
+            "fn": 1,
+            "f1": 0.75,
+            "support_groups": 4
+          },
+          "thermal_weather": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "other": {
+            "support": 29,
+            "predicted": 24,
+            "tp": 13,
+            "fp": 11,
+            "fn": 16,
+            "f1": 0.49056603773584906,
+            "support_groups": 12
+          }
+        }
+      },
+      "severity4": {
+        "sev4_photos": 60,
+        "sev4_photo_completely_missed": 30,
+        "sev4_photo_without_any_prediction": 21,
+        "sev4_instances": 61,
+        "sev4_instance_missed": 31,
+        "sev4_instance_recall": 0.4918
+      }
+    }
+  },
+  "paired_bootstrap": {
+    "v3_standalone_vs_clean_8code": {
+      "groups": 39,
+      "seed": 42,
+      "resamples": 2000,
+      "defined_resamples": 2000,
+      "undefined_resamples": 0,
+      "macro_f1_delta_b_minus_a": 0.009406062853465236,
+      "percentile_95_ci": [
+        -0.06459423932937758,
+        0.0665273480582297
+      ]
+    },
+    "v3_hybrid_vs_clean_8code": {
+      "groups": 39,
+      "seed": 42,
+      "resamples": 2000,
+      "defined_resamples": 2000,
+      "undefined_resamples": 0,
+      "macro_f1_delta_b_minus_a": 0.07412003433806935,
+      "percentile_95_ci": [
+        0.006024892263510641,
+        0.12561178232363887
+      ]
+    },
+    "v3_hybrid_vs_v3_standalone": {
+      "groups": 39,
+      "seed": 42,
+      "resamples": 2000,
+      "defined_resamples": 2000,
+      "undefined_resamples": 0,
+      "macro_f1_delta_b_minus_a": 0.06471397148460412,
+      "percentile_95_ci": [
+        0.009224028603645226,
+        0.13381278300859914
+      ]
+    }
+  }
+}
