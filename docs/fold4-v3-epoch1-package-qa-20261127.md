@@ -33,3 +33,5 @@ Windows RTX 3060의 BF16 배치 4에서 적재는 403.87초, Fold 4 원생성 17
 배포 제작기는 `MAIN_PY_SOURCE`와 `build_submission_package`에서 같은 마진 공식을 지원한다. 기본 배포 경로는 전체 개발 데이터용 5-fold 전문 앙상블과 해당 정밀도를 사용하고 사진당 기본 제안은 최대 2개다. 이미지 생성과 재판독은 기본 배치 설정을 공유한다. `margin_gate_calibration.json`이 없으면 마진 관문을 생략한다. `--allow-fold-hybrid`는 Fold 4 어댑터의 제작 제한만 해제한다. 평가와 배포는 `format_v3_record`와 `ActionSupportedLawRetriever`를 공유한다. 평가 사례는 훈련측 791장 전체 대상 행이며, 제작기는 이를 압축한 658개 조문 사례를 동봉한다. [제작기와 배포 진입점](../kwater_lab/package_submission.py) · [기본 제안 수](../kwater_lab/hybrid_pipeline.py)
 
 정규 2에폭 하이브리드 ZIP은 아직 없다. 다음 실물 검증에는 후보 수·전문가 정밀도·재판독 배치와 마진 관문을 고정한 뒤, 같은 비교 행에서 법령 및 출력 형식 패리티를 확인하는 절차가 필요하다. 평가의 재판독 580.75초에는 훈련측 보정 89건이 포함되어 있다. 공식 Linux L4에서 설치를 포함한 200장 전체 시간은 미측정이다.
+
+11월 28일 Sol은 Windows `env_aias_test`에서 기존 CPU ONNX Runtime 1.20.1 의존성을 연결하고 `python -m unittest discover -s tests`를 실행했다. CUDA를 숨기고 수치 라이브러리를 한 스레드로 제한한 전체 테스트가 **114/114 통과**했다. 실행 시간은 134.006초였고 원로그는 이 PC의 `data/local-reports/final-main-cpu-unittest-with-ort-20261128.log`에 있다.

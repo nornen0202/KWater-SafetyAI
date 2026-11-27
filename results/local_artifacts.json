@@ -1,7 +1,7 @@
 {
   "algorithm": "SHA-256",
   "files": 2481,
-  "total_bytes": 103037092523,
+  "total_bytes": 103037092708,
   "scope": "Completed project data files and local-only research outputs. In-progress downloads, live transfer status and environment caches are excluded.",
   "artifacts": [
     {
@@ -12376,8 +12376,8 @@
     },
     {
       "path": "data/local-reports/issue2-20261127/visual-review.html",
-      "bytes": 3978773,
-      "sha256": "96492c3aa4588427a14bbef663978abe75ad31dbf45d8d6cce72d8e23018170a"
+      "bytes": 3978958,
+      "sha256": "1d563de5da68f595676ecb00759df2f4637ff513e58ed017e528e4b7ff296f06"
     },
     {
       "path": "data/submissions/kwater-fold4-eightcode-20261127.zip",

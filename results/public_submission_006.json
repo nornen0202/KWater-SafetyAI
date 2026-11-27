@@ -36,5 +36,18 @@
     "top_20_cutoff": 52.17,
     "margin_above_top_20": 1.48,
     "leading_score": 68.1
+  },
+  "subsequent_leaderboard_observation": {
+    "observed_at_kst": "2026-11-28T01:00:38+09:00",
+    "source": "https://hackathon.imaginationgroup.co.kr/kwater/api/leaderboard",
+    "public_score": 53.65,
+    "team_public_rank": 15,
+    "ranked_teams": 114,
+    "submissions": 6,
+    "top_10_cutoff": 55.75,
+    "distance_to_top_10": 2.1,
+    "top_20_cutoff": 52.34,
+    "margin_above_top_20": 1.31,
+    "leading_score": 68.54
   }
 }
