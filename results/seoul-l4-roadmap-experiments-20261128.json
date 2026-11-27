@@ -109,5 +109,46 @@
       "compute_disk_ip_before_tax_usd": 1.1036,
       "planning_krw_including_vat_before_egress": 1821
     }
-  ]
+  ],
+  "local_27b_pinned_weights": {
+    "revision": "4af51b3542f775b0a8e4b310bfb3f17e01c306c9",
+    "quantization": "UD-Q4_K_M",
+    "files": [
+      {
+        "file": "Qwen3.8-27B-UD-Q4_K_M.gguf",
+        "bytes": 16564259744,
+        "sha256": "1bce504dfecd84153666928a41d8a66706f0158d3a317bc5196b72819d7dc529"
+      },
+      {
+        "file": "mmproj-BF16.gguf",
+        "bytes": 931146432,
+        "sha256": "83ee4f4f205fa514161778c41df1ea14144faa0f713510893b63c2395f5c2d53"
+      }
+    ]
+  },
+  "scale_full_run_inputs": {
+    "train_photos": 791,
+    "fold4_evaluation_photos": 175,
+    "sensitivity_photos": 107,
+    "training_examples_per_epoch": 1092,
+    "updates_per_epoch": 69,
+    "epochs": 2,
+    "inner_margin_calibration_pairs": 89,
+    "transport_sha256_verified_on_both_hosts": "17d4e37d0ec564baff6ffe124f2a378f10b2e6c67b3924cadd28e0395969932e",
+    "expected_curriculum_sha256": "57527215c3ffa8c568041ba6b19873ae3d38f8f07199aab45b1c831b7417f446",
+    "frozen_4b_controls_self_check_macro_f1": {
+      "175": [
+        0.5420135141212449,
+        0.5310261094735118
+      ],
+      "107": [
+        0.5625228985147689,
+        0.5756636732443184
+      ]
+    },
+    "full_run_8b_first_two_step_seconds": [
+      46.9,
+      47.04
+    ]
+  }
 }
