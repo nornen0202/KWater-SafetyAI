@@ -1,10 +1,10 @@
 # K-water 현장 안전 AI 연구 기록
 
-**대형 VLM 검토 및 종합 후속 연구 로드맵 (11월 28일).** `Qwen3-VL-8B-FP8` 주력 스케일업, `Qwen3-VL-30B-A3B`/`Qwen3.8-27B` 오프라인 컨테이너 실행 게이트 및 교사 증류, `SafeGround v3` 감사에서 확인된 `Dual-LoRA` 분리·양방향 마진 게이트·3중 무누수 보정 설계를 정리했다. [대형 VLM 심층 리뷰 및 마스터 로드맵](reports/comprehensive-audit-and-vlm-roadmap-20261128.md)
+**11월 28일 연구 로드맵.** 4B·8B는 같은 11종 사진·학습 예산으로 비교하고, Qwen3.8-27B 4비트는 비전 프로젝터를 포함한 실제 ZIP으로 200장 실행시간을 잰다. 어댑터 분리와 오경보 제거는 서로 다른 실험으로 검증한다. [카본 리뷰 재검토와 마스터 로드맵](reports/comprehensive-audit-and-vlm-roadmap-20261128.md) · [모델별 비교 조건](reports/comprehensive-audit-and-vlm-roadmap-20261128.md#paired-models)
 
-**7차 제출 판단**에서는 53.65점을 받은 첫 에폭과 두 번째 에폭에 같은 검증기를 적용해 정상 오경보와 중대 위험 미탐을 비교한다. 전량 학습 ZIP의 200장 출력과 실행시간도 별도로 기록한다. [실험 및 제출 판단 원장](reports/seventh-submission-decision-20261128.md)
+**서울 L4에서 같은 4B 학습 8스텝은 로컬 652.78초, L4 251.27초였다.** 다음 지출은 4B·27B 제출 ZIP 리허설에 약 5,800원, 4B·8B 비교 착수까지 누적 약 14,300원, 독립 재학습·Private 리허설까지 선택하면 약 28,800원으로 잡았다. 환율 1,500원·한국 VAT·Spot 학습을 반영한 견적이다. [서울 실측 원장](reports/fold4-v3-seoul-l4-benchmark-20261128.md) · [누적 비용](reports/comprehensive-audit-and-vlm-roadmap-20261128.md#l4-budget) · [상금별 손익분기](reports/comprehensive-audit-and-vlm-roadmap-20261128.md#prize-roi)
 
-**11월 28일 01:00 KST 공개 순위는 15/114위다.** 최고점은 53.65점, 10위는 55.75점으로 차이는 2.10점이다. 같은 사진에서 정규 하이브리드가 2에폭 단독보다 코드 F1을 175장 기준 +0.0647, 교차 현장을 뺀 107장 기준 +0.0618 올렸다. 다음 제출 판단에는 107장의 정상 오경보 6/27과 실제 배포 조건을 함께 반영한다. [시각별 공식 기록](results/public_submission_006.json) · [모델 비교 그림](reports/figures/fold4-model-comparison-20261128.png)
+**7차 제출은 보류다.** 같은 검증기를 붙인 첫째·둘째 에폭의 F1은 175장에서 0.60569·0.59574, 교차 현장 제외 107장에서 0.63071·0.63746이었다. 두 조건 모두 107장 정상 오경보가 6/27건으로 기준 5건을 넘었다. 11월 28일 04:03 KST 공개 순위는 123팀 중 17위(53.65점), 10위 55.90점, 20위 52.84점이었다. [7차 제출 판단](reports/seventh-submission-decision-20261128.md) · [공식 순위표](https://hackathon.imaginationgroup.co.kr/kwater/api/leaderboard) · [Fold 4 비교 그림](reports/figures/fold4-model-comparison-20261128.png)
 
 **11월 27일 제출 결과.** 21:22에 접수한 새 8종 모델은 Public **47.35**, 22:22에 접수한 11종 v3 첫 에폭 단독 모델은 **53.65**를 기록했다. 기존 42.04에서 **11.61점 상승**했다. 23:16 KST 기준 **100팀 중 12위**로 10위까지 1.55점 차이였다. 이 PC에서 `data/local-reports/issue2-20261127/visual-review.html`을 열면 실제 현장 사진 54장을 볼 수 있다. 6장은 같은 사진에 두 제출이 쓴 근거·조치·출처를 비교하고, 48장은 전체 사진과 확대 영역을 함께 살펴볼 수 있다. [이슈 #2 연구 로드맵](reports/issue-2-transfer-experiments-20261127.md) · [Fold 4 실험과 제출 판단](reports/fold4-fifth-submission-decision.md) · [5차 영수증](results/public_submission_005.json) · [6차 영수증](results/public_submission_006.json)
 
