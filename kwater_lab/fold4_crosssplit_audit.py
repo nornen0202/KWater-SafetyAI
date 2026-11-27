@@ -288,15 +288,18 @@ def score(local, arms, output):
 
 
 def score_three(local, arms, output):
+    if set(arms) != {"legacy8", "v3", "hybrid"}:
+        raise ValueError("Scoring requires legacy8, v3, and hybrid predictions")
+    _score_panels(local, arms, output, "three_arm")
+
+
+def _score_panels(local, arms, output, evaluation_run):
     from itertools import combinations
 
     from .fold0_group_sensitivity import arm_metrics
     from .law_reranker_11code import read_selected_cases
     from .metrics import CODES, decode_target, evaluate, paired_bootstrap, read_index
 
-    required = {"legacy8", "v3", "hybrid"}
-    if not required <= arms.keys():
-        raise ValueError("Scoring requires legacy8, v3, and hybrid predictions")
     mask_path = local / "fold4-group-exclusions-local.json"
     inputs = (DEV, RESULT, LABELS, mask_path, *arms.values())
     if output.resolve() in {path.resolve() for path in inputs}:
@@ -315,10 +318,14 @@ def score_three(local, arms, output):
         raise ValueError("Expected the original exact 175-photo/39-group cohort")
     predictions = {}
     canonical_order = {}
+    prediction_hashes = {}
     for name, path in arms.items():
         if not path.is_file():
             raise FileNotFoundError(f"Missing {name} complete Fold 4 prediction file: {path}")
+        prediction_hashes[name] = digest(path)
         pred = read_index(path, lambda row: decode_target(row, local_ids=True), limit_size=True)
+        if digest(path) != prediction_hashes[name]:
+            raise ValueError(f"{name} prediction file changed during preflight")
         if pred.keys() != primary_gold.keys():
             raise ValueError(f"{name} must contain every original Fold 4 canonical ID once")
         predictions[name] = pred
@@ -399,8 +406,9 @@ def score_three(local, arms, output):
     }
     write(output, {
         "scope": "Paired local code scoring. The 107-photo panel removes three confirmed cross-split scene groups.",
+        "evaluation_run": evaluation_run,
         "manifest_sha256": manifest_sha, "mask_sha256": mask_sha, "official_labels_sha256": digest(LABELS),
-        "prediction_sha256": {name: digest(path) for name, path in arms.items()},
+        "prediction_sha256": prediction_hashes,
         "prediction_rows_in_canonical_manifest_order": canonical_order,
         "panels": panels,
     })
@@ -410,18 +418,29 @@ if __name__ == "__main__":
     import sys
 
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("stage", choices=("scan", "finalize", "score", "score-three"))
+    parser.add_argument("stage", choices=("scan", "finalize", "score", "score-three", "score-epoch1"))
     parser.add_argument("--local", type=Path, default=LOCAL)
     parser.add_argument("--legacy8", type=Path, default=V3_EVAL / "clean_8code_baseline.jsonl")
     parser.add_argument("--v3", type=Path, default=V3_EVAL / "v3_11code_standalone.jsonl")
     parser.add_argument("--hybrid", type=Path, default=V3_EVAL / "v3_hybrid_margin_verified.jsonl")
+    parser.add_argument("--epoch1", type=Path, help="Standalone v3 epoch-1 complete Fold 4 outputs")
     parser.add_argument("--official", type=Path)
     parser.add_argument("--score-output", type=Path, default=Path("results/fold4-fixed-mask-sensitivity.json"))
     parser.add_argument("--score-three-output", type=Path, default=Path("results/fold4-paired-code-evaluation.json"))
+    parser.add_argument("--score-epoch1-output", type=Path, default=Path("results/fold4-v3-epoch1-paired-code-evaluation.json"))
     args = parser.parse_args()
     if not args.local.resolve().is_relative_to(Path("data").resolve()):
         parser.error("Original IDs and review images must stay under data/")
-    if args.stage == "score-three":
+    if args.epoch1 is not None and args.stage != "score-epoch1":
+        parser.error("--epoch1 applies to score-epoch1 only")
+    if args.stage == "score-epoch1":
+        if args.official is not None or args.epoch1 is None:
+            parser.error("score-epoch1 requires --epoch1 and does not accept --official")
+        if args.legacy8.resolve() == args.epoch1.resolve():
+            parser.error("The baseline and epoch-1 output must be distinct files")
+        _score_panels(args.local, {"legacy8": args.legacy8, "v3_epoch1": args.epoch1},
+                      args.score_epoch1_output, "v3_epoch1_standalone")
+    elif args.stage == "score-three":
         if args.official is not None:
             parser.error("--official applies to score only")
         score_three(args.local, {"legacy8": args.legacy8, "v3": args.v3, "hybrid": args.hybrid},

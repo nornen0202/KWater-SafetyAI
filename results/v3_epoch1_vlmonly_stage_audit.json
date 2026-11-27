@@ -1,0 +1,71 @@
+{
+  "files": 28,
+  "unpacked_bytes": 9043669088,
+  "seed": "42",
+  "offline_lock": true,
+  "asset_sha256": {
+    "main.py": "b728c3be183cc3cfa4e49ee8bc38076ea7b572c8b91a11c159091eee3a9b1e98",
+    "assets.json": "6d58ea41fe4d51155143c6509ee188da2f253583fe544ee8097fd9ec6a0b6448",
+    "adapter/adapter_model.safetensors": "6fba484b28650025bc8e558838f2e5d1c8f897c84c3d3965dfcc2b4061c15886"
+  },
+  "declared_asset_count": 4,
+  "offline_wheels": [
+    {
+      "package": "accelerate",
+      "version": "1.10.1",
+      "matching_wheels": [
+        {
+          "filename": "accelerate-1.10.1-py3-none-any.whl",
+          "sha256": "3621cff60b9a27ce798857ece05e2b9f56fcc71631cfb31ccf71f0359c311f11"
+        }
+      ]
+    },
+    {
+      "package": "huggingface-hub",
+      "version": "0.36.0",
+      "matching_wheels": [
+        {
+          "filename": "huggingface_hub-0.36.0-py3-none-any.whl",
+          "sha256": "7bcc9ad17d5b3f07b57c78e79d527102d08313caa278a641993acddcb894548d"
+        }
+      ]
+    },
+    {
+      "package": "peft",
+      "version": "0.17.1",
+      "matching_wheels": [
+        {
+          "filename": "peft-0.17.1-py3-none-any.whl",
+          "sha256": "3d129d64def3d74779c32a080d2567e5f7b674e77d546e3585138216d903f99e"
+        }
+      ]
+    },
+    {
+      "package": "tokenizers",
+      "version": "0.22.1",
+      "matching_wheels": [
+        {
+          "filename": "tokenizers-0.22.1-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+          "sha256": "e2ef6063d7a84994129732b47e7915e8710f27f99f3a3260b8a38fc7ccd083f4"
+        }
+      ]
+    },
+    {
+      "package": "transformers",
+      "version": "4.57.1",
+      "matching_wheels": [
+        {
+          "filename": "transformers-4.57.1-py3-none-any.whl",
+          "sha256": "b10d05da8fa67dc41644dbbf9bc45a44cb86ae33da6f9295f5fbf5b7890bd267"
+        }
+      ]
+    }
+  ],
+  "restricted_or_unneeded_members": [],
+  "restricted_source_exact_content_matches": [],
+  "network_or_process_static_indicators": [],
+  "linux_seccomp_executed": false,
+  "offline_install_executed": false,
+  "official_full_zip_extraction_executed": false,
+  "official_existing_output_check": null
+}

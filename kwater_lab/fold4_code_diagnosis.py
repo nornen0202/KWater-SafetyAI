@@ -3,6 +3,7 @@ import argparse
 import ast
 from collections import Counter
 from hashlib import sha256
+from itertools import combinations
 import json
 from pathlib import Path
 
@@ -112,6 +113,26 @@ def summarize(groups, gold, severe, predicted, outside):
     }
 
 
+def compare(groups, gold, severe, before, after):
+    """Count new and lost hits or false positives on identical photo/code pairs."""
+    by_code = {}
+    for code in CODES:
+        recovered = lost = new_fp = cleared_fp = severe_recovered = severe_lost = 0
+        for sid in groups:
+            gained = code in after[sid] and code not in before[sid]
+            removed = code in before[sid] and code not in after[sid]
+            annotated = code in gold[sid]
+            recovered += gained and annotated
+            lost += removed and annotated
+            new_fp += gained and not annotated
+            cleared_fp += removed and not annotated
+            severe_recovered += gained and code in severe[sid]
+            severe_lost += removed and code in severe[sid]
+        by_code[code] = dict(recovered_tp=recovered, lost_tp=lost, new_fp=new_fp, cleared_fp=cleared_fp,
+                             severity4_recovered_tp=severe_recovered, severity4_lost_tp=severe_lost)
+    return by_code
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--arm", action="append", nargs=2, metavar=("NAME", "PREDICTIONS"), required=True)
@@ -133,14 +154,24 @@ def main():
         "cohort_sha256": {"manifest": digest(DEV), "mask": digest(MASK)},
         "arms": {},
     }
+    predictions = {}
     for name, path in arms.items():
         before = digest(path)
         pred = read_index(path, project_prediction, limit_size=True)
         if pred.keys() != gold.keys() or digest(path) != before:
             raise ValueError(f"{name} requires immutable, exact once-per-photo 175-row coverage")
+        predictions[name] = pred
         result["arms"][name] = {"prediction_sha256": before, "panels": {
             panel: summarize(groups, gold, severe, pred, outside) for panel, groups in panels.items()
         }}
+    if len(predictions) > 1:
+        result["paired"] = [
+            {"before": first, "after": second, "panels": {
+                panel: compare(groups, gold, severe, predictions[first], predictions[second])
+                for panel, groups in panels.items()
+            }}
+            for first, second in combinations(predictions, 2)
+        ]
     args.output.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
 
 

@@ -1,5 +1,6 @@
 * text=auto
 *.py text eol=lf
+/kwater_lab/system_prompt_v3.txt text eol=lf
 /tools/restore_ubuntu_from_g.sh text eol=lf
 *.md text eol=lf
 *.json text eol=lf

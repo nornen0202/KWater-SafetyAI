@@ -91,6 +91,15 @@ class Fold4PairedScoringTests(unittest.TestCase):
                     expected_changed = 2 if panel is full else 1
                     self.assertEqual(pair["changed_code_set_photo_rate"], expected_changed / panel["photos"])
                     self.assertEqual(pair["per_code_change"][code]["added_by_b"], expected_changed)
+                epoch1_output = root / "epoch1.json"
+                audit._score_panels(root, {"legacy8": arms["legacy8"], "v3_epoch1": arms["v3"]},
+                                    epoch1_output, "v3_epoch1_standalone")
+                epoch1 = json.loads(epoch1_output.read_text(encoding="utf-8"))
+                self.assertEqual(epoch1["evaluation_run"], "v3_epoch1_standalone")
+                for key, panel in epoch1["panels"].items():
+                    self.assertEqual(len(panel["comparisons"]), 1)
+                    self.assertEqual(panel["comparisons"]["legacy8_vs_v3_epoch1"],
+                                     result["panels"][key]["comparisons"]["legacy8_vs_v3"])
                 self.assertNotIn("synthetic-", json.dumps(result))
                 broken = arms["hybrid"]
                 lines = broken.read_text(encoding="utf-8").splitlines()

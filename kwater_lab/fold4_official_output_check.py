@@ -29,7 +29,9 @@ def write_jsonl(path, rows):
             stream.write(json.dumps(row, ensure_ascii=False, allow_nan=False) + "\n")
 
 
-def check_fold4(manifest, predictions, kit, workspace, python):
+def check_fold4(manifest, predictions, kit, workspace, python, *, arm_files=None):
+    if arm_files is None:
+        arm_files = {arm: predictions / f"{arm}.jsonl" for arm in ARMS}
     rows = [r for r in json.loads(manifest.read_bytes()) if r["split"] == "dev" and r["dev_fold"] == 4]
     mapping = {
         r["sample_id"]: hashlib.sha256(f"kwater/fold4-official-check/{r['sample_id']}".encode()).hexdigest()[:32]
@@ -42,8 +44,7 @@ def check_fold4(manifest, predictions, kit, workspace, python):
 
     originals = {}
     hashes = {}
-    for arm in ARMS:
-        path = predictions / f"{arm}.jsonl"
+    for arm, path in arm_files.items():
         before = sha256_file(path)
         index = read_index(path, lambda row: (row["image_id"], row), limit_size=True)
         if before != sha256_file(path):
@@ -86,6 +87,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--manifest", type=Path, default=DEFAULT_MANIFEST)
     parser.add_argument("--predictions", type=Path, default=DEFAULT_PREDICTIONS)
+    parser.add_argument("--legacy8", type=Path, help="Explicit 175-row baseline for a two-arm epoch-1 check")
+    parser.add_argument("--epoch1", type=Path, help="Distinct 175-row v3 epoch-1 standalone output")
     parser.add_argument("--kit", type=Path, default=Path("data/local-kit/kit"))
     parser.add_argument("--workspace", required=True, type=Path)
     parser.add_argument("--out", required=True, type=Path)
@@ -95,7 +98,15 @@ def main():
         parser.error("--workspace must be inside the local data directory")
     if args.out.exists():
         parser.error("--out must be a new aggregate file")
-    summary = check_fold4(args.manifest, args.predictions, args.kit, args.workspace, args.checker_python)
+    if bool(args.legacy8) != bool(args.epoch1):
+        parser.error("--legacy8 and --epoch1 must be supplied together")
+    arms = None
+    if args.epoch1:
+        if args.legacy8.resolve() == args.epoch1.resolve():
+            parser.error("The baseline and epoch-1 output must be distinct files")
+        arms = {"clean_8code_baseline": args.legacy8, "v3_11code_epoch1_standalone": args.epoch1}
+    summary = check_fold4(args.manifest, args.predictions, args.kit, args.workspace,
+                          args.checker_python, arm_files=arms)
     with args.out.open("x", encoding="utf-8", newline="\n") as stream:
         json.dump(summary, stream, indent=2)
         stream.write("\n")

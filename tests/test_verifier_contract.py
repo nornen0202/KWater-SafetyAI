@@ -2,7 +2,10 @@
 
 import copy
 import json
+import sys
+from types import ModuleType
 import unittest
+from unittest.mock import patch
 
 import numpy as np
 import torch
@@ -21,8 +24,11 @@ HAZARD = {"code": CODE, "likelihood_score": 4, "severity_score": 4,
 
 class VerifierContractTests(unittest.TestCase):
     def test_complete_response_matrix_matches_bundled_entrypoint(self):
-        runtime = {"__name__": "verifier_contract_test", "__file__": __file__}
-        exec(render_entrypoint(), runtime)
+        module = ModuleType("verifier_contract_test")
+        module.__file__ = __file__
+        runtime = vars(module)
+        with patch.dict(sys.modules, {module.__name__: module}):
+            exec(render_entrypoint(), runtime)
         self.assertEqual(runtime["verify_user_text"](CODE), verify_user_text(CODE))
         affirmative = {"decision": "accept", "hazard": HAZARD}
         text = json.dumps(affirmative, ensure_ascii=False)

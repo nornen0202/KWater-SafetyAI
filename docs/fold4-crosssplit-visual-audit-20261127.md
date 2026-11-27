@@ -54,3 +54,14 @@ $env:OPENBLAS_NUM_THREADS = '1'
 ```
 
 107장 중 최대 그룹 49장을 추가 제외한 58장·35그룹에서는 탐색적 ΔF1과 모델별로 활성 코드에서 빠진 코드도 함께 기록한다. 기본 집계 출력은 `results/fold4-paired-code-evaluation.json`이다.
+
+## 별도 v3 1에폭 체크포인트의 2군 채점
+
+v3 1에폭 단독 평가에서 생성한 175행, 독립 검산된 8종 175행과 각 생성 영수증을 연결한다. `score-epoch1`은 두 파일의 원래 ID를 확인한 뒤 175장과 107장을 채점한다. 이 결과는 2에폭 단독·하이브리드 비교와 다른 파일에 저장된다.
+
+```powershell
+python -m kwater_lab.fold4_crosssplit_audit score-epoch1 --legacy8 $Baseline175 --epoch1 $V3Epoch1
+python -m kwater_lab.fold4_official_output_check --legacy8 $Baseline175 --epoch1 $V3Epoch1 --workspace data/local-eval-predictions/fold4-epoch1-official-check --out results/fold4-epoch1-official-output-check.json
+```
+
+기본 정량 결과는 `results/fold4-v3-epoch1-paired-code-evaluation.json`이다. 원생성·최종 파일과 체크포인트·프롬프트·생성 설정·시간의 출처를 결과와 함께 기록한다.

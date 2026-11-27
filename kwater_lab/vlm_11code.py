@@ -68,7 +68,7 @@ CANDIDATE_MAX_PIXELS = 512 * 32 * 32
 INSPECT_MAX_NEW_TOKENS = 620
 VERIFY_MAX_NEW_TOKENS = 320
 DECISION_SPAN_RE = re.compile(
-    r'"(?:status|decision|code)"\s*:\s*"[^"]+"|"(?:likelihood_score|severity_score)"\s*:\s*\d+'
+    r'"(?:status|scene_state|decision|code)"\s*:\s*"[^"]+"|"(?:likelihood_score|severity_score)"\s*:\s*\d+'
 )
 LORA_TARGET_REGEX = (
     r".*(language_model\.layers\.\d+\.(self_attn\.(q_proj|k_proj|v_proj|o_proj)|"
@@ -636,7 +636,9 @@ def train_multimodal_qlora(
         raise ValueError("The training split has no examples")
     steps_per_epoch = math.ceil(len(curriculum) / grad_accum)
     total_steps = steps_per_epoch * epochs
-    base_model_dir = root / "data/baseline/base_model"
+    import os
+    env_base = os.environ.get("KWATER_LOCAL_BASE_MODEL")
+    base_model_dir = Path(env_base) if env_base and Path(env_base).is_dir() else (root / "data/baseline/base_model")
     configuration = {
         "val_fold": val_fold,
         "epochs": epochs,
@@ -821,12 +823,14 @@ def train_multimodal_qlora(
                 ep_tok_sum += n_sup
                 grp_loss += lv / len(group)
                 del batch, t_w, loss
+                torch.cuda.empty_cache()
 
             grad_norm = float(torch.nn.utils.clip_grad_norm_([p for _, p in trainable], 1.0, error_if_nonfinite=True).item())
             applied_lr = optimizer.param_groups[0]["lr"]
             optimizer.step()
             scheduler.step()
             global_step += 1
+            torch.cuda.empty_cache()
 
             step_rec = {
                 "epoch": epoch,

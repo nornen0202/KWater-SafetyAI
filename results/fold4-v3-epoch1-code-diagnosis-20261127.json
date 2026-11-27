@@ -1,0 +1,917 @@
+{
+  "scope": "Fold 4 code diagnosis. Fixed 175-photo cohort and confirmed cross-group exclusion at 107 photos. No thresholds selected.",
+  "normal_fp_definition": "A code predicted for a photo with no annotated hazard. The code identifies the error pattern, without inferring its visual cause.",
+  "severity4_complete_miss_definition": "No severity-4 ground-truth code appears in the prediction, regardless of predicted severity. One photo may contribute to multiple code counts.",
+  "official_internal_to_output_code_map": {
+    "fall_height": "fall_height",
+    "slip_trip": "slip_trip",
+    "struck_crushed": "struck_by_lifting",
+    "caught_in_machine": "caught_in_machine",
+    "collision_contact": "other",
+    "electrical_energy": "electrical_energy",
+    "fire_thermal": "fire_explosion",
+    "hazardous_exposure": "chemical_exposure"
+  },
+  "outside_8code_output_codes": [
+    "confined_space",
+    "drowning_inundation",
+    "thermal_weather"
+  ],
+  "cohort_sha256": {
+    "manifest": "3864848fe26b951ec070710499d2694078b17c76ffd2aaf38d312b99ad3b2f60",
+    "mask": "ec85cb77fa974c63ba750d2c8201db679921bd91099a015fafe5ca1c2c334060"
+  },
+  "arms": {
+    "fresh_8code": {
+      "prediction_sha256": "b0654988c68a0afd44f98141e07c4e91475f73031fdb9746ad32717bf32f870e",
+      "panels": {
+        "primary_175": {
+          "photos": 175,
+          "groups": 39,
+          "active_macro_f1": 0.5216200466200466,
+          "normal_photos": 49,
+          "normal_fp_photos": 10,
+          "normal_fp_code_sets": [
+            {
+              "codes": [
+                "fall_height"
+              ],
+              "photos": 4
+            },
+            {
+              "codes": [
+                "chemical_exposure"
+              ],
+              "photos": 2
+            },
+            {
+              "codes": [
+                "slip_trip"
+              ],
+              "photos": 2
+            },
+            {
+              "codes": [
+                "fall_height",
+                "slip_trip"
+              ],
+              "photos": 2
+            }
+          ],
+          "severity4_photos": 60,
+          "severity4_completely_missed_photos": 32,
+          "severity4_codes": 61,
+          "severity4_missed_code_instances": 33,
+          "outside_8code_present_photos": 0,
+          "outside_8code_missed_photos": 0,
+          "outside_8code_present_instances": 0,
+          "outside_8code_missed_instances": 0,
+          "by_code": {
+            "fall_height": {
+              "support": 36,
+              "pred": 41,
+              "tp": 20,
+              "fp": 21,
+              "fn": 16,
+              "normal_fp": 6,
+              "severity4_support": 20,
+              "severity4_fn": 9,
+              "severity4_completely_missed": 9
+            },
+            "slip_trip": {
+              "support": 55,
+              "pred": 57,
+              "tp": 39,
+              "fp": 18,
+              "fn": 16,
+              "normal_fp": 4,
+              "severity4_support": 0,
+              "severity4_fn": 0,
+              "severity4_completely_missed": 0
+            },
+            "caught_in_machine": {
+              "support": 7,
+              "pred": 8,
+              "tp": 5,
+              "fp": 3,
+              "fn": 2,
+              "normal_fp": 0,
+              "severity4_support": 5,
+              "severity4_fn": 1,
+              "severity4_completely_missed": 1
+            },
+            "struck_by_lifting": {
+              "support": 14,
+              "pred": 2,
+              "tp": 0,
+              "fp": 2,
+              "fn": 14,
+              "normal_fp": 0,
+              "severity4_support": 10,
+              "severity4_fn": 10,
+              "severity4_completely_missed": 10
+            },
+            "electrical_energy": {
+              "support": 8,
+              "pred": 5,
+              "tp": 5,
+              "fp": 0,
+              "fn": 3,
+              "normal_fp": 0,
+              "severity4_support": 7,
+              "severity4_fn": 3,
+              "severity4_completely_missed": 3
+            },
+            "drowning_inundation": {
+              "support": 0,
+              "pred": 0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "normal_fp": 0,
+              "severity4_support": 0,
+              "severity4_fn": 0,
+              "severity4_completely_missed": 0
+            },
+            "fire_explosion": {
+              "support": 7,
+              "pred": 9,
+              "tp": 7,
+              "fp": 2,
+              "fn": 0,
+              "normal_fp": 0,
+              "severity4_support": 0,
+              "severity4_fn": 0,
+              "severity4_completely_missed": 0
+            },
+            "confined_space": {
+              "support": 0,
+              "pred": 0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "normal_fp": 0,
+              "severity4_support": 0,
+              "severity4_fn": 0,
+              "severity4_completely_missed": 0
+            },
+            "chemical_exposure": {
+              "support": 4,
+              "pred": 9,
+              "tp": 2,
+              "fp": 7,
+              "fn": 2,
+              "normal_fp": 2,
+              "severity4_support": 0,
+              "severity4_fn": 0,
+              "severity4_completely_missed": 0
+            },
+            "thermal_weather": {
+              "support": 0,
+              "pred": 0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "normal_fp": 0,
+              "severity4_support": 0,
+              "severity4_fn": 0,
+              "severity4_completely_missed": 0
+            },
+            "other": {
+              "support": 29,
+              "pred": 36,
+              "tp": 11,
+              "fp": 25,
+              "fn": 18,
+              "normal_fp": 0,
+              "severity4_support": 19,
+              "severity4_fn": 10,
+              "severity4_completely_missed": 10
+            }
+          }
+        },
+        "sensitivity_107": {
+          "photos": 107,
+          "groups": 36,
+          "active_macro_f1": 0.5428948896631823,
+          "normal_photos": 27,
+          "normal_fp_photos": 6,
+          "normal_fp_code_sets": [
+            {
+              "codes": [
+                "slip_trip"
+              ],
+              "photos": 2
+            },
+            {
+              "codes": [
+                "fall_height"
+              ],
+              "photos": 2
+            },
+            {
+              "codes": [
+                "chemical_exposure"
+              ],
+              "photos": 1
+            },
+            {
+              "codes": [
+                "fall_height",
+                "slip_trip"
+              ],
+              "photos": 1
+            }
+          ],
+          "severity4_photos": 39,
+          "severity4_completely_missed_photos": 20,
+          "severity4_codes": 39,
+          "severity4_missed_code_instances": 20,
+          "outside_8code_present_photos": 0,
+          "outside_8code_missed_photos": 0,
+          "outside_8code_present_instances": 0,
+          "outside_8code_missed_instances": 0,
+          "by_code": {
+            "fall_height": {
+              "support": 22,
+              "pred": 22,
+              "tp": 11,
+              "fp": 11,
+              "fn": 11,
+              "normal_fp": 3,
+              "severity4_support": 13,
+              "severity4_fn": 7,
+              "severity4_completely_missed": 7
+            },
+            "slip_trip": {
+              "support": 34,
+              "pred": 41,
+              "tp": 26,
+              "fp": 15,
+              "fn": 8,
+              "normal_fp": 3,
+              "severity4_support": 0,
+              "severity4_fn": 0,
+              "severity4_completely_missed": 0
+            },
+            "caught_in_machine": {
+              "support": 5,
+              "pred": 6,
+              "tp": 4,
+              "fp": 2,
+              "fn": 1,
+              "normal_fp": 0,
+              "severity4_support": 4,
+              "severity4_fn": 1,
+              "severity4_completely_missed": 1
+            },
+            "struck_by_lifting": {
+              "support": 9,
+              "pred": 1,
+              "tp": 0,
+              "fp": 1,
+              "fn": 9,
+              "normal_fp": 0,
+              "severity4_support": 6,
+              "severity4_fn": 6,
+              "severity4_completely_missed": 6
+            },
+            "electrical_energy": {
+              "support": 6,
+              "pred": 5,
+              "tp": 5,
+              "fp": 0,
+              "fn": 1,
+              "normal_fp": 0,
+              "severity4_support": 5,
+              "severity4_fn": 1,
+              "severity4_completely_missed": 1
+            },
+            "drowning_inundation": {
+              "support": 0,
+              "pred": 0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "normal_fp": 0,
+              "severity4_support": 0,
+              "severity4_fn": 0,
+              "severity4_completely_missed": 0
+            },
+            "fire_explosion": {
+              "support": 6,
+              "pred": 8,
+              "tp": 6,
+              "fp": 2,
+              "fn": 0,
+              "normal_fp": 0,
+              "severity4_support": 0,
+              "severity4_fn": 0,
+              "severity4_completely_missed": 0
+            },
+            "confined_space": {
+              "support": 0,
+              "pred": 0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "normal_fp": 0,
+              "severity4_support": 0,
+              "severity4_fn": 0,
+              "severity4_completely_missed": 0
+            },
+            "chemical_exposure": {
+              "support": 4,
+              "pred": 7,
+              "tp": 2,
+              "fp": 5,
+              "fn": 2,
+              "normal_fp": 1,
+              "severity4_support": 0,
+              "severity4_fn": 0,
+              "severity4_completely_missed": 0
+            },
+            "thermal_weather": {
+              "support": 0,
+              "pred": 0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "normal_fp": 0,
+              "severity4_support": 0,
+              "severity4_fn": 0,
+              "severity4_completely_missed": 0
+            },
+            "other": {
+              "support": 17,
+              "pred": 24,
+              "tp": 6,
+              "fp": 18,
+              "fn": 11,
+              "normal_fp": 0,
+              "severity4_support": 11,
+              "severity4_fn": 5,
+              "severity4_completely_missed": 5
+            }
+          }
+        }
+      }
+    },
+    "v3_epoch1": {
+      "prediction_sha256": "5ebbe7a7b3198b944d241a68dd2733e7dc3cca4afe8fb42b4c98a6ac2f9f7a2d",
+      "panels": {
+        "primary_175": {
+          "photos": 175,
+          "groups": 39,
+          "active_macro_f1": 0.5420135141212449,
+          "normal_photos": 49,
+          "normal_fp_photos": 10,
+          "normal_fp_code_sets": [
+            {
+              "codes": [
+                "fall_height"
+              ],
+              "photos": 3
+            },
+            {
+              "codes": [
+                "chemical_exposure"
+              ],
+              "photos": 1
+            },
+            {
+              "codes": [
+                "slip_trip"
+              ],
+              "photos": 1
+            },
+            {
+              "codes": [
+                "fall_height",
+                "slip_trip"
+              ],
+              "photos": 1
+            },
+            {
+              "codes": [
+                "caught_in_machine",
+                "electrical_energy"
+              ],
+              "photos": 1
+            },
+            {
+              "codes": [
+                "caught_in_machine",
+                "slip_trip"
+              ],
+              "photos": 1
+            },
+            {
+              "codes": [
+                "electrical_energy"
+              ],
+              "photos": 1
+            },
+            {
+              "codes": [
+                "other",
+                "slip_trip"
+              ],
+              "photos": 1
+            }
+          ],
+          "severity4_photos": 60,
+          "severity4_completely_missed_photos": 29,
+          "severity4_codes": 61,
+          "severity4_missed_code_instances": 30,
+          "outside_8code_present_photos": 0,
+          "outside_8code_missed_photos": 0,
+          "outside_8code_present_instances": 0,
+          "outside_8code_missed_instances": 0,
+          "by_code": {
+            "fall_height": {
+              "support": 36,
+              "pred": 24,
+              "tp": 16,
+              "fp": 8,
+              "fn": 20,
+              "normal_fp": 4,
+              "severity4_support": 20,
+              "severity4_fn": 10,
+              "severity4_completely_missed": 10
+            },
+            "slip_trip": {
+              "support": 55,
+              "pred": 54,
+              "tp": 34,
+              "fp": 20,
+              "fn": 21,
+              "normal_fp": 4,
+              "severity4_support": 0,
+              "severity4_fn": 0,
+              "severity4_completely_missed": 0
+            },
+            "caught_in_machine": {
+              "support": 7,
+              "pred": 9,
+              "tp": 5,
+              "fp": 4,
+              "fn": 2,
+              "normal_fp": 2,
+              "severity4_support": 5,
+              "severity4_fn": 1,
+              "severity4_completely_missed": 1
+            },
+            "struck_by_lifting": {
+              "support": 14,
+              "pred": 2,
+              "tp": 1,
+              "fp": 1,
+              "fn": 13,
+              "normal_fp": 0,
+              "severity4_support": 10,
+              "severity4_fn": 9,
+              "severity4_completely_missed": 9
+            },
+            "electrical_energy": {
+              "support": 8,
+              "pred": 8,
+              "tp": 6,
+              "fp": 2,
+              "fn": 2,
+              "normal_fp": 2,
+              "severity4_support": 7,
+              "severity4_fn": 2,
+              "severity4_completely_missed": 2
+            },
+            "drowning_inundation": {
+              "support": 0,
+              "pred": 0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "normal_fp": 0,
+              "severity4_support": 0,
+              "severity4_fn": 0,
+              "severity4_completely_missed": 0
+            },
+            "fire_explosion": {
+              "support": 7,
+              "pred": 9,
+              "tp": 7,
+              "fp": 2,
+              "fn": 0,
+              "normal_fp": 0,
+              "severity4_support": 0,
+              "severity4_fn": 0,
+              "severity4_completely_missed": 0
+            },
+            "confined_space": {
+              "support": 0,
+              "pred": 0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "normal_fp": 0,
+              "severity4_support": 0,
+              "severity4_fn": 0,
+              "severity4_completely_missed": 0
+            },
+            "chemical_exposure": {
+              "support": 4,
+              "pred": 2,
+              "tp": 1,
+              "fp": 1,
+              "fn": 3,
+              "normal_fp": 1,
+              "severity4_support": 0,
+              "severity4_fn": 0,
+              "severity4_completely_missed": 0
+            },
+            "thermal_weather": {
+              "support": 0,
+              "pred": 0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "normal_fp": 0,
+              "severity4_support": 0,
+              "severity4_fn": 0,
+              "severity4_completely_missed": 0
+            },
+            "other": {
+              "support": 29,
+              "pred": 22,
+              "tp": 12,
+              "fp": 10,
+              "fn": 17,
+              "normal_fp": 1,
+              "severity4_support": 19,
+              "severity4_fn": 8,
+              "severity4_completely_missed": 8
+            }
+          }
+        },
+        "sensitivity_107": {
+          "photos": 107,
+          "groups": 36,
+          "active_macro_f1": 0.5625228985147689,
+          "normal_photos": 27,
+          "normal_fp_photos": 6,
+          "normal_fp_code_sets": [
+            {
+              "codes": [
+                "fall_height"
+              ],
+              "photos": 2
+            },
+            {
+              "codes": [
+                "chemical_exposure"
+              ],
+              "photos": 1
+            },
+            {
+              "codes": [
+                "slip_trip"
+              ],
+              "photos": 1
+            },
+            {
+              "codes": [
+                "electrical_energy"
+              ],
+              "photos": 1
+            },
+            {
+              "codes": [
+                "other",
+                "slip_trip"
+              ],
+              "photos": 1
+            }
+          ],
+          "severity4_photos": 39,
+          "severity4_completely_missed_photos": 18,
+          "severity4_codes": 39,
+          "severity4_missed_code_instances": 18,
+          "outside_8code_present_photos": 0,
+          "outside_8code_missed_photos": 0,
+          "outside_8code_present_instances": 0,
+          "outside_8code_missed_instances": 0,
+          "by_code": {
+            "fall_height": {
+              "support": 22,
+              "pred": 12,
+              "tp": 9,
+              "fp": 3,
+              "fn": 13,
+              "normal_fp": 2,
+              "severity4_support": 13,
+              "severity4_fn": 7,
+              "severity4_completely_missed": 7
+            },
+            "slip_trip": {
+              "support": 34,
+              "pred": 37,
+              "tp": 22,
+              "fp": 15,
+              "fn": 12,
+              "normal_fp": 2,
+              "severity4_support": 0,
+              "severity4_fn": 0,
+              "severity4_completely_missed": 0
+            },
+            "caught_in_machine": {
+              "support": 5,
+              "pred": 5,
+              "tp": 4,
+              "fp": 1,
+              "fn": 1,
+              "normal_fp": 0,
+              "severity4_support": 4,
+              "severity4_fn": 1,
+              "severity4_completely_missed": 1
+            },
+            "struck_by_lifting": {
+              "support": 9,
+              "pred": 0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 9,
+              "normal_fp": 0,
+              "severity4_support": 6,
+              "severity4_fn": 6,
+              "severity4_completely_missed": 6
+            },
+            "electrical_energy": {
+              "support": 6,
+              "pred": 7,
+              "tp": 6,
+              "fp": 1,
+              "fn": 0,
+              "normal_fp": 1,
+              "severity4_support": 5,
+              "severity4_fn": 0,
+              "severity4_completely_missed": 0
+            },
+            "drowning_inundation": {
+              "support": 0,
+              "pred": 0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "normal_fp": 0,
+              "severity4_support": 0,
+              "severity4_fn": 0,
+              "severity4_completely_missed": 0
+            },
+            "fire_explosion": {
+              "support": 6,
+              "pred": 8,
+              "tp": 6,
+              "fp": 2,
+              "fn": 0,
+              "normal_fp": 0,
+              "severity4_support": 0,
+              "severity4_fn": 0,
+              "severity4_completely_missed": 0
+            },
+            "confined_space": {
+              "support": 0,
+              "pred": 0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "normal_fp": 0,
+              "severity4_support": 0,
+              "severity4_fn": 0,
+              "severity4_completely_missed": 0
+            },
+            "chemical_exposure": {
+              "support": 4,
+              "pred": 2,
+              "tp": 1,
+              "fp": 1,
+              "fn": 3,
+              "normal_fp": 1,
+              "severity4_support": 0,
+              "severity4_fn": 0,
+              "severity4_completely_missed": 0
+            },
+            "thermal_weather": {
+              "support": 0,
+              "pred": 0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "normal_fp": 0,
+              "severity4_support": 0,
+              "severity4_fn": 0,
+              "severity4_completely_missed": 0
+            },
+            "other": {
+              "support": 17,
+              "pred": 15,
+              "tp": 7,
+              "fp": 8,
+              "fn": 10,
+              "normal_fp": 1,
+              "severity4_support": 11,
+              "severity4_fn": 4,
+              "severity4_completely_missed": 4
+            }
+          }
+        }
+      }
+    }
+  },
+  "paired": [
+    {
+      "before": "fresh_8code",
+      "after": "v3_epoch1",
+      "panels": {
+        "primary_175": {
+          "fall_height": {
+            "recovered_tp": 2,
+            "lost_tp": 6,
+            "new_fp": 5,
+            "cleared_fp": 18,
+            "severity4_recovered_tp": 2,
+            "severity4_lost_tp": 3
+          },
+          "slip_trip": {
+            "recovered_tp": 2,
+            "lost_tp": 7,
+            "new_fp": 9,
+            "cleared_fp": 7,
+            "severity4_recovered_tp": 0,
+            "severity4_lost_tp": 0
+          },
+          "caught_in_machine": {
+            "recovered_tp": 0,
+            "lost_tp": 0,
+            "new_fp": 3,
+            "cleared_fp": 2,
+            "severity4_recovered_tp": 0,
+            "severity4_lost_tp": 0
+          },
+          "struck_by_lifting": {
+            "recovered_tp": 1,
+            "lost_tp": 0,
+            "new_fp": 1,
+            "cleared_fp": 2,
+            "severity4_recovered_tp": 1,
+            "severity4_lost_tp": 0
+          },
+          "electrical_energy": {
+            "recovered_tp": 1,
+            "lost_tp": 0,
+            "new_fp": 2,
+            "cleared_fp": 0,
+            "severity4_recovered_tp": 1,
+            "severity4_lost_tp": 0
+          },
+          "drowning_inundation": {
+            "recovered_tp": 0,
+            "lost_tp": 0,
+            "new_fp": 0,
+            "cleared_fp": 0,
+            "severity4_recovered_tp": 0,
+            "severity4_lost_tp": 0
+          },
+          "fire_explosion": {
+            "recovered_tp": 0,
+            "lost_tp": 0,
+            "new_fp": 0,
+            "cleared_fp": 0,
+            "severity4_recovered_tp": 0,
+            "severity4_lost_tp": 0
+          },
+          "confined_space": {
+            "recovered_tp": 0,
+            "lost_tp": 0,
+            "new_fp": 0,
+            "cleared_fp": 0,
+            "severity4_recovered_tp": 0,
+            "severity4_lost_tp": 0
+          },
+          "chemical_exposure": {
+            "recovered_tp": 0,
+            "lost_tp": 1,
+            "new_fp": 0,
+            "cleared_fp": 6,
+            "severity4_recovered_tp": 0,
+            "severity4_lost_tp": 0
+          },
+          "thermal_weather": {
+            "recovered_tp": 0,
+            "lost_tp": 0,
+            "new_fp": 0,
+            "cleared_fp": 0,
+            "severity4_recovered_tp": 0,
+            "severity4_lost_tp": 0
+          },
+          "other": {
+            "recovered_tp": 4,
+            "lost_tp": 3,
+            "new_fp": 4,
+            "cleared_fp": 19,
+            "severity4_recovered_tp": 3,
+            "severity4_lost_tp": 1
+          }
+        },
+        "sensitivity_107": {
+          "fall_height": {
+            "recovered_tp": 2,
+            "lost_tp": 4,
+            "new_fp": 2,
+            "cleared_fp": 10,
+            "severity4_recovered_tp": 2,
+            "severity4_lost_tp": 2
+          },
+          "slip_trip": {
+            "recovered_tp": 0,
+            "lost_tp": 4,
+            "new_fp": 5,
+            "cleared_fp": 5,
+            "severity4_recovered_tp": 0,
+            "severity4_lost_tp": 0
+          },
+          "caught_in_machine": {
+            "recovered_tp": 0,
+            "lost_tp": 0,
+            "new_fp": 0,
+            "cleared_fp": 1,
+            "severity4_recovered_tp": 0,
+            "severity4_lost_tp": 0
+          },
+          "struck_by_lifting": {
+            "recovered_tp": 0,
+            "lost_tp": 0,
+            "new_fp": 0,
+            "cleared_fp": 1,
+            "severity4_recovered_tp": 0,
+            "severity4_lost_tp": 0
+          },
+          "electrical_energy": {
+            "recovered_tp": 1,
+            "lost_tp": 0,
+            "new_fp": 1,
+            "cleared_fp": 0,
+            "severity4_recovered_tp": 1,
+            "severity4_lost_tp": 0
+          },
+          "drowning_inundation": {
+            "recovered_tp": 0,
+            "lost_tp": 0,
+            "new_fp": 0,
+            "cleared_fp": 0,
+            "severity4_recovered_tp": 0,
+            "severity4_lost_tp": 0
+          },
+          "fire_explosion": {
+            "recovered_tp": 0,
+            "lost_tp": 0,
+            "new_fp": 0,
+            "cleared_fp": 0,
+            "severity4_recovered_tp": 0,
+            "severity4_lost_tp": 0
+          },
+          "confined_space": {
+            "recovered_tp": 0,
+            "lost_tp": 0,
+            "new_fp": 0,
+            "cleared_fp": 0,
+            "severity4_recovered_tp": 0,
+            "severity4_lost_tp": 0
+          },
+          "chemical_exposure": {
+            "recovered_tp": 0,
+            "lost_tp": 1,
+            "new_fp": 0,
+            "cleared_fp": 4,
+            "severity4_recovered_tp": 0,
+            "severity4_lost_tp": 0
+          },
+          "thermal_weather": {
+            "recovered_tp": 0,
+            "lost_tp": 0,
+            "new_fp": 0,
+            "cleared_fp": 0,
+            "severity4_recovered_tp": 0,
+            "severity4_lost_tp": 0
+          },
+          "other": {
+            "recovered_tp": 2,
+            "lost_tp": 1,
+            "new_fp": 3,
+            "cleared_fp": 13,
+            "severity4_recovered_tp": 2,
+            "severity4_lost_tp": 1
+          }
+        }
+      }
+    }
+  ]
+}
