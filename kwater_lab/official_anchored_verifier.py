@@ -154,12 +154,14 @@ def reusable_raw(ft_cache, identity, proposals, selected_images):
     return matches
 
 
-def add_verified_records(baseline, results):
+def add_verified_records(baseline, results, *, law_train_ids=None):
     output = copy.deepcopy(baseline)
     accepted = [result for result in results if result["accepted"]]
     if accepted:
-        dev = json.loads(MANIFEST.read_text(encoding="utf-8"))
-        train_ids = {r["sample_id"] for r in dev if r["split"] == "dev" and r["dev_fold"] != 0}
+        train_ids = law_train_ids
+        if train_ids is None:
+            dev = json.loads(MANIFEST.read_text(encoding="utf-8"))
+            train_ids = {r["sample_id"] for r in dev if r["split"] == "dev" and r["dev_fold"] != 0}
         laws = [json.loads(line) for line in Path("data/baseline/assets/laws.jsonl").read_text(encoding="utf-8").splitlines() if line]
         ranker = Native11LawRetriever(laws, list(read_selected_cases(Path("data/train/train.jsonl"), train_ids)))
         for result in accepted:

@@ -595,6 +595,9 @@ def train_multimodal_qlora(
     checkpoint_steps: int = 5,
     resume_from: Path | None = None,
     stop_after_steps: int | None = None,
+    curriculum_builder=None,
+    experiment_identity: dict | None = None,
+    initialization_observer=None,
 ) -> dict[str, Any]:
     from peft import LoraConfig, PeftModel, get_peft_model
     from transformers import get_cosine_schedule_with_warmup
@@ -626,7 +629,8 @@ def train_multimodal_qlora(
                     raw_train_by_id[row["sample_id"]] = row
 
     system_prompt = prompt_path.read_text(encoding="utf-8")
-    curriculum = build_training_curriculum(train_split_rows, raw_train_by_id, seed=seed)
+    build_curriculum = curriculum_builder or build_training_curriculum
+    curriculum = build_curriculum(train_split_rows, raw_train_by_id, seed=seed)
     kind_counts = Counter(x["kind"] for x in curriculum)
     if not curriculum:
         raise ValueError("The training split has no examples")
@@ -644,6 +648,8 @@ def train_multimodal_qlora(
         "prompt_sha256": digest(prompt_path),
         "base_config_sha256": digest(base_model_dir / "config.json"),
     }
+    if experiment_identity is not None:
+        configuration["experiment"] = experiment_identity
     resume = None
     if resume_from is not None:
         resume = torch.load(resume_from / "training_state.pt", map_location="cpu", weights_only=True)
@@ -677,6 +683,12 @@ def train_multimodal_qlora(
     model.gradient_checkpointing_enable(gradient_checkpointing_kwargs={"use_reentrant": False})
 
     trainable = [(n, p) for n, p in model.named_parameters() if p.requires_grad]
+    if resume is None and initialization_observer is not None:
+        initial = hashlib.sha256()
+        for name, tensor in sorted(trainable, key=lambda entry: entry[0]):
+            initial.update(repr((name, tuple(tensor.shape), str(tensor.dtype))).encode())
+            initial.update(tensor.detach().cpu().contiguous().view(torch.uint8).numpy().tobytes())
+        initialization_observer(initial.hexdigest())
     target_names = {n.split(".lora_")[0] for n, _ in trainable if ".lora_" in n}
     valid_targets = all(".lora_" in n and re.fullmatch(LORA_TARGET_REGEX, n.split(".lora_")[0]) for n, _ in trainable)
     expected_vision = {"merger"} | {
@@ -791,12 +803,16 @@ def train_multimodal_qlora(
                 continue
             optimizer.zero_grad(set_to_none=True)
             grp_loss = 0.0
+            step_supervised = step_decision_tokens = 0
 
             for item in group:
                 batch = encode_weighted_example(proc, item, image_root, system_prompt, ep_rng).to("cuda")
                 t_w = batch.pop("token_weights")
                 n_pref = int(batch.pop("n_prefix").item())
                 loss, n_sup = forward_and_weighted_assistant_loss(model, batch, t_w, n_pref)
+                if experiment_identity is not None:
+                    step_supervised += n_sup
+                    step_decision_tokens += int((t_w > 1.5).sum().item())
                 if not torch.isfinite(loss):
                     raise RuntimeError(f"Non-finite loss on {item['sample_id']}")
                 (loss / len(group)).backward()
@@ -824,6 +840,8 @@ def train_multimodal_qlora(
                 "peak_gib": round(torch.cuda.max_memory_allocated() / 2**30, 2),
                 "res_gib": round(torch.cuda.max_memory_reserved() / 2**30, 2),
             }
+            if experiment_identity is not None:
+                step_rec.update(examples=len(group), supervised_tokens=step_supervised, decision_tokens=step_decision_tokens)
             records.append(step_rec)
             with steps_path.open("a", encoding="utf-8") as sf:
                 sf.write(json.dumps(step_rec) + "\n")

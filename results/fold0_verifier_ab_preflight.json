@@ -1,0 +1,121 @@
+{
+  "stage": "CPU-only token preflight",
+  "identity": {
+    "contract_sha256": "5134ff336a271770cbf345ae1fb9b93c22c94e8fbcc73718c9b9a97d9cb2a50c",
+    "prompt_sha256": "107142013bc95376c9044fc5025079f1e68dd56b4d95b20b1550deeafe4712fb",
+    "official_labels_sha256": "ab427fed4615b32627b76001e27124e99ae9202c855ba4170916ebe4fdc4de55",
+    "base_index_sha256": "58a7841d7bff2548dd91577d216274a83cf1b500bc6a534b809d6c1b1707cf2b",
+    "base_shards_identity_sha256": "a9a87d8e39004069498b10dcd52badcb27edb2c73947fec0d345509bb7aa6d72",
+    "trainer_sha256": "ee1d72147178e5abcf3a1e0ee3638fe4a160530f619c693c455e96d6325aef34",
+    "runner_sha256": "b3ce9d5f0085167a6a3ce86aabbc2d639cb04a74c7fcbabeb710cad410f2b443",
+    "manifest_sha256": "3864848fe26b951ec070710499d2694078b17c76ffd2aaf38d312b99ad3b2f60",
+    "cross_group_mask_sha256": "c97e83f55808db09372d3dc0e80f531b041fc7c6f38ee25b876a1213111fc41c",
+    "source_pairs_sha256": "2eb152b5c5758e99b556d2efe7b7f7fa27f3f037fd784788b3a67e832382b4f4",
+    "frozen_evaluation_sha256": "51aec0f574241210b95d480fd06fc64a61a0ae1debcaff4623b195e0f8084977"
+  },
+  "settings": {
+    "mode": "fresh_base_verifier_only",
+    "seed": 42,
+    "epochs": 2,
+    "grad_accum": 1,
+    "lr": 0.00014,
+    "max_pixels": 393216,
+    "max_relative_token_difference": {
+      "supervised_tokens": 0.05,
+      "decision_tokens": 0.05
+    }
+  },
+  "eligible_pool": 497,
+  "excluded_train_groups": 3,
+  "frozen_evaluation_candidates": 102,
+  "composition": {
+    "approved_pairs": 3,
+    "pilot_only": true,
+    "slot_counts": [
+      {
+        "code": "fall_height",
+        "control": "no_visible",
+        "decision": "accept",
+        "examples_per_arm": 1
+      },
+      {
+        "code": "fall_height",
+        "control": "no_visible",
+        "decision": "reject",
+        "examples_per_arm": 1
+      },
+      {
+        "code": "fall_height",
+        "control": "other_hazard",
+        "decision": "accept",
+        "examples_per_arm": 1
+      },
+      {
+        "code": "fall_height",
+        "control": "other_hazard",
+        "decision": "reject",
+        "examples_per_arm": 1
+      },
+      {
+        "code": "struck_by_lifting",
+        "control": "no_visible",
+        "decision": "accept",
+        "examples_per_arm": 1
+      },
+      {
+        "code": "struck_by_lifting",
+        "control": "no_visible",
+        "decision": "reject",
+        "examples_per_arm": 1
+      }
+    ],
+    "photos_per_arm": {
+      "A": 6,
+      "B": 6
+    }
+  },
+  "totals": {
+    "A": {
+      "examples": 12,
+      "supervised_tokens": 790,
+      "decision_tokens": 156,
+      "visual_tokens": 3968
+    },
+    "B": {
+      "examples": 12,
+      "supervised_tokens": 790,
+      "decision_tokens": 156,
+      "visual_tokens": 4264
+    }
+  },
+  "optimizer_calls_per_arm": 12,
+  "examples_per_optimizer_call": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+  ],
+  "relative_token_difference": {
+    "examples": 0.0,
+    "supervised_tokens": 0.0,
+    "decision_tokens": 0.0,
+    "visual_tokens": 0.06941838649155722
+  },
+  "tokens_within_frozen_tolerance": true,
+  "pre_registered_decision_rule": {
+    "primary_min_accuracy_delta": 0.03,
+    "require_positive_group_bootstrap_lower": true,
+    "max_incorrect_accept_increase": 0,
+    "max_correct_accept_decrease": 0,
+    "max_anchored_false_alarm_rate": 0.2,
+    "max_severity4_miss_increase": 0
+  }
+}
