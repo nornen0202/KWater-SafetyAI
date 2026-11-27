@@ -398,5 +398,605 @@
         }
       }
     }
+  },
+  "paired_audit_262144": {
+    "cpu": {
+      "source_sha256": "04dda2c6a5cb654defd5363c41616bc7514fe00c2128f880ab7bc9248034de09",
+      "seed": 20261127,
+      "bootstrap": {
+        "method": "2000 by default: paired event-cluster percentile bootstrap stratified by validation fold",
+        "requested_resamples": 2000,
+        "estimand": "Pooled abnormal-photo recall@1 difference, regional minus global",
+        "conditions_on": "Fixed OOF predictions; excludes model retraining and model-selection uncertainty"
+      },
+      "negative_control": {
+        "method": "One deterministic permutation of complete training label vectors per fold",
+        "preserves": "All 16-token image blocks, cross-token covariance, label-vector marginals, fit-only eligibility",
+        "limitation": "Diagnostic single shuffle, not a permutation significance test or proof of spatial geometry"
+      },
+      "observed": {
+        "abnormal_photos": 399,
+        "global_hits": 262,
+        "regional_hits": 263,
+        "global_recall_at_1": 0.656641604010025,
+        "regional_recall_at_1": 0.6591478696741855,
+        "delta_regional_minus_global": 0.002506265664160401,
+        "contingency": {
+          "both_hit": 228,
+          "global_only": 34,
+          "regional_only": 35,
+          "neither_hit": 102
+        },
+        "cluster_percentile_95_ci": {
+          "lower": -0.030612244897959183,
+          "upper": 0.041345109366513595,
+          "valid_resamples": 2000,
+          "rejected_zero_denominator_draws": 0,
+          "event_groups": 117,
+          "seed": 20261127
+        },
+        "per_code": [
+          {
+            "code": "fall_height",
+            "support": 130,
+            "global_hits": 68,
+            "regional_hits": 77,
+            "gains": 16,
+            "losses": 7
+          },
+          {
+            "code": "slip_trip",
+            "support": 170,
+            "global_hits": 103,
+            "regional_hits": 100,
+            "gains": 17,
+            "losses": 20
+          },
+          {
+            "code": "caught_in_machine",
+            "support": 24,
+            "global_hits": 14,
+            "regional_hits": 14,
+            "gains": 2,
+            "losses": 2
+          },
+          {
+            "code": "struck_by_lifting",
+            "support": 40,
+            "global_hits": 3,
+            "regional_hits": 2,
+            "gains": 2,
+            "losses": 3
+          },
+          {
+            "code": "electrical_energy",
+            "support": 24,
+            "global_hits": 18,
+            "regional_hits": 17,
+            "gains": 2,
+            "losses": 3
+          },
+          {
+            "code": "drowning_inundation",
+            "support": 1,
+            "global_hits": 0,
+            "regional_hits": 0,
+            "gains": 0,
+            "losses": 0
+          },
+          {
+            "code": "fire_explosion",
+            "support": 24,
+            "global_hits": 15,
+            "regional_hits": 15,
+            "gains": 2,
+            "losses": 2
+          },
+          {
+            "code": "confined_space",
+            "support": 0,
+            "global_hits": 0,
+            "regional_hits": 0,
+            "gains": 0,
+            "losses": 0
+          },
+          {
+            "code": "chemical_exposure",
+            "support": 10,
+            "global_hits": 3,
+            "regional_hits": 3,
+            "gains": 0,
+            "losses": 0
+          },
+          {
+            "code": "thermal_weather",
+            "support": 1,
+            "global_hits": 0,
+            "regional_hits": 0,
+            "gains": 0,
+            "losses": 0
+          },
+          {
+            "code": "other",
+            "support": 92,
+            "global_hits": 38,
+            "regional_hits": 35,
+            "gains": 9,
+            "losses": 12
+          }
+        ],
+        "normal_photos": 176,
+        "normal_global_proposals": {
+          "fall_height": 60,
+          "slip_trip": 47,
+          "caught_in_machine": 8,
+          "struck_by_lifting": 26,
+          "electrical_energy": 6,
+          "drowning_inundation": 0,
+          "fire_explosion": 0,
+          "confined_space": 0,
+          "chemical_exposure": 0,
+          "thermal_weather": 0,
+          "other": 29
+        },
+        "normal_regional_proposals": {
+          "fall_height": 63,
+          "slip_trip": 51,
+          "caught_in_machine": 10,
+          "struck_by_lifting": 20,
+          "electrical_energy": 6,
+          "drowning_inundation": 0,
+          "fire_explosion": 0,
+          "confined_space": 0,
+          "chemical_exposure": 0,
+          "thermal_weather": 0,
+          "other": 26
+        }
+      },
+      "train_label_shuffle": {
+        "abnormal_photos": 399,
+        "global_hits": 137,
+        "regional_hits": 125,
+        "global_recall_at_1": 0.3433583959899749,
+        "regional_recall_at_1": 0.3132832080200501,
+        "delta_regional_minus_global": -0.03007518796992481,
+        "contingency": {
+          "both_hit": 92,
+          "global_only": 45,
+          "regional_only": 33,
+          "neither_hit": 229
+        },
+        "cluster_percentile_95_ci": {
+          "lower": -0.07214304981118504,
+          "upper": 0.003562343482272288,
+          "valid_resamples": 2000,
+          "rejected_zero_denominator_draws": 0,
+          "event_groups": 117,
+          "seed": 20261127
+        },
+        "per_code": [
+          {
+            "code": "fall_height",
+            "support": 130,
+            "global_hits": 49,
+            "regional_hits": 45,
+            "gains": 14,
+            "losses": 18
+          },
+          {
+            "code": "slip_trip",
+            "support": 170,
+            "global_hits": 72,
+            "regional_hits": 59,
+            "gains": 14,
+            "losses": 27
+          },
+          {
+            "code": "caught_in_machine",
+            "support": 24,
+            "global_hits": 1,
+            "regional_hits": 0,
+            "gains": 0,
+            "losses": 1
+          },
+          {
+            "code": "struck_by_lifting",
+            "support": 40,
+            "global_hits": 2,
+            "regional_hits": 3,
+            "gains": 1,
+            "losses": 0
+          },
+          {
+            "code": "electrical_energy",
+            "support": 24,
+            "global_hits": 1,
+            "regional_hits": 0,
+            "gains": 0,
+            "losses": 1
+          },
+          {
+            "code": "drowning_inundation",
+            "support": 1,
+            "global_hits": 0,
+            "regional_hits": 0,
+            "gains": 0,
+            "losses": 0
+          },
+          {
+            "code": "fire_explosion",
+            "support": 24,
+            "global_hits": 1,
+            "regional_hits": 1,
+            "gains": 1,
+            "losses": 1
+          },
+          {
+            "code": "confined_space",
+            "support": 0,
+            "global_hits": 0,
+            "regional_hits": 0,
+            "gains": 0,
+            "losses": 0
+          },
+          {
+            "code": "chemical_exposure",
+            "support": 10,
+            "global_hits": 0,
+            "regional_hits": 0,
+            "gains": 0,
+            "losses": 0
+          },
+          {
+            "code": "thermal_weather",
+            "support": 1,
+            "global_hits": 0,
+            "regional_hits": 0,
+            "gains": 0,
+            "losses": 0
+          },
+          {
+            "code": "other",
+            "support": 92,
+            "global_hits": 11,
+            "regional_hits": 17,
+            "gains": 12,
+            "losses": 6
+          }
+        ],
+        "normal_photos": 176,
+        "normal_global_proposals": {
+          "fall_height": 52,
+          "slip_trip": 52,
+          "caught_in_machine": 4,
+          "struck_by_lifting": 11,
+          "electrical_energy": 10,
+          "drowning_inundation": 0,
+          "fire_explosion": 12,
+          "confined_space": 0,
+          "chemical_exposure": 1,
+          "thermal_weather": 1,
+          "other": 33
+        },
+        "normal_regional_proposals": {
+          "fall_height": 49,
+          "slip_trip": 69,
+          "caught_in_machine": 5,
+          "struck_by_lifting": 10,
+          "electrical_energy": 11,
+          "drowning_inundation": 0,
+          "fire_explosion": 8,
+          "confined_space": 0,
+          "chemical_exposure": 1,
+          "thermal_weather": 0,
+          "other": 23
+        }
+      },
+      "normal_control": {
+        "classifier_threshold": null,
+        "false_positive_rate": null,
+        "interpretation": "Top-1 always proposes a risk code; normal histograms are not classification FPR."
+      },
+      "per_code_definition": "Support is true-label photos; gains/losses are changes in correct code-specific top-1."
+    },
+    "cuda": {
+      "source_sha256": "74c084cd27774a562b342e12f79a1cb97dfb22a65e7540680985f1a66497bf62",
+      "seed": 20261127,
+      "bootstrap": {
+        "method": "2000 by default: paired event-cluster percentile bootstrap stratified by validation fold",
+        "requested_resamples": 2000,
+        "estimand": "Pooled abnormal-photo recall@1 difference, regional minus global",
+        "conditions_on": "Fixed OOF predictions; excludes model retraining and model-selection uncertainty"
+      },
+      "negative_control": {
+        "method": "One deterministic permutation of complete training label vectors per fold",
+        "preserves": "All 16-token image blocks, cross-token covariance, label-vector marginals, fit-only eligibility",
+        "limitation": "Diagnostic single shuffle, not a permutation significance test or proof of spatial geometry"
+      },
+      "observed": {
+        "abnormal_photos": 399,
+        "global_hits": 262,
+        "regional_hits": 271,
+        "global_recall_at_1": 0.656641604010025,
+        "regional_recall_at_1": 0.6791979949874687,
+        "delta_regional_minus_global": 0.022556390977443608,
+        "contingency": {
+          "both_hit": 235,
+          "global_only": 27,
+          "regional_only": 36,
+          "neither_hit": 101
+        },
+        "cluster_percentile_95_ci": {
+          "lower": -0.010171226933533868,
+          "upper": 0.05253948271915765,
+          "valid_resamples": 2000,
+          "rejected_zero_denominator_draws": 0,
+          "event_groups": 117,
+          "seed": 20261127
+        },
+        "per_code": [
+          {
+            "code": "fall_height",
+            "support": 130,
+            "global_hits": 68,
+            "regional_hits": 70,
+            "gains": 10,
+            "losses": 8
+          },
+          {
+            "code": "slip_trip",
+            "support": 170,
+            "global_hits": 103,
+            "regional_hits": 105,
+            "gains": 14,
+            "losses": 12
+          },
+          {
+            "code": "caught_in_machine",
+            "support": 24,
+            "global_hits": 14,
+            "regional_hits": 16,
+            "gains": 5,
+            "losses": 3
+          },
+          {
+            "code": "struck_by_lifting",
+            "support": 40,
+            "global_hits": 3,
+            "regional_hits": 3,
+            "gains": 2,
+            "losses": 2
+          },
+          {
+            "code": "electrical_energy",
+            "support": 24,
+            "global_hits": 18,
+            "regional_hits": 19,
+            "gains": 2,
+            "losses": 1
+          },
+          {
+            "code": "drowning_inundation",
+            "support": 1,
+            "global_hits": 0,
+            "regional_hits": 0,
+            "gains": 0,
+            "losses": 0
+          },
+          {
+            "code": "fire_explosion",
+            "support": 24,
+            "global_hits": 15,
+            "regional_hits": 18,
+            "gains": 3,
+            "losses": 0
+          },
+          {
+            "code": "confined_space",
+            "support": 0,
+            "global_hits": 0,
+            "regional_hits": 0,
+            "gains": 0,
+            "losses": 0
+          },
+          {
+            "code": "chemical_exposure",
+            "support": 10,
+            "global_hits": 3,
+            "regional_hits": 1,
+            "gains": 0,
+            "losses": 2
+          },
+          {
+            "code": "thermal_weather",
+            "support": 1,
+            "global_hits": 0,
+            "regional_hits": 0,
+            "gains": 0,
+            "losses": 0
+          },
+          {
+            "code": "other",
+            "support": 92,
+            "global_hits": 38,
+            "regional_hits": 39,
+            "gains": 11,
+            "losses": 10
+          }
+        ],
+        "normal_photos": 176,
+        "normal_global_proposals": {
+          "fall_height": 60,
+          "slip_trip": 47,
+          "caught_in_machine": 8,
+          "struck_by_lifting": 26,
+          "electrical_energy": 6,
+          "drowning_inundation": 0,
+          "fire_explosion": 0,
+          "confined_space": 0,
+          "chemical_exposure": 0,
+          "thermal_weather": 0,
+          "other": 29
+        },
+        "normal_regional_proposals": {
+          "fall_height": 61,
+          "slip_trip": 46,
+          "caught_in_machine": 12,
+          "struck_by_lifting": 26,
+          "electrical_energy": 3,
+          "drowning_inundation": 0,
+          "fire_explosion": 0,
+          "confined_space": 0,
+          "chemical_exposure": 2,
+          "thermal_weather": 0,
+          "other": 26
+        }
+      },
+      "train_label_shuffle": {
+        "abnormal_photos": 399,
+        "global_hits": 137,
+        "regional_hits": 120,
+        "global_recall_at_1": 0.3433583959899749,
+        "regional_recall_at_1": 0.3007518796992481,
+        "delta_regional_minus_global": -0.042606516290726815,
+        "contingency": {
+          "both_hit": 89,
+          "global_only": 48,
+          "regional_only": 31,
+          "neither_hit": 231
+        },
+        "cluster_percentile_95_ci": {
+          "lower": -0.0813691803002902,
+          "upper": -0.005545393734859636,
+          "valid_resamples": 2000,
+          "rejected_zero_denominator_draws": 0,
+          "event_groups": 117,
+          "seed": 20261127
+        },
+        "per_code": [
+          {
+            "code": "fall_height",
+            "support": 130,
+            "global_hits": 49,
+            "regional_hits": 43,
+            "gains": 12,
+            "losses": 18
+          },
+          {
+            "code": "slip_trip",
+            "support": 170,
+            "global_hits": 72,
+            "regional_hits": 60,
+            "gains": 17,
+            "losses": 29
+          },
+          {
+            "code": "caught_in_machine",
+            "support": 24,
+            "global_hits": 1,
+            "regional_hits": 0,
+            "gains": 0,
+            "losses": 1
+          },
+          {
+            "code": "struck_by_lifting",
+            "support": 40,
+            "global_hits": 2,
+            "regional_hits": 1,
+            "gains": 0,
+            "losses": 1
+          },
+          {
+            "code": "electrical_energy",
+            "support": 24,
+            "global_hits": 1,
+            "regional_hits": 0,
+            "gains": 0,
+            "losses": 1
+          },
+          {
+            "code": "drowning_inundation",
+            "support": 1,
+            "global_hits": 0,
+            "regional_hits": 0,
+            "gains": 0,
+            "losses": 0
+          },
+          {
+            "code": "fire_explosion",
+            "support": 24,
+            "global_hits": 1,
+            "regional_hits": 0,
+            "gains": 0,
+            "losses": 1
+          },
+          {
+            "code": "confined_space",
+            "support": 0,
+            "global_hits": 0,
+            "regional_hits": 0,
+            "gains": 0,
+            "losses": 0
+          },
+          {
+            "code": "chemical_exposure",
+            "support": 10,
+            "global_hits": 0,
+            "regional_hits": 0,
+            "gains": 0,
+            "losses": 0
+          },
+          {
+            "code": "thermal_weather",
+            "support": 1,
+            "global_hits": 0,
+            "regional_hits": 0,
+            "gains": 0,
+            "losses": 0
+          },
+          {
+            "code": "other",
+            "support": 92,
+            "global_hits": 11,
+            "regional_hits": 16,
+            "gains": 9,
+            "losses": 4
+          }
+        ],
+        "normal_photos": 176,
+        "normal_global_proposals": {
+          "fall_height": 52,
+          "slip_trip": 52,
+          "caught_in_machine": 4,
+          "struck_by_lifting": 11,
+          "electrical_energy": 10,
+          "drowning_inundation": 0,
+          "fire_explosion": 12,
+          "confined_space": 0,
+          "chemical_exposure": 1,
+          "thermal_weather": 1,
+          "other": 33
+        },
+        "normal_regional_proposals": {
+          "fall_height": 47,
+          "slip_trip": 66,
+          "caught_in_machine": 6,
+          "struck_by_lifting": 12,
+          "electrical_energy": 14,
+          "drowning_inundation": 0,
+          "fire_explosion": 4,
+          "confined_space": 0,
+          "chemical_exposure": 2,
+          "thermal_weather": 0,
+          "other": 25
+        }
+      },
+      "normal_control": {
+        "classifier_threshold": null,
+        "false_positive_rate": null,
+        "interpretation": "Top-1 always proposes a risk code; normal histograms are not classification FPR."
+      },
+      "per_code_definition": "Support is true-label photos; gains/losses are changes in correct code-specific top-1."
+    }
   }
 }
