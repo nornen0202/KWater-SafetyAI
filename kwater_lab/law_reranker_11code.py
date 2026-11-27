@@ -203,6 +203,8 @@ class Native11LawRetriever:
         prevention: str,
         scene_note: str = "",
         max_refs: int = 2,
+        *,
+        ranked_candidates: bool = False,
     ) -> list[dict[str, str]]:
         q_full = hazard_query_terms(evidence, prevention, scene_note)
         if not q_full:
@@ -257,6 +259,9 @@ class Native11LawRetriever:
         top1 = ranked[0]
         if scores[top1] < 0.075:
             return []
+        if ranked_candidates:
+            # Expose ranked candidates before the production co-citation gate.
+            return [{"kind": "law", "id": oid} for oid in ranked[:max_refs]]
 
         selected = [top1]
         if max_refs >= 2 and len(ranked) >= 2 and neighbor_total_votes > 0:

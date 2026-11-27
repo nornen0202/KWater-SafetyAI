@@ -1,0 +1,411 @@
+{
+  "scope": "CPU-only audit of fixed raw official and v2 sentences; annotations used only after prediction for a top-1 proxy.",
+  "training_pool_photos": 750,
+  "candidate_pool_top_k": 3,
+  "sealed_holdout_used": false,
+  "previously_inspected_cohort_is_development_only": true,
+  "official_outputs_used_for_generation_training": "Official comparator LoRA had development exposure; replay changes only references.",
+  "direct_support_measurement": "Rule-trigger counts, no fresh blinded visual rating or official qualitative score.",
+  "bundled_clause_fixture_verified": {
+    "record_id": "273603:article:4-2",
+    "rule": "dust_spray"
+  },
+  "input_sha256": {
+    "data\\fold0-qlora-v2-118-official\\output\\submission.jsonl": "dadf8ecedbe47c85e69a7cdd3b3987a1bab68083ab7e5fbb6484ede624a93691",
+    "data\\local-eval-predictions\\fold0\\fold0-qlora-v2-118-bf16\\ft_vlm_11code.jsonl": "6d91d29ec5767a0f80c5c0fefd615befe891cb7afe8a686477efa37a731ae9b2",
+    "data\\local-eval-predictions\\fold0\\fold0-qlora-v2-118-bf16\\ft_vlm_raw.jsonl": "a8723dafdd9b1a1d88f97839b8bf7de421b685603676cee779bde9f9b77f32cd",
+    "official_raw_batch_hashes_sha256": "97d833a4e91894bf04abf168b4d0c8af2040fa45fe3a2292bd8d58247e57e015",
+    "data/clean-split-v1/split_manifest_dev.json": "3864848fe26b951ec070710499d2694078b17c76ffd2aaf38d312b99ad3b2f60",
+    "data/train/train.jsonl": "ab427fed4615b32627b76001e27124e99ae9202c855ba4170916ebe4fdc4de55",
+    "data/baseline/assets/laws.jsonl": "1408b69db444cf90b31f9bebb4a773a30fa4362739e50b22c95f3bbe0e75bd9d",
+    "data/fold0-crosssplit-visual-review/fold0-group-exclusions-confirmed.json": "c97e83f55808db09372d3dc0e80f531b041fc7c6f38ee25b876a1213111fc41c",
+    "data/fold0-ai-blind-review-20261127/freeze.json": "30060bbffecf63aba8c41ddc408486edc0165b26466e8b317386f3b4e3129ac4"
+  },
+  "bundled_legal_record_rules": [
+    {
+      "rule": "dust_spray",
+      "law": "OSH-4-2",
+      "record": "article:4-2"
+    },
+    {
+      "rule": "helmet",
+      "law": "OSH-32",
+      "record": "article:32:p:1:i:1"
+    },
+    {
+      "rule": "harness_two_metres",
+      "law": "OSH-32",
+      "record": "article:32:p:1:i:2"
+    },
+    {
+      "rule": "insulating_ppe",
+      "law": "OSH-32",
+      "record": "article:32:p:1:i:6"
+    },
+    {
+      "rule": "hold_loading_dust_mask",
+      "law": "OSH-32",
+      "record": "article:32:p:1:i:8"
+    },
+    {
+      "rule": "platform_edge_guardrail",
+      "law": "OSH-43",
+      "record": "article:43:p:1"
+    },
+    {
+      "rule": "structural_assessment",
+      "law": "OSH-52",
+      "record": "article:52"
+    },
+    {
+      "rule": "restricted_area",
+      "law": "OSH-20",
+      "record": "article:20"
+    },
+    {
+      "rule": "construction_vehicle_exclusion",
+      "law": "OSH-200",
+      "record": "article:200:p:1"
+    },
+    {
+      "rule": "hot_work_spark_screen",
+      "law": "OSH-241",
+      "record": "article:241:p:2:i:4"
+    },
+    {
+      "rule": "live_part_insulation",
+      "law": "OSH-301",
+      "record": "article:301:p:1:i:2"
+    },
+    {
+      "rule": "live_part_enclosure",
+      "law": "OSH-301",
+      "record": "article:301:p:1:i:1"
+    },
+    {
+      "rule": "live_part_wrapping",
+      "law": "OSH-301",
+      "record": "article:301:p:1:i:3"
+    },
+    {
+      "rule": "live_panel_door",
+      "law": "OSH-301",
+      "record": "article:301:p:3"
+    },
+    {
+      "rule": "leakage_breaker",
+      "law": "OSH-304",
+      "record": "article:304:p:1"
+    },
+    {
+      "rule": "electrical_deenergization",
+      "law": "OSH-319",
+      "record": "article:319:p:1"
+    }
+  ],
+  "panels": {
+    "official": {
+      "all_fold0": {
+        "photos": 216,
+        "groups": 36,
+        "queries": 132,
+        "candidate_list_empty": 0,
+        "top1_changed": 2,
+        "action_rule_trigger_queries": 13,
+        "action_rule_triggers_in_top3": 13,
+        "changed_by_support_rule": {
+          "electrical_deenergization": 1,
+          "platform_edge_guardrail": 1
+        },
+        "direct_support_rule_proxy": {
+          "baseline": 11,
+          "guard": 13
+        },
+        "order_status_counts": {
+          "not_applicable": 132
+        },
+        "order_findings": {},
+        "matched_annotated_queries": 96,
+        "annotated_groups": 21,
+        "annotated_top1_hits": {
+          "saved": 85,
+          "baseline": 85,
+          "guard": 84,
+          "gain": 0,
+          "loss": 1
+        },
+        "paired_group_bootstrap_guard_minus_native_hit_rate_ci95": [
+          -0.14285714285714285,
+          0.0
+        ]
+      },
+      "previously_inspected_12": {
+        "photos": 12,
+        "groups": 12,
+        "queries": 8,
+        "candidate_list_empty": 0,
+        "top1_changed": 2,
+        "action_rule_trigger_queries": 3,
+        "action_rule_triggers_in_top3": 3,
+        "changed_by_support_rule": {
+          "electrical_deenergization": 1,
+          "platform_edge_guardrail": 1
+        },
+        "direct_support_rule_proxy": {
+          "baseline": 1,
+          "guard": 3
+        },
+        "order_status_counts": {
+          "not_applicable": 8
+        },
+        "order_findings": {},
+        "matched_annotated_queries": 7,
+        "annotated_groups": 7,
+        "annotated_top1_hits": {
+          "saved": 5,
+          "baseline": 5,
+          "guard": 4,
+          "gain": 0,
+          "loss": 1
+        },
+        "paired_group_bootstrap_guard_minus_native_hit_rate_ci95": [
+          -0.42857142857142855,
+          0.0
+        ]
+      },
+      "remaining_204": {
+        "photos": 204,
+        "groups": 24,
+        "queries": 124,
+        "candidate_list_empty": 0,
+        "top1_changed": 0,
+        "action_rule_trigger_queries": 10,
+        "action_rule_triggers_in_top3": 10,
+        "changed_by_support_rule": {},
+        "direct_support_rule_proxy": {
+          "baseline": 10,
+          "guard": 10
+        },
+        "order_status_counts": {
+          "not_applicable": 124
+        },
+        "order_findings": {},
+        "matched_annotated_queries": 89,
+        "annotated_groups": 14,
+        "annotated_top1_hits": {
+          "saved": 80,
+          "baseline": 80,
+          "guard": 80,
+          "gain": 0,
+          "loss": 0
+        },
+        "paired_group_bootstrap_guard_minus_native_hit_rate_ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "confirmed_cross_group_exclusion": {
+        "photos": 34,
+        "groups": 34,
+        "queries": 28,
+        "candidate_list_empty": 0,
+        "top1_changed": 2,
+        "action_rule_trigger_queries": 4,
+        "action_rule_triggers_in_top3": 4,
+        "changed_by_support_rule": {
+          "electrical_deenergization": 1,
+          "platform_edge_guardrail": 1
+        },
+        "direct_support_rule_proxy": {
+          "baseline": 2,
+          "guard": 4
+        },
+        "order_status_counts": {
+          "not_applicable": 28
+        },
+        "order_findings": {},
+        "matched_annotated_queries": 19,
+        "annotated_groups": 19,
+        "annotated_top1_hits": {
+          "saved": 13,
+          "baseline": 14,
+          "guard": 13,
+          "gain": 0,
+          "loss": 1
+        },
+        "paired_group_bootstrap_guard_minus_native_hit_rate_ci95": [
+          -0.15789473684210525,
+          0.0
+        ]
+      }
+    },
+    "v2_bf16": {
+      "all_fold0": {
+        "photos": 216,
+        "groups": 36,
+        "queries": 185,
+        "candidate_list_empty": 0,
+        "top1_changed": 8,
+        "action_rule_trigger_queries": 15,
+        "action_rule_triggers_in_top3": 14,
+        "changed_by_support_rule": {
+          "electrical_deenergization": 2,
+          "platform_edge_guardrail": 6
+        },
+        "direct_support_rule_proxy": {
+          "baseline": 6,
+          "guard": 14
+        },
+        "order_status_counts": {
+          "not_applicable": 183,
+          "unsafe_order": 2
+        },
+        "order_findings": {
+          "worker_placed_in_spark_path": 1,
+          "energized_contact_before_isolation": 1
+        },
+        "matched_annotated_queries": 97,
+        "annotated_groups": 20,
+        "annotated_top1_hits": {
+          "saved": 86,
+          "baseline": 86,
+          "guard": 87,
+          "gain": 2,
+          "loss": 1
+        },
+        "paired_group_bootstrap_guard_minus_native_hit_rate_ci95": [
+          0.0,
+          0.012345679012345678
+        ]
+      },
+      "previously_inspected_12": {
+        "photos": 12,
+        "groups": 12,
+        "queries": 10,
+        "candidate_list_empty": 0,
+        "top1_changed": 1,
+        "action_rule_trigger_queries": 2,
+        "action_rule_triggers_in_top3": 2,
+        "changed_by_support_rule": {
+          "electrical_deenergization": 1
+        },
+        "direct_support_rule_proxy": {
+          "baseline": 1,
+          "guard": 2
+        },
+        "order_status_counts": {
+          "not_applicable": 8,
+          "unsafe_order": 2
+        },
+        "order_findings": {
+          "worker_placed_in_spark_path": 1,
+          "energized_contact_before_isolation": 1
+        },
+        "matched_annotated_queries": 8,
+        "annotated_groups": 8,
+        "annotated_top1_hits": {
+          "saved": 5,
+          "baseline": 5,
+          "guard": 5,
+          "gain": 0,
+          "loss": 0
+        },
+        "paired_group_bootstrap_guard_minus_native_hit_rate_ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "remaining_204": {
+        "photos": 204,
+        "groups": 24,
+        "queries": 175,
+        "candidate_list_empty": 0,
+        "top1_changed": 7,
+        "action_rule_trigger_queries": 13,
+        "action_rule_triggers_in_top3": 12,
+        "changed_by_support_rule": {
+          "platform_edge_guardrail": 6,
+          "electrical_deenergization": 1
+        },
+        "direct_support_rule_proxy": {
+          "baseline": 5,
+          "guard": 12
+        },
+        "order_status_counts": {
+          "not_applicable": 175
+        },
+        "order_findings": {},
+        "matched_annotated_queries": 89,
+        "annotated_groups": 12,
+        "annotated_top1_hits": {
+          "saved": 81,
+          "baseline": 81,
+          "guard": 82,
+          "gain": 2,
+          "loss": 1
+        },
+        "paired_group_bootstrap_guard_minus_native_hit_rate_ci95": [
+          0.0,
+          0.01276595744680851
+        ]
+      },
+      "confirmed_cross_group_exclusion": {
+        "photos": 34,
+        "groups": 34,
+        "queries": 40,
+        "candidate_list_empty": 0,
+        "top1_changed": 3,
+        "action_rule_trigger_queries": 4,
+        "action_rule_triggers_in_top3": 4,
+        "changed_by_support_rule": {
+          "electrical_deenergization": 1,
+          "platform_edge_guardrail": 2
+        },
+        "direct_support_rule_proxy": {
+          "baseline": 1,
+          "guard": 4
+        },
+        "order_status_counts": {
+          "not_applicable": 38,
+          "unsafe_order": 2
+        },
+        "order_findings": {
+          "worker_placed_in_spark_path": 1,
+          "energized_contact_before_isolation": 1
+        },
+        "matched_annotated_queries": 20,
+        "annotated_groups": 18,
+        "annotated_top1_hits": {
+          "saved": 16,
+          "baseline": 16,
+          "guard": 16,
+          "gain": 0,
+          "loss": 0
+        },
+        "paired_group_bootstrap_guard_minus_native_hit_rate_ci95": [
+          0.0,
+          0.0
+        ]
+      }
+    }
+  },
+  "implementation_sha256": {
+    "kwater_lab/prevention_law_guard.py": "6e1e18265bce0ac6224609ce70ae641e053933b4f1225579ecba92884a07c120",
+    "kwater_lab/law_reranker_11code.py": "91f240ca011b7dc0c36d23097b06d147291ac9fd427d51b6edd5d5e152221bce"
+  },
+  "manual_text_and_statute_scope_check": {
+    "changed_top1_occurrences_reviewed": 10,
+    "grounded_action_components": {
+      "platform_edge_guardrail_against_osh_43_paragraph_1": 7,
+      "isolation_of_exposed_electrical_equipment_against_osh_319_paragraph_1": 3
+    },
+    "one_guardrail_occurrence_has_separate_ambiguous_movement_wording": true,
+    "electrical_cases_may_also_have_enclosure_actions_supported_by_other_articles": true,
+    "known_development_order_flags_recovered": {
+      "fire_worker_in_spark_path": 1,
+      "electrical_contact_before_isolation": 1
+    },
+    "scope": "Checks of the exact changed text components against the bundled provisions. The reviewer did not re-evaluate the photos or certify the whole proposed procedure.",
+    "new_independent_human_rating": false
+  }
+}
