@@ -17,7 +17,13 @@ from kwater_lab.fold0_production_compare import generation_conditions
 from kwater_lab.hybrid_pipeline import count_added_predictions
 from kwater_lab.law_reranker_11code import export_compact_case_bank, Native11LawRetriever
 from kwater_lab.metrics import CODES
-from kwater_lab.package_submission import build_submission_package, render_entrypoint
+from kwater_lab.package_submission import (
+    PRODUCTION_VERIFY_MAX_NEW_TOKENS,
+    _describe_training_and_calibration_scope,
+    build_submission_package,
+    render_entrypoint,
+    validate_margin_gate_config,
+)
 from kwater_lab.verifier_cache import verify_with_cache
 from kwater_lab.vlm_11code import infer_batched_vlm
 
@@ -202,6 +208,76 @@ class ReleasePipelineTests(unittest.TestCase):
         after["c"].remove("other")
         with self.assertRaisesRegex(ValueError, "removed a primary hazard prediction"):
             count_added_predictions(gold, before, after)
+
+    def test_hybrid_entrypoint_enforces_margin_gate_single_candidate_and_verify_batch_two(self):
+        for bad_gate in (
+            None,
+            {},
+            {"beta": 0.0, "tau_when_hazard": 0.5, "tau_when_empty": 1.5},
+            {"beta": True, "tau_when_hazard": 0.5, "tau_when_empty": 1.5},
+            {"beta": float("nan"), "tau_when_hazard": 0.5, "tau_when_empty": 1.5},
+        ):
+            with self.assertRaises(ValueError):
+                validate_margin_gate_config(bad_gate)
+        valid_gate = validate_margin_gate_config({"beta": 0.6, "tau_when_hazard": -0.9, "tau_when_empty": 1.489})
+        self.assertEqual(valid_gate["beta"], 0.6)
+
+        src = render_entrypoint()
+        self.assertEqual(PRODUCTION_VERIFY_MAX_NEW_TOKENS, 280)
+        self.assertIn("VERIFY_MAX_NEW_TOKENS = 280", src)
+        self.assertIn("max_candidates_per_photo=max_cands_per_photo", src)
+        self.assertIn('cfg.get("max_candidates_per_photo", 1)', src)
+        self.assertIn('cfg.get("verify_batch_size", 2)', src)
+        self.assertIn('cfg.get("verify_max_new_tokens", VERIFY_MAX_NEW_TOKENS)', src)
+        self.assertIn("max_new_tokens=verify_max_new_tokens", src)
+        self.assertIn('"verify_max_new_tokens": verify_max_new_tokens if use_hybrid else 0', src)
+        self.assertIn("score_candidates_1token_margin(\n                model, proc, candidates, prompt, verify_batch_sz\n            )", src)
+
+        bundle_dir = self.path / "bundle_check"
+        bundle_dir.mkdir()
+        main_py = bundle_dir / "main.py"
+        main_py.write_text(src, encoding="utf-8")
+        (bundle_dir / "pipeline_config.json").write_text(
+            json.dumps({"enable_hybrid_booster": True, "margin_gate": None}), encoding="utf-8"
+        )
+        runtime = runpy.run_path(str(main_py))
+        self.assertEqual(runtime["VERIFY_MAX_NEW_TOKENS"], 280)
+        old_argv = sys.argv[:]
+        try:
+            sys.argv = ["main.py", "--input-dir", str(self.path / "in"), "--output-dir", str(self.path / "out")]
+            with self.assertRaisesRegex(ValueError, "calibrated margin_gate"):
+                runtime["main"]()
+        finally:
+            sys.argv = old_argv
+
+        # Verify scope & overlap audit against real Fold-4 artifacts (0 exact pair overlap, 3 photo / 2 group overlap, 65/65 inspect)
+        f4_dir = ROOT / "data/v3-11code-fold4"
+        if (f4_dir / "training_summary.json").is_file() and (f4_dir / "margin_gate_calibration.json").is_file():
+            f4_sum = json.loads((f4_dir / "training_summary.json").read_text(encoding="utf-8"))
+            dev_m = json.loads((ROOT / "data/clean-split-v1/split_manifest_dev.json").read_text(encoding="utf-8"))
+            tr_ids = {r["sample_id"] for r in dev_m if r["split"] == "dev" and int(r["dev_fold"]) != 4}
+            f4_gate = json.loads((f4_dir / "margin_gate_calibration.json").read_text(encoding="utf-8"))
+            scope = _describe_training_and_calibration_scope(
+                root=ROOT,
+                adapter_dir=f4_dir / "adapter",
+                summary=f4_sum,
+                train_ids=tr_ids,
+                resolved_prompt=ROOT / "kwater_lab/system_prompt_v3.txt",
+                enable_hybrid=True,
+                specialist_ckpt=ROOT / "data/clean-specialist-v1/specialist_5fold_ensemble.pt",
+                oof_path=ROOT / "data/clean-specialist-v1/dev_oof_predictions.npz",
+                gate_file=f4_dir / "margin_gate_calibration.json",
+                margin_gate=f4_gate,
+            )
+            self.assertIn("not a separate inner calibration split", scope["specialist_calibration_method"])
+            mg_audit = scope["margin_gate_exposure_audit"]
+            self.assertTrue(mg_audit["exact_pair_disjoint_from_verify_supervision"])
+            self.assertEqual(mg_audit["verify_supervision_exact_pair_overlap_count"], 0)
+            self.assertEqual(mg_audit["verify_supervision_photo_overlap_count"], 3)
+            self.assertEqual(mg_audit["verify_supervision_group_overlap_count"], 2)
+            self.assertEqual(mg_audit["base_inspect_photo_overlap_count"], 65)
+            for k in ("adapter_safetensors_sha256", "prompt_sha256", "margin_gate_calibration_sha256", "inner_margin_cal_pairs_sha256"):
+                self.assertRegex(str(scope["provenance_sha256"][k]), r"^[0-9a-f]{64}$")
 
 
 if __name__ == "__main__":

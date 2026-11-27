@@ -17,7 +17,7 @@ python -B -m kwater_lab.package_submission \
   --adapter-dir data/v3-11code-full1045/adapter \
   --specialist-ckpt data/v3-full1045-specialist/specialist_5fold_1045_ensemble.pt \
   --prompt-path kwater_lab/system_prompt_v3.txt \
-  --batch-size 4 --verify-batch-size 2 --max-candidates-per-photo 1 \
+  --batch-size 4 --verify-batch-size 2 --verify-max-new-tokens 280 --max-candidates-per-photo 1 \
   --dest-dir data/submissions/full1045-hybrid-stage \
   --zip-path data/submissions/kwater-full1045-hybrid.zip
 python -B -m kwater_lab.offline_archive_audit --archive data/submissions/kwater-full1045-hybrid.zip \
@@ -72,3 +72,9 @@ $SHA = (Get-FileHash -LiteralPath $ZIP -Algorithm SHA256).Hash.ToLowerInvariant(
 ```
 
 이미 별도 인계 원장에서 확인한 SHA가 있으면 그대로 사용해 선행 9GB 해시 읽기를 생략한다. `native`가 실행 직전에 실제 ZIP을 해시한다. Windows의 기존 venv를 사용하므로 빈 Linux 컨테이너에서의 설치 시간, seccomp, L4 벽시계는 이 기록으로 판정할 수 없다.
+
+## 전량 전문가·마진의 범위
+
+전량 전문가 체크포인트는 1,045장 그룹 단위 5-fold의 각 홀드아웃에서 3개 seed 판독을 평균해 OOF 점수를 만든다. 온도, 코드 문턱과 장면 기준은 전체 1,045개 OOF 행에서 한 번 적합한다. 제작기는 같은 행에서 계산해 체크포인트에 저장한 코드별 정밀도를 읽는다. 이 수치는 별도의 내측 폴드에서 적합하고 외측에서 재검증한 정밀도와 구별한다. 추론에는 각 사진마다 전체 15개 head를 사용한다. [전량 전문가 생성](../kwater_lab/v3_turnaround.py) · [제작기의 전문가·마진 로드](../kwater_lab/package_submission.py)
+
+마진 보정에서 감독과 같은 정확한 사진·코드 쌍을 쓰지 않았더라도 사진 또는 사건 그룹과 1차 판독 감독의 중복은 별도로 확인해야 한다. 정규 Fold 4에서는 동일 보정 쌍 중복이 0건이었고, 검증기 학습과 사진 3장·그룹 2개가 겹쳤다. 전량 학습의 checkpoint-30 설정 지문으로 훈련 예제 1,345개를 재구성했다. 마진 보정 251쌍은 170사진·40그룹이며, 사진 170장 모두 1차 판독 모델의 감독에 쓰였다. 검증기 감독과 사진 5장·그룹 4개가 겹쳤고 동일한 사진·위험 코드 쌍은 0건이었다. 전량 어댑터와 전문가의 Fold 4 성능을 독립 검증으로 해석할 수 없다.

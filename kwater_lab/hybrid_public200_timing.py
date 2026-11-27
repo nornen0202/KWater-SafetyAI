@@ -75,7 +75,8 @@ def summarize(args):
                                  and metrics[k] >= 0 for k in PHASES)
     production_policy = (metrics.get("enable_hybrid_booster") is True and metrics.get("max_candidates_per_photo") == 1
                          and metrics.get("inspect_initial_batch_size") == 4
-                         and metrics.get("verify_initial_batch_size") == 2)
+                         and metrics.get("verify_initial_batch_size") == 2
+                         and metrics.get("verify_max_new_tokens") == 280)
     complete = (hashes == [args.archive_sha256] and results == ["OK"] and len(inputs) == len(outputs) == COUNT and inputs.keys() == outputs.keys()
                 and checked == [(str(COUNT), str(COUNT))] and metrics.get("input_photos") == COUNT
                 and metrics.get("output_submission_sha256") == sha and runtime_phases_present and production_policy
@@ -121,8 +122,9 @@ def native(args):
         cfg = json.loads(bundle.read("pipeline_config.json"))
         main_sha = hashlib.sha256(bundle.read("main.py")).hexdigest()
     if (cfg.get("enable_hybrid_booster") is not True or not cfg.get("margin_gate")
-            or (cfg.get("batch_size"), cfg.get("verify_batch_size"), cfg.get("max_candidates_per_photo")) != (4, 2, 1)):
-        raise ValueError("Expected the frozen hybrid settings (4, 2, one candidate, active gate)")
+            or (cfg.get("batch_size"), cfg.get("verify_batch_size"), cfg.get("max_candidates_per_photo"),
+                cfg.get("verify_max_new_tokens")) != (4, 2, 1, 280)):
+        raise ValueError("Expected hybrid batches 4/2, one candidate, 280 verify tokens, and an active gate")
     source_sha = sha256_file(archive)
     if source_sha != args.archive_sha256:
         raise ValueError("Native archive bytes differ from the frozen SHA-256")
