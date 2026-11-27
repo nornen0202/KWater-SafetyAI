@@ -3,10 +3,6 @@
 set -euo pipefail
 cd -- "$(dirname -- "$0")/.."
 if (( $# != 0 )); then echo "Usage: $0" >&2; exit 64; fi
-start=$(date -d '2026-11-27T20:00:00+09:00' +%s)
-cutoff=$(date -d '2026-11-29T23:00:00+09:00' +%s)
-now=$(date +%s)
-if (( now < start || now >= cutoff )); then echo 'Outside research startup window' >&2; exit 69; fi
 if [[ -e .runtime/WEEKEND_STOP ]]; then echo 'Weekend stopped locally' >&2; exit 69; fi
 if [[ $(git branch --show-current) != ubuntu/weekend-20261127 ]]; then
     echo 'Expected the auxiliary-PC weekend branch' >&2; exit 69

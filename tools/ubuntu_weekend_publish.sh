@@ -4,11 +4,6 @@ set -euo pipefail
 cd -- "$(dirname -- "$0")/.."
 branch=ubuntu/weekend-20261127
 if [[ $(git branch --show-current) != "$branch" || -e .runtime/WEEKEND_STOP ]]; then exit 69; fi
-now=$(date +%s)
-if (( now < $(date -d '2026-11-27T20:00:00+09:00' +%s) || now >= $(date -d '2026-11-29T23:59:00+09:00' +%s) )); then
-    echo "Outside weekend publication window" >&2
-    exit 69
-fi
 if (( $# < 2 )); then echo "Usage: $0 'commit message' reviewed-path [...]" >&2; exit 64; fi
 message=$1
 shift

@@ -1,12 +1,9 @@
 #!/usr/bin/env bash
-# One supervised local GPU job. All times are the 2026 competition weekend in Korea.
+# One supervised local GPU job; continue research until explicitly stopped.
 set -euo pipefail
 root=$(cd -- "$(dirname -- "$0")/.." && pwd -P)
 cd "$root"
 unit=kwater-weekend-gpu
-start=$(date -d '2026-11-27T20:00:00+09:00' +%s)
-end=$(date -d '2026-11-29T23:59:00+09:00' +%s)
-cutoff=$(date -d '2026-11-29T23:00:00+09:00' +%s)
 mode=${1:-}
 if [[ -z $mode ]]; then
     echo "Usage: $0 check | run MODULE [ARGS...] | stop" >&2
@@ -37,14 +34,13 @@ if [[ $mode == check ]]; then
 fi
 if [[ $mode != run || $# -lt 1 ]]; then exit 64; fi
 case "$1" in
-    kwater_lab.spatial_probe|kwater_lab.ubuntu_position_control|kwater_lab.ubuntu_law_control|tools.ubuntu_margin_probe) ;;
+    kwater_lab.spatial_probe|kwater_lab.spatial_oof_audit|kwater_lab.ubuntu_position_control|kwater_lab.ubuntu_law_control|tools.ubuntu_margin_probe) ;;
     *) echo "Review the experiment entry point before adding it to the launcher" >&2; exit 64 ;;
 esac
-now=$(date +%s)
-seconds=$((end - now - 15))
-if (( now < start || now >= cutoff || seconds < 60 )); then
-    echo "Outside the weekend execution window" >&2
-    exit 69
+seconds=${KWATER_JOB_TIMEOUT_SECONDS:-21600}
+if [[ ! $seconds =~ ^[1-9][0-9]{1,5}$ ]] || (( seconds < 60 )); then
+    echo "KWATER_JOB_TIMEOUT_SECONDS must be an integer from 60 to 999999" >&2
+    exit 64
 fi
 if [[ -e .runtime/WEEKEND_STOP ]]; then echo "Weekend stopped locally" >&2; exit 69; fi
 if [[ $(git branch --show-current) != ubuntu/weekend-20261127 ]]; then
@@ -58,14 +54,12 @@ read -r gpu_free gpu_temp < <(nvidia-smi --id=0 --query-gpu=memory.free,temperat
 if (( gpu_free < 1400 || gpu_temp >= 82 )); then echo "GPU memory/temperature preflight deferred" >&2; exit 75; fi
 # Expansion intentionally occurs inside the supervised service, at its actual start time.
 # shellcheck disable=SC2016
-exec "${launch[@]}" --unit="$unit" --wait --pipe --property="RuntimeMaxSec=${seconds}s" \
+exec "${launch[@]}" --unit="$unit" --wait --pipe --property="RuntimeMaxSec=$((seconds + 15))s" \
     "${locked[@]}" /usr/bin/systemd-inhibit --what=sleep --mode=block --why='K-water weekend experiment' \
     /usr/bin/bash -c '
-        root=$1; start=$2; cutoff=$3; end=$4; shift 4
-        now=$(date +%s)
-        (( now >= start && now < cutoff && end - now > 60 )) || exit 69
+        root=$1; seconds=$2; shift 2
         [[ ! -e "$root/.runtime/WEEKEND_STOP" ]] || exit 69
         [[ $(git -C "$root" branch --show-current) == ubuntu/weekend-20261127 ]] || exit 69
-        exec /usr/bin/timeout --signal=TERM --kill-after=10s "$((end - now - 15))s" \
+        exec /usr/bin/timeout --signal=TERM --kill-after=10s "${seconds}s" \
             "$root/.venv/bin/python" -B -u -m "$@"
-    ' weekend-job "$root" "$start" "$cutoff" "$end" "$@"
+    ' weekend-job "$root" "$seconds" "$@"
