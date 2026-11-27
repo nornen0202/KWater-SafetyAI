@@ -4,7 +4,9 @@
 
 Windows와 다른 장소에 있는 Ubuntu PC에서 지정한 프로젝트 경로로 내려받는다. 원본은 `jdragon2289@gmail.com`의 [비공개 복원 폴더](https://drive.google.com/drive/folders/1oca7JBCxPG8hiM80rRr9TumB9uK7JnDk) 안 `full-project-v1`이다. `READY.json`은 모든 아카이브 조각과 목록의 서버 측 크기·MD5가 일치한 후에 생성된다. 이 파일이 보일 때 전체 복원을 시작한다. 상위 폴더의 이전 가중치 백업은 별도로 사용할 수 있다.
 
-1. Ubuntu에서 Python 3.12 이상과 rclone을 준비한다. `rclone config`로 유형이 `drive`인 원격을 만들고 이름을 `kwater`로 지정한다. Google 로그인 화면에서 위 이메일 주소를 확인한다. 다운로드 전용 권한으로 충분하다.
+전송 중에는 같은 폴더의 `STATUS.json`에서 5분 간격으로 갱신하는 클라우드 수신 바이트와 시각을 확인할 수 있다. 초기 원본 조사량은 약 600 GB다.
+
+1. Ubuntu에서 Python 3.12 이상과 rclone을 준비한다. `rclone config`로 유형이 `drive`인 원격을 만들고 이름을 `kwater`로 지정한다. Google 로그인 화면에서 위 이메일 주소를 확인하고 다운로드 권한 `drive.readonly`를 선택한다. [rclone Google Drive 설정 문서](https://rclone.org/drive/#scopes)
 2. 작업 디스크에 쓸 수 있는 상위 폴더를 준비한다. 아래의 `/mnt/work`를 실제 경로로 바꾼다. 복원기는 프로젝트와 같은 위치에 이름이 `.dependencies`로 끝나는 형제 디렉터리를 만든다. 모든 자료의 압축 해제 용량과 임시 조각 1 GiB 이상의 여유가 필요하다. `manifest.json`에 그룹별 실제 파일 용량이 기록된다.
 3. 아래 명령으로 복원한다. 중단되면 같은 명령과 같은 목적지로 재개한다. 완료한 그룹은 건너뛰고 중단된 그룹부터 다시 받는다. 복원 중에는 목적지에서 다른 작업을 실행하지 않는다.
 
