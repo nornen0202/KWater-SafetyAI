@@ -9,7 +9,7 @@ import hashlib
 import json
 import re
 import sys
-from collections.abc import Sequence
+from collections.abc import Callable, Sequence
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from typing import Final, TypedDict
@@ -26,6 +26,8 @@ from .ubuntu_focused_curriculum import (
     MAX_PIXELS,
     SEED,
     STEPS,
+    Decision,
+    Encoder,
     FocusedError,
     prepare,
 )
@@ -52,7 +54,15 @@ def decision_loss(logits: torch.Tensor, target_id: int) -> torch.Tensor:
     return torch.nn.functional.cross_entropy(logits[:, -1, :].float(), target)
 
 
-def train(root: Path, output: Path, resume: bool = False) -> None:
+def train(
+    root: Path,
+    output: Path,
+    resume: bool = False,
+    *,
+    preparer: Callable[
+        [Path, Path], tuple[tuple[Decision, ...], Encoder, tuple[int, int]]
+    ] = prepare,
+) -> None:
     """Run 96 unique conditional decisions once with the control's fresh QLoRA setup."""
     from peft import LoraConfig, PeftModel, get_peft_model
     from transformers import get_cosine_schedule_with_warmup
@@ -67,7 +77,7 @@ def train(root: Path, output: Path, resume: bool = False) -> None:
         raise FocusedError(
             "Resume requires a completed checkpoint; use a fresh output if initialization was interrupted"
         )
-    curriculum, encoder, token_ids = prepare(root, output)
+    curriculum, encoder, token_ids = preparer(root, output)
     if len(curriculum) != STEPS * GRAD_ACCUM:
         raise FocusedError("Curriculum must fill exactly 12 complete optimizer steps")
     saved = None
