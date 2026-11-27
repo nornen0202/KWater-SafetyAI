@@ -22,7 +22,7 @@
 
 같은 147건에서 학습 사례를 활용한 효과도 비교했다. 한 번에 사진 ID 접두사 한 묶음을 빼고 나머지 다섯 묶음에서만 사례를 가져왔다. 정답 위험 코드의 최빈 조문을 고르면 118건(80.3%), 정답 코드·근거·조치를 공식 검색기에 넣고 다른 묶음의 사례를 참조하면 124건(84.4%)에서 첫 후보가 정답 인용에 포함됐다. 사례 없이 공식 검색기를 쓰면 15건(10.2%)이었다. 동봉된 전체 사례집은 사용하지 않았다. 완성 모델에서는 위험 코드·근거·조치 자체가 예측값이므로, 이 결과는 올바른 판독이 주어졌을 때 기대할 수 있는 검색 동작을 보여준다. [6개 묶음별 검색 결과](results/law_examples_pilot.json)
 
-연구 추론기의 실제 저장 출력에도 법령 검색을 연결했다. 공개 사진 S16C159에서 걸림에는 정답 조문 `OSH-3`이 붙었고, 잘못 예측한 감전에도 실재하는 `OSH-301`이 붙었다. 놓친 추락은 관련 조문을 검색할 기회 자체가 없었다. 공식 출력 검사는 1/1 유효였다. 해당 조문이 실재하는지와 사진에서 조치를 뒷받침하는지는 별도로 평가할 필요가 있다. 실제 생성 출력의 조문 검토 (로컬 `results/public_law_replay_review.json`)
+Individual case details are retained in the domestic source checkout.
 
 전체 사진 중 동일 화소는 없었고, 64비트 dHash의 서로 다른 비트가 4개 이하인 쌍도 없었다. 12개 이하로 넓히면 47쌍이다. 대기열에는 1,045장 모두의 최근접 후보를 추가했다. 후보를 확인하기 전까지 독립 사건 그룹은 미확정이다. 탐색 170장, 공개 예시, 키트 입력과 일치하거나 유사한 사진을 합쳐 182장을 최종 보류 제외 목록에 기록했다. [사진 감사](results/train_audit_summary.json) · 검토할 사진 쌍 (로컬 `data/group-review/dhash_pairs.csv`) · 보류 제외 목록 (로컬 `data/holdout-exclusions.json`)
 
@@ -48,7 +48,7 @@
 
 ## 첫 실험에서 놓친 위험
 
-공식 예시 S16C159에는 덮개 없는 개구부와 바닥 통행을 방해하는 케이블이 있다. 공개 정답은 높이차 추락과 같은 높이 걸림 두 가지다. 모델 입력에는 사진과 공통 위험 코드 설명을 넣었다. 사진 번호, 공식 캡션, 장면 메모, 정답 코드는 전달하지 않았다. [운영진 공개 예시 및 이용 조건](https://hackathon.imaginationgroup.co.kr/kwater/#core-data)
+Individual case details are retained in the domestic source checkout.
 
 | 조건 | 실제 출력 또는 순위 | 관찰 |
 |---|---|---|
@@ -158,3 +158,5 @@ python -m unittest discover -s tests -q
 연구 보고서의 그림은 `python tools/plot_research.py`로, PDF는 `python tools/render_research.py`로 다시 만든다. 그림에는 Matplotlib와 한글 글꼴이, PDF 출력에는 markdown-it-py와 Chromium 계열 브라우저가 필요하다. 다른 운영체제에서는 `--font`와 `--browser`로 경로를 지정할 수 있다.
 
 로컬 파일 원장은 `python -m kwater_lab.local_artifacts`로 완료된 파일의 전체 해시를 작성한다. 전송 중인 파일과 내려받기 상태 로그는 제외한다. `--append-new`는 기존 자료의 존재·크기를 확인하고 새 파일을 추가한다. 새 AI-Hub 정식 ZIP은 수신 중 계산한 SHA-256과 완성된 ZIP의 항목 수·크기·파일명을 기록한 영수증을 사용한다. 이미 기록한 프롬프트·생성 결과가 바뀌면 `--refresh-derived`로 크기가 같은 수정까지 다시 해시한다. 전체 바이트를 다시 대조할 때는 `--check`로 실행한다. 대회 종료 후 자료 처리에는 주최 측 안내를 따른다.
+
+현재 항목 38에서 실행한 [동결 패널·후보 헤드·외부 상태쌍 대조](docs/phase2-item38-measured-20261126.md)와 [대형 Qwen·SAM 실행 원장](docs/phase2-large-model-execution-20261126.md)은 로컬 실측을 기록한다.

@@ -51,6 +51,10 @@ def eligible_files(root):
     for base, dirs, files in os.walk(data, followlinks=False):
         base = Path(base)
         dirs[:] = sorted(d for d in dirs if d != "__pycache__" and not is_link(base / d))
+        if base.parent == data / "phase2-runs":
+            # Phase 2 keeps the offline runtime and hard-linked input view beside the measurements.
+            transient = {"venv","bridge","uv-cache","cuda-cache","torch-cache","hf","temp","fusion-input"}
+            dirs[:] = [d for d in dirs if d not in transient]
         for name in files:
             p = base / name
             if p.is_relative_to(data / "external") and p.suffix.lower() == ".lock":

@@ -71,6 +71,17 @@ def weight_reader(mode):
     from safetensors import safe_open
     from transformers import modeling_utils
 
+    if mode == "tensor-stream":
+        from .phase2_tensor_reader import TensorFile
+
+        with (
+            patch.object(modeling_utils, "safe_open", TensorFile),
+            patch.object(modeling_utils, "caching_allocator_warmup", return_value=None),
+            patch.dict(os.environ, HF_DEACTIVATE_ASYNC_LOAD="1"),
+        ):
+            yield
+        return
+
     def read_on_cpu(filename, framework, device="cpu"):
         # Transformers moves each decoded parameter to its configured final device.
         return safe_open(filename, framework=framework, device="cpu", backend="pread")
