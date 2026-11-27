@@ -1,0 +1,23 @@
+{
+  "eligible": 308,
+  "photos": 48,
+  "pairs": 24,
+  "groups": 38,
+  "largest_group": 4,
+  "pairs_per_code": {
+    "struck_by_lifting": 8,
+    "fall_height": 8,
+    "slip_trip": 8
+  },
+  "control_safe": 12,
+  "original_digests_verified": 48,
+  "review_completed": 0,
+  "panel_sha256": "c0ee6ca20d0c1c66e5e8ebd0e0cf48d8b09904e7a1522b4cce96eeeb3df3e60d",
+  "input_sha256": {
+    "data/clean-split-v1/split_manifest_dev.json": "3864848fe26b951ec070710499d2694078b17c76ffd2aaf38d312b99ad3b2f60",
+    "data/clean-specialist-v1/features_multiview_2176d.npz": "a6586a149b28df3b6e31f263aed82f010541e98a5316b054b63572f0de0d22f0",
+    "data/curation-side-20261127/real-pairs.json": "2eb152b5c5758e99b556d2efe7b7f7fa27f3f037fd784788b3a67e832382b4f4",
+    "data/fold0-crosssplit-visual-review/fold0-group-exclusions-confirmed.json": "c97e83f55808db09372d3dc0e80f531b041fc7c6f38ee25b876a1213111fc41c",
+    "data/fold4-crosssplit-visual-review/fold4-group-exclusions-local.json": "ec85cb77fa974c63ba750d2c8201db679921bd91099a015fafe5ca1c2c334060"
+  }
+}
