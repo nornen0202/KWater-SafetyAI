@@ -1,5 +1,7 @@
 # K-water 현장 안전 AI 연구 기록
 
+11월 26일 도니 팀이 제출한 A와 B2는 모두 공식 Public 42.04점으로 기준선과 같았다. 20:46 KST 기준 36팀 중 21위였고 3위는 50.04점이었다. 제출 ZIP 검증, 개발 18장과 후속 패널 28장의 결과를 기록했다. [당일 릴리스 인계 보고서](reports/nov26-public-release.md)
+
 [시각화 연구 보고서](reports/competition-research-2026-11-25.md) · [PDF 보고서](reports/competition-research-2026-11-25.pdf) · [CLIP·SigLIP 2 실측과 생성 VLM 도입 검토](docs/vlm-model-selection.md) · [후속 실험 설계](docs/improvement-experiments.md) · [외부 데이터 전후 비교](reports/external-first-experiment.md) · [F1 0.25 돌파 심층 분석 및 혁신 전략](docs/f1-breakthrough-strategy-2026-11-26.md)
 
 제5회 K-water AI 경진대회 현장 사진 위험성평가 부문 연구. 2026년 11월 25일 Codex에 등록한 로컬 프로젝트는 `G:\Projects\KWater-SafetyAI`이다. 새 Codex 대화에서는 이 폴더를 열면 코드·실험 기록·참가자 자료를 이어서 사용할 수 있다. 기존 공개 실험과 첨부 계획서를 옮겼고 공식 배포 ZIP 세 개를 확보했다. 11월 25일 20:42(KST) 공식 Qwen3-VL-4B+LoRA와 23:57(KST) CLIP 224 + SigLIP 2 384 결합 모델을 각각 접수했다. 11월 26일 13시 공식 Public 점수는 **1차 42.04, 2차 16.12**, 팀 순위는 **11/18위**다. 최고점 자동 선택은 1차다. [1차 접수](results/public_submission_001.json) · [2차 접수](results/public_submission_002.json)
@@ -22,7 +24,7 @@
 
 같은 147건에서 학습 사례를 활용한 효과도 비교했다. 한 번에 사진 ID 접두사 한 묶음을 빼고 나머지 다섯 묶음에서만 사례를 가져왔다. 정답 위험 코드의 최빈 조문을 고르면 118건(80.3%), 정답 코드·근거·조치를 공식 검색기에 넣고 다른 묶음의 사례를 참조하면 124건(84.4%)에서 첫 후보가 정답 인용에 포함됐다. 사례 없이 공식 검색기를 쓰면 15건(10.2%)이었다. 동봉된 전체 사례집은 사용하지 않았다. 완성 모델에서는 위험 코드·근거·조치 자체가 예측값이므로, 이 결과는 올바른 판독이 주어졌을 때 기대할 수 있는 검색 동작을 보여준다. [6개 묶음별 검색 결과](results/law_examples_pilot.json)
 
-연구 추론기의 실제 저장 출력에도 법령 검색을 연결했다. 공개 사진 S16C159에서 걸림에는 정답 조문 `OSH-3`이 붙었고, 잘못 예측한 감전에도 실재하는 `OSH-301`이 붙었다. 놓친 추락은 관련 조문을 검색할 기회 자체가 없었다. 공식 출력 검사는 1/1 유효였다. 해당 조문이 실재하는지와 사진에서 조치를 뒷받침하는지는 별도로 평가할 필요가 있다. 실제 생성 출력의 조문 검토 (로컬 `results/public_law_replay_review.json`)
+Individual case details are retained in the domestic source checkout.
 
 전체 사진 중 동일 화소는 없었고, 64비트 dHash의 서로 다른 비트가 4개 이하인 쌍도 없었다. 12개 이하로 넓히면 47쌍이다. 대기열에는 1,045장 모두의 최근접 후보를 추가했다. 후보를 확인하기 전까지 독립 사건 그룹은 미확정이다. 탐색 170장, 공개 예시, 키트 입력과 일치하거나 유사한 사진을 합쳐 182장을 최종 보류 제외 목록에 기록했다. [사진 감사](results/train_audit_summary.json) · 검토할 사진 쌍 (로컬 `data/group-review/dhash_pairs.csv`) · 보류 제외 목록 (로컬 `data/holdout-exclusions.json`)
 
@@ -48,7 +50,7 @@
 
 ## 첫 실험에서 놓친 위험
 
-공식 예시 S16C159에는 덮개 없는 개구부와 바닥 통행을 방해하는 케이블이 있다. 공개 정답은 높이차 추락과 같은 높이 걸림 두 가지다. 모델 입력에는 사진과 공통 위험 코드 설명을 넣었다. 사진 번호, 공식 캡션, 장면 메모, 정답 코드는 전달하지 않았다. [운영진 공개 예시 및 이용 조건](https://hackathon.imaginationgroup.co.kr/kwater/#core-data)
+Individual case details are retained in the domestic source checkout.
 
 | 조건 | 실제 출력 또는 순위 | 관찰 |
 |---|---|---|
