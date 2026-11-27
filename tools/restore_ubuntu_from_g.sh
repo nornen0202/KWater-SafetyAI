@@ -15,6 +15,8 @@ commit=$("${source_git[@]}" rev-parse refs/heads/main)
 if [[ ! -e "$dst" ]]; then
   git -c "safe.directory=$src" clone --no-local --origin windows --branch main "$src" "$dst"
   git -C "$dst" remote add origin git@github.com:nornen0202/KWater-SafetyAI.git
+  git -C "$dst" config branch.main.remote origin
+  git -C "$dst" config branch.main.merge refs/heads/main
 fi
 test "$(git -C "$dst" remote get-url windows)" = "$src"
 test "$(git -C "$dst" rev-parse HEAD)" = "$commit" || { echo "Source main changed. Choose a new destination." >&2; exit 1; }
