@@ -293,7 +293,7 @@ def score_three(local, arms, output):
     _score_panels(local, arms, output, "three_arm")
 
 
-def _score_panels(local, arms, output, evaluation_run):
+def _score_panels(local, arms, output, evaluation_run, *, score_exploratory=False):
     from itertools import combinations
 
     from .fold0_group_sensitivity import arm_metrics
@@ -302,7 +302,7 @@ def _score_panels(local, arms, output, evaluation_run):
 
     mask_path = local / "fold4-group-exclusions-local.json"
     inputs = (DEV, RESULT, LABELS, mask_path, *arms.values())
-    if output.resolve() in {path.resolve() for path in inputs}:
+    if output is not None and output.resolve() in {path.resolve() for path in inputs}:
         raise ValueError("Aggregate output must differ from every input")
     mask = load(mask_path)
     audit = load(RESULT)
@@ -348,8 +348,14 @@ def _score_panels(local, arms, output, evaluation_run):
     if severe.keys() != primary_gold.keys():
         raise ValueError("Missing severity annotations for primary photos")
 
+    sizes = Counter(retained.values())
+    largest = min(sizes, key=lambda group: (-sizes[group], group))
+    remaining_groups = {sid: group for sid, group in retained.items() if group != largest}
+    cohorts = {"primary_175": primary_groups, "sensitivity_107": retained}
+    if score_exploratory:
+        cohorts["exploratory_58"] = remaining_groups
     panels = {}
-    for panel, groups in (("primary_175", primary_groups), ("sensitivity_107", retained)):
+    for panel, groups in cohorts.items():
         gold = {sid: primary_gold[sid] for sid in groups}
         kept = {arm: {sid: pred[sid] for sid in groups} for arm, pred in predictions.items()}
         metrics = {arm: arm_metrics(gold, pred, groups, severe) for arm, pred in kept.items()}
@@ -376,9 +382,7 @@ def _score_panels(local, arms, output, evaluation_run):
             "photos": len(groups), "groups": len(set(groups.values())),
             "arm_metrics": metrics, "comparisons": comparisons,
         }
-    sizes = Counter(retained.values())
-    largest = min(sizes, key=lambda group: (-sizes[group], group))
-    remaining = {sid: primary_gold[sid] for sid, group in retained.items() if group != largest}
+    remaining = {sid: primary_gold[sid] for sid in remaining_groups}
     exploratory_metrics = {
         arm: evaluate(remaining, {sid: pred[sid] for sid in remaining})
         for arm, pred in predictions.items()
@@ -404,14 +408,17 @@ def _score_panels(local, arms, output, evaluation_run):
             for a, b in combinations(f1, 2)
         },
     }
-    write(output, {
+    result = {
         "scope": "Paired local code scoring. The 107-photo panel removes three confirmed cross-split scene groups.",
         "evaluation_run": evaluation_run,
         "manifest_sha256": manifest_sha, "mask_sha256": mask_sha, "official_labels_sha256": digest(LABELS),
         "prediction_sha256": prediction_hashes,
         "prediction_rows_in_canonical_manifest_order": canonical_order,
         "panels": panels,
-    })
+    }
+    if output is not None:
+        write(output, result)
+    return result
 
 
 if __name__ == "__main__":

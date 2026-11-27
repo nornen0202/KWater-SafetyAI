@@ -1,0 +1,90 @@
+{
+  "scope": "Proposal identity replay only. Actual epoch2 final additions checked; all other margin and verifier outcomes unobserved by this CPU replay.",
+  "input_sha256": {
+    "data/clean-split-v1/split_manifest_dev.json": "3864848fe26b951ec070710499d2694078b17c76ffd2aaf38d312b99ad3b2f60",
+    "data/clean-split-v1/split_manifest_full_sealed.json": "d7d0f9d72bd4e33f9b5529095cf39e9087d3cdc366f14a4e657d2aae3edb79a5",
+    "data/clean-specialist-v1/strict-inner-oof/fold-4.npz": "fd9d725a771f024ecc23f7199b81b7aab91e870801066697cd900c60417cf248",
+    "data/clean-specialist-v1/dev_oof_predictions.npz": "0c4b22b31225a42b50dc087c9f4e79bb44c5f6c5380f5b1846db7f840f9f0e08",
+    "results/clean-neural-calibration-pooled.json": "b886f51984068de29996dbfe5c28470ceea4516aaa8e8a3b8d1a97446f7e732d",
+    "data/v3-11code-fold4/margin_gate_calibration.json": "b1e31ee5f963c291a74766b42a43a7709a351b861886e6e80a8c14ca460418b3",
+    "results/fold4_v3_clean_benchmark.json": "b38ad28f569c9b1983a2f58f6d60d34d2ab896e17460f12efacbba1eaa336023",
+    "kwater_lab/hybrid_pipeline.py": "d8d24df08fc60dc5d91ceee24177b9e9ae898f3ea4711894f72b4d97195ae1b0",
+    "kwater_lab/clean_specialist.py": "985938762a8bb23ca1c9ece3f1c32f1ee75762b6aa51d692c437d27947124c55",
+    "data/local-eval-predictions/fold4-v3-benchmark/v3_epoch1_raw_175.jsonl": "67bfe15328c6edd4208a621291fd31f7a194e7973b02b918160a199034c4ba20",
+    "data/local-eval-predictions/fold4-v3-benchmark/v3_epoch1_infer_cache.json": "88cbd17e6c5bfe3a58cbbd307af1047bb5b7c318e197359af46c3f1502b540db",
+    "data/local-eval-predictions/fold4-v3-benchmark/v3_epoch2_raw_175.jsonl": "a5dbdda3c008412d62e84cbd7651975dce56dc55ebde7d98f91ed28e2b8f67a9",
+    "data/local-eval-predictions/fold4-v3-benchmark/v3_epoch2_infer_cache.json": "721e18cce627a45e4200aac808e1767b176a1481ce06d9a182d9fe4bb7f1281d",
+    "data/local-eval-predictions/fold4-v3-benchmark/v3_11code_standalone.jsonl": "399cf2eda57734e87e12d98819fe98176d2a00754947701ce9489b475def2e05",
+    "data/local-eval-predictions/fold4-v3-benchmark/v3_hybrid_margin_verified.jsonl": "f4404561f896b2c311a0564fbabe895720e66f88de544cc8df59c29c306125a0",
+    "data/fold4-crosssplit-visual-review/fold4-group-exclusions-local.json": "ec85cb77fa974c63ba750d2c8201db679921bd91099a015fafe5ca1c2c334060"
+  },
+  "frozen_candidate_sha256": "6d4115d8b3b5cf2449230e3234d7e0dfd56a83c73bdd435db231d5afee3fc553",
+  "epoch2_reported_proposals": 66,
+  "epoch2_observed_final_additions": 13,
+  "union_candidates": 72,
+  "panels": {
+    "primary_175": {
+      "photos": 175,
+      "groups": 39,
+      "shared_image_code": 48,
+      "shared_candidate_empty_context_changed": 5,
+      "only_epoch1": 6,
+      "only_epoch2": 18,
+      "shared_epoch2_final_additions": 8,
+      "epoch1": {
+        "candidates": 54,
+        "gold_code_present": 30,
+        "gold_code_absent": 24,
+        "gold_no_visible_hazard": 8
+      },
+      "epoch2": {
+        "candidates": 66,
+        "gold_code_present": 36,
+        "gold_code_absent": 30,
+        "gold_no_visible_hazard": 9
+      }
+    },
+    "sensitivity_107": {
+      "photos": 107,
+      "groups": 36,
+      "shared_image_code": 28,
+      "shared_candidate_empty_context_changed": 3,
+      "only_epoch1": 4,
+      "only_epoch2": 9,
+      "shared_epoch2_final_additions": 7,
+      "epoch1": {
+        "candidates": 32,
+        "gold_code_present": 17,
+        "gold_code_absent": 15,
+        "gold_no_visible_hazard": 5
+      },
+      "epoch2": {
+        "candidates": 37,
+        "gold_code_present": 20,
+        "gold_code_absent": 17,
+        "gold_no_visible_hazard": 5
+      }
+    },
+    "exploratory_58": {
+      "photos": 58,
+      "groups": 35,
+      "shared_image_code": 18,
+      "shared_candidate_empty_context_changed": 2,
+      "only_epoch1": 2,
+      "only_epoch2": 2,
+      "shared_epoch2_final_additions": 6,
+      "epoch1": {
+        "candidates": 20,
+        "gold_code_present": 13,
+        "gold_code_absent": 7,
+        "gold_no_visible_hazard": 1
+      },
+      "epoch2": {
+        "candidates": 20,
+        "gold_code_present": 12,
+        "gold_code_absent": 8,
+        "gold_no_visible_hazard": 1
+      }
+    }
+  }
+}

@@ -1,0 +1,115 @@
+{
+  "scope": "Conditional exact Boolean enumeration, not an inference measurement. Assumes equal 2ep margin and verification decisions for identical photo/code prompts regardless of batching; threshold changes only the margin gate. Normal/sliding policy unchanged.",
+  "frozen_candidate_sha256": "6d4115d8b3b5cf2449230e3234d7e0dfd56a83c73bdd435db231d5afee3fc553",
+  "input_prediction_sha256": {
+    "baseline8": "b0654988c68a0afd44f98141e07c4e91475f73031fdb9746ad32717bf32f870e",
+    "epoch1": "5ebbe7a7b3198b944d241a68dd2733e7dc3cca4afe8fb42b4c98a6ac2f9f7a2d",
+    "epoch2": "399cf2eda57734e87e12d98819fe98176d2a00754947701ce9489b475def2e05",
+    "epoch2_hybrid": "f4404561f896b2c311a0564fbabe895720e66f88de544cc8df59c29c306125a0"
+  },
+  "sensitivity_mask_sha256": "ec85cb77fa974c63ba750d2c8201db679921bd91099a015fafe5ca1c2c334060",
+  "labels_sha256": "ab427fed4615b32627b76001e27124e99ae9202c855ba4170916ebe4fdc4de55",
+  "unknown_assignments": 1024,
+  "assignments_passing_joint_175_and_107": 0,
+  "panels": {
+    "primary_175": {
+      "photos": 175,
+      "groups": 39,
+      "candidate_partitions": {
+        "must_accept": 8,
+        "must_reject": 36,
+        "unknown": 10
+      },
+      "baseline8_f1": 0.5216200466200466,
+      "normal_photos": 49,
+      "severity4_photos": 60,
+      "baseline8_severity4_misses": 32,
+      "bounds": {
+        "macro_f1": [
+          0.5923594847775175,
+          0.6135915410450675
+        ],
+        "normal_false_alarms": [
+          10,
+          11
+        ],
+        "severity4_complete_misses": [
+          24,
+          28
+        ]
+      },
+      "assignments_passing": {
+        "f1_gain_ge_003": 1024,
+        "normal_fpr_le_20pct": 0,
+        "severity4_not_increased": 1024,
+        "all": 0
+      }
+    },
+    "sensitivity_107": {
+      "photos": 107,
+      "groups": 36,
+      "candidate_partitions": {
+        "must_accept": 7,
+        "must_reject": 19,
+        "unknown": 6
+      },
+      "baseline8_f1": 0.5428948896631823,
+      "normal_photos": 27,
+      "severity4_photos": 39,
+      "baseline8_severity4_misses": 20,
+      "bounds": {
+        "macro_f1": [
+          0.6148858656564136,
+          0.6356872984621723
+        ],
+        "normal_false_alarms": [
+          6,
+          7
+        ],
+        "severity4_complete_misses": [
+          14,
+          17
+        ]
+      },
+      "assignments_passing": {
+        "f1_gain_ge_003": 1024,
+        "normal_fpr_le_20pct": 0,
+        "severity4_not_increased": 1024,
+        "all": 0
+      }
+    },
+    "exploratory_58": {
+      "photos": 58,
+      "groups": 35,
+      "candidate_partitions": {
+        "must_accept": 6,
+        "must_reject": 10,
+        "unknown": 4
+      },
+      "baseline8_f1": 0.5182239382239382,
+      "normal_photos": 10,
+      "severity4_photos": 25,
+      "baseline8_severity4_misses": 12,
+      "bounds": {
+        "macro_f1": [
+          0.5835768398268398,
+          0.6083180406549972
+        ],
+        "normal_false_alarms": [
+          1,
+          1
+        ],
+        "severity4_complete_misses": [
+          8,
+          10
+        ]
+      },
+      "assignments_passing": {
+        "f1_gain_ge_003": 1024,
+        "normal_fpr_le_20pct": 1024,
+        "severity4_not_increased": 1024,
+        "all": 1024
+      }
+    }
+  }
+}
