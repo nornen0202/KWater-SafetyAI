@@ -260,7 +260,7 @@
     "plan_sha256": "5489985e09eec7081a7353a3c670f3e55082f12a7275e36cd8c92deb3d47f8df",
     "sealed_sha256": "4f1b711abd570fdd202cf91c2bd05d50021c4191029ee8a8a6fdda6ead1a5f97",
     "prediction_implementation_sha256": "faef74d961ab4348e14b53b1136f002a575af6ff9039594e31dc7401a1f208d5",
-    "scoring_implementation_sha256": "39517b9d4db1adb88d30f3c7013d3f9a7782c27cb4743de5f8f9be5c7203b55a",
+    "scoring_implementation_sha256": "85cecb7d42f55e48f358844505865dab894a6733eb4aee58843e43731e56d8a0",
     "protocol": "preregistered initial anchor",
     "fixed_vs_box_changed_code_sets": 2,
     "comparisons": {
@@ -648,7 +648,7 @@
         "severity4_all_codes_missed": 3
       }
     },
-    "source_summary_sha256": "aaf55acc1d6c5fccf8dad4f05f2854c55ec6799474db6b0a6e407e0d4d3a5d83",
+    "source_summary_sha256": "606c95e0d02ef9b41753a426e56c895016a747ffc0ae4060841c9dbbb8c8156d",
     "prefix_resampling_sensitivity_fixed_vs_box": {
       "groups": 6,
       "seed": 20261127,
@@ -879,7 +879,7 @@
     "plan_sha256": "10eea7d0c2befd75bb37840890b98b91f932a081c67688cb49787844d24b3f80",
     "sealed_sha256": "61703aaa58575b2e028226dcd261392a945ebbffaadf03819181033d80833be4",
     "prediction_implementation_sha256": "d448cbd972481ca7739d47bcb32cbd9740bf595a09935cde5d7a002047aac707",
-    "scoring_implementation_sha256": "39517b9d4db1adb88d30f3c7013d3f9a7782c27cb4743de5f8f9be5c7203b55a",
+    "scoring_implementation_sha256": "85cecb7d42f55e48f358844505865dab894a6733eb4aee58843e43731e56d8a0",
     "protocol": "post-hoc controlled follow-up after initial anchor labels/metrics were observed; same twelve photos, no tuning of settings or selection",
     "comparisons": {
       "mask_minus_box": {
@@ -1526,7 +1526,7 @@
         "severity4_all_codes_missed": 3
       }
     },
-    "source_summary_sha256": "c04afe75d9a83e131e6705291847788263f464abddeed54eb80f5c382cd79dd9",
+    "source_summary_sha256": "db066c4abc103d17821c883f749eb5ff272505b0534479bfde6c1ebd3fde6c44",
     "full_prompt_token_parity_true_swapped_photos": 12,
     "identical_visual_budget_all_arms_photos": 12,
     "parent_sealed_sha256": "4f1b711abd570fdd202cf91c2bd05d50021c4191029ee8a8a6fdda6ead1a5f97"
