@@ -2,7 +2,7 @@
 
 **서울 L4에서 4B·8B가 같은 32장으로 16스텝을 학습했다.** 스텝 시간 합계는 64.29초·102.47초였고, 저장한 어댑터를 다시 열어 두 모델 모두 2/2장의 원생성 스키마를 통과했다. [클라우드 실험 원장](reports/seoul-l4-roadmap-experiments-20261128.md)
 
-**11월 28일 연구 로드맵.** 4B·8B는 같은 11종 사진·학습 예산으로 비교하고, Qwen3.8-27B 4비트는 비전 프로젝터를 포함한 실제 ZIP으로 200장 실행시간을 잰다. 어댑터 분리와 오경보 제거는 서로 다른 실험으로 검증한다. [카본 리뷰 재검토와 마스터 로드맵](reports/comprehensive-audit-and-vlm-roadmap-20261128.md) · [모델별 비교 조건](reports/comprehensive-audit-and-vlm-roadmap-20261128.md#paired-models) · [비전 태스크 모델(SAM·YOLO·Anything) 감사 및 3단계 게이트](reports/vision-task-models-audit-and-roadmap-20261128.md)
+**11월 28일 연구 로드맵.** 4B·8B는 같은 11종 사진·학습 예산으로 비교하고, Qwen3.8-27B 4비트는 비전 프로젝터를 포함한 실제 ZIP으로 200장 실행시간을 잰다. 어댑터 분리와 오경보 제거는 서로 다른 실험으로 검증한다. [카본 리뷰 재검토와 마스터 로드맵](reports/comprehensive-audit-and-vlm-roadmap-20261128.md) · [모델별 비교 조건](reports/comprehensive-audit-and-vlm-roadmap-20261128.md#paired-models) · [비전 태스크 모델(SAM·YOLO·Anything) 감사 및 3단계 게이트](reports/vision-task-models-audit-and-roadmap-20261128.md) · [이슈 #2 심층 감사 및 정성 30점 보완 설계](reports/issue-2-deep-review-and-roadmap-alignment-20261128.md)
 
 **서울 L4에서 같은 4B 학습 8스텝은 로컬 652.78초, L4 251.27초였다.** 다음 지출은 4B·27B 제출 ZIP 리허설에 약 5,800원, 4B·8B 비교 착수까지 누적 약 14,300원, 독립 재학습·Private 리허설까지 선택하면 약 28,800원으로 잡았다. 환율 1,500원·한국 VAT·Spot 학습을 반영한 견적이다. [서울 실측 원장](reports/fold4-v3-seoul-l4-benchmark-20261128.md) · [누적 비용](reports/comprehensive-audit-and-vlm-roadmap-20261128.md#l4-budget) · [상금별 손익분기](reports/comprehensive-audit-and-vlm-roadmap-20261128.md#prize-roi)
 

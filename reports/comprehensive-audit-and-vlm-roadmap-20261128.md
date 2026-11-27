@@ -76,6 +76,8 @@ flowchart LR
 
 **비전 태스크 보조 모델(`SAM` · `YOLO` · `Depth Anything` · `Grounding DINO`) 편입 범위 확정.** 지금까지 수행된 7종 비전 실험 원장(`Grounding DINO Tiny` 64장 안전 명사 검출 0건, `SAM 3.1` 초기화 오류, `Ubuntu 4×4 MIL` `+2.26%p` 기준 미달, `Depth Anything V2 Small` 인양 오탐 `13→6건` 감소, `48장 ROI` 생성 `0건`)과 라이선스(`YOLOE` AGPL-3.0, `DAv2-Large`/`DAM` 비상업, `SAM 3` 3.5GB 커스텀 라이선스)를 전수 대조해 무분별한 외장 모델 추가는 배제하고, 잔여 미탐(`struck_by_lifting`, `caught_in_machine`, 원거리 `fall_height`)을 겨냥한 **3단계 게이트(`Gate V1`: 48장 ROI 144입력 Qwen 오라클 실측 및 무가중치 패치/자기그라운딩 Zoom-Crop → `Gate V2`: Apache 2.0 `DAv2/DA3-Small` 깊이-공간 전문가 결합 OOF 대조 → `Gate V3`: 조건부 `Florence-2`/`Grounding DINO Base` GPU 크롭)**만 보조 트랙으로 편입했다. [비전 태스크 모델 전수 감사 및 3단계 게이트 설계](vision-task-models-audit-and-roadmap-20261128.md)
 
+**이슈 #2(`서베이`) 정성 30점·출제기관 DNA 5대 보완 트랙(`S1~S5`) 통합.** 정량 F1 중심이던 현행 실험에 이슈 #2의 핵심 미반영 공백을 보강했다: ① **`S1` 계층 보호형 법령 검색**(범용 `OSH-32`/`OSH-20`이 핵심 설비 주조문을 덮어써 적중이 `68/81→60/81`로 낮아진 역전 현상 수정 + `OSH-n-m` 복원 + 복수 인용 `21.8%` 분포를 반영한 적응형 1~2개 인용 CPU 대조), ② **`S2` 학습 시점 폐루프 타깃 정렬**(추론 지연 `0초`로 주석 조문 핵심 의무어와 50~90자 압축 2단 안전순서를 SFT `prevention` 타깃에 내재화, 상투적 TBM 일괄 삽입 배제), ③ **`S3` 출제기관 DNA 역설계**(공식 `train.jsonl`의 미사용 `notes.uncertainty` 25건 및 상위 공출현 쌍 기준 추출, 기각 전환 시 관찰형 `scene_evidence` 보존), ④ **`S4` 동결 24그룹 오프라인 눈가림 Pairwise Judge 가동**(좌우 교환 일관성 `≥80%` 및 음성 대조 검증 후 정량 F1과 공동 승격 게이트화), ⑤ **`S5` 2회 연속 실행 출력 해시 완전 일치(결정론) 잠금**. [이슈 #2 심층 감사 및 정성 30점 로드맵 보완안](issue-2-deep-review-and-roadmap-alignment-20261128.md)
+
 <a id="paired-models"></a>
 
 ### 4B 대 8B 학습과 27B 4비트 실물 검사
