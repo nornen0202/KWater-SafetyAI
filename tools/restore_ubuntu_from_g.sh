@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
-if (( $# != 2 )); then
-  echo "Usage: bash tools/restore_ubuntu_from_g.sh /media/USER/DISK/Projects/KWater-SafetyAI /path/to/new-or-resumed-checkout" >&2
+if (( $# < 2 || $# > 3 )) || [[ ${3:-} != "" && ${3:-} != "--core" ]]; then
+  echo "Usage: bash tools/restore_ubuntu_from_g.sh SOURCE DEST [--core]" >&2
   exit 2
 fi
 src=$(realpath -- "$1")
@@ -20,7 +20,11 @@ test "$(git -C "$dst" remote get-url windows)" = "$src"
 test "$(git -C "$dst" rev-parse HEAD)" = "$commit" || { echo "Source main changed. Choose a new destination." >&2; exit 1; }
 # Files maintained outside Git include original data, previous releases, logs and checkpoints.
 # Windows-only environments and caches can be bulky. Preserve them on the source disk.
-"${source_git[@]}" ls-files --others --ignored --exclude-standard -z -- . ':(exclude).runtime' ':(exclude,glob)**/__pycache__/**' ':(exclude,glob)**/*.pyc' |
+paths=(. ':(exclude).runtime' ':(exclude).venv' ':(exclude,glob)**/__pycache__/**' ':(exclude,glob)**/*.pyc')
+if [[ ${3:-} == "--core" ]]; then
+  paths=(data/packages data/train data/local-kit data/baseline data/clean-split-v1 data/clean-specialist-v1 data/vlm-11code-fold0-v2/adapter)
+fi
+"${source_git[@]}" ls-files --others --ignored --exclude-standard -z -- "${paths[@]}" |
   rsync -rltH --safe-links --partial --from0 --files-from=- --info=progress2 "$src/" "$dst/"
 cd "$dst"
 sha256sum -c <<'SUMS'

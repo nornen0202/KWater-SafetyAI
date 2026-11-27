@@ -1,6 +1,7 @@
 __pycache__/
 *.py[cod]
 /.runtime/
+/.venv/
 /data/
 /results/train_audit_full.json
 /results/train_audit_reviewed.json
