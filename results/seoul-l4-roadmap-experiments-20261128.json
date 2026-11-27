@@ -1,0 +1,57 @@
+{
+  "scope": "Matched technical feasibility trial. Fresh NF4 adapters, no accuracy claim. One Seoul L4, 32 unique training groups plus two distinct reload groups from the training side.",
+  "pilot": {
+    "4b": {
+      "steps": 16,
+      "training_photos": 32,
+      "step_seconds_total": 64.29,
+      "supervised_tokens": 4110,
+      "high_weight_tokens": 623,
+      "max_step_allocated_gib": 4.74,
+      "trainable_parameters": 33980416,
+      "curriculum_sha256": "f0d5b815849cdfd9409735addd331c12d49b10ae8223a3a551f53d125514e5e2",
+      "prompt_sha256": "13edaf96ccd032551ea0a1ebdc27934d958afd1259439f4b05773bdde1b2e07f",
+      "base_config_sha256": "edac7703329133edfc53e46ac0081835144c99d7eebf28b71c732694d435224d",
+      "adapter_sha256": "e27fea59615b9e76dd0da26b6a348d119f3ce06a373714f54be819aeb720172d",
+      "reload_photos": 2,
+      "reload_schema_valid": 2,
+      "reload_parseable": 2,
+      "reload_at_generation_cap": 0,
+      "vision_gradients": true,
+      "language_gradients": true
+    },
+    "8b": {
+      "steps": 16,
+      "training_photos": 32,
+      "step_seconds_total": 102.47,
+      "supervised_tokens": 4110,
+      "high_weight_tokens": 623,
+      "max_step_allocated_gib": 8.76,
+      "trainable_parameters": 44793856,
+      "curriculum_sha256": "f0d5b815849cdfd9409735addd331c12d49b10ae8223a3a551f53d125514e5e2",
+      "prompt_sha256": "13edaf96ccd032551ea0a1ebdc27934d958afd1259439f4b05773bdde1b2e07f",
+      "base_config_sha256": "5cd452860dc1e9c29dd71cc3cef7f39b338b7a40793f7a260655c2d3568f3661",
+      "adapter_sha256": "ce6cb15562086ccb98edfbe27bdae47a647c0d6ae2bd74acf5c7b5eafe3808e9",
+      "reload_photos": 2,
+      "reload_schema_valid": 2,
+      "reload_parseable": 2,
+      "reload_at_generation_cap": 0,
+      "vision_gradients": true,
+      "language_gradients": true
+    }
+  },
+  "step_token_counts_verified_equal": true,
+  "source_revision_8b": "0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+  "source_revision_4b": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "training": {
+    "seed": 42,
+    "epochs": 1,
+    "gradient_accumulation": 2,
+    "max_pixels": 393216,
+    "rank": 16,
+    "alpha": 32,
+    "learning_rate": 0.00014,
+    "reload_max_new_tokens": 620,
+    "reload_batch": 1
+  }
+}
