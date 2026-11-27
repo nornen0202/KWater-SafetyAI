@@ -1,0 +1,73 @@
+{
+  "files": 33,
+  "unpacked_bytes": 10548007492,
+  "seed": "42",
+  "offline_lock": true,
+  "asset_sha256": {
+    "main.py": "4d74805cf260fd15f784eeb984aecbeae0ee5bcd5726ac78568760e33dcffb05",
+    "assets.json": "eb850b929ba8fd6df38dc1c1d8ec17ce9020357415db3737b70e9014b09b6ea3",
+    "adapter/adapter_model.safetensors": "09bf25c6a91670fef30027a5e558d444bca03564db888414bac9f238ca554453"
+  },
+  "declared_asset_count": 7,
+  "offline_wheels": [
+    {
+      "package": "accelerate",
+      "version": "1.10.1",
+      "matching_wheels": [
+        {
+          "filename": "accelerate-1.10.1-py3-none-any.whl",
+          "sha256": "3621cff60b9a27ce798857ece05e2b9f56fcc71631cfb31ccf71f0359c311f11"
+        }
+      ]
+    },
+    {
+      "package": "huggingface-hub",
+      "version": "0.36.0",
+      "matching_wheels": [
+        {
+          "filename": "huggingface_hub-0.36.0-py3-none-any.whl",
+          "sha256": "7bcc9ad17d5b3f07b57c78e79d527102d08313caa278a641993acddcb894548d"
+        }
+      ]
+    },
+    {
+      "package": "peft",
+      "version": "0.17.1",
+      "matching_wheels": [
+        {
+          "filename": "peft-0.17.1-py3-none-any.whl",
+          "sha256": "3d129d64def3d74779c32a080d2567e5f7b674e77d546e3585138216d903f99e"
+        }
+      ]
+    },
+    {
+      "package": "tokenizers",
+      "version": "0.22.1",
+      "matching_wheels": [
+        {
+          "filename": "tokenizers-0.22.1-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+          "sha256": "e2ef6063d7a84994129732b47e7915e8710f27f99f3a3260b8a38fc7ccd083f4"
+        }
+      ]
+    },
+    {
+      "package": "transformers",
+      "version": "4.57.1",
+      "matching_wheels": [
+        {
+          "filename": "transformers-4.57.1-py3-none-any.whl",
+          "sha256": "b10d05da8fa67dc41644dbbf9bc45a44cb86ae33da6f9295f5fbf5b7890bd267"
+        }
+      ]
+    }
+  ],
+  "restricted_or_unneeded_members": [],
+  "restricted_source_exact_content_matches": [],
+  "network_or_process_static_indicators": [],
+  "linux_seccomp_executed": false,
+  "offline_install_executed": false,
+  "archive_bytes": 10548013152,
+  "stream_crc_checked": true,
+  "official_full_zip_extraction_executed": false,
+  "official_existing_output_check": null
+}
