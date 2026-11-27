@@ -1,5 +1,7 @@
 # K-water 현장 안전 AI 연구 기록
 
+[Ubuntu 26.04 보조 PC 복원 및 3050 실험 인계](docs/ubuntu-3050-handoff.md)
+
 **11월 27일 인계.** 00:05 KST 공개 순위는 도니 30/52위(42.04점), 10위 48.49점이었다. 같은 사진에서 기준 모델과 새 11종 모델을 비교하는 실험, 과거 보류 표본의 노출 이력, 전문가 후보의 적중·오탐 및 인용 재생 결과는 [11월 27일 실험 인계 및 제출 판단 근거](reports/turnaround-handoff-20261127.md)에 있다.
 
 [시각화 연구 보고서](reports/competition-research-2026-11-25.md) · [PDF 보고서](reports/competition-research-2026-11-25.pdf) · [CLIP·SigLIP 2 실측과 생성 VLM 도입 검토](docs/vlm-model-selection.md) · [후속 실험 설계](docs/improvement-experiments.md) · [외부 데이터 전후 비교](reports/external-first-experiment.md) · [F1 0.25 돌파 심층 분석 및 혁신 전략](docs/f1-breakthrough-strategy-2026-11-26.md)
@@ -160,3 +162,5 @@ python -m unittest discover -s tests -q
 연구 보고서의 그림은 `python tools/plot_research.py`로, PDF는 `python tools/render_research.py`로 다시 만든다. 그림에는 Matplotlib와 한글 글꼴이, PDF 출력에는 markdown-it-py와 Chromium 계열 브라우저가 필요하다. 다른 운영체제에서는 `--font`와 `--browser`로 경로를 지정할 수 있다.
 
 로컬 파일 원장은 `python -m kwater_lab.local_artifacts`로 완료된 파일의 전체 해시를 작성한다. 전송 중인 파일과 내려받기 상태 로그는 제외한다. `--append-new`는 기존 자료의 존재·크기를 확인하고 새 파일을 추가한다. 새 AI-Hub 정식 ZIP은 수신 중 계산한 SHA-256과 완성된 ZIP의 항목 수·크기·파일명을 기록한 영수증을 사용한다. 이미 기록한 프롬프트·생성 결과가 바뀌면 `--refresh-derived`로 크기가 같은 수정까지 다시 해시한다. 전체 바이트를 다시 대조할 때는 `--check`로 실행한다. 대회 종료 후 자료 처리에는 주최 측 안내를 따른다.
+
+현재 항목 38에서 실행한 [동결 패널·후보 헤드·외부 상태쌍 대조](docs/phase2-item38-measured-20261126.md)와 [대형 Qwen·SAM 실행 원장](docs/phase2-large-model-execution-20261126.md)은 로컬 실측을 기록한다.
