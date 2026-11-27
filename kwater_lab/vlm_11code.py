@@ -68,7 +68,7 @@ CANDIDATE_MAX_PIXELS = 512 * 32 * 32
 INSPECT_MAX_NEW_TOKENS = 620
 VERIFY_MAX_NEW_TOKENS = 320
 DECISION_SPAN_RE = re.compile(
-    r'"(?:status|decision|code)"\s*:\s*"[^"]+"|"(?:likelihood_score|severity_score)"\s*:\s*\d+'
+    r'"(?:status|scene_state|decision|code)"\s*:\s*"[^"]+"|"(?:likelihood_score|severity_score)"\s*:\s*\d+'
 )
 LORA_TARGET_REGEX = (
     r".*(language_model\.layers\.\d+\.(self_attn\.(q_proj|k_proj|v_proj|o_proj)|"
