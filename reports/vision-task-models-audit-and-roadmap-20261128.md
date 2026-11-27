@@ -1,5 +1,7 @@
 # 비전 태스크 모델(`SAM` · `YOLO` · `*** Anything` · `DINO`) 실험 전수 감사 및 후속 로드맵 편입 타당성 보고서
 
+**11월 28일 후속 검증.** 현대 RGB 특징을 고정한 170장 인양 실험에서 상대 깊이를 더하면 TP 3→4, FP 16→6이었다. 6개 그룹에서 얻은 결과로 966장 확대 검증을 제안한다. 보조 PC 대신 팀 전용 서울 L4용 ROI 패킷을 준비했다. 48장의 관계 판독은 지지 11·반대 1·불명확 36장이다. [후속 결과와 자원 배정](qualitative-vision-followup-20261128.md)
+
 - **작성 시각**: 2026-11-28 KST
 - **검토 목적**: 이전에 지시된 비전 전용 모델군(`SAM 2.1/3/3.1`, `YOLO/YOLOE/DETR`, `Depth Anything V2/3`, `Grounding DINO`, `Florence-2`, `RAM++`, `DINOv2/v3`, `SigLIP2` 등)의 **실제 로컬 실험 진행 상태와 중단 원인**을 원장 단위로 규명하고, 대회 채점 구조·제약(`70점 코드 F1 + 30점 정성`, `20GB`, `L4 24GB`, `1,800초`, 오프라인 `seccomp`, 라이선스) 아래 **후속 로드맵에 무엇을 포함하고 무엇을 영구 배제할지** 공학적으로 확정한다.
 - **연계 마스터 로드맵**: [comprehensive-audit-and-vlm-roadmap-20261128.md](comprehensive-audit-and-vlm-roadmap-20261128.md) · [vision-roi-experiment-roadmap-20261127.md](vision-roi-experiment-roadmap-20261127.md)

@@ -1,0 +1,200 @@
+{
+  "scope": "Exposed 170, three existing grouped folds. Single lifting code; fixed kernel SVM diagnostic.",
+  "inputs": {
+    "rgb_spec": "clean-spec-v1-sig384p-dino336cm-7views-fp16",
+    "rgb_cache_digest": "c7fecadd2bdd2219a7fe9b40de0683704bfeb60453c0fd4676e971b585ce7738",
+    "depth_signature": "ec44ace43e4c86ca446a49588eb3c57fdb86acfa8f0b3cbcdffd0c084ba244a7",
+    "depth_sha256": "d32ab789a97800ca7e76ae285ba54b9bd378b06a0fc94b6075ff19b673ba2b13",
+    "manifest_sha256": "3864848fe26b951ec070710499d2694078b17c76ffd2aaf38d312b99ad3b2f60"
+  },
+  "groups": 6,
+  "normal": 66,
+  "fold_counts": {
+    "1": {
+      "n": 22,
+      "positive": 3,
+      "groups": 1
+    },
+    "2": {
+      "n": 94,
+      "positive": 9,
+      "groups": 3
+    },
+    "3": {
+      "n": 54,
+      "positive": 7,
+      "groups": 2
+    }
+  },
+  "results": {
+    "rgb": {
+      "tp": 3,
+      "fp": 16,
+      "fn": 16,
+      "f1": 0.15789473684210525,
+      "normal_alerts": 3
+    },
+    "brightness": {
+      "tp": 2,
+      "fp": 8,
+      "fn": 17,
+      "f1": 0.13793103448275862,
+      "normal_alerts": 0
+    },
+    "edge": {
+      "tp": 3,
+      "fp": 10,
+      "fn": 16,
+      "f1": 0.1875,
+      "normal_alerts": 2
+    },
+    "depth": {
+      "tp": 4,
+      "fp": 6,
+      "fn": 15,
+      "f1": 0.27586206896551724,
+      "normal_alerts": 2
+    },
+    "shuffled_0": {
+      "tp": 3,
+      "fp": 16,
+      "fn": 16,
+      "f1": 0.15789473684210525,
+      "normal_alerts": 2
+    },
+    "shuffled_1": {
+      "tp": 5,
+      "fp": 11,
+      "fn": 14,
+      "f1": 0.2857142857142857,
+      "normal_alerts": 2
+    },
+    "shuffled_2": {
+      "tp": 2,
+      "fp": 12,
+      "fn": 17,
+      "f1": 0.12121212121212122,
+      "normal_alerts": 4
+    },
+    "shuffled_3": {
+      "tp": 4,
+      "fp": 8,
+      "fn": 15,
+      "f1": 0.25806451612903225,
+      "normal_alerts": 3
+    },
+    "shuffled_4": {
+      "tp": 4,
+      "fp": 10,
+      "fn": 15,
+      "f1": 0.24242424242424243,
+      "normal_alerts": 0
+    },
+    "shuffled_5": {
+      "tp": 1,
+      "fp": 7,
+      "fn": 18,
+      "f1": 0.07407407407407407,
+      "normal_alerts": 2
+    },
+    "shuffled_6": {
+      "tp": 1,
+      "fp": 8,
+      "fn": 18,
+      "f1": 0.07142857142857142,
+      "normal_alerts": 1
+    },
+    "shuffled_7": {
+      "tp": 2,
+      "fp": 11,
+      "fn": 17,
+      "f1": 0.125,
+      "normal_alerts": 2
+    },
+    "shuffled_8": {
+      "tp": 3,
+      "fp": 10,
+      "fn": 16,
+      "f1": 0.1875,
+      "normal_alerts": 2
+    },
+    "shuffled_9": {
+      "tp": 2,
+      "fp": 11,
+      "fn": 17,
+      "f1": 0.125,
+      "normal_alerts": 2
+    },
+    "shuffled_10": {
+      "tp": 2,
+      "fp": 11,
+      "fn": 17,
+      "f1": 0.125,
+      "normal_alerts": 3
+    },
+    "shuffled_11": {
+      "tp": 4,
+      "fp": 9,
+      "fn": 15,
+      "f1": 0.25,
+      "normal_alerts": 2
+    },
+    "shuffled_12": {
+      "tp": 4,
+      "fp": 13,
+      "fn": 15,
+      "f1": 0.2222222222222222,
+      "normal_alerts": 1
+    },
+    "shuffled_13": {
+      "tp": 2,
+      "fp": 12,
+      "fn": 17,
+      "f1": 0.12121212121212122,
+      "normal_alerts": 3
+    },
+    "shuffled_14": {
+      "tp": 3,
+      "fp": 8,
+      "fn": 16,
+      "f1": 0.2,
+      "normal_alerts": 0
+    },
+    "shuffled_15": {
+      "tp": 3,
+      "fp": 11,
+      "fn": 16,
+      "f1": 0.18181818181818182,
+      "normal_alerts": 1
+    },
+    "shuffled_16": {
+      "tp": 3,
+      "fp": 13,
+      "fn": 16,
+      "f1": 0.17142857142857143,
+      "normal_alerts": 3
+    },
+    "shuffled_17": {
+      "tp": 3,
+      "fp": 8,
+      "fn": 16,
+      "f1": 0.2,
+      "normal_alerts": 4
+    },
+    "shuffled_18": {
+      "tp": 2,
+      "fp": 8,
+      "fn": 17,
+      "f1": 0.13793103448275862,
+      "normal_alerts": 1
+    },
+    "shuffled_19": {
+      "tp": 2,
+      "fp": 10,
+      "fn": 17,
+      "f1": 0.12903225806451613,
+      "normal_alerts": 3
+    }
+  },
+  "depth_beats_wrong": 19
+}

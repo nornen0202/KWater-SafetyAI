@@ -1,0 +1,162 @@
+{
+  "panels": {
+    "primary_175": {
+      "eligible": 81,
+      "policies": {
+        "native": {
+          "top1": 68,
+          "two_laws": 0,
+          "correct_refs": 68,
+          "output_refs": 81,
+          "gold_refs": 96,
+          "micro_set_f1": 0.768361581920904
+        },
+        "action": {
+          "top1": 60,
+          "two_laws": 0,
+          "correct_refs": 60,
+          "output_refs": 81,
+          "gold_refs": 96,
+          "micro_set_f1": 0.6779661016949152
+        },
+        "protected": {
+          "top1": 60,
+          "two_laws": 0,
+          "correct_refs": 60,
+          "output_refs": 81,
+          "gold_refs": 96,
+          "micro_set_f1": 0.6779661016949152
+        },
+        "adaptive": {
+          "top1": 68,
+          "two_laws": 0,
+          "correct_refs": 68,
+          "output_refs": 81,
+          "gold_refs": 96,
+          "micro_set_f1": 0.768361581920904
+        },
+        "direct_second": {
+          "top1": 68,
+          "two_laws": 2,
+          "correct_refs": 68,
+          "output_refs": 83,
+          "gold_refs": 96,
+          "micro_set_f1": 0.7597765363128491
+        },
+        "weighted": {
+          "top1": 68,
+          "two_laws": 0,
+          "correct_refs": 68,
+          "output_refs": 81,
+          "gold_refs": 96,
+          "micro_set_f1": 0.768361581920904
+        }
+      },
+      "lost_transitions": {
+        "OSH-241 -> OSH-319": 1,
+        "OSH-3 -> OSH-45": 1,
+        "OSH-3 -> OSH-22": 2,
+        "OSH-87 -> OSH-319": 1,
+        "OSH-313 -> OSH-301": 2,
+        "OSH-301 -> OSH-319": 2
+      }
+    },
+    "sensitivity_107": {
+      "eligible": 55,
+      "policies": {
+        "native": {
+          "top1": 43,
+          "two_laws": 0,
+          "correct_refs": 43,
+          "output_refs": 55,
+          "gold_refs": 64,
+          "micro_set_f1": 0.7226890756302521
+        },
+        "action": {
+          "top1": 37,
+          "two_laws": 0,
+          "correct_refs": 37,
+          "output_refs": 55,
+          "gold_refs": 64,
+          "micro_set_f1": 0.6218487394957983
+        },
+        "protected": {
+          "top1": 37,
+          "two_laws": 0,
+          "correct_refs": 37,
+          "output_refs": 55,
+          "gold_refs": 64,
+          "micro_set_f1": 0.6218487394957983
+        },
+        "adaptive": {
+          "top1": 43,
+          "two_laws": 0,
+          "correct_refs": 43,
+          "output_refs": 55,
+          "gold_refs": 64,
+          "micro_set_f1": 0.7226890756302521
+        },
+        "direct_second": {
+          "top1": 43,
+          "two_laws": 2,
+          "correct_refs": 43,
+          "output_refs": 57,
+          "gold_refs": 64,
+          "micro_set_f1": 0.7107438016528925
+        },
+        "weighted": {
+          "top1": 43,
+          "two_laws": 0,
+          "correct_refs": 43,
+          "output_refs": 55,
+          "gold_refs": 64,
+          "micro_set_f1": 0.7226890756302521
+        }
+      },
+      "lost_transitions": {
+        "OSH-241 -> OSH-319": 1,
+        "OSH-3 -> OSH-45": 1,
+        "OSH-3 -> OSH-22": 1,
+        "OSH-313 -> OSH-301": 2,
+        "OSH-301 -> OSH-319": 2
+      }
+    }
+  },
+  "fixed_inputs": {
+    "data/local-eval-predictions/fold4-v3-benchmark/v3_epoch1_raw_175.jsonl": "67bfe15328c6edd4208a621291fd31f7a194e7973b02b918160a199034c4ba20",
+    "data/local-eval-predictions/fold4-v3-benchmark/v3_epoch1_11code_standalone.jsonl": "5ebbe7a7b3198b944d241a68dd2733e7dc3cca4afe8fb42b4c98a6ac2f9f7a2d",
+    "data/clean-split-v1/split_manifest_dev.json": "3864848fe26b951ec070710499d2694078b17c76ffd2aaf38d312b99ad3b2f60",
+    "data/train/train.jsonl": "ab427fed4615b32627b76001e27124e99ae9202c855ba4170916ebe4fdc4de55",
+    "data/fold4-crosssplit-visual-review/fold4-group-exclusions-local.json": "ec85cb77fa974c63ba750d2c8201db679921bd91099a015fafe5ca1c2c334060"
+  },
+  "training": {
+    "training_photos": 326,
+    "groups": 108,
+    "split_hash": "3864848fe26b951ec070710499d2694078b17c76ffd2aaf38d312b99ad3b2f60",
+    "labels_hash": "ab427fed4615b32627b76001e27124e99ae9202c855ba4170916ebe4fdc4de55",
+    "law_hash": "1408b69db444cf90b31f9bebb4a773a30fa4362739e50b22c95f3bbe0e75bd9d",
+    "uncertainty": {
+      "hazard": 6,
+      "no_visible_hazard": 7
+    },
+    "cooccurrence": {
+      "fall_height + slip_trip": 17,
+      "other + slip_trip": 13,
+      "caught_in_machine + slip_trip": 5,
+      "fall_height + other": 4,
+      "slip_trip + struck_by_lifting": 4,
+      "fire_explosion + slip_trip": 4,
+      "fire_explosion + other": 4,
+      "fall_height + struck_by_lifting": 2
+    },
+    "law_annotated": 293,
+    "no_rule_or_unsafe": 282,
+    "s2_review_after_control_exclusion": 91,
+    "s4_control_items": 10,
+    "s4_distinct_groups": 10,
+    "s4_same_code_items": 6,
+    "s4_additional_donor_groups": 3,
+    "s4_blinded_presentations": 32,
+    "s4_scored": 0
+  }
+}
