@@ -53,5 +53,61 @@
     "learning_rate": 0.00014,
     "reload_max_new_tokens": 620,
     "reload_batch": 1
-  }
+  },
+  "accepted_sixth_public200": {
+    "archive_sha256": "5b6527c82bac445f76463ee183600d3c44c202dd4c448722ca09dc810455cfe6",
+    "archive_bytes": 9043673838,
+    "accepted_public_score": 53.65,
+    "input_manifest_sha256": "8c86d0b60b7b879573ccdf4c81558ed4a3840588bb6d2fbbe656dfdb911335b6",
+    "cohort": "200 development images, 192 groups, timing only",
+    "official_image": "ghcr.io/jiwoochris/kwater-runtime@sha256:2e924d941c41876e9eb1de79a1af7eaf796aacb1210fb86f6ff3345cc7c58d64",
+    "hardware": "L4 24 GB, G2-16, kit 6 CPUs and 56 GiB RAM",
+    "first_attempt": [
+      "E03"
+    ],
+    "first_attempt_cause": "Kit input/kit file mounts did not grant read access to container UID 10001. Host staging permissions corrected before retry.",
+    "result": "OK",
+    "kit_return_code": 0,
+    "install_seconds": 14,
+    "execution_seconds": 1125,
+    "kit_total_seconds": 1139,
+    "limit_seconds": 1800,
+    "valid_rows": [
+      200,
+      200
+    ],
+    "raw_parsed": [
+      199,
+      200
+    ],
+    "output_rows": 200,
+    "unique_ids": 200,
+    "matched_input_ids": true,
+    "canonical_order": true,
+    "output_sha256": "034517ef1078a831eb61bd9406b0f27eca97b613e9266478773c4631fbd7ab75",
+    "kit_log_sha256": "e6100f48f516e130a65dfe4df1f32aad38c346795030dc5f49a0d4f3f5ce7588",
+    "output_hazard_rows": 138,
+    "independent_official_checker_valid_rows": 200
+  },
+  "cost_basis": {
+    "currency": "USD",
+    "planning_krw_per_usd": 1500,
+    "vat_fraction": 0.1,
+    "earlier_independent_benchmark_estimated_usd_including_tax": 0.3,
+    "billing_invoice_available": false
+  },
+  "resources": [
+    {
+      "purpose": "6th Public200 and matched 32-photo 4B/8B pilot",
+      "zone": "asia-northeast3-a",
+      "machine": "g2-standard-16",
+      "provisioning": "STANDARD",
+      "started_kst": "2026-11-28T04:26:46.736+09:00",
+      "vm_and_disk_absence_verified_kst": "2026-11-28T05:10:46.7652532+09:00",
+      "elapsed_through_absence_check_seconds": 2640.0,
+      "boot_pd_balanced_gib": 150,
+      "compute_disk_ip_before_tax_usd": 1.1036,
+      "planning_krw_including_vat_before_egress": 1821
+    }
+  ]
 }
