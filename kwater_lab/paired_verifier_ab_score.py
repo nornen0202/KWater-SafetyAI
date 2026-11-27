@@ -98,6 +98,31 @@ def scored_arm(probes, verdict, predictions, gold, groups, severity):
     return {"verifier": stats, "official_anchored": augmented_metrics(gold, predictions, groups, severity)}
 
 
+def focused_code_decisions(probes, verdicts, gold):
+    treatments = {"fall_height", "struck_by_lifting"}
+    results = {}
+    for name, use_treatment in (("fall_height_and_struck_by_lifting", True), ("other_codes", False)):
+        selected = {sid: code for sid, code in probes.items() if (code in treatments) == use_treatment}
+        positives = {sid for sid, code in selected.items() if code in gold[sid]}
+        by_arm = {}
+        accepted = {}
+        for arm, decisions in verdicts.items():
+            accepted[arm] = {sid for sid in selected if decisions[sid] == "accept"}
+            by_arm[arm] = {"accepted_tp": len(accepted[arm] & positives), "accepted_fp": len(accepted[arm] - positives),
+                           "valid_rejects": sum(decisions[sid] == "reject" for sid in selected),
+                           "malformed": sum(decisions[sid] == "malformed" for sid in selected)}
+        a_only, b_only = accepted["A"] - accepted["B"], accepted["B"] - accepted["A"]
+        a, b = verdicts["A"], verdicts["B"]
+        results[name] = {
+            "proposals": len(selected), "official_annotated_positives": len(positives), "arms": by_arm,
+            "same_valid_decision": sum(a[sid] == b[sid] and a[sid] in {"accept", "reject"} for sid in selected),
+            "both_malformed": sum(a[sid] == b[sid] == "malformed" for sid in selected),
+            "acceptance_switches": {"annotated_A_only": len(a_only & positives), "annotated_B_only": len(b_only & positives),
+                                    "unannotated_A_only": len(a_only - positives), "unannotated_B_only": len(b_only - positives)},
+        }
+    return results
+
+
 def augmented_metrics(gold, predicted, groups, severity):
     result = arm_metrics(gold, predicted, groups, severity)
     result["severity4"]["code_instances"] = sum(len(severity[sid]) for sid in gold)
@@ -171,6 +196,7 @@ def score(plan, workspace, output):
         delta = b["decision_accuracy"] - a["decision_accuracy"] if probes else None
         results[name] = {"photos": len(groups), "groups": len(set(groups.values())), "frozen_probes": len(probes),
                          "official_base": augmented_metrics(actual, before, groups, severity), "arms": stats,
+                         "supplemental_by_treatment_code": focused_code_decisions(probes, verdicts, actual),
                          "paired_decision_accuracy_delta": delta, "paired_decision_accuracy_group_ci": ci,
                          "decision_support_groups": len({groups[sid] for sid in probes}),
                          "paired_anchored_macro_f1": paired_bootstrap(actual, preds["A"], preds["B"], groups),

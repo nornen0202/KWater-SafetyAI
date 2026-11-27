@@ -1,0 +1,349 @@
+{
+  "scope": "One locked CPU proposal replay, no verifier generation or policy fitting. Historical cache identities only.",
+  "input_sha256": {
+    "data/clean-split-v1/split_manifest_dev.json": "3864848fe26b951ec070710499d2694078b17c76ffd2aaf38d312b99ad3b2f60",
+    "data/fold0-crosssplit-visual-review/fold0-group-exclusions-confirmed.json": "c97e83f55808db09372d3dc0e80f531b041fc7c6f38ee25b876a1213111fc41c",
+    "results/clean-neural-calibration-fold0.json": "7d21b8e2c862212908d073bc497309fcbfff0c10fba499bb83b44eefec8b364c",
+    "data/clean-specialist-v1/strict-inner-oof/fold-0.npz": "565f0f4ef818078334f7658badc4029ec15c7bbaa1a7ff8d609ebbcc85758ac4",
+    "data/clean-specialist-v1/dev_oof_predictions.npz": "0c4b22b31225a42b50dc087c9f4e79bb44c5f6c5380f5b1846db7f840f9f0e08",
+    "data/local-eval-predictions/fold0/v2-official-anchored/frozen_proposals.json": "51aec0f574241210b95d480fd06fc64a61a0ae1debcaff4623b195e0f8084977",
+    "data/local-eval-predictions/fold0/v2-official-anchored/anchored_verifier_cache.json": "c89ede73640b59fa8731fe7d3f2dd80c66b6fef30dc99fba44238f4c4629e3d5",
+    "data/local-eval-predictions/fold0/fold0-qlora-v2-118-bf16/specialist_verification_cache.json": "4ded02c59a28310052fb3213510212e32282c2c01e3a471a62da4d9eff95fc34"
+  },
+  "inner_calibration_rows": 750,
+  "inner_precision_by_code": {
+    "fall_height": 0.6688311688311688,
+    "slip_trip": 0.5347432024169184,
+    "caught_in_machine": 0.6944444444444444,
+    "struck_by_lifting": 0.20300751879699247,
+    "electrical_energy": 0.9310344827586207,
+    "drowning_inundation": 0.0,
+    "fire_explosion": 0.9032258064516129,
+    "confined_space": 0.0,
+    "chemical_exposure": 0.8571428571428571,
+    "thermal_weather": 0.0,
+    "other": 0.6198347107438017
+  },
+  "cache_identity": {
+    "model_key": "17ee99ca59d9ea1be9ea2451b08b5064fb3205137b1703759e9bff3d34763215",
+    "prompt_sha256": "107142013bc95376c9044fc5025079f1e68dd56b4d95b20b1550deeafe4712fb",
+    "processor_size": {
+      "shortest_edge": 131072,
+      "longest_edge": 524288
+    },
+    "max_new_tokens": 320
+  },
+  "ancillary_artifact_audit": {
+    "v2_bf16_output_risk_photos": 127,
+    "v2_bf16_hazard_items": 185,
+    "v2_bf16_refs_per_hazard_histogram": {
+      "1": 185
+    },
+    "blind_photos": 12,
+    "blind_candidate_hazards": 10,
+    "blind_candidate_refs_per_hazard_histogram": {
+      "1": 10
+    },
+    "dev_only_selector_population_for_val_fold_minus_one": 966,
+    "measured_v2_val_fold": 0,
+    "measured_v2_train_photos": 750,
+    "bundled_legacy_training_recipe_rows": 1044,
+    "legacy_recipe_fold0_id_intersection": 215,
+    "recipe_scope": "Artifact membership only; does not establish actual training IDs of the released checkpoint."
+  },
+  "cohorts": {
+    "primary": {
+      "photos": 216,
+      "groups": 36,
+      "fixed": {
+        "candidates": 102,
+        "annotated_positive": 31,
+        "unannotated": 71,
+        "confirmed_accepted_tp": 28,
+        "confirmed_accepted_fp": 49,
+        "unknown_annotated_positive": 0,
+        "unknown_unannotated": 0
+      },
+      "nested": {
+        "candidates": 81,
+        "annotated_positive": 28,
+        "unannotated": 53,
+        "confirmed_accepted_tp": 23,
+        "confirmed_accepted_fp": 38,
+        "unknown_annotated_positive": 3,
+        "unknown_unannotated": 3
+      },
+      "same_photo_same_code": {
+        "candidates": 74,
+        "annotated_positive": 24,
+        "unannotated": 50,
+        "confirmed_accepted_tp": 22,
+        "confirmed_accepted_fp": 38,
+        "unknown_annotated_positive": 0,
+        "unknown_unannotated": 0
+      },
+      "removed_without_replacement": {
+        "candidates": 24,
+        "annotated_positive": 6,
+        "unannotated": 18,
+        "confirmed_accepted_tp": 5,
+        "confirmed_accepted_fp": 9,
+        "unknown_annotated_positive": 0,
+        "unknown_unannotated": 0
+      },
+      "old_code_of_replacement": {
+        "candidates": 4,
+        "annotated_positive": 1,
+        "unannotated": 3,
+        "confirmed_accepted_tp": 1,
+        "confirmed_accepted_fp": 2,
+        "unknown_annotated_positive": 0,
+        "unknown_unannotated": 0
+      },
+      "new_code_of_replacement": {
+        "candidates": 4,
+        "annotated_positive": 4,
+        "unannotated": 0,
+        "confirmed_accepted_tp": 1,
+        "confirmed_accepted_fp": 0,
+        "unknown_annotated_positive": 3,
+        "unknown_unannotated": 0
+      },
+      "new_photo": {
+        "candidates": 3,
+        "annotated_positive": 0,
+        "unannotated": 3,
+        "confirmed_accepted_tp": 0,
+        "confirmed_accepted_fp": 0,
+        "unknown_annotated_positive": 0,
+        "unknown_unannotated": 3
+      },
+      "nested_matching_cache_by_origin": {
+        "anchored": 74,
+        "prior_followup": 1
+      },
+      "fixed_measured": {
+        "macro_f1": 0.6052750814548483,
+        "active_codes": 9,
+        "no_hazard_false_alarms": 17,
+        "no_hazard_photos": 65,
+        "severity4_complete_misses": 12,
+        "severity4_photos": 49
+      },
+      "nested_measured_subset_unknowns_deferred": {
+        "macro_f1": 0.6015697447069996,
+        "active_codes": 9,
+        "no_hazard_false_alarms": 14,
+        "no_hazard_photos": 65,
+        "severity4_complete_misses": 12,
+        "severity4_photos": 49
+      },
+      "nested_lower_bound_unknown_false_only": {
+        "macro_f1": 0.59413258505465,
+        "active_codes": 9,
+        "no_hazard_false_alarms": 15,
+        "no_hazard_photos": 65,
+        "severity4_complete_misses": 12,
+        "severity4_photos": 49
+      },
+      "nested_upper_bound_unknown_true_only": {
+        "macro_f1": 0.624591027221953,
+        "active_codes": 9,
+        "no_hazard_false_alarms": 14,
+        "no_hazard_photos": 65,
+        "severity4_complete_misses": 12,
+        "severity4_photos": 49
+      },
+      "nested_label_oracle_all_proposals": {
+        "macro_f1": 0.684695379124305,
+        "active_codes": 9,
+        "no_hazard_false_alarms": 6,
+        "no_hazard_photos": 65,
+        "severity4_complete_misses": 11,
+        "severity4_photos": 49
+      },
+      "exhaustive_existing_anchor_cache_only": {
+        "scenarios": 128,
+        "unknown": 7,
+        "ranges": {
+          "macro_f1": [
+            0.5909804967961788,
+            0.624591027221953
+          ],
+          "no_hazard_false_alarms": [
+            14,
+            15
+          ],
+          "severity4_complete_misses": [
+            12,
+            13
+          ]
+        }
+      },
+      "exhaustive_all_exact_matched_caches": {
+        "scenarios": 64,
+        "unknown": 6,
+        "ranges": {
+          "macro_f1": [
+            0.59413258505465,
+            0.624591027221953
+          ],
+          "no_hazard_false_alarms": [
+            14,
+            15
+          ],
+          "severity4_complete_misses": [
+            12,
+            12
+          ]
+        }
+      }
+    },
+    "confirmed_cross_group_exclusion": {
+      "photos": 34,
+      "groups": 34,
+      "fixed": {
+        "candidates": 18,
+        "annotated_positive": 5,
+        "unannotated": 13,
+        "confirmed_accepted_tp": 3,
+        "confirmed_accepted_fp": 11,
+        "unknown_annotated_positive": 0,
+        "unknown_unannotated": 0
+      },
+      "nested": {
+        "candidates": 14,
+        "annotated_positive": 5,
+        "unannotated": 9,
+        "confirmed_accepted_tp": 3,
+        "confirmed_accepted_fp": 8,
+        "unknown_annotated_positive": 1,
+        "unknown_unannotated": 0
+      },
+      "same_photo_same_code": {
+        "candidates": 13,
+        "annotated_positive": 4,
+        "unannotated": 9,
+        "confirmed_accepted_tp": 3,
+        "confirmed_accepted_fp": 8,
+        "unknown_annotated_positive": 0,
+        "unknown_unannotated": 0
+      },
+      "removed_without_replacement": {
+        "candidates": 4,
+        "annotated_positive": 1,
+        "unannotated": 3,
+        "confirmed_accepted_tp": 0,
+        "confirmed_accepted_fp": 2,
+        "unknown_annotated_positive": 0,
+        "unknown_unannotated": 0
+      },
+      "old_code_of_replacement": {
+        "candidates": 1,
+        "annotated_positive": 0,
+        "unannotated": 1,
+        "confirmed_accepted_tp": 0,
+        "confirmed_accepted_fp": 1,
+        "unknown_annotated_positive": 0,
+        "unknown_unannotated": 0
+      },
+      "new_code_of_replacement": {
+        "candidates": 1,
+        "annotated_positive": 1,
+        "unannotated": 0,
+        "confirmed_accepted_tp": 0,
+        "confirmed_accepted_fp": 0,
+        "unknown_annotated_positive": 1,
+        "unknown_unannotated": 0
+      },
+      "new_photo": {
+        "candidates": 0,
+        "annotated_positive": 0,
+        "unannotated": 0,
+        "confirmed_accepted_tp": 0,
+        "confirmed_accepted_fp": 0,
+        "unknown_annotated_positive": 0,
+        "unknown_unannotated": 0
+      },
+      "nested_matching_cache_by_origin": {
+        "anchored": 13
+      },
+      "fixed_measured": {
+        "macro_f1": 0.6205209994683679,
+        "active_codes": 6,
+        "no_hazard_false_alarms": 2,
+        "no_hazard_photos": 6,
+        "severity4_complete_misses": 3,
+        "severity4_photos": 13
+      },
+      "nested_measured_subset_unknowns_deferred": {
+        "macro_f1": 0.6337276271486798,
+        "active_codes": 6,
+        "no_hazard_false_alarms": 2,
+        "no_hazard_photos": 6,
+        "severity4_complete_misses": 3,
+        "severity4_photos": 13
+      },
+      "nested_lower_bound_unknown_false_only": {
+        "macro_f1": 0.6337276271486798,
+        "active_codes": 6,
+        "no_hazard_false_alarms": 2,
+        "no_hazard_photos": 6,
+        "severity4_complete_misses": 3,
+        "severity4_photos": 13
+      },
+      "nested_upper_bound_unknown_true_only": {
+        "macro_f1": 0.6654736588947116,
+        "active_codes": 6,
+        "no_hazard_false_alarms": 2,
+        "no_hazard_photos": 6,
+        "severity4_complete_misses": 3,
+        "severity4_photos": 13
+      },
+      "nested_label_oracle_all_proposals": {
+        "macro_f1": 0.7409052935368725,
+        "active_codes": 6,
+        "no_hazard_false_alarms": 1,
+        "no_hazard_photos": 6,
+        "severity4_complete_misses": 2,
+        "severity4_photos": 13
+      },
+      "exhaustive_existing_anchor_cache_only": {
+        "scenarios": 2,
+        "unknown": 1,
+        "ranges": {
+          "macro_f1": [
+            0.6337276271486798,
+            0.6654736588947116
+          ],
+          "no_hazard_false_alarms": [
+            2,
+            2
+          ],
+          "severity4_complete_misses": [
+            3,
+            3
+          ]
+        }
+      },
+      "exhaustive_all_exact_matched_caches": {
+        "scenarios": 2,
+        "unknown": 1,
+        "ranges": {
+          "macro_f1": [
+            0.6337276271486798,
+            0.6654736588947116
+          ],
+          "no_hazard_false_alarms": [
+            2,
+            2
+          ],
+          "severity4_complete_misses": [
+            3,
+            3
+          ]
+        }
+      }
+    }
+  }
+}
