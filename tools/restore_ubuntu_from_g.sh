@@ -24,7 +24,7 @@ test "$(git -C "$dst" rev-parse HEAD)" = "$commit" || { echo "Source main change
 # Windows-only environments and caches can be bulky. Preserve them on the source disk.
 paths=(. ':(exclude).runtime' ':(exclude).venv' ':(exclude,glob)**/__pycache__/**' ':(exclude,glob)**/*.pyc')
 if [[ ${3:-} == "--core" ]]; then
-  paths=(data/packages data/train data/local-kit data/baseline data/clean-split-v1 data/clean-specialist-v1 data/vlm-11code-fold0-v2/adapter)
+  paths=(data/packages data/train data/local-kit data/baseline data/clean-split-v1 data/clean-specialist-v1 data/vlm-11code-fold0-v2/adapter data/fold0-verifier-ab/A/adapter data/fold0-verifier-ab/B/adapter data/phase01-runs/phase01-20261126-0513-2155e8fa/models)
 fi
 "${source_git[@]}" ls-files --others --ignored --exclude-standard -z -- "${paths[@]}" |
   rsync -rltH --safe-links --partial --from0 --files-from=- --info=progress2 "$src/" "$dst/"

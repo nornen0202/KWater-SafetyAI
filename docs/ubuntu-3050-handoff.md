@@ -27,6 +27,8 @@ GitHub의 `ubuntu-handoff/kwater-phase2-model-comparison`과 `ubuntu-handoff/kwa
 
 ## Linux 실행 확인
 
+Drive에서 받은 파일만 검사할 때는 다운로드한 스냅샷의 루트에서 `sha256sum -c SHA256SUMS`와 `sha256sum -c ENCODERS-SHA256SUMS`를 실행한다. 둘 다 통과하면 `data/` 하위 경로를 유지하며 체크아웃에 복사한다. 공식 학습 데이터와 개별 예측은 외장 G:에서 채운다. [지정 계정의 복원 폴더](https://drive.google.com/drive/folders/1oca7JBCxPG8hiM80rRr9TumB9uK7JnDk)
+
 기존 실행의 Python은 3.12.8이었다. 아래는 Python 3.12가 설치된 Ubuntu에서 시작하는 절차다. 시스템 기본 Python 버전이 다르면 별도 3.12 환경을 먼저 준비한다. CUDA 12.4용 PyTorch 휠에 맞는 NVIDIA 드라이버를 사용하는 예다. [PyTorch 공식 버전별 설치표](https://pytorch.org/get-started/previous-versions/)
 
 ```bash
