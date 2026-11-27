@@ -24,6 +24,7 @@ from kwater_lab.ubuntu_inner_verifier_eval import (
     parse_margins,
     score,
     seal_run,
+    stable_hash,
     verify_run,
     write_json,
 )
@@ -198,7 +199,9 @@ def test_photo_cache_resumes_only_matching_finite_complete_protocol(
     ]
     path = tmp_path / "cache.json"
     assert load_cached_photo(path, "protocol", photo) is None
-    write_json(path, {"cache_key": "protocol", "rows": rows})
+    write_json(
+        path, {"cache_key": "protocol", "rows": rows, "rows_sha256": stable_hash(rows)}
+    )
 
     loaded = load_cached_photo(path, "protocol", photo)
 
@@ -208,6 +211,11 @@ def test_photo_cache_resumes_only_matching_finite_complete_protocol(
         load_cached_photo(path, "different-adapter", photo)
     with pytest.raises(EvaluationError, match="coverage"):
         parse_margins(rows[:-1], (photo,))
+    cached = json.loads(path.read_text())
+    cached["rows"][0]["margin"] = 999.0
+    write_json(path, cached)
+    with pytest.raises(EvaluationError, match="payload changed"):
+        load_cached_photo(path, "protocol", photo)
 
 
 def test_noncanonical_manifest_is_rejected_before_cohort_use(tmp_path: Path) -> None:

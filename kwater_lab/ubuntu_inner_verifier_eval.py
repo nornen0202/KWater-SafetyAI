@@ -147,6 +147,8 @@ def load_cached_photo(path: Path, key: str, photo: Photo) -> tuple[Margin, ...] 
     cached = json.loads(path.read_text(), object_pairs_hook=unique_keys)
     if cached["cache_key"] != key:
         raise EvaluationError("Cached protocol identity changed")
+    if stable_hash(cached["rows"]) != cached["rows_sha256"]:
+        raise EvaluationError("Cached margin payload changed")
     return parse_margins(cached["rows"], (photo,))
 
 
@@ -210,6 +212,7 @@ def verify_run(
 def predict(args: argparse.Namespace) -> Path:
     """Resume image/arm caches under an immutable joint protocol fingerprint."""
     import torch
+    from torch.version import cuda
 
     from .vlm_11code import load_qwen_model, load_qwen_processor, verify_user_text
 
@@ -247,6 +250,8 @@ def predict(args: argparse.Namespace) -> Path:
         "batch_size": 1,
         "seed": SEED,
         "precision": "NF4 double quant, bf16 compute; existing loader visual/lm_head exclusions",
+        "cuda": str(cuda),
+        "device": torch.cuda.get_device_name(0),
         "decision_prefix": PREFIX,
         "decision_token_ids": decision_ids,
         "threshold": 0.0,
@@ -340,7 +345,11 @@ def predict(args: argparse.Namespace) -> Path:
                 rows = parse_margins([row.to_record() for row in new_rows], (photo,))
                 write_json(
                     cache,
-                    {"cache_key": cache_key, "rows": [asdict(row) for row in rows]},
+                    {
+                        "cache_key": cache_key,
+                        "rows": [asdict(row) for row in rows],
+                        "rows_sha256": stable_hash([asdict(row) for row in rows]),
+                    },
                 )
             records.extend(rows)
             print(f"{arm} {number}/{PHOTO_COUNT} photos cached", flush=True)
