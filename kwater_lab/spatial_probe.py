@@ -215,8 +215,8 @@ def _fit_scores(train_features: np.ndarray, train_labels: np.ndarray, valid_feat
     valid = torch.from_numpy(valid_features).to(device)
     labels = torch.from_numpy(train_labels).to(device)
     dimension, code_count = train.shape[-1], labels.shape[1]
-    weight = torch.nn.Parameter(torch.zeros(dimension, code_count))
-    bias = torch.nn.Parameter(torch.zeros(code_count))
+    weight = torch.nn.Parameter(train.new_zeros(dimension, code_count))
+    bias = torch.nn.Parameter(train.new_zeros(code_count))
     optimizer = torch.optim.AdamW((weight, bias), lr=0.03, weight_decay=0.02)
     for _ in range(steps):
         token_logits = train @ weight + bias
