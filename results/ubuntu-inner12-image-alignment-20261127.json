@@ -1,0 +1,273 @@
+{
+  "source_sha256": {
+    "seal.json": "d69df8684160dd00119d76bcee0b5c6584901c3a4f8e620a2d35b84c9770f799",
+    "identity.json": "33713d0be053a37b72c8af84dc35a0acdd5351223d32a3af4d5894fc5f14b417",
+    "control/predictions.json": "494004d1221f9299bc4b052dff88ff073c0a7972990b07e81740e27aeaf7d31d",
+    "mined/predictions.json": "04a346ffaa8c3b7ef9dc8a9d942d1e47fd0923f48301bdc03d141afb65ced1c3"
+  },
+  "plan_sha256": "2c1f36f157b4325a4ff0147260cf1461617ce1b385ee018dd126ad63f7472b5f",
+  "photos": 201,
+  "arms": {
+    "control": {
+      "correct_image": {
+        "per_code_auc": {
+          "slip_trip": 0.8454232534421213,
+          "fall_height": 0.814957264957265,
+          "struck_by_lifting": 0.5550327332242226
+        },
+        "macro_auc": 0.7384710838745363,
+        "auc_eligible_codes": 3,
+        "tp": 2,
+        "fp": 0,
+        "fn": 109,
+        "tn": 492,
+        "pooled_f1": 0.035398230088495575,
+        "fixed_code_macro_f1": 0.024242424242424242,
+        "normal_photos": 68,
+        "normal_false_alarm_photos": 0,
+        "normal_false_alarm_rate": 0.0,
+        "severe_instances": 30,
+        "severe_misses": 30,
+        "severe_recall": 0.0,
+        "approvals_per_code": {
+          "slip_trip": 2,
+          "fall_height": 0,
+          "struck_by_lifting": 0
+        }
+      },
+      "donor_diagnostic_ranges": {
+        "macro_auc": {
+          "mean": 0.49522407172133687,
+          "minimum": 0.40889172196210866,
+          "maximum": 0.5710192271345758
+        },
+        "pooled_f1": {
+          "mean": 0.010024889380530973,
+          "minimum": 0.0,
+          "maximum": 0.035398230088495575
+        },
+        "fixed_code_macro_f1": {
+          "mean": 0.006865530303030303,
+          "minimum": 0.0,
+          "maximum": 0.024242424242424242
+        },
+        "tp": {
+          "mean": 0.56640625,
+          "minimum": 0,
+          "maximum": 2
+        },
+        "fp": {
+          "mean": 1.43359375,
+          "minimum": 0,
+          "maximum": 2
+        },
+        "fn": {
+          "mean": 110.43359375,
+          "minimum": 109,
+          "maximum": 111
+        },
+        "tn": {
+          "mean": 490.56640625,
+          "minimum": 490,
+          "maximum": 492
+        },
+        "normal_false_alarm_photos": {
+          "mean": 0.73828125,
+          "minimum": 0,
+          "maximum": 2
+        },
+        "normal_false_alarm_rate": {
+          "mean": 0.010857077205882353,
+          "minimum": 0.0,
+          "maximum": 0.029411764705882353
+        },
+        "severe_misses": {
+          "mean": 30,
+          "minimum": 30,
+          "maximum": 30
+        },
+        "severe_recall": {
+          "mean": 0.0,
+          "minimum": 0.0,
+          "maximum": 0.0
+        }
+      },
+      "donor_per_code_auc_ranges": {
+        "slip_trip": {
+          "mean": 0.5068344435237124,
+          "minimum": 0.3777409484956655,
+          "maximum": 0.6569352371239163
+        },
+        "fall_height": {
+          "mean": 0.480602297008547,
+          "minimum": 0.36424501424501426,
+          "maximum": 0.5972934472934472
+        },
+        "struck_by_lifting": {
+          "mean": 0.4982354746317512,
+          "minimum": 0.3248772504091653,
+          "maximum": 0.6839198036006546
+        }
+      },
+      "correct_minus_donor": {
+        "macro_auc": {
+          "mean": 0.24324701215319944,
+          "minimum": 0.16745185673996055,
+          "maximum": 0.32957936191242765
+        },
+        "pooled_f1": {
+          "mean": 0.0253733407079646,
+          "minimum": 0.0,
+          "maximum": 0.035398230088495575
+        },
+        "fixed_code_macro_f1": {
+          "mean": 0.01737689393939394,
+          "minimum": 0.0,
+          "maximum": 0.024242424242424242
+        }
+      },
+      "paired_margin_concordance_gold_positive": {
+        "mean": 0.7328617680180181,
+        "minimum": 0.6576576576576577,
+        "maximum": 0.8198198198198198
+      },
+      "marginal_approvals_preserved_all_replications": true
+    },
+    "mined": {
+      "correct_image": {
+        "per_code_auc": {
+          "slip_trip": 0.8423635900050994,
+          "fall_height": 0.8242165242165242,
+          "struck_by_lifting": 0.6047463175122749
+        },
+        "macro_auc": 0.7571088105779662,
+        "auc_eligible_codes": 3,
+        "tp": 0,
+        "fp": 0,
+        "fn": 111,
+        "tn": 492,
+        "pooled_f1": 0.0,
+        "fixed_code_macro_f1": 0.0,
+        "normal_photos": 68,
+        "normal_false_alarm_photos": 0,
+        "normal_false_alarm_rate": 0.0,
+        "severe_instances": 30,
+        "severe_misses": 30,
+        "severe_recall": 0.0,
+        "approvals_per_code": {
+          "slip_trip": 0,
+          "fall_height": 0,
+          "struck_by_lifting": 0
+        }
+      },
+      "donor_diagnostic_ranges": {
+        "macro_auc": {
+          "mean": 0.4959157387260799,
+          "minimum": 0.4148557336634414,
+          "maximum": 0.5651539598147386
+        },
+        "pooled_f1": {
+          "mean": 0.0,
+          "minimum": 0.0,
+          "maximum": 0.0
+        },
+        "fixed_code_macro_f1": {
+          "mean": 0.0,
+          "minimum": 0.0,
+          "maximum": 0.0
+        },
+        "tp": {
+          "mean": 0,
+          "minimum": 0,
+          "maximum": 0
+        },
+        "fp": {
+          "mean": 0,
+          "minimum": 0,
+          "maximum": 0
+        },
+        "fn": {
+          "mean": 111,
+          "minimum": 111,
+          "maximum": 111
+        },
+        "tn": {
+          "mean": 492,
+          "minimum": 492,
+          "maximum": 492
+        },
+        "normal_false_alarm_photos": {
+          "mean": 0,
+          "minimum": 0,
+          "maximum": 0
+        },
+        "normal_false_alarm_rate": {
+          "mean": 0.0,
+          "minimum": 0.0,
+          "maximum": 0.0
+        },
+        "severe_misses": {
+          "mean": 30,
+          "minimum": 30,
+          "maximum": 30
+        },
+        "severe_recall": {
+          "mean": 0.0,
+          "minimum": 0.0,
+          "maximum": 0.0
+        }
+      },
+      "donor_per_code_auc_ranges": {
+        "slip_trip": {
+          "mean": 0.5075903955252422,
+          "minimum": 0.3843064762876084,
+          "maximum": 0.653556858745538
+        },
+        "fall_height": {
+          "mean": 0.48056278935185187,
+          "minimum": 0.3627492877492878,
+          "maximum": 0.5906695156695156
+        },
+        "struck_by_lifting": {
+          "mean": 0.49959403130114566,
+          "minimum": 0.32344517184942717,
+          "maximum": 0.6986497545008183
+        }
+      },
+      "correct_minus_donor": {
+        "macro_auc": {
+          "mean": 0.2611930718518863,
+          "minimum": 0.1919548507632276,
+          "maximum": 0.3422530769145248
+        },
+        "pooled_f1": {
+          "mean": 0.0,
+          "minimum": 0.0,
+          "maximum": 0.0
+        },
+        "fixed_code_macro_f1": {
+          "mean": 0.0,
+          "minimum": 0.0,
+          "maximum": 0.0
+        }
+      },
+      "paired_margin_concordance_gold_positive": {
+        "mean": 0.7394953547297297,
+        "minimum": 0.6486486486486487,
+        "maximum": 0.8198198198198198
+      },
+      "marginal_approvals_preserved_all_replications": true
+    }
+  },
+  "seed": 20261127,
+  "replications": 256,
+  "scope": "Development-only image-match diagnostic; no independent performance evidence.",
+  "sampling": "Same randomized group-block rotations for both arms; not uniform derangements.",
+  "range_interpretation": "Finite constrained-permutation diagnostic range, NOT confidence interval.",
+  "group_limitation": "Manifest groups are exclusion proxies, not independently verified events.",
+  "auc_definition": "Unweighted mean of within-code AUROC with both classes; ties half credit.",
+  "concordance_definition": "Correct versus donor margin within gold-positive photo/code pairs; NOT AUROC.",
+  "severe_denominator": "Gold severity-4 instances only within eligible fixed candidate codes.",
+  "normal_definition": "No gold hazards of any code; false alarms use fixed candidate codes.",
+  "threshold": "Accept iff sealed margin > 0; zero ties reject."
+}

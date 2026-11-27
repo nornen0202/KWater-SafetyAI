@@ -1,0 +1,160 @@
+{
+  "scope": "Fixed Fold3 conditional 3-code verifier audit; development-only, not leaderboard or full generated JSON.",
+  "protocol_fingerprint": "ca732b396a6c86cae4fc7f82dc1c177bcf2aadc58f0123757dd4cfe12976f454",
+  "seal": {
+    "identity_sha256": "33713d0be053a37b72c8af84dc35a0acdd5351223d32a3af4d5894fc5f14b417",
+    "predictions_sha256": {
+      "control": "494004d1221f9299bc4b052dff88ff073c0a7972990b07e81740e27aeaf7d31d",
+      "mined": "04a346ffaa8c3b7ef9dc8a9d942d1e47fd0923f48301bdc03d141afb65ced1c3"
+    },
+    "photos": 201,
+    "conditions_per_arm": 603
+  },
+  "photos": 201,
+  "candidate_codes": [
+    "slip_trip",
+    "fall_height",
+    "struck_by_lifting"
+  ],
+  "max_pixels": 131072,
+  "threshold": "accept iff conditional accept minus reject logit > 0; zero ties reject",
+  "normal_definition": "No gold hazard across all codes; 3-code predictions only",
+  "serious4_limitation": "Primary denominator: severity-4 instances in the three fixed candidate codes. Secondary all-code denominator includes unproposed codes as misses; no predicted severity grading.",
+  "arms": {
+    "control": {
+      "photos": 201,
+      "per_code": {
+        "slip_trip": {
+          "tp": 2,
+          "fp": 0,
+          "fn": 51,
+          "support": 53,
+          "precision": 1.0,
+          "recall": 0.03773584905660377,
+          "f1": 0.07272727272727272
+        },
+        "fall_height": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 45,
+          "support": 45,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "struck_by_lifting": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 13,
+          "support": 13,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      },
+      "fixed_3code_macro_f1": 0.024242424242424242,
+      "active_code_macro_f1": 0.024242424242424242,
+      "active_codes": 3,
+      "tp": 2,
+      "fp": 0,
+      "fn": 109,
+      "precision": 1.0,
+      "normal_photos": 68,
+      "normal_false_alarm_photos": 0,
+      "normal_false_alarm_rate": 0.0,
+      "positive_photo_coverage": 0.009950248756218905,
+      "scored_photo_coverage": 1.0,
+      "pooled_f1": 0.035398230088495575,
+      "serious4_candidate_codes_primary": {
+        "instances": 30,
+        "hits": 0,
+        "misses": 30,
+        "recall": 0.0
+      },
+      "serious4_all_codes_secondary": {
+        "sev4_photos": 62,
+        "sev4_photo_completely_missed": 62,
+        "sev4_photo_without_any_prediction": 62,
+        "sev4_instances": 66,
+        "sev4_instance_missed": 66,
+        "sev4_instance_recall": 0.0
+      }
+    },
+    "mined": {
+      "photos": 201,
+      "per_code": {
+        "slip_trip": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 53,
+          "support": 53,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "fall_height": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 45,
+          "support": 45,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "struck_by_lifting": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 13,
+          "support": 13,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      },
+      "fixed_3code_macro_f1": 0.0,
+      "active_code_macro_f1": 0.0,
+      "active_codes": 3,
+      "tp": 0,
+      "fp": 0,
+      "fn": 111,
+      "precision": 0.0,
+      "normal_photos": 68,
+      "normal_false_alarm_photos": 0,
+      "normal_false_alarm_rate": 0.0,
+      "positive_photo_coverage": 0.0,
+      "scored_photo_coverage": 1.0,
+      "pooled_f1": 0.0,
+      "serious4_candidate_codes_primary": {
+        "instances": 30,
+        "hits": 0,
+        "misses": 30,
+        "recall": 0.0
+      },
+      "serious4_all_codes_secondary": {
+        "sev4_photos": 62,
+        "sev4_photo_completely_missed": 62,
+        "sev4_photo_without_any_prediction": 62,
+        "sev4_instances": 66,
+        "sev4_instance_missed": 66,
+        "sev4_instance_recall": 0.0
+      }
+    }
+  },
+  "changed_decisions": {
+    "slip_trip": {
+      "reject_to_accept": 0,
+      "accept_to_reject": 2
+    },
+    "fall_height": {
+      "reject_to_accept": 0,
+      "accept_to_reject": 0
+    },
+    "struck_by_lifting": {
+      "reject_to_accept": 0,
+      "accept_to_reject": 0
+    }
+  },
+  "changed_photos": 2,
+  "pooled_f1_delta_mined_minus_control": -0.035398230088495575,
+  "training_comparison": "Two checkpoint-12 adapters; matching training budgets/initialization must be checked in training receipts."
+}
