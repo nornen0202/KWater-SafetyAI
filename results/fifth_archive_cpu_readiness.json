@@ -1,0 +1,65 @@
+{
+  "scope": "Independent CPU package-readiness audit on historical original and VLM-only evaluation stage",
+  "fifth_candidate_zip_present_at_check": false,
+  "historical_original_archive": {
+    "files": 47,
+    "archive_bytes": 9032392642,
+    "unpacked_bytes": 9056261772,
+    "seed": "42",
+    "offline_lock": true,
+    "asset_sha256": {
+      "main.py": "6dff3c44b5b0331a1085ddb69545d153510c13e670c4e163442f57d3dd1ae9c6",
+      "assets.json": "9c270bc3e0f54451c467257c135482dda48f12915636272b44f2350ddbd81efe"
+    },
+    "official_existing_output_check": {
+      "return_code": 0,
+      "valid_rows": 10,
+      "total_rows": 10,
+      "checker_dependency_missing": null,
+      "all_rows_valid": true
+    },
+    "existing_runtime_log": {
+      "bytes": 547,
+      "lines": 12,
+      "longest_line_bytes": 339,
+      "lines_above_4096_bytes": 0
+    },
+    "linux_seccomp_executed": false,
+    "offline_install_executed": false,
+    "official_full_zip_extraction_executed": false,
+    "stream_crc_checked": false,
+    "matching_locked_wheels": 5,
+    "restricted_source_exact_matches": 0,
+    "restricted_name_flags": 1,
+    "static_network_or_process_indicators": 2
+  },
+  "existing_v2_fold0_evaluation_directory": {
+    "files": 28,
+    "archive_bytes": null,
+    "unpacked_bytes": 9043642968,
+    "seed": "42",
+    "offline_lock": true,
+    "asset_sha256": {
+      "main.py": "269b71d1d1d603937e42c61ad00ffdf97732ab643177cb177227e453df8fa0d5",
+      "assets.json": "dbf42f2546506cb4b3f38c3658c362d6d3319e785a32b7458b9f14660004b9d8",
+      "adapter/adapter_model.safetensors": "327c3bb13a5ba3c7e304db44972c2ff6660610f567a13c6e2e7a631dc6945c40"
+    },
+    "official_existing_output_check": null,
+    "existing_runtime_log": null,
+    "linux_seccomp_executed": false,
+    "offline_install_executed": false,
+    "official_full_zip_extraction_executed": false,
+    "stream_crc_checked": null,
+    "matching_locked_wheels": 5,
+    "restricted_source_exact_matches": 0,
+    "restricted_name_flags": 0,
+    "static_network_or_process_indicators": 0
+  },
+  "kit_zipcheck_sha256": "22d13505061d5bfb2c5fa2c64f3f769542c2dce08a3faae73433169bb04c2052",
+  "kit_output_checker_sha256": "22dd4bf71c2a47b5d5928ae90b7a098cecc692b4ec32c8bbe7506c4876c45fed",
+  "negative_fixture_and_unit_tests_passed": 3,
+  "current_checkout_full_cpu_suite_executed": false,
+  "full_suite_deferred_reason": "v3 GPU workflow active and host RAM free measured at 1.17 GiB",
+  "gpu_generation_started": false,
+  "large_archive_copied_or_extracted": false
+}

@@ -1,0 +1,56 @@
+{
+  "scope": "All development cross-split cosine comparisons; geometry and image review on a representative fixed shortlist",
+  "input_sha256": {
+    "data/clean-split-v1/split_manifest_dev.json": "3864848fe26b951ec070710499d2694078b17c76ffd2aaf38d312b99ad3b2f60",
+    "data/clean-specialist-v1/features_multiview_2176d.npz": "a6586a149b28df3b6e31f263aed82f010541e98a5316b054b63572f0de0d22f0",
+    "data/fold0-crosssplit-visual-review/fold0-group-exclusions-confirmed.json": "c97e83f55808db09372d3dc0e80f531b041fc7c6f38ee25b876a1213111fc41c"
+  },
+  "validation_photos": 175,
+  "validation_groups": 39,
+  "training_photos": 791,
+  "training_groups": 153,
+  "all_cross_photo_pairs": 138425,
+  "all_cross_group_pairs": 5967,
+  "max_cosine": 0.9711912870407104,
+  "cosine_quantiles_0_5_0_9_0_99_0_999": [
+    0.43704694509506226,
+    0.5636876821517944,
+    0.6987651586532595,
+    0.8030634946823125
+  ],
+  "diagnostic_cosine_counts": {
+    "0.8": 151,
+    "0.85": 27,
+    "0.9": 5,
+    "0.95": 2
+  },
+  "adjacent_numeric_id_cross_pairs": 41,
+  "adjacent_numeric_id_cross_group_pairs": 41,
+  "selected_routes": {
+    "top_distinct_group_pairs": 16,
+    "extra_cross_family_pairs": 6,
+    "extra_adjacent_id_group_pairs": 6
+  },
+  "geometric_photo_pairs": 28,
+  "geometric_threshold_pairs": {
+    "SIFT": 0,
+    "ORB": 0
+  },
+  "opencv_version": "4.11.0",
+  "mapping_sha256": "90bc0b38b07742b9bd318044bf7ebb2b3a6f70c03299eb29820092cf2ea215d5",
+  "visual_review_completed": true,
+  "visual_reviewer_count": 1,
+  "visual_review_outcome_counts": {
+    "possible_same_site_unproven": 9,
+    "same_visible_scene": 3,
+    "different_visible_scene": 16
+  },
+  "visual_review_sha256": "67cd97befa9f76168aebf9a448af8a1624a29d20e60a84e6702f8618ab600d56",
+  "confirmed_mask_sha256": "ec85cb77fa974c63ba750d2c8201db679921bd91099a015fafe5ca1c2c334060",
+  "confirmed_group_links": 3,
+  "evaluation_groups_excluded": 3,
+  "evaluation_photos_excluded": 68,
+  "sensitivity_photos": 107,
+  "sensitivity_groups": 36,
+  "qualification": "Inferred grouping and limited image review do not establish complete site independence."
+}
