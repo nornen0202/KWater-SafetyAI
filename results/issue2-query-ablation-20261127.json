@@ -1,0 +1,231 @@
+{
+  "scope": "Exploratory replay of already observed Fold 0. Only lexical query fields vary; code, generated text, index and case pool are fixed.",
+  "training_pool_photos": 750,
+  "holdout_used_for_retrieval": false,
+  "variants": [
+    "full",
+    "evidence_only",
+    "prevention_only"
+  ],
+  "max_refs": 1,
+  "bootstrap": {
+    "seed": 42,
+    "resamples": 2000
+  },
+  "input_sha256": {
+    "data\\fold0-qlora-v2-118-official\\output\\submission.jsonl": "dadf8ecedbe47c85e69a7cdd3b3987a1bab68083ab7e5fbb6484ede624a93691",
+    "data\\local-eval-predictions\\fold0\\fold0-qlora-v2-118-bf16\\ft_vlm_11code.jsonl": "6d91d29ec5767a0f80c5c0fefd615befe891cb7afe8a686477efa37a731ae9b2",
+    "data\\local-eval-predictions\\fold0\\fold0-qlora-v2-118-bf16\\ft_vlm_raw.jsonl": "a8723dafdd9b1a1d88f97839b8bf7de421b685603676cee779bde9f9b77f32cd",
+    "official_raw_batch_hashes_sha256": "97d833a4e91894bf04abf168b4d0c8af2040fa45fe3a2292bd8d58247e57e015",
+    "data/clean-split-v1/split_manifest_dev.json": "3864848fe26b951ec070710499d2694078b17c76ffd2aaf38d312b99ad3b2f60",
+    "data/train/train.jsonl": "ab427fed4615b32627b76001e27124e99ae9202c855ba4170916ebe4fdc4de55",
+    "data/baseline/assets/laws.jsonl": "1408b69db444cf90b31f9bebb4a773a30fa4362739e50b22c95f3bbe0e75bd9d",
+    "data/fold0-crosssplit-visual-review/fold0-group-exclusions-confirmed.json": "c97e83f55808db09372d3dc0e80f531b041fc7c6f38ee25b876a1213111fc41c"
+  },
+  "panels": {
+    "official": {
+      "all_fold0": {
+        "photos": 216,
+        "groups": 36,
+        "predicted_hazard_queries": 132,
+        "excluded_predicted_code_not_in_gold": 30,
+        "excluded_matched_code_without_law": 6,
+        "gold_hazard_with_law_missing_predicted_code": 71,
+        "matched_annotated_code_with_law": 96,
+        "groups_with_matched_annotated_code_and_law": 21,
+        "top1_hits": {
+          "full": 85,
+          "evidence_only": 83,
+          "prevention_only": 80
+        },
+        "pairs": {
+          "full_vs_evidence_only": {
+            "a_only_hit": 5,
+            "b_only_hit": 3,
+            "tie_hit": 80,
+            "tie_miss": 8,
+            "changed_top1_all_queries": 16,
+            "paired_group_bootstrap_b_minus_a_95_ci": [
+              -0.19047619047619047,
+              0.04880952380951731
+            ]
+          },
+          "full_vs_prevention_only": {
+            "a_only_hit": 5,
+            "b_only_hit": 0,
+            "tie_hit": 80,
+            "tie_miss": 11,
+            "changed_top1_all_queries": 11,
+            "paired_group_bootstrap_b_minus_a_95_ci": [
+              -0.14285714285714285,
+              0.0
+            ]
+          },
+          "evidence_only_vs_prevention_only": {
+            "a_only_hit": 8,
+            "b_only_hit": 5,
+            "tie_hit": 75,
+            "tie_miss": 8,
+            "changed_top1_all_queries": 24,
+            "paired_group_bootstrap_b_minus_a_95_ci": [
+              -0.14285714285714285,
+              0.14285714285714285
+            ]
+          }
+        }
+      },
+      "confirmed_cross_group_exclusion": {
+        "photos": 34,
+        "groups": 34,
+        "predicted_hazard_queries": 28,
+        "excluded_predicted_code_not_in_gold": 7,
+        "excluded_matched_code_without_law": 2,
+        "gold_hazard_with_law_missing_predicted_code": 13,
+        "matched_annotated_code_with_law": 19,
+        "groups_with_matched_annotated_code_and_law": 19,
+        "top1_hits": {
+          "full": 14,
+          "evidence_only": 14,
+          "prevention_only": 13
+        },
+        "pairs": {
+          "full_vs_evidence_only": {
+            "a_only_hit": 1,
+            "b_only_hit": 1,
+            "tie_hit": 13,
+            "tie_miss": 4,
+            "changed_top1_all_queries": 3,
+            "paired_group_bootstrap_b_minus_a_95_ci": [
+              -0.15789473684210525,
+              0.15789473684210525
+            ]
+          },
+          "full_vs_prevention_only": {
+            "a_only_hit": 1,
+            "b_only_hit": 0,
+            "tie_hit": 13,
+            "tie_miss": 5,
+            "changed_top1_all_queries": 4,
+            "paired_group_bootstrap_b_minus_a_95_ci": [
+              -0.15789473684210525,
+              0.0
+            ]
+          },
+          "evidence_only_vs_prevention_only": {
+            "a_only_hit": 2,
+            "b_only_hit": 1,
+            "tie_hit": 12,
+            "tie_miss": 4,
+            "changed_top1_all_queries": 5,
+            "paired_group_bootstrap_b_minus_a_95_ci": [
+              -0.21052631578947367,
+              0.10526315789473684
+            ]
+          }
+        }
+      }
+    },
+    "v2_bf16": {
+      "all_fold0": {
+        "photos": 216,
+        "groups": 36,
+        "predicted_hazard_queries": 185,
+        "excluded_predicted_code_not_in_gold": 85,
+        "excluded_matched_code_without_law": 3,
+        "gold_hazard_with_law_missing_predicted_code": 70,
+        "matched_annotated_code_with_law": 97,
+        "groups_with_matched_annotated_code_and_law": 20,
+        "top1_hits": {
+          "full": 86,
+          "evidence_only": 87,
+          "prevention_only": 84
+        },
+        "pairs": {
+          "full_vs_evidence_only": {
+            "a_only_hit": 2,
+            "b_only_hit": 3,
+            "tie_hit": 84,
+            "tie_miss": 8,
+            "changed_top1_all_queries": 13,
+            "paired_group_bootstrap_b_minus_a_95_ci": [
+              -0.07407407407407407,
+              0.17391304347826086
+            ]
+          },
+          "full_vs_prevention_only": {
+            "a_only_hit": 4,
+            "b_only_hit": 2,
+            "tie_hit": 82,
+            "tie_miss": 9,
+            "changed_top1_all_queries": 21,
+            "paired_group_bootstrap_b_minus_a_95_ci": [
+              -0.16016666666666665,
+              0.0
+            ]
+          },
+          "evidence_only_vs_prevention_only": {
+            "a_only_hit": 6,
+            "b_only_hit": 3,
+            "tie_hit": 81,
+            "tie_miss": 7,
+            "changed_top1_all_queries": 28,
+            "paired_group_bootstrap_b_minus_a_95_ci": [
+              -0.24,
+              0.0
+            ]
+          }
+        }
+      },
+      "confirmed_cross_group_exclusion": {
+        "photos": 34,
+        "groups": 34,
+        "predicted_hazard_queries": 40,
+        "excluded_predicted_code_not_in_gold": 18,
+        "excluded_matched_code_without_law": 2,
+        "gold_hazard_with_law_missing_predicted_code": 12,
+        "matched_annotated_code_with_law": 20,
+        "groups_with_matched_annotated_code_and_law": 18,
+        "top1_hits": {
+          "full": 16,
+          "evidence_only": 18,
+          "prevention_only": 15
+        },
+        "pairs": {
+          "full_vs_evidence_only": {
+            "a_only_hit": 0,
+            "b_only_hit": 2,
+            "tie_hit": 16,
+            "tie_miss": 2,
+            "changed_top1_all_queries": 2,
+            "paired_group_bootstrap_b_minus_a_95_ci": [
+              0.0,
+              0.25
+            ]
+          },
+          "full_vs_prevention_only": {
+            "a_only_hit": 1,
+            "b_only_hit": 0,
+            "tie_hit": 15,
+            "tie_miss": 4,
+            "changed_top1_all_queries": 5,
+            "paired_group_bootstrap_b_minus_a_95_ci": [
+              -0.14285714285714285,
+              0.0
+            ]
+          },
+          "evidence_only_vs_prevention_only": {
+            "a_only_hit": 3,
+            "b_only_hit": 0,
+            "tie_hit": 15,
+            "tie_miss": 2,
+            "changed_top1_all_queries": 7,
+            "paired_group_bootstrap_b_minus_a_95_ci": [
+              -0.3157894736842105,
+              0.0
+            ]
+          }
+        }
+      }
+    }
+  }
+}
