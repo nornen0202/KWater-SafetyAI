@@ -1,0 +1,163 @@
+{
+  "scope": "Fixed checkpoint-12 mixed versus focused, same 201 development photos; no checkpoint selection.",
+  "photos": 201,
+  "candidate_codes": [
+    "slip_trip",
+    "fall_height",
+    "struck_by_lifting"
+  ],
+  "arms": {
+    "mixed": {
+      "photos": 201,
+      "per_code": {
+        "slip_trip": {
+          "tp": 2,
+          "fp": 0,
+          "fn": 51,
+          "support": 53,
+          "precision": 1.0,
+          "recall": 0.03773584905660377,
+          "f1": 0.07272727272727272
+        },
+        "fall_height": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 45,
+          "support": 45,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "struck_by_lifting": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 13,
+          "support": 13,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      },
+      "fixed_3code_macro_f1": 0.024242424242424242,
+      "active_code_macro_f1": 0.024242424242424242,
+      "active_codes": 3,
+      "tp": 2,
+      "fp": 0,
+      "fn": 109,
+      "precision": 1.0,
+      "normal_photos": 68,
+      "normal_false_alarm_photos": 0,
+      "normal_false_alarm_rate": 0.0,
+      "positive_photo_coverage": 0.009950248756218905,
+      "scored_photo_coverage": 1.0,
+      "pooled_f1": 0.035398230088495575,
+      "serious4_candidate_codes_primary": {
+        "instances": 30,
+        "hits": 0,
+        "misses": 30,
+        "recall": 0.0
+      },
+      "serious4_all_codes_secondary": {
+        "sev4_photos": 62,
+        "sev4_photo_completely_missed": 62,
+        "sev4_photo_without_any_prediction": 62,
+        "sev4_instances": 66,
+        "sev4_instance_missed": 66,
+        "sev4_instance_recall": 0.0
+      },
+      "severity4_candidate_photos": 29,
+      "severity4_candidate_complete_miss_photos": 29,
+      "severity4_candidate_complete_miss_rate": 1.0
+    },
+    "focused": {
+      "photos": 201,
+      "per_code": {
+        "slip_trip": {
+          "tp": 53,
+          "fp": 137,
+          "fn": 0,
+          "support": 53,
+          "precision": 0.2789473684210526,
+          "recall": 1.0,
+          "f1": 0.43621399176954734
+        },
+        "fall_height": {
+          "tp": 44,
+          "fp": 111,
+          "fn": 1,
+          "support": 45,
+          "precision": 0.2838709677419355,
+          "recall": 0.9777777777777777,
+          "f1": 0.44
+        },
+        "struck_by_lifting": {
+          "tp": 12,
+          "fp": 176,
+          "fn": 1,
+          "support": 13,
+          "precision": 0.06382978723404255,
+          "recall": 0.9230769230769231,
+          "f1": 0.11940298507462686
+        }
+      },
+      "fixed_3code_macro_f1": 0.33187232561472474,
+      "active_code_macro_f1": 0.33187232561472474,
+      "active_codes": 3,
+      "tp": 109,
+      "fp": 424,
+      "fn": 2,
+      "precision": 0.2045028142589118,
+      "normal_photos": 68,
+      "normal_false_alarm_photos": 64,
+      "normal_false_alarm_rate": 0.9411764705882353,
+      "positive_photo_coverage": 0.9800995024875622,
+      "scored_photo_coverage": 1.0,
+      "pooled_f1": 0.3385093167701863,
+      "serious4_candidate_codes_primary": {
+        "instances": 30,
+        "hits": 30,
+        "misses": 0,
+        "recall": 1.0
+      },
+      "serious4_all_codes_secondary": {
+        "sev4_photos": 62,
+        "sev4_photo_completely_missed": 33,
+        "sev4_photo_without_any_prediction": 0,
+        "sev4_instances": 66,
+        "sev4_instance_missed": 36,
+        "sev4_instance_recall": 0.4545
+      },
+      "severity4_candidate_photos": 29,
+      "severity4_candidate_complete_miss_photos": 0,
+      "severity4_candidate_complete_miss_rate": 0.0
+    }
+  },
+  "paired_group_bootstrap": {
+    "statistic": "fixed_3code_macro_f1",
+    "delta_focused_minus_mixed": 0.3076299013723005,
+    "resamples": 2000,
+    "seed": 20261127,
+    "groups": 38,
+    "percentile_95": [
+      0.24932818409777496,
+      0.3318511505196273
+    ],
+    "limitation": "Conditional development-set group bootstrap; metadata groups are not independently verified events."
+  },
+  "largest_group_excluded_secondary": {
+    "scope": "Secondary unretuned sensitivity; primary retains all photos. Size ties use sorted group key.",
+    "retained_photos": 107,
+    "excluded_photos": 94,
+    "mixed_fixed_3code_macro_f1": 0.0,
+    "focused_fixed_3code_macro_f1": 0.3021436166173008,
+    "delta_focused_minus_mixed": 0.3021436166173008
+  },
+  "threshold": "Accept iff sealed margin > 0; zero ties reject.",
+  "normal_definition": "No gold hazard of any code; predictions restricted to three fixed candidates.",
+  "severe_definition": "Candidate severity-4 photos; complete miss means none of their candidate severity-4 codes accepted.",
+  "source_seal_sha256": "d69df8684160dd00119d76bcee0b5c6584901c3a4f8e620a2d35b84c9770f799",
+  "focused_seal_sha256": "6659582325e86dcb23a97596610c07c03244c3bcf4a27bc5cb2fb077fb5bd46d",
+  "reused_mixed_predictions_sha256": "494004d1221f9299bc4b052dff88ff073c0a7972990b07e81740e27aeaf7d31d",
+  "focused_predictions_sha256": "95cc8eb346ee37ca316fd288146e037b11f5f813e31bbb784ed04b5666bdee73",
+  "implementation_sha256": "445d8c1614ace60a67d4f20d6642890b561aca1a8cc0f4185c090e7cfb29c4e8"
+}
