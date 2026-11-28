@@ -1,5 +1,5 @@
 {
-  "scope": "Fold 4 8B standalone candidate for the eighth slot. Neither it nor the full1045 epoch-1 4B rehearsal alternative has been submitted. No official 200-photo GPU run at this observation.",
+  "scope": "Fold 4 8B standalone candidate for the eighth slot. The full1045 epoch-1 4B rehearsal is a separate comparison alternative. Offline local and Seoul GPU kit validation.",
   "archive": "kwater-research-8b-fold4-epoch1-bf16-20261128.zip",
   "bytes": 17745550610,
   "sha256": "4b1523af723ec7f6863c0297f3dc6db84d7854e4e3c52dd26f30b26280bbd549",
@@ -117,7 +117,21 @@
     ],
     "model_execution_mocked": true
   },
-  "official_200_latency": null,
+  "official_200_latency": {
+    "archive_sha256": "4b1523af723ec7f6863c0297f3dc6db84d7854e4e3c52dd26f30b26280bbd549",
+    "kit_log_sha256": "dc95bc87ae5d2b0d56c967f2dc55b9d0308f2b1cece146d01aa69d262488dcaf",
+    "execution_seconds": 1315,
+    "install_seconds": 14,
+    "total_seconds": 1329,
+    "limit_seconds": 1800,
+    "raw_vlm_parsed_count": 200,
+    "hardware": "NVIDIA L4, 23034 MiB, 580.178.04",
+    "peak_sampled_gpu_mib": 21472,
+    "input_manifest_sha256": "8c86d0b60b7b879573ccdf4c81558ed4a3840588bb6d2fbbe656dfdb911335b6",
+    "output_sha256": "1df8384259564d773bd096c316ed078300453a762cd04397a0f7ce5bfabc5c89",
+    "valid_rows": 200,
+    "comparative_diagnostic": "results/sub78-four-arm-200-20261128.json"
+  },
   "cpu_check_details": "Single sequential raw ZIP read for complete SHA and member hashes. Official archive metadata and official synthetic output checker ran locally.",
   "actual_offline_auto_processor": {
     "cpu_auto_processor_loaded_offline": true,

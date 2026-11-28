@@ -1,7 +1,7 @@
 {
   "algorithm": "SHA-256",
-  "files": 2610,
-  "total_bytes": 201044131924,
+  "files": 2613,
+  "total_bytes": 201046080793,
   "scope": "Completed project data files and local-only research outputs. In-progress downloads, live transfer status and environment caches are excluded.",
   "artifacts": [
     {
@@ -13053,6 +13053,21 @@
       "path": "data/submissions/kwater-research-8b-fold4-epoch1-bf16-20261128.zip",
       "bytes": 17745550610,
       "sha256": "4b1523af723ec7f6863c0297f3dc6db84d7854e4e3c52dd26f30b26280bbd549"
+    },
+    {
+      "path": "data/local-reports/seoul-8b-fold4-e1-solo-200-20261128/output/submission.jsonl",
+      "bytes": 101816,
+      "sha256": "1df8384259564d773bd096c316ed078300453a762cd04397a0f7ce5bfabc5c89"
+    },
+    {
+      "path": "data/local-reports/sub78-20261128/8b-review/review.html",
+      "bytes": 6330,
+      "sha256": "20094bed5f9a874a55fdd159d11c894b123dfad444d4ffed3f7e61160fd4a7d6"
+    },
+    {
+      "path": "data/local-reports/sub78-20261128/8b-review/review.png",
+      "bytes": 1840723,
+      "sha256": "8a9eb379cba4b6565698acc82f95b8a088b0f7d129a145fb554aa22afb8fe6a5"
     }
   ]
 }

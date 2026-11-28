@@ -1,0 +1,251 @@
+{
+  "scope": "Development latency panel; full1045 training overlaps with this panel.",
+  "input_manifest_sha256": "8c86d0b60b7b879573ccdf4c81558ed4a3840588bb6d2fbbe656dfdb911335b6",
+  "photos": 200,
+  "groups": 192,
+  "outputs": {
+    "6": {
+      "official_check": {
+        "return_code": 0,
+        "valid_rows": 200,
+        "total_rows": 200,
+        "checker_dependency_missing": null,
+        "all_rows_valid": true
+      },
+      "sha256": "034517ef1078a831eb61bd9406b0f27eca97b613e9266478773c4631fbd7ab75",
+      "hazard_photos": 138,
+      "hazard_rows": 178
+    },
+    "7": {
+      "official_check": {
+        "return_code": 0,
+        "valid_rows": 200,
+        "total_rows": 200,
+        "checker_dependency_missing": null,
+        "all_rows_valid": true
+      },
+      "sha256": "c9fe0310478ea28a7c6ebe8521946e702f21c4e770a4382ab30db9ef284999cd",
+      "hazard_photos": 135,
+      "hazard_rows": 179
+    },
+    "8": {
+      "official_check": {
+        "return_code": 0,
+        "valid_rows": 200,
+        "total_rows": 200,
+        "checker_dependency_missing": null,
+        "all_rows_valid": true
+      },
+      "sha256": "25d198e8081cbe4f19432d2aa6f4cdb597075608457b6d433d7ba1514b7d511e",
+      "hazard_photos": 103,
+      "hazard_rows": 135
+    },
+    "8B": {
+      "official_check": {
+        "return_code": 0,
+        "valid_rows": 200,
+        "total_rows": 200,
+        "checker_dependency_missing": null,
+        "all_rows_valid": true
+      },
+      "sha256": "1df8384259564d773bd096c316ed078300453a762cd04397a0f7ce5bfabc5c89",
+      "hazard_photos": 135,
+      "hazard_rows": 175
+    }
+  },
+  "comparisons": {
+    "6_to_7": {
+      "same_code_set": 143,
+      "empty_to_hazard": 9,
+      "hazard_to_empty": 12,
+      "hazard_code_changed": 36
+    },
+    "6_to_8": {
+      "same_code_set": 127,
+      "empty_to_hazard": 2,
+      "hazard_to_empty": 37,
+      "hazard_code_changed": 34
+    },
+    "6_to_8B": {
+      "same_code_set": 122,
+      "empty_to_hazard": 12,
+      "hazard_to_empty": 15,
+      "hazard_code_changed": 51
+    },
+    "7_to_8": {
+      "same_code_set": 140,
+      "empty_to_hazard": 0,
+      "hazard_to_empty": 32,
+      "hazard_code_changed": 28
+    },
+    "7_to_8B": {
+      "same_code_set": 121,
+      "empty_to_hazard": 16,
+      "hazard_to_empty": 16,
+      "hazard_code_changed": 47
+    },
+    "8_to_8B": {
+      "same_code_set": 125,
+      "empty_to_hazard": 34,
+      "hazard_to_empty": 2,
+      "hazard_code_changed": 39
+    }
+  },
+  "changed_groups": {
+    "6_to_7": 56,
+    "6_to_8": 72,
+    "6_to_8B": 77,
+    "7_to_8": 60,
+    "7_to_8B": 78,
+    "8_to_8B": 75
+  },
+  "full_panel_label_diagnostics": {
+    "scope": "Training-exposed development data; descriptive comparison only.",
+    "official_no_visible_hazard": 37,
+    "official_severity4_photos": 68,
+    "arms": {
+      "6": {
+        "safe_false_alarms": 1,
+        "severity4_complete_misses": 19
+      },
+      "7": {
+        "safe_false_alarms": 1,
+        "severity4_complete_misses": 22
+      },
+      "8": {
+        "safe_false_alarms": 0,
+        "severity4_complete_misses": 34
+      },
+      "8B": {
+        "safe_false_alarms": 4,
+        "severity4_complete_misses": 26
+      }
+    },
+    "severity4_code_match_7_to_8": {
+      "gains": 3,
+      "losses": 15,
+      "both_match": 31,
+      "neither_matches": 19
+    }
+  },
+  "research_8b": {
+    "official_kit": {
+      "archive_sha256": "4b1523af723ec7f6863c0297f3dc6db84d7854e4e3c52dd26f30b26280bbd549",
+      "kit_log_sha256": "dc95bc87ae5d2b0d56c967f2dc55b9d0308f2b1cece146d01aa69d262488dcaf",
+      "execution_seconds": 1315,
+      "install_seconds": 14,
+      "total_seconds": 1329,
+      "limit_seconds": 1800,
+      "raw_vlm_parsed_count": 200,
+      "hardware": "NVIDIA L4, 23034 MiB, 580.178.04",
+      "peak_sampled_gpu_mib": 21472
+    },
+    "overlap": {
+      "scope": "Exact training and Fold 4 overlap on the development timing panel.",
+      "trained_photos": 160,
+      "trained_groups": 153,
+      "fold4_175_overlap": {
+        "photos": 40,
+        "groups": 39,
+        "eval1_to_packaged_code_sets_changed": 4,
+        "eval1_to_packaged_status_changed": 0,
+        "changed_groups": 4,
+        "seventh_full1045_exposed_to_these_photos": true,
+        "seventh_to_packaged_8B_code_sets_changed": 18,
+        "official_no_visible_hazard": 5,
+        "official_severity4_photos": 18,
+        "seventh_to_8B_correct_no_alarm": {
+          "gains": 1,
+          "losses": 0,
+          "both_match": 4,
+          "neither_matches": 0
+        },
+        "seventh_to_8B_severity4_match": {
+          "gains": 1,
+          "losses": 3,
+          "both_match": 8,
+          "neither_matches": 6
+        }
+      },
+      "fold4_107_overlap": {
+        "photos": 37,
+        "groups": 36,
+        "eval1_to_packaged_code_sets_changed": 3,
+        "eval1_to_packaged_status_changed": 0,
+        "changed_groups": 3,
+        "seventh_full1045_exposed_to_these_photos": true,
+        "seventh_to_packaged_8B_code_sets_changed": 17,
+        "official_no_visible_hazard": 4,
+        "official_severity4_photos": 17,
+        "seventh_to_8B_correct_no_alarm": {
+          "gains": 1,
+          "losses": 0,
+          "both_match": 3,
+          "neither_matches": 0
+        },
+        "seventh_to_8B_severity4_match": {
+          "gains": 1,
+          "losses": 3,
+          "both_match": 8,
+          "neither_matches": 5
+        }
+      },
+      "original_fold4_prediction_sha256": "d1425b0a7b0f74ba39ad7684aa6a1c76cd52fb199a77266b49418480bd272724"
+    },
+    "severity4_code_match_7_to_8B": {
+      "gains": 6,
+      "losses": 10,
+      "both_match": 36,
+      "neither_matches": 16
+    },
+    "correct_no_alarm_7_to_8B": {
+      "gains": 1,
+      "losses": 4,
+      "both_match": 32,
+      "neither_matches": 0
+    }
+  },
+  "official_kit_total_seconds": {
+    "6": 1139,
+    "7": 1497,
+    "8": 1190,
+    "8B": 1329
+  },
+  "archive_sha256": {
+    "6": "5b6527c82bac445f76463ee183600d3c44c202dd4c448722ca09dc810455cfe6",
+    "7": "83c76f441f122279cd925998ce41dbc978f8dcb88cd141d5828e679d6e3ab713",
+    "8": "3c779368d462ea52e972ae1cdd1c33c4050867e60009288d47e301c1ad4c6645",
+    "8B": "4b1523af723ec7f6863c0297f3dc6db84d7854e4e3c52dd26f30b26280bbd549"
+  },
+  "disappeared_hazard_audit": {
+    "6_to_8": {
+      "changed_photos": 37,
+      "official_no_visible_hazard": 1,
+      "official_hazard": 36,
+      "official_severity4": 18,
+      "at_least_one_correct_prior_code": 22,
+      "all_prior_codes_wrong_on_official_hazard": 14,
+      "at_least_one_correct_prior_severity4_code": 11
+    },
+    "7_to_8": {
+      "changed_photos": 32,
+      "official_no_visible_hazard": 1,
+      "official_hazard": 31,
+      "official_severity4": 15,
+      "at_least_one_correct_prior_code": 23,
+      "all_prior_codes_wrong_on_official_hazard": 8,
+      "at_least_one_correct_prior_severity4_code": 10
+    }
+  },
+  "review_selection": {
+    "seed": "sub78-public200-8b-review-20261128",
+    "comparison": "7_to_8B",
+    "at_most_one_photo_per_group": true,
+    "per_category": {
+      "severity4_gained": 2,
+      "severity4_lost": 2,
+      "safe_alarm_removed": 1,
+      "safe_alarm_added": 1
+    }
+  }
+}
