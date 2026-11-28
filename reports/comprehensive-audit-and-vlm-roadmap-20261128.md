@@ -8,7 +8,7 @@
 
 ## 제출 성적과 현재의 의사결정
 
-11월 28일 **04:03:55 KST** 공식 조회 시 도니는 **123팀 중 17위, 53.65점**이었다. 당시 20위는 52.84점으로 여유가 **0.81점**, 10위는 55.90점으로 격차가 **2.25점**이었다. 같은 날 01:00의 15/114위와 비교하면 점수가 그대로여도 진출선이 움직였다. Public 상위 20팀이 Private 평가를 받고, 두 점수의 합산 상위 10팀이 발주처 심사에 진출한다. 최종 순위는 세 평가의 합계 300점으로 정한다. [공식 리더보드](https://hackathon.imaginationgroup.co.kr/kwater/api/leaderboard) · [평가 규정](https://hackathon.imaginationgroup.co.kr/kwater/#evaluation)
+11월 28일 12:33 KST 공식 조회에서 도니고니는 133팀 중 27위, 53.65점이었다. 20위 55.89까지 2.24점, 10위 60.19까지 6.54점이다. 04:03의 17/123위와 10:02의 21/128위는 당시 관측이다. Public 상위 20팀이 Private 평가를 받고 합산 상위 10팀이 발주처 평가에 진출한다. [오늘의 제출 전략·서울 사용 판단](submission-7-8-decision-and-l4-value-20261128.md) · [공식 리더보드](https://hackathon.imaginationgroup.co.kr/kwater/api/leaderboard)
 
 | 실제 제출 | 공개 결과 | 실험으로 설명할 수 있는 범위 |
 |---|---:|---|

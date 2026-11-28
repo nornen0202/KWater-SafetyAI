@@ -1,0 +1,153 @@
+{
+  "scope": "Packaging readiness, local release evidence and developmental measurements",
+  "seventh": {
+    "archive_filename": "kwater-safeground-v3-full1045-hybrid-20261128.zip",
+    "archive_bytes": 10548013152,
+    "archive_sha256": "83c76f441f122279cd925998ce41dbc978f8dcb88cd141d5828e679d6e3ab713",
+    "archive_members": 33,
+    "archive_sha_evidence": "Independent previous archive hash and Windows native run witness. Current local named path, size and main hash rechecked.",
+    "official_portal_receipt_present_at_check": false,
+    "official_linux_l4": {
+      "install_seconds": 15,
+      "execution_seconds": 1482,
+      "total_seconds": 1497,
+      "limit_seconds": 1800,
+      "valid_rows": 200
+    },
+    "windows_native_main_seconds": 2727.972,
+    "windows_aggregate": "results/seventh-full1045-windows-native-20261128.json",
+    "linux_aggregate": "results/seoul-l4-roadmap-experiments-20261128.json"
+  },
+  "eight_a": {
+    "fold4_8b_epoch1": {
+      "adapter_sha256": "8269bc13e8c211ce1414f749da663c0c243bb93038d16e3891086cf30c44509b",
+      "adapter_bytes": 179252976,
+      "base_id": "Qwen/Qwen3-VL-8B-Instruct",
+      "base_config_sha256": "5cd452860dc1e9c29dd71cc3cef7f39b338b7a40793f7a260655c2d3568f3661",
+      "base_bf16_tensor_bytes": 17534339512,
+      "photos_trained": 791,
+      "verify_curriculum_counts": {
+        "verify_pos": 79,
+        "verify_neg_hard": 44,
+        "verify_neg_safe": 34
+      },
+      "bf16_batch": 4,
+      "generation_175_seconds": 1057.1,
+      "strict_generation_175_rows": 174,
+      "panels": {
+        "primary_175": {
+          "photos": 175,
+          "macro_f1": 0.634154010034653,
+          "no_hazard_false_alarms": 9,
+          "no_hazard_photos": 49
+        },
+        "sensitivity_107": {
+          "photos": 107,
+          "macro_f1": 0.6209071021571022,
+          "no_hazard_false_alarms": 5,
+          "no_hazard_photos": 27
+        }
+      },
+      "standalone_zip_estimate_bytes": 17745653528,
+      "estimate_scope": "Replaces 4B tensor/LoRA payload with 8B tensor/LoRA. Nonweight bytes assumed similar.",
+      "package_supported_by_current_packager": false,
+      "official_200_timing": null
+    },
+    "full_inspect_only_8b": {
+      "existing_candidate": false,
+      "planned_inspect_examples": 1188,
+      "planned_steps": 75
+    },
+    "fold4_mixed_model_replay": {
+      "candidates": 52,
+      "measured_cached_margins": 47,
+      "unmeasured_candidates": 5,
+      "verifier": "4B Fold4 epoch-2",
+      "verifier_adapter_sha256": "87fdaff0b57299f9bc66502950e1a5c0a630e052ae3f9914d67c58b0fbac6be2",
+      "archive_bf16_bases_only_bytes": 26410058856,
+      "unquantized_archive_limit_bytes": 20000000000,
+      "quantized_archive_size_or_parity_measured": false,
+      "aggregate": "results/sub78-8b-verifier-audit-20261128.json"
+    }
+  },
+  "eight_b": {
+    "full_epoch1_checkpoint": {
+      "configured_epochs": 2,
+      "completed_epochs": 1,
+      "optimizer_steps": 85,
+      "scheduled_total_steps": 170,
+      "resume_cursor": {
+        "next_epoch": 2,
+        "next_offset": 0,
+        "global_step": 85
+      },
+      "curriculum_examples": 1345,
+      "train_photos": 1045,
+      "adapter_safetensors_sha256": "52829241aeb04eadaadec690649c86031ac251ebc41ddbc425d2d090e539d5d1"
+    },
+    "full_epoch2_adapter_sha256": "09bf25c6a91670fef30027a5e558d444bca03564db888414bac9f238ca554453",
+    "existing_full_epoch2_hybrid_gate": {
+      "beta": 0.6,
+      "tau_when_hazard": -1.2,
+      "tau_when_empty": 0.553,
+      "inner_pairs_n": 251,
+      "inner_tp_accepted": 128,
+      "inner_fp_accepted": 50
+    },
+    "fold4_fixed_verifier_policy": {
+      "beta": 0.6,
+      "tau_when_hazard": -0.9,
+      "tau_when_empty": 1.489
+    },
+    "mixed_full_epoch1_and_epoch2_runtime_parity_measured": false
+  },
+  "fallback_8_full1045_epoch1_standalone": {
+    "archive_filename": "kwater-safeground-v3-full1045-epoch1-vlmonly-20261128.zip",
+    "archive_bytes": 9043784038,
+    "archive_sha256": null,
+    "archive_cpu_audit": null,
+    "cross_archive_7_to_8": {
+      "identical_archive_member_crc_sizes_7_to_8_base_and_wheels": 18,
+      "byte_identical_cross_archive_small_assets": [
+        "main.py",
+        "system_prompt_v3.txt",
+        "assets/cases_11code.jsonl",
+        "assets/laws.jsonl",
+        "requirements.lock"
+      ],
+      "sha256_packaged_base_config": "edac7703329133edfc53e46ac0081835144c99d7eebf28b71c732694d435224d",
+      "adapter_changed": true,
+      "archive_members": 28
+    },
+    "archive_main_sha256": "4d74805cf260fd15f784eeb984aecbeae0ee5bcd5726ac78568760e33dcffb05",
+    "runtime": {
+      "precision": "torch.bfloat16",
+      "attention": "sdpa",
+      "max_pixels": 393216,
+      "batch_size": 4,
+      "greedy_max_new_tokens": 620,
+      "hybrid": false
+    },
+    "release_pipeline_cpu_tests_passed": 9,
+    "compact_legal_examples": 886,
+    "compiler_and_main_fixture": {
+      "images_and_generations_stubbed": true,
+      "official_checker": {
+        "return_code": 0,
+        "valid_rows": 3,
+        "total_rows": 3,
+        "checker_dependency_missing": null,
+        "all_rows_valid": true,
+        "output_hazard_counts": [
+          0,
+          1,
+          0
+        ]
+      }
+    },
+    "official_200_timing": null,
+    "production_accuracy_or_public_score": null,
+    "package_source_sha256": "10117207cd176480126b3804cf0b41d9ff4c0e0e1a67d84ebceecc1bcb6a3ce1",
+    "preparation_source_sha256": "6ed1c89eac19f35d776daafe876f2f14095dd55435492366712bd94cf12e1488"
+  }
+}

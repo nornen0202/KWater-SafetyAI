@@ -1,6 +1,7 @@
 # 코덱스 최종 커밋(마스터 로드맵 포함) 심층 검수·감사 및 11/28 7·8차 제출·후속 마스터 로드맵 설계서
 
 - **작성 시각**: 2026-11-28 12:05 KST
+- **후속 실측 정정**: 본문은 검수 당시의 제안이다. 5건 전부 기각은 한 시나리오이며 두 BF16 기반모델만 26.41 GB다. 기각 조기 종료 145초와 Public 상승폭은 미측정이다. 7·8차의 실제 구성, 승인 및 실측 결과는 [코덱스와 Sol의 재검토](submission-7-8-decision-and-l4-value-20261128.md)를 따른다.
 - **감사 범위**: 코덱스 최종 8개 커밋(`b09ffb83` ~ `2580e860`), [README.md](../README.md), [comprehensive-audit-and-vlm-roadmap-20261128.md](comprehensive-audit-and-vlm-roadmap-20261128.md), [seoul-l4-roadmap-experiments-20261128.md](seoul-l4-roadmap-experiments-20261128.md), [seventh-submission-decision-20261128.md](seventh-submission-decision-20261128.md), [sixth-submission-research-summary-20261128.md](sixth-submission-research-summary-20261128.md), [issue-2-deep-review-and-roadmap-alignment-20261128.md](issue-2-deep-review-and-roadmap-alignment-20261128.md), [fold4-citation-alignment-20261128.md](fold4-citation-alignment-20261128.md), [vision-task-models-audit-and-roadmap-20261128.md](vision-task-models-audit-and-roadmap-20261128.md), [vision-depth-966-and-roi-20261128.md](vision-depth-966-and-roi-20261128.md) 및 관련 실행 코드·원장 JSON 전수 대조
 - **연계 실행 보고서**: [live-turnaround-execution-report.md](live-turnaround-execution-report.md) · [v3_hybrid_deployment_ledger.json](../results/v3_hybrid_deployment_ledger.json)
 

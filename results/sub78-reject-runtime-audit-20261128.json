@@ -1,0 +1,311 @@
+{
+  "transformers_version": "4.57.1",
+  "tokenizer_sha256": "a5d85b6dcc535e6b93115a9ef287e6132fdbf30270da6218194ba742261173c7",
+  "strict_parser_source_sha256": "a95fa26d5823ab3135806a76b8c5bf3ee8fcef85693f886442b55721d43c79f7",
+  "deployed_stage_parser_ast_matches": true,
+  "tokenizer_ids": {
+    "accept": [
+      10330
+    ],
+    "reject": [
+      46996
+    ],
+    "{\"decision\":\"": [
+      4913,
+      63938,
+      3252
+    ],
+    "{\"decision\":\"reject\"": [
+      4913,
+      63938,
+      3252,
+      46996,
+      1
+    ]
+  },
+  "generation_configuration": {
+    "eos_token_id": [
+      151645,
+      151643
+    ],
+    "pad_token_id": 151643
+  },
+  "installed_greedy_implementation_checks": {
+    "unfinished_sequences": true,
+    "stopping_criteria(input_ids, scores)": true,
+    "pad_token_id": true,
+    "torch.argmax(next_token_scores": true
+  },
+  "limits": [
+    "Raw caches preserve decoded text, not original token IDs or times per row/batch.",
+    "Re-encoding can alter token boundaries; add one estimated EOS step within the original cap.",
+    "Batch max models dense decode iterations only; it cannot produce a wall-clock forecast.",
+    "Prefix check begins after the common padded input width and only commits after the full JSON string value.",
+    "Forced one-token margin prefix is a different conditional path from free greedy JSON generation.",
+    "Strict parser equivalence is an offline replay; no early-stop deployment or GPU timing A/B executed."
+  ],
+  "replays": {
+    "fold4_fixed_epoch2_bf16_actual_batches": {
+      "sha256": "dfecd1728879db858d0cb6415e651893201eae868675eaef61efe7f7ee498d9b",
+      "rows": {
+        "rows": 32,
+        "strict_accepted": 17,
+        "accept_decision_failed_strict_parser": 0,
+        "canonical_reject_prefix_within_six": 15,
+        "strict_object_changes_anchored": 0,
+        "strict_object_changes_broad_substring": 0
+      },
+      "raw_decision_counts": {
+        "explicit_reject": 15,
+        "accept_seen": 17
+      },
+      "reencoded_token_estimate": {
+        "baseline_nonpad": 2402,
+        "early_stop_nonpad": 1654
+      },
+      "dense_batch_estimate": {
+        "batches": 16,
+        "shorter_batches": 4,
+        "single_row_or_all_rows_detectable": 4,
+        "baseline_forward_iterations": 1377,
+        "early_stop_forward_iterations": 1146,
+        "baseline_dense_token_slots": 2754,
+        "early_stop_dense_token_slots": 2292
+      }
+    },
+    "fold0_v2_specialist": {
+      "sha256": "4ded02c59a28310052fb3213510212e32282c2c01e3a471a62da4d9eff95fc34",
+      "batching_note": "Singleton counterfactual only; cache order may combine reused contexts.",
+      "rows": {
+        "rows": 90,
+        "strict_accepted": 68,
+        "accept_decision_failed_strict_parser": 0,
+        "canonical_reject_prefix_within_six": 22,
+        "strict_object_changes_anchored": 0,
+        "strict_object_changes_broad_substring": 0
+      },
+      "raw_decision_counts": {
+        "accept_seen": 68,
+        "explicit_reject": 22
+      },
+      "reencoded_token_estimate": {
+        "baseline_nonpad": 7446,
+        "early_stop_nonpad": 6611
+      },
+      "dense_batch_estimate": {
+        "batches": 90,
+        "shorter_batches": 22,
+        "single_row_or_all_rows_detectable": 22,
+        "baseline_forward_iterations": 7446,
+        "early_stop_forward_iterations": 6611,
+        "baseline_dense_token_slots": 7446,
+        "early_stop_dense_token_slots": 6611
+      }
+    },
+    "fold0_v2_official_anchored": {
+      "sha256": "c89ede73640b59fa8731fe7d3f2dd80c66b6fef30dc99fba44238f4c4629e3d5",
+      "batching_note": "Singleton counterfactual only; cache order may combine reused contexts.",
+      "rows": {
+        "rows": 102,
+        "strict_accepted": 77,
+        "accept_decision_failed_strict_parser": 0,
+        "canonical_reject_prefix_within_six": 25,
+        "strict_object_changes_anchored": 0,
+        "strict_object_changes_broad_substring": 0
+      },
+      "raw_decision_counts": {
+        "accept_seen": 77,
+        "explicit_reject": 25
+      },
+      "reencoded_token_estimate": {
+        "baseline_nonpad": 8560,
+        "early_stop_nonpad": 7582
+      },
+      "dense_batch_estimate": {
+        "batches": 102,
+        "shorter_batches": 25,
+        "single_row_or_all_rows_detectable": 25,
+        "baseline_forward_iterations": 8560,
+        "early_stop_forward_iterations": 7582,
+        "baseline_dense_token_slots": 8560,
+        "early_stop_dense_token_slots": 7582
+      }
+    }
+  },
+  "seoul_full1045_200": {
+    "retained_artifact_basenames": [
+      "aggregate.json"
+    ],
+    "passed_to_verifier": 45,
+    "accepted": 9,
+    "not_accepted": 36,
+    "explicit_reject_identifiable": false,
+    "candidate_raw_generations_retained": false,
+    "total_kit_seconds": 1497,
+    "verify_generate_seconds": 207.206,
+    "requested_145s_fraction_of_verify_phase": 0.6997866857137341,
+    "measured_early_stop_seconds_or_output_parity": null
+  },
+  "increased_abstention": {
+    "primary_175": {
+      "4b_epoch1": {
+        "hazard_predicted_empty": 37,
+        "hazard_photos": 126,
+        "severity4_completely_missed": 29,
+        "severity4_photos": 60,
+        "raw_explicit_no_visible_hazard": 37,
+        "raw_parse_failed": 0,
+        "raw_internal_schema_error": 0
+      },
+      "8b_epoch1": {
+        "hazard_predicted_empty": 32,
+        "hazard_photos": 126,
+        "severity4_completely_missed": 29,
+        "severity4_photos": 60,
+        "raw_explicit_no_visible_hazard": 32,
+        "raw_parse_failed": 0,
+        "raw_internal_schema_error": 0
+      },
+      "4b_epoch2": {
+        "hazard_predicted_empty": 47,
+        "hazard_photos": 126,
+        "severity4_completely_missed": 34,
+        "severity4_photos": 60,
+        "raw_explicit_no_visible_hazard": 47,
+        "raw_parse_failed": 0,
+        "raw_internal_schema_error": 0
+      },
+      "8b_epoch2": {
+        "hazard_predicted_empty": 39,
+        "hazard_photos": 126,
+        "severity4_completely_missed": 32,
+        "severity4_photos": 60,
+        "raw_explicit_no_visible_hazard": 39,
+        "raw_parse_failed": 0,
+        "raw_internal_schema_error": 1
+      }
+    },
+    "sensitivity_107": {
+      "4b_epoch1": {
+        "hazard_predicted_empty": 18,
+        "hazard_photos": 80,
+        "severity4_completely_missed": 18,
+        "severity4_photos": 39,
+        "raw_explicit_no_visible_hazard": 18,
+        "raw_parse_failed": 0,
+        "raw_internal_schema_error": 0
+      },
+      "8b_epoch1": {
+        "hazard_predicted_empty": 16,
+        "hazard_photos": 80,
+        "severity4_completely_missed": 20,
+        "severity4_photos": 39,
+        "raw_explicit_no_visible_hazard": 16,
+        "raw_parse_failed": 0,
+        "raw_internal_schema_error": 0
+      },
+      "4b_epoch2": {
+        "hazard_predicted_empty": 23,
+        "hazard_photos": 80,
+        "severity4_completely_missed": 19,
+        "severity4_photos": 39,
+        "raw_explicit_no_visible_hazard": 23,
+        "raw_parse_failed": 0,
+        "raw_internal_schema_error": 0
+      },
+      "8b_epoch2": {
+        "hazard_predicted_empty": 22,
+        "hazard_photos": 80,
+        "severity4_completely_missed": 23,
+        "severity4_photos": 39,
+        "raw_explicit_no_visible_hazard": 22,
+        "raw_parse_failed": 0,
+        "raw_internal_schema_error": 1
+      }
+    }
+  },
+  "training": {
+    "4b": {
+      "epoch_weighted_token_losses": [
+        0.9621,
+        0.6876
+      ],
+      "curriculum_breakdown": {
+        "inspect": 791,
+        "inspect_minority": 72,
+        "inspect_other": 28,
+        "inspect_safe_balance": 44,
+        "verify_pos": 79,
+        "verify_neg_hard": 44,
+        "verify_neg_safe": 34
+      },
+      "optimizer_steps": 138,
+      "outer_exclusion_fold": 4
+    },
+    "8b": {
+      "epoch_weighted_token_losses": [
+        0.9041,
+        0.6498
+      ],
+      "curriculum_breakdown": {
+        "inspect": 791,
+        "inspect_minority": 72,
+        "inspect_other": 28,
+        "inspect_safe_balance": 44,
+        "verify_pos": 79,
+        "verify_neg_hard": 44,
+        "verify_neg_safe": 34
+      },
+      "optimizer_steps": 138,
+      "outer_exclusion_fold": 4
+    }
+  },
+  "causal_claim": "Mixed inspect/verification curriculum and additional training steps co-occur. No matched inspection-only arm or task-gradient intervention to attribute pass-to-pass changes to reject targets.",
+  "fold2": {
+    "photos": 197,
+    "groups": 38,
+    "normal": 67,
+    "fold2_fold4_manifest_groups_disjoint": true,
+    "fold2_outer_training_dev_photos": 769,
+    "independent_of_existing_fold4_or_full1045_model": false,
+    "required": "New Fold-2-excluded weights, prospectively locked recipe, exclusions applied to all modules/case banks and grouped inner fit/exposure audit."
+  },
+  "production_calibration": {
+    "inner_pairs_n": 251,
+    "unique_photos_n": 170,
+    "unique_groups_n": 40,
+    "exact_pair_disjoint_from_verify_supervision": true,
+    "verify_supervision_exact_pair_overlap_count": 0,
+    "verify_supervision_photo_overlap_count": 5,
+    "verify_supervision_group_overlap_count": 4,
+    "base_inspect_photo_overlap_count": 170,
+    "all_calibration_photos_used_in_base_inspect_training": true
+  },
+  "spend_basis": {
+    "this_session_compute_disk_ip_vat": 8616,
+    "earlier_separate_benchmark": 450,
+    "known_local_output_collections_bytes": 708136960,
+    "premium_tier_korea_scenario_usd_per_gib": 0.19,
+    "priced_known_egress_scenario_krw": 207,
+    "using_known_transfer_scenario": 9273,
+    "including_1500_krw_total_network_and_miscellaneous_allowance": 10566,
+    "approved_budget_krw": 15000,
+    "remaining_under_allowance_scenario": 4434,
+    "invoice_observed": false,
+    "scope": "Indicative upper VM durations through absence confirmation. The network allowance replaces the known-transfer estimate and covers small diagnostic outputs, traffic overhead and miscellaneous traffic. Shared V1/V2 time already included.",
+    "after_200_gate_through_final_deletion_minutes": 25.53,
+    "increment_for_175_quality_and_release_krw": 1067
+  },
+  "spend_crosscheck": {
+    "actual_scenario_arithmetic_krw": [
+      8616,
+      9273,
+      10566
+    ],
+    "additional_approved_ceiling_krw": 3500,
+    "additional_approved_ceiling_plus_conservative_estimate_krw": 14066,
+    "one_hour_g2_8_spot_compute_only_krw": 605,
+    "forty_five_minutes_g2_16_ondemand_compute_only_krw": 1823,
+    "future_plan_note": "The approved additional 3,500 KRW ceiling is within the 15,000 KRW total and excluded from prior spend. The 2,700 KRW roadmap figure is a planning estimate."
+  }
+}
