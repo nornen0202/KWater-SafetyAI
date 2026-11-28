@@ -1,7 +1,7 @@
 {
   "algorithm": "SHA-256",
-  "files": 2667,
-  "total_bytes": 201246405327,
+  "files": 2684,
+  "total_bytes": 201926914868,
   "scope": "Completed project data files and local-only research outputs. In-progress downloads, live transfer status and environment caches are excluded.",
   "artifacts": [
     {
@@ -13338,6 +13338,91 @@
       "path": "data/local-reports/clean-cal-v2-fit-specialist/fold-4/inner-3-seed-42.pt",
       "bytes": 2596043,
       "sha256": "c0a6bf28bbc1d83e7926388e1a9fd5e386cfc661df7c83dd0e424da725aa53ee"
+    },
+    {
+      "path": "data/local-reports/sub78-tail-replay/prefix84/checkpoint-84/training_state.pt",
+      "bytes": 272313026,
+      "sha256": "0ea3b58694b7b68a08a02869acf701ac4420a8afe82150803b467cf6831e8891"
+    },
+    {
+      "path": "data/local-reports/sub78-tail-replay/prefix84/checkpoint-84/adapter_model.safetensors",
+      "bytes": 135998904,
+      "sha256": "0a27d9fc268a4227134c6fb578c9b7a505577d3164c8e168c42f037915b52739"
+    },
+    {
+      "path": "data/local-reports/sub78-tail-replay/prefix84/checkpoint-84/adapter_config.json",
+      "bytes": 1075,
+      "sha256": "670f90830c3022da8a8bcaf29e2f51b0fcc3f5cfc57df1ec324cefddb88f6867"
+    },
+    {
+      "path": "data/local-reports/sub78-tail-replay/prefix84/completed.json",
+      "bytes": 1584,
+      "sha256": "33166c2dcc1eab59f8e613f633f81e7d7f2dafadb91c0645fecee547084b7fb2"
+    },
+    {
+      "path": "data/local-reports/sub78-tail-replay/prefix84/steps.jsonl",
+      "bytes": 21442,
+      "sha256": "1d5e593e601f67c9ac8f97db9f83e5c3d0ffc4e5a74a496a0a390177ca240dfb"
+    },
+    {
+      "path": "data/local-reports/sub78-tail-replay/native85/epoch-1/adapter_model.safetensors",
+      "bytes": 135998904,
+      "sha256": "52829241aeb04eadaadec690649c86031ac251ebc41ddbc425d2d090e539d5d1"
+    },
+    {
+      "path": "data/local-reports/sub78-tail-replay/native85/epoch-1/adapter_config.json",
+      "bytes": 1075,
+      "sha256": "670f90830c3022da8a8bcaf29e2f51b0fcc3f5cfc57df1ec324cefddb88f6867"
+    },
+    {
+      "path": "data/local-reports/sub78-tail-replay/native85/completed.json",
+      "bytes": 1049,
+      "sha256": "63fbc2b38df386b543c11c86b6c64f9295ee6afd7a437ccec6456376837c806e"
+    },
+    {
+      "path": "data/local-reports/sub78-tail-replay/native85/steps.jsonl",
+      "bytes": 21688,
+      "sha256": "f18cd2aed22dee255497fd276facc714aff36bf6d6d3208b3ca96348c808cc43"
+    },
+    {
+      "path": "data/local-reports/sub78-tail-replay/fixed85/epoch-1/adapter_model.safetensors",
+      "bytes": 135998904,
+      "sha256": "cae6c711fe311e575d78a56b37036681d1b5f16ec439ce22c0bcc9f61923cdb4"
+    },
+    {
+      "path": "data/local-reports/sub78-tail-replay/fixed85/epoch-1/adapter_config.json",
+      "bytes": 1075,
+      "sha256": "670f90830c3022da8a8bcaf29e2f51b0fcc3f5cfc57df1ec324cefddb88f6867"
+    },
+    {
+      "path": "data/local-reports/sub78-tail-replay/fixed85/completed.json",
+      "bytes": 1050,
+      "sha256": "ef0671584609d61b519718bb5f1d71f5515be8a3ed49b5f7dbc1879058a528ff"
+    },
+    {
+      "path": "data/local-reports/sub78-tail-replay/fixed85/steps.jsonl",
+      "bytes": 21688,
+      "sha256": "6f9028faee9819fd252abc608f858e5428e9fc337d5187ed092f22b07f4f9a6d"
+    },
+    {
+      "path": "data/local-reports/sub78-tail-replay/cohort.json",
+      "bytes": 6487,
+      "sha256": "77bfead4c15b8143a6669a43f2b9fcd538c991d0b7012924f8300aa910b8c18c"
+    },
+    {
+      "path": "data/local-reports/sub78-tail-replay/original85-raw.json",
+      "bytes": 39542,
+      "sha256": "a3067ca393d6faca8e75a436960abbaff90cec0fb23766194ecc419c01008c84"
+    },
+    {
+      "path": "data/local-reports/sub78-tail-replay/native85-raw.json",
+      "bytes": 39210,
+      "sha256": "8b8540bae60fee479dd6a88344b723f726ea03afdc576d12dd2e0f1099604735"
+    },
+    {
+      "path": "data/local-reports/sub78-tail-replay/fixed85-raw.json",
+      "bytes": 42838,
+      "sha256": "15d8ab0c9719fca04b762fb44a1eb5ba429a0fe817c5b748f48b2b0ff4f6bf0a"
     }
   ]
 }

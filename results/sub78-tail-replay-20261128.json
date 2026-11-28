@@ -1,0 +1,88 @@
+{
+  "scope": "Small training-exposed paired diagnosis. Not an estimate of deployment accuracy.",
+  "photos": 30,
+  "normal_photos": 10,
+  "severity4_photos": 10,
+  "original85_native85_code_parity": 30,
+  "original85_native85_generated_text_exact": 30,
+  "adapter_movement": {
+    "adapter_sha256": {
+      "prefix84": "0a27d9fc268a4227134c6fb578c9b7a505577d3164c8e168c42f037915b52739",
+      "native85": "52829241aeb04eadaadec690649c86031ac251ebc41ddbc425d2d090e539d5d1",
+      "fixed85": "cae6c711fe311e575d78a56b37036681d1b5f16ec439ce22c0bcc9f61923cdb4",
+      "original85": "52829241aeb04eadaadec690649c86031ac251ebc41ddbc425d2d090e539d5d1"
+    },
+    "checked_tensor_names_shapes_dtypes": 520,
+    "elements": 33980416,
+    "prefix84_to_native85_delta_l2": 0.12294134670406875,
+    "prefix84_to_fixed85_delta_l2": 0.10594872528248783,
+    "native_over_fixed_delta_l2": 1.1603853314541919,
+    "delta_cosine": 0.8920280771912527,
+    "original_vs_native_exact_tensors": 520,
+    "original_vs_native_tensor_values_bitwise_exact": true,
+    "original_vs_native_max_abs": 0.0
+  },
+  "generation_provenance": {
+    "unique_adapters_newly_generated": 2,
+    "newly_generated_rows": 60,
+    "reused_rows": 30,
+    "arms": {
+      "original85": {
+        "adapter_sha256": "52829241aeb04eadaadec690649c86031ac251ebc41ddbc425d2d090e539d5d1",
+        "generation_origin_arm": "original85",
+        "newly_generated_rows": 30,
+        "reused_rows": 0
+      },
+      "native85": {
+        "adapter_sha256": "52829241aeb04eadaadec690649c86031ac251ebc41ddbc425d2d090e539d5d1",
+        "generation_origin_arm": "original85",
+        "newly_generated_rows": 0,
+        "reused_rows": 30
+      },
+      "fixed85": {
+        "adapter_sha256": "cae6c711fe311e575d78a56b37036681d1b5f16ec439ce22c0bcc9f61923cdb4",
+        "generation_origin_arm": "fixed85",
+        "newly_generated_rows": 30,
+        "reused_rows": 0
+      }
+    }
+  },
+  "metrics": {
+    "original85": {
+      "normal_false_alarms": 0,
+      "no_hazard_outputs": 18,
+      "severity4_complete_misses": 6,
+      "invalid_parse_rows": 0
+    },
+    "native85": {
+      "normal_false_alarms": 0,
+      "no_hazard_outputs": 18,
+      "severity4_complete_misses": 6,
+      "invalid_parse_rows": 0
+    },
+    "fixed85": {
+      "normal_false_alarms": 0,
+      "no_hazard_outputs": 17,
+      "severity4_complete_misses": 6,
+      "invalid_parse_rows": 0
+    }
+  },
+  "fixed_vs_native": {
+    "severe_matches_gained": 0,
+    "severe_matches_lost": 0,
+    "hazard_to_empty": 0,
+    "empty_to_hazard": 1,
+    "empty_to_hazard_with_any_gold_code": 1,
+    "empty_to_hazard_gold_codes_added": 1,
+    "empty_to_hazard_new_codes": {
+      "slip_trip": 1
+    },
+    "empty_to_hazard_correct_new_codes": {
+      "slip_trip": 1
+    },
+    "changed_code_set_both_predicted_hazard": 2,
+    "all_changed_code_sets": 3,
+    "gold_codes_added": 1,
+    "gold_codes_lost": 0
+  }
+}

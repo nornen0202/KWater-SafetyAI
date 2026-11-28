@@ -3,6 +3,7 @@
 import argparse
 import ast
 from collections import Counter, defaultdict, OrderedDict
+from contextlib import ExitStack
 from hashlib import sha256
 import io
 import json
@@ -328,18 +329,128 @@ def inference():
         if name in receipts and receipts[name]["checkpoint_adapter_sha256"] != adapter_sha:
             raise ValueError("Replayed weights do not match completion receipt")
         if adapter_sha in pristine_by_adapter:
-            result = pristine_by_adapter[adapter_sha]
+            origin, result = pristine_by_adapter[adapter_sha]
+            timing = None
         else:
+            origin = name
             seed_all(42)
             model, proc = load_qwen_4bit_or_bf16(base, 393216, False, adapter)
-            result, _ = infer_batched_vlm(model, proc, rows, image_root, PROMPT.read_text(encoding="utf-8"),
-                                          batch_size=2, max_new_tokens=620)
+            result, timing = infer_batched_vlm(model, proc, rows, image_root, PROMPT.read_text(encoding="utf-8"),
+                                               batch_size=2, max_new_tokens=620)
             del model, proc
             torch.cuda.empty_cache()
-        pristine_by_adapter[adapter_sha] = result
+            pristine_by_adapter[adapter_sha] = (origin, result)
         write(path, {"adapter_sha256": adapter_sha, "cohort_sha256": digest(cohort_path),
                      "recipe": ["bf16", 393216, 2, 620],
+                     "generation_origin_arm": origin, "generation_metadata": timing,
+                     "newly_generated_rows": len(result) if origin == name else 0,
+                     "reused_rows": len(result) if origin != name else 0,
                      "rows": [[r["sample_id"], output] for r, output in zip(rows, result, strict=True)]})
+
+
+def tensor_header(stream):
+    raw_size = stream.read(8)
+    size, = struct.unpack("<Q", raw_size)
+    if not 0 < size <= 8 * 2**20:
+        raise ValueError("Invalid LoRA safetensor header length")
+    header = json.loads(stream.read(size))
+    header.pop("__metadata__", None)
+    file_size = os.fstat(stream.fileno()).st_size
+    offset = 0
+    for name, spec in sorted(header.items(), key=lambda item: item[1]["data_offsets"][0]):
+        start, end = spec["data_offsets"]
+        if ".lora_" not in name or spec["dtype"] not in ("F32", "F16", "BF16"):
+            raise ValueError(f"Unexpected LoRA tensor or dtype: {name}")
+        width = 4 if spec["dtype"] == "F32" else 2
+        if offset != start or end - start != math.prod(spec["shape"]) * width:
+            raise ValueError(f"LoRA offsets or shape differ: {name}")
+        offset = end
+    if not header or offset + 8 + size != file_size:
+        raise ValueError("LoRA payload length differs")
+    return raw_size, size, header
+
+
+def float64_chunk(raw, dtype):
+    if dtype == "BF16":
+        return (np.frombuffer(raw, dtype="<u2").astype("<u4") << 16).view("<f4").astype(np.float64)
+    return np.frombuffer(raw, dtype={"F32": "<f4", "F16": "<f2"}[dtype]).astype(np.float64)
+
+
+def adapter_movement(paths, expected_shas):
+    """Compare all LoRA values using bounded FP64 chunks and content SHA."""
+    with ExitStack() as context:
+        streams = {arm: context.enter_context(p.open("rb")) for arm, p in paths.items()}
+        meta = {arm: tensor_header(stream) for arm, stream in streams.items()}
+        _, _, reference = meta["prefix84"]
+        signature = {n: (v["shape"], v["dtype"]) for n, v in reference.items()}
+        if any({n: (v["shape"], v["dtype"]) for n, v in h.items()} != signature for _, _, h in meta.values()):
+            raise ValueError("LoRA tensor name, shape or dtype differs")
+        import hashlib
+        hashes = {}
+        # Hash in each file's native order to compare serialized identity independently of tensor equality.
+        for arm, stream in streams.items():
+            stream.seek(0)
+            hashes[arm] = hashlib.file_digest(stream, "sha256").hexdigest()
+        if hashes != expected_shas:
+            raise ValueError("LoRA tensor files differ from the frozen receipts")
+        squares_native, squares_fixed, cross, exact_tensors = [], [], [], 0
+        max_abs = 0.0
+        for name, spec in sorted(reference.items(), key=lambda item: item[1]["data_offsets"][0]):
+            for arm, stream in streams.items():
+                _, size, header = meta[arm]
+                stream.seek(8 + size + header[name]["data_offsets"][0])
+            remaining = spec["data_offsets"][1] - spec["data_offsets"][0]
+            native, fixed, dot, same = 0.0, 0.0, 0.0, True
+            while remaining:
+                take = min(remaining, 1024 * 1024)
+                raw = {arm: stream.read(take) for arm, stream in streams.items()}
+                if any(len(buf) != take for buf in raw.values()):
+                    raise ValueError("Short LoRA stream")
+                before, left, right, original = (float64_chunk(raw[arm], spec["dtype"])
+                    for arm in ("prefix84", "native85", "fixed85", "original85"))
+                if any(not np.isfinite(x).all() for x in (before, left, right, original)):
+                    raise ValueError("Nonfinite LoRA tensor values")
+                same &= raw["native85"] == raw["original85"]
+                if len(left):
+                    max_abs = max(max_abs, float(np.max(np.abs(left - original))))
+                a, b = left - before, right - before
+                native += float(np.dot(a, a))
+                fixed += float(np.dot(b, b))
+                dot += float(np.dot(a, b))
+                remaining -= take
+            exact_tensors += int(same)
+            squares_native.append(native)
+            squares_fixed.append(fixed)
+            cross.append(dot)
+    left, right = math.sqrt(math.fsum(squares_native)), math.sqrt(math.fsum(squares_fixed))
+    return {
+        "adapter_sha256": hashes, "checked_tensor_names_shapes_dtypes": len(reference),
+        "elements": sum(math.prod(s["shape"]) for s in reference.values()),
+        "prefix84_to_native85_delta_l2": left, "prefix84_to_fixed85_delta_l2": right,
+        "native_over_fixed_delta_l2": left / right if right else None,
+        "delta_cosine": math.fsum(cross) / (left * right) if left and right else None,
+        "original_vs_native_exact_tensors": exact_tensors,
+        "original_vs_native_tensor_values_bitwise_exact": exact_tensors == len(reference),
+        "original_vs_native_max_abs": max_abs,
+    }
+
+
+def measure_adapter_movement():
+    prefix = load(WORK / "prefix84/completed.json")
+    native = load(WORK / "native85/completed.json")
+    fixed = load(WORK / "fixed85/completed.json")
+    sha = prefix["checkpoint_adapter_sha256"]
+    if any(r["source_adapter_sha256"] != sha for r in (native, fixed)):
+        raise ValueError("Arm checkpoint provenance differs")
+    if (native["source_training_state_sha256"] != fixed["source_training_state_sha256"]
+            or native["original_step85_adapter_sha256"] != fixed["original_step85_adapter_sha256"]):
+        raise ValueError("Arm source optimizer or original reference differs")
+    paths = {"prefix84": WORK / "prefix84/checkpoint-84", "native85": WORK / "native85/epoch-1",
+             "fixed85": WORK / "fixed85/epoch-1", "original85": FULL / "epoch-1"}
+    return adapter_movement({k: p / "adapter_model.safetensors" for k, p in paths.items()}, {
+        "prefix84": sha, "native85": native["checkpoint_adapter_sha256"],
+        "fixed85": fixed["checkpoint_adapter_sha256"], "original85": native["original_step85_adapter_sha256"],
+    })
 
 
 def score():
@@ -351,13 +462,24 @@ def score():
     ids = [r["sample_id"] for r in rows]
     labels = {r["sample_id"]: r["target"]["hazards"] for r in read_selected_cases(LABELS, set(ids))}
     gold = {sid: {c for c, h in labels[sid].items() if h["risk_level"]["severity"]["score"] == 4} for sid in ids}
-    by_arm, raw = {}, {}
+    by_arm, raw, generation_provenance = {}, {}, {}
     for arm in ("original85", "native85", "fixed85"):
         answer = load(WORK / f"{arm}-raw.json")
         if answer["cohort_sha256"] != digest(path) or answer["recipe"] != ["bf16", 393216, 2, 620]:
             raise ValueError("Prediction provenance differs")
         if [sid for sid, _ in answer["rows"]] != ids:
             raise ValueError("Prediction coverage or order differs")
+        origin = answer["generation_origin_arm"]
+        own = origin == arm
+        if (answer["newly_generated_rows"], answer["reused_rows"]) != ((len(ids), 0) if own else (0, len(ids))):
+            raise ValueError("Invalid generation provenance")
+        if not own and (origin not in generation_provenance
+                        or generation_provenance[origin]["adapter_sha256"] != answer["adapter_sha256"]
+                        or raw[origin] != [pred for _, pred in answer["rows"]]):
+            raise ValueError("Reused generation does not equal its source")
+        generation_provenance[arm] = {key: answer[key] for key in (
+            "adapter_sha256", "generation_origin_arm", "newly_generated_rows", "reused_rows",
+        )}
         raw[arm] = [pred for _, pred in answer["rows"]]
         by_arm[arm] = {sid: set(context["usable_draft_hazards"](pred.get("parsed")))
                        for sid, pred in answer["rows"]}
@@ -370,18 +492,40 @@ def score():
             "invalid_parse_rows": sum(not isinstance(out.get("parsed"), dict) for out in raw[arm]),
         }
     native, fixed = by_arm["native85"], by_arm["fixed85"]
+    empty_to_hazard = [sid for sid in ids if not native[sid] and fixed[sid]]
+    added = {sid: (fixed[sid] - native[sid]) & labels[sid].keys() for sid in ids}
+    removed = {sid: (native[sid] - fixed[sid]) & labels[sid].keys() for sid in ids}
     return {
         "scope": "Small training-exposed paired diagnosis. Not an estimate of deployment accuracy.",
         "photos": len(ids), "normal_photos": sum(not labels[sid] for sid in ids),
         "severity4_photos": sum(bool(gold[sid]) for sid in ids),
         "original85_native85_code_parity": sum(by_arm["original85"][sid] == native[sid] for sid in ids),
-        "original85_native85_raw_parity": sum(a == b for a, b in zip(raw["original85"], raw["native85"], strict=True)),
+        "original85_native85_generated_text_exact": sum(
+            a["raw_text"] == b["raw_text"] for a, b in zip(raw["original85"], raw["native85"], strict=True)
+        ),
+        "adapter_movement": measure_adapter_movement(),
+        "generation_provenance": {
+            "unique_adapters_newly_generated": sum(p["newly_generated_rows"] > 0 for p in generation_provenance.values()),
+            "newly_generated_rows": sum(p["newly_generated_rows"] for p in generation_provenance.values()),
+            "reused_rows": sum(p["reused_rows"] for p in generation_provenance.values()),
+            "arms": generation_provenance,
+        },
         "metrics": metrics,
         "fixed_vs_native": {
             "severe_matches_gained": sum(not native[sid] & gold[sid] and bool(fixed[sid] & gold[sid]) for sid in ids),
             "severe_matches_lost": sum(bool(native[sid] & gold[sid]) and not fixed[sid] & gold[sid] for sid in ids),
             "hazard_to_empty": sum(bool(native[sid]) and not fixed[sid] for sid in ids),
-            "empty_to_hazard": sum(not native[sid] and bool(fixed[sid]) for sid in ids),
+            "empty_to_hazard": len(empty_to_hazard),
+            "empty_to_hazard_with_any_gold_code": sum(bool(added[sid]) for sid in empty_to_hazard),
+            "empty_to_hazard_gold_codes_added": sum(len(added[sid]) for sid in empty_to_hazard),
+            "empty_to_hazard_new_codes": dict(Counter(code for sid in empty_to_hazard for code in fixed[sid])),
+            "empty_to_hazard_correct_new_codes": dict(Counter(code for sid in empty_to_hazard for code in added[sid])),
+            "changed_code_set_both_predicted_hazard": sum(
+                bool(native[sid]) and bool(fixed[sid]) and native[sid] != fixed[sid] for sid in ids
+            ),
+            "all_changed_code_sets": sum(native[sid] != fixed[sid] for sid in ids),
+            "gold_codes_added": sum(len(v) for v in added.values()),
+            "gold_codes_lost": sum(len(v) for v in removed.values()),
         },
     }
 

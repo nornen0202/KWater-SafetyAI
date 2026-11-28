@@ -1,0 +1,27 @@
+{
+  "gradient_clip_max_l2": 1.0,
+  "gradient_clip_source": "kwater_lab/vlm_11code.py",
+  "postclip_norm": "Derived from observed, rounded preclip norm and 1.0 clip cap; not directly instrumented.",
+  "gradient_norms": {
+    "native85": {
+      "preclip_l2_logged": 2.213,
+      "postclip_l2_approx": 1.0,
+      "completion_receipt_sha256": "63fbc2b38df386b543c11c86b6c64f9295ee6afd7a437ccec6456376837c806e"
+    },
+    "fixed85": {
+      "preclip_l2_logged": 0.1383,
+      "postclip_l2_approx": 0.1383,
+      "completion_receipt_sha256": "ef0671584609d61b519718bb5f1d71f5515be8a3ed49b5f7dbc1879058a528ff"
+    }
+  },
+  "unique_training_exposed_photos": 30,
+  "unique_groups": 30,
+  "paired_diagnosis": "Independent agreement of exact ID order, scores, status and severe changes with original aggregate.",
+  "score_receipt_sha256": "bd1759f7892e39f411aa52272971c0418c320b078c27323dda632407b18bdde7",
+  "independently_verified_code_change": {
+    "changed_code_sets": 3,
+    "changed_while_both_hazard": 2,
+    "gold_codes_added": 1,
+    "gold_codes_lost": 0
+  }
+}
