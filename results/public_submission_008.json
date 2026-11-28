@@ -1,0 +1,48 @@
+{
+  "event": "K-water 5th Public leaderboard",
+  "stage": "judging_pending",
+  "submission_number": 8,
+  "submitted_at_kst": "2026-11-28T15:13:50.195+09:00",
+  "submitted_at_utc": "2026-11-28T06:13:50.195Z",
+  "receipt_source": "Organizer acceptance dialog and authenticated My Submissions. Submissions count and exact lastSubmittedAt confirmed separately through organizer leaderboard API.",
+  "submission_page": "https://hackathon.imaginationgroup.co.kr/kwater/#my",
+  "submitted_archive": "kwater-research-8b-fold4-epoch1-bf16-20261128.zip",
+  "source": "Qwen3-VL-8B-Instruct standalone with the first-epoch Fold 4 adapter, 791 training photos and 69 of 138 scheduled updates.",
+  "bytes": 17745550610,
+  "sha256": "4b1523af723ec7f6863c0297f3dc6db84d7854e4e3c52dd26f30b26280bbd549",
+  "public_score": null,
+  "public_score_source": null,
+  "individual_status_observation": {
+    "observed_at_kst": "2026-11-28T15:13:00+09:00",
+    "time_precision": "minute",
+    "source": "Authenticated My Submissions",
+    "status": "채점 대기 중",
+    "estimated_result_at_kst": "2026-11-28T16:50:00+09:00",
+    "remaining_attempts_today": 0,
+    "daily_quota": 2,
+    "automatically_selected_submission_number": 7
+  },
+  "team_leaderboard_observation": {
+    "observed_at_kst": "2026-11-28T15:14:36.4543578+09:00",
+    "source": "https://hackathon.imaginationgroup.co.kr/kwater/api/leaderboard",
+    "best_public_score": 53.98,
+    "team_public_rank": 33,
+    "ranked_teams": 137,
+    "submissions": 8,
+    "last_submitted_at_utc": "2026-11-28T06:13:50.195Z",
+    "top_20_cutoff": 56.39,
+    "top_10_cutoff": 60.46
+  },
+  "transport_observation": {
+    "initial_error": "요청이 너무 큽니다",
+    "submission_count_after_initial_error": 7,
+    "remaining_attempts_after_initial_error": 1,
+    "retry_used_same_original_archive": true,
+    "retry_accepted": true
+  },
+  "local_evidence": {
+    "seoul_official_kit_rehearsal": "results/seoul-8b-fold4-epoch1-solo-200-20261128.json",
+    "offline_package_audit": "results/fold4-8b-epoch1-research-package-20261128.json",
+    "four_arm_output_comparison": "results/sub78-four-arm-200-20261128.json"
+  }
+}

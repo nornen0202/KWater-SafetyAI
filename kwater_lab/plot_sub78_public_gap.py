@@ -72,6 +72,25 @@ def diagnostics_plot(aggregate, destination):
     fig.savefig(destination, dpi=170)
 
 
+def leaderboard_data(results_dir, seventh_override=None, eighth_override=None):
+    seventh = json.loads((results_dir / "public_submission_007.json").read_bytes())
+    eighth_path = results_dir / "public_submission_008.json"
+    eighth = json.loads(eighth_path.read_bytes()) if eighth_path.is_file() else {}
+    observations = [
+        entry[key]
+        for entry in (seventh, eighth)
+        for key in ("team_leaderboard_observation", "scored_team_leaderboard_observation")
+        if key in entry
+    ]
+    observation = max(observations, key=lambda item: datetime.fromisoformat(item["observed_at_kst"]))
+    scores = [42.04, 16.12, 42.04, 42.04, 47.35, 53.65,
+              seventh.get("public_score") if seventh_override is None else seventh_override,
+              eighth.get("public_score") if eighth_override is None else eighth_override]
+    labels = {"submitted": "접수 완료", "judging_pending": "채점 대기", "judging": "채점 중"}
+    label = labels.get(eighth.get("stage"), "미측정")
+    return scores, observation, label
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--seventh", type=float)
@@ -91,11 +110,8 @@ def main():
         diagnostics_plot(json.loads(args.four_arm.read_bytes()),
                          args.output or "reports/figures/sub78-four-arm-200-20261128.png")
         return
-    receipt = json.loads(Path("results/public_submission_007.json").read_bytes())
-    observation = receipt.get("scored_team_leaderboard_observation") or receipt["team_leaderboard_observation"]
+    scores, observation, eighth_status = leaderboard_data(Path("results"), args.seventh, args.eighth)
     timestamp = datetime.fromisoformat(observation["observed_at_kst"])
-    seventh = receipt["public_score"] if args.seventh is None else args.seventh
-    scores = [42.04, 16.12, 42.04, 42.04, 47.35, 53.65, seventh, args.eighth]
     fig, ax = plt.subplots(figsize=(10.6, 6.4), layout="constrained")
     ax.set_title("공개 점수와 현재 순위 진입선", loc="left", fontsize=23, weight="bold", pad=29)
     subtitle = (f"{timestamp.month}월 {timestamp.day}일 {timestamp:%H:%M} KST 관측 · "
@@ -109,13 +125,15 @@ def main():
         ax.text(8.46, score, label, color=color, va="center", fontsize=13, bbox={"facecolor": "white", "edgecolor": "none", "pad": 2})
     for index, score in enumerate(scores, 1):
         if score is None:
-            ax.text(index, 4, "미측정", ha="center", color="#5b687a", fontsize=12)
+            ax.text(index, 4, eighth_status if index == 8 else "미측정",
+                    ha="center", color="#5b687a", fontsize=12)
         else:
             ax.bar(index, score, width=0.55, color="#194772" if index >= 6 else "#6c9bb7")
             ax.text(index, score - 2.7, f"{score:.2f}", color="white", weight="bold", ha="center", va="top", fontsize=12)
     ax.set(xticks=range(1, 9), xticklabels=[f"{i}차" for i in range(1, 9)], ylim=(0, 67),
            xlim=(0.45, 9.54), ylabel="Public 점수")
-    ax.set_xlabel("점선은 11월 28일 관측값이며, 과거 제출 시점의 순위 진입선과 다를 수 있습니다.", labelpad=12, fontsize=11)
+    ax.set_xlabel(f"점선은 {timestamp.month}월 {timestamp.day}일 관측값이며, 과거 제출 시점의 순위 진입선과 다를 수 있습니다.",
+                  labelpad=12, fontsize=11)
     ax.set_axisbelow(True)
     ax.grid(axis="y", color="#e6ecf1")
     fig.savefig(args.output or "reports/figures/sub78-public-gap-20261128.png", dpi=170)
