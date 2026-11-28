@@ -1,7 +1,7 @@
 {
   "algorithm": "SHA-256",
-  "files": 2613,
-  "total_bytes": 201046080793,
+  "files": 2667,
+  "total_bytes": 201246405327,
   "scope": "Completed project data files and local-only research outputs. In-progress downloads, live transfer status and environment caches are excluded.",
   "artifacts": [
     {
@@ -13068,6 +13068,276 @@
       "path": "data/local-reports/sub78-20261128/8b-review/review.png",
       "bytes": 1840723,
       "sha256": "8a9eb379cba4b6565698acc82f95b8a088b0f7d129a145fb554aa22afb8fe6a5"
+    },
+    {
+      "path": "data/v3-11code-fold2-4b-epoch1/epoch-1/adapter_model.safetensors",
+      "bytes": 135998904,
+      "sha256": "920193d156118c9b895bb441aafb643c45dd3ba5f44e294fb07ce339135c8e0a"
+    },
+    {
+      "path": "data/v3-11code-fold2-4b-epoch1/epoch-1/adapter_config.json",
+      "bytes": 1075,
+      "sha256": "670f90830c3022da8a8bcaf29e2f51b0fcc3f5cfc57df1ec324cefddb88f6867"
+    },
+    {
+      "path": "data/v3-11code-fold2-4b-epoch1/epoch1-bf16-raw-cache.json",
+      "bytes": 280736,
+      "sha256": "ee8f2cba053001c60422fe540aec9893c3ff8843ba39cb18ce67024dce0b5b43"
+    },
+    {
+      "path": "data/v3-11code-fold2-4b-epoch1/epoch1-bf16-predictions.jsonl",
+      "bytes": 91027,
+      "sha256": "2a3e4c5866d53a67680040bf2a43c164b73bffc330f4547c9a5c8c783e9ecc4a"
+    },
+    {
+      "path": "data/v3-11code-fold2-4b-epoch1/epoch1-bf16-inference-receipt.json",
+      "bytes": 493,
+      "sha256": "8c80a6cd1dd7487d78df8ad9c17e855f84b5d17f2e7d9313f07c0542454fd08d"
+    },
+    {
+      "path": "data/v3-11code-fold2-4b-epoch1/epoch1-bf16-batches-local.json",
+      "bytes": 7759,
+      "sha256": "a7c1fab35913c5be8fbc3c1628cb789c64f7ce237974b4c135f2ed76a96abca0"
+    },
+    {
+      "path": "data/v3-11code-fold2-4b-epoch1/epoch1-bf16-original-44-cache.json",
+      "bytes": 89637,
+      "sha256": "112d924c6f9529995ccb5754bc1378161e6b16f32e2b84c79976e5c5549e2628"
+    },
+    {
+      "path": "data/v3-11code-fold2-4b-epoch1/exposure19-reconstructed-ids-local.json",
+      "bytes": 378,
+      "sha256": "782f0f566af00b82d6cffc948f86812c27440a83b764ac33da7d4716f98f202a"
+    },
+    {
+      "path": "data/v3-11code-fold2-4b-epoch1/frozen-recipe.json",
+      "bytes": 1377,
+      "sha256": "76fba08a10dad592039060a04aa45d9932b30a9f255296f91aa8e143a4ee5004"
+    },
+    {
+      "path": "data/v3-11code-fold2-4b-epoch1/base-model-witness.json",
+      "bytes": 2269,
+      "sha256": "234014e4efc3d0f6e175295c228574c00a66dbe37bf70e8e1aeb73e7dce04bea"
+    },
+    {
+      "path": "data/local-reports/seoul-8b-fold4-e1-solo-200-20261128/aggregate.json",
+      "bytes": 4267,
+      "sha256": "ddbb827b9cbf58b6dc16f4f41b18ac26b7eed5c6f36243e50e6ee54775ea94c2"
+    },
+    {
+      "path": "data/local-reports/seoul-8b-fold4-e1-solo-200-20261128/kit.log",
+      "bytes": 13207,
+      "sha256": "dc95bc87ae5d2b0d56c967f2dc55b9d0308f2b1cece146d01aa69d262488dcaf"
+    },
+    {
+      "path": "data/local-reports/seoul-8b-fold4-e1-solo-200-20261128/run.log",
+      "bytes": 1417,
+      "sha256": "ca4208e1557a94e3ddaa4ae3513809981ae218718cf0ac0c45d90bf9780080d6"
+    },
+    {
+      "path": "data/local-reports/seoul-8b-fold4-e1-solo-200-20261128/expected.sha",
+      "bytes": 77,
+      "sha256": "9e4cbf6440698ad1b9de636ca3cbd206b906039a7af5105c253910dc310e793d"
+    },
+    {
+      "path": "data/local-reports/seoul-8b-fold4-e1-solo-200-20261128/gpu.csv",
+      "bytes": 25002,
+      "sha256": "4d2b1501bbf236acd3c8bcddf6a6b66183d8a8205da4be0558017780be7094d4"
+    },
+    {
+      "path": "data/local-reports/seoul-8b-fold4-e1-solo-200-20261128/hardware.txt",
+      "bytes": 33,
+      "sha256": "6331c2819d57004cb897530b6cf98c1268b6f70a8962f62c1e2691b720e7204e"
+    },
+    {
+      "path": "data/local-reports/clean-cal-v2-fit-specialist/fold-2/fit-oof-and-calibration-local.npz",
+      "bytes": 109218,
+      "sha256": "f498c6f714a7c59400130e37779f231fb697a9bb8e261fce76776774f315a1b0"
+    },
+    {
+      "path": "data/local-reports/clean-cal-v2-fit-specialist/fold-2/fit-only-cases.jsonl",
+      "bytes": 235701,
+      "sha256": "c3da52984b08e1c0ad1ff4a0240c5ffcc49a75dd344f24156c8a7b885c103386"
+    },
+    {
+      "path": "data/local-reports/clean-cal-v2-fit-specialist/fold-2/inputs-local.json",
+      "bytes": 64352,
+      "sha256": "21fa0f7630e0a75a6ae8cf38ea6a4607db584c530c1e83e8e43a3a5940e44576"
+    },
+    {
+      "path": "data/local-reports/sub78-clean-cal-v2/fold-2/contract.json",
+      "bytes": 1300,
+      "sha256": "7f59f1c7bbe1ac25315594a43d89ab879a3bacf5b5f24062af7a9cbb44bd6987"
+    },
+    {
+      "path": "data/local-reports/sub78-clean-cal-v2/fold-2/fit-manifest.json",
+      "bytes": 214108,
+      "sha256": "d3832c904f444fc2efb1878c952499df12441eef2971057a21cf668e04e1d8d4"
+    },
+    {
+      "path": "data/local-reports/sub78-clean-cal-v2/fold-2/calibration-manifest.json",
+      "bytes": 46818,
+      "sha256": "279c123eb8e04a5ca27c6dd9dd60afd79b2aaf541c8003d0008fb633716877a2"
+    },
+    {
+      "path": "data/local-reports/sub78-clean-cal-v2/fold-2/outer-manifest.json",
+      "bytes": 66768,
+      "sha256": "affb242c8814119d9cca45d480915f932ebec8c37e96aa8ccbe2d70a4deb1f33"
+    },
+    {
+      "path": "data/local-reports/clean-cal-v2-fit-specialist/fold-2/inner-0-seed-1042.pt",
+      "bytes": 2596085,
+      "sha256": "0e2590a129db8f2e9b030e6ce938353a19a5fa6bdebd634c588ffacc78fbe2ac"
+    },
+    {
+      "path": "data/local-reports/clean-cal-v2-fit-specialist/fold-2/inner-0-seed-2042.pt",
+      "bytes": 2596085,
+      "sha256": "d0e6ba8e0eeb710eb5a5fef0105d7950607f25cecb2137208b187f83b71d36fa"
+    },
+    {
+      "path": "data/local-reports/clean-cal-v2-fit-specialist/fold-2/inner-0-seed-42.pt",
+      "bytes": 2596043,
+      "sha256": "cb4828543abd571327c0da86412c354e2f1ec2031b06e09b528ba4c9af73ac6e"
+    },
+    {
+      "path": "data/local-reports/clean-cal-v2-fit-specialist/fold-2/inner-1-seed-1042.pt",
+      "bytes": 2596085,
+      "sha256": "ee2ba72332ef9e7a9cb22fbd3b4da6644e5002c3d6db7472a611261e19d6faa7"
+    },
+    {
+      "path": "data/local-reports/clean-cal-v2-fit-specialist/fold-2/inner-1-seed-2042.pt",
+      "bytes": 2596085,
+      "sha256": "728134a4add80e1c614295d2673e329fa902f33f895324af6d1a424310669fda"
+    },
+    {
+      "path": "data/local-reports/clean-cal-v2-fit-specialist/fold-2/inner-1-seed-42.pt",
+      "bytes": 2596043,
+      "sha256": "f5eae66ce0933cb40e0410be89a8488f52c513232beef05020284f3cc8360e1f"
+    },
+    {
+      "path": "data/local-reports/clean-cal-v2-fit-specialist/fold-2/inner-2-seed-1042.pt",
+      "bytes": 2596085,
+      "sha256": "c339623e7c6a2c03018cdd380ba31500d80f7ba4ba96623f90d228df1d4b7c83"
+    },
+    {
+      "path": "data/local-reports/clean-cal-v2-fit-specialist/fold-2/inner-2-seed-2042.pt",
+      "bytes": 2596085,
+      "sha256": "6d3a7780999d2f9c9ddde7a3e3c16027e441b6e65e068cde3a249879db10db89"
+    },
+    {
+      "path": "data/local-reports/clean-cal-v2-fit-specialist/fold-2/inner-2-seed-42.pt",
+      "bytes": 2596043,
+      "sha256": "5ba265ff611c490d5142ea1d434d9d12709081d26712763c6f4702956f291d5a"
+    },
+    {
+      "path": "data/local-reports/clean-cal-v2-fit-specialist/fold-2/inner-3-seed-1042.pt",
+      "bytes": 2596085,
+      "sha256": "a791438275aca026ece7285c64fa72c2d73236bf6e132477e27d10a80c2eb06c"
+    },
+    {
+      "path": "data/local-reports/clean-cal-v2-fit-specialist/fold-2/inner-3-seed-2042.pt",
+      "bytes": 2596085,
+      "sha256": "cbcaf19e42732e8cbe6d50a84a8a9ddb756bc7bc7e959ba4689213bf4361ebfd"
+    },
+    {
+      "path": "data/local-reports/clean-cal-v2-fit-specialist/fold-2/inner-3-seed-42.pt",
+      "bytes": 2596043,
+      "sha256": "2aac558df633488049185095cdb9c1015da166672f17df8706ab667c6d0df72c"
+    },
+    {
+      "path": "data/local-reports/clean-cal-v2-fit-specialist/fold-4/fit-oof-and-calibration-local.npz",
+      "bytes": 112298,
+      "sha256": "19ef5e616046a71bc491cf8c9d656416d2b2165a8bcb9c60fa0ae6dc1527bb41"
+    },
+    {
+      "path": "data/local-reports/clean-cal-v2-fit-specialist/fold-4/fit-only-cases.jsonl",
+      "bytes": 250514,
+      "sha256": "51b386899c124f5670123fa1be681fa0beb9dd3e012c887d612163ca43a2b768"
+    },
+    {
+      "path": "data/local-reports/clean-cal-v2-fit-specialist/fold-4/inputs-local.json",
+      "bytes": 71101,
+      "sha256": "ec4f909bbd173df0715cb70c0bf18e34de30b2e644b83754e986540e33408e78"
+    },
+    {
+      "path": "data/local-reports/sub78-clean-cal-v2/fold-4/contract.json",
+      "bytes": 1300,
+      "sha256": "4befb885b6b7b757b97b367190a2828038a0f94f5489572171c6bac137444dd4"
+    },
+    {
+      "path": "data/local-reports/sub78-clean-cal-v2/fold-4/fit-manifest.json",
+      "bytes": 240024,
+      "sha256": "d8eeae8db81bf28e95774c387dfaecc10883a4f93cb254d02dc4ae5247f09dcc"
+    },
+    {
+      "path": "data/local-reports/sub78-clean-cal-v2/fold-4/calibration-manifest.json",
+      "bytes": 28023,
+      "sha256": "5377e801cd3c16fcf84a6b9c747eaed96214a86e611fbc4f780eb387e9889d83"
+    },
+    {
+      "path": "data/local-reports/sub78-clean-cal-v2/fold-4/outer-manifest.json",
+      "bytes": 59647,
+      "sha256": "15bb439d3cf99b6283b885e43ad57c2e476cf16a0d243ad298edbb0aeb2ca772"
+    },
+    {
+      "path": "data/local-reports/clean-cal-v2-fit-specialist/fold-4/inner-0-seed-1042.pt",
+      "bytes": 2596085,
+      "sha256": "7eab20370e8551a3f92f547160a7199dec105ba419dff2eaad3e2bb5f75b3236"
+    },
+    {
+      "path": "data/local-reports/clean-cal-v2-fit-specialist/fold-4/inner-0-seed-2042.pt",
+      "bytes": 2596085,
+      "sha256": "bab56007ea999f5a903be05a93991b8664a5d34f591f8a7e2992e0287c0e33a1"
+    },
+    {
+      "path": "data/local-reports/clean-cal-v2-fit-specialist/fold-4/inner-0-seed-42.pt",
+      "bytes": 2596043,
+      "sha256": "2499d10ee49b9f8c1dac1a432dd00a344f170ae4dad3db7ea16c1028e55b4ef1"
+    },
+    {
+      "path": "data/local-reports/clean-cal-v2-fit-specialist/fold-4/inner-1-seed-1042.pt",
+      "bytes": 2596085,
+      "sha256": "76e634c625f427935caff21a036fe3e03006a3c6eab7743fa8449ea76777a6a0"
+    },
+    {
+      "path": "data/local-reports/clean-cal-v2-fit-specialist/fold-4/inner-1-seed-2042.pt",
+      "bytes": 2596085,
+      "sha256": "d0cbc573196b05200d865088f24543eaa5dda5bca1757559a0b39876f346dcb7"
+    },
+    {
+      "path": "data/local-reports/clean-cal-v2-fit-specialist/fold-4/inner-1-seed-42.pt",
+      "bytes": 2596043,
+      "sha256": "65052414f7be0a836ae55e61604420d1dc3acebf06ffe7971da1c9a88b79a11c"
+    },
+    {
+      "path": "data/local-reports/clean-cal-v2-fit-specialist/fold-4/inner-2-seed-1042.pt",
+      "bytes": 2596085,
+      "sha256": "c4268330ad217b82ac27eafc96f66e1dacee5f60aa30950ba465356e0d1859eb"
+    },
+    {
+      "path": "data/local-reports/clean-cal-v2-fit-specialist/fold-4/inner-2-seed-2042.pt",
+      "bytes": 2596085,
+      "sha256": "d0c6b7683673e2c67cc8bbb7979e868b8c3be63625a79734c3631c94e0edcab4"
+    },
+    {
+      "path": "data/local-reports/clean-cal-v2-fit-specialist/fold-4/inner-2-seed-42.pt",
+      "bytes": 2596043,
+      "sha256": "5c2cb3db91fa8497a2931c3c9f04cb62c2eba29973fd729aad3e70c0060a2ceb"
+    },
+    {
+      "path": "data/local-reports/clean-cal-v2-fit-specialist/fold-4/inner-3-seed-1042.pt",
+      "bytes": 2596085,
+      "sha256": "bf7d84403e159eaf13cb567a78dbbf2223b55df4f461b70ca6b80eb0e5615242"
+    },
+    {
+      "path": "data/local-reports/clean-cal-v2-fit-specialist/fold-4/inner-3-seed-2042.pt",
+      "bytes": 2596085,
+      "sha256": "11f125dbdc3b3f6f898dc5cbb713ffe89f78b9eaf4a39f6fe56d42caefc72343"
+    },
+    {
+      "path": "data/local-reports/clean-cal-v2-fit-specialist/fold-4/inner-3-seed-42.pt",
+      "bytes": 2596043,
+      "sha256": "c0a6bf28bbc1d83e7926388e1a9fd5e386cfc661df7c83dd0e424da725aa53ee"
     }
   ]
 }
