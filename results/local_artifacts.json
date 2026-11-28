@@ -1,7 +1,7 @@
 {
   "algorithm": "SHA-256",
-  "files": 2964,
-  "total_bytes": 202019849444,
+  "files": 2965,
+  "total_bytes": 202020210576,
   "scope": "Completed project data files and local-only research outputs. In-progress downloads, live transfer status and environment caches are excluded.",
   "artifacts": [
     {
@@ -14823,6 +14823,11 @@
       "path": "data/fold4-citation-review-v2/validation-relative/sealed-key.json",
       "bytes": 1765,
       "sha256": "73a8880d5c0fa02092580aeff998d5ce65d4705019ddd1061664fd35fb580ece"
+    },
+    {
+      "path": "data/stage2-oof-design-20261128/fold-manifest-local.json",
+      "bytes": 361132,
+      "sha256": "369556b1b7b65b16749232813666261ebcd60ca2ce5c4abca5d313efe32c03d3"
     }
   ]
 }
