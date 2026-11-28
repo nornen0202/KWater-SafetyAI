@@ -220,7 +220,21 @@
         ]
       }
     },
-    "official_200_timing": null,
+    "official_200_timing": {
+      "hardware": "NVIDIA L4, 23034 MiB, 580.178.04",
+      "official_kit_clock_seconds": {
+        "return_code": 0,
+        "execute": 1171,
+        "install": 19,
+        "total": 1190,
+        "limit": 1800
+      },
+      "peak_sampled_gpu_mib": 12018,
+      "kit_log_sha256": "e84415c4a3ea43ead47d5df860dfe474b18e0f20d82e26afd01aca1ef34f8dab",
+      "valid_rows": 200,
+      "output_sha256": "25d198e8081cbe4f19432d2aa6f4cdb597075608457b6d433d7ba1514b7d511e",
+      "scope": "same development latency panel, exposed to full1045 training"
+    },
     "production_accuracy_or_public_score": null,
     "package_source_sha256": "10117207cd176480126b3804cf0b41d9ff4c0e0e1a67d84ebceecc1bcb6a3ce1",
     "preparation_source_sha256": "6ed1c89eac19f35d776daafe876f2f14095dd55435492366712bd94cf12e1488"

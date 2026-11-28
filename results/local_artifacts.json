@@ -1,7 +1,7 @@
 {
   "algorithm": "SHA-256",
-  "files": 2606,
-  "total_bytes": 183296598374,
+  "files": 2609,
+  "total_bytes": 183298581314,
   "scope": "Completed project data files and local-only research outputs. In-progress downloads, live transfer status and environment caches are excluded.",
   "artifacts": [
     {
@@ -13033,6 +13033,21 @@
       "path": "data/submissions/kwater-safeground-v3-full1045-epoch1-vlmonly-20261128.zip",
       "bytes": 9043784038,
       "sha256": "3c779368d462ea52e972ae1cdd1c33c4050867e60009288d47e301c1ad4c6645"
+    },
+    {
+      "path": "data/local-reports/seoul-eighth-200-20261128/output/submission.jsonl",
+      "bytes": 90801,
+      "sha256": "25d198e8081cbe4f19432d2aa6f4cdb597075608457b6d433d7ba1514b7d511e"
+    },
+    {
+      "path": "data/local-reports/sub78-20261128/review.html",
+      "bytes": 6925,
+      "sha256": "1bc19bfe42d55e57a8305f623efc830dec23b622a27af83e257ba1ddeb6f62ce"
+    },
+    {
+      "path": "data/local-reports/sub78-20261128/review.png",
+      "bytes": 1885214,
+      "sha256": "3ff62a37ab01aeb4dbcbb3090e6a78e92b65c7c07237db29cf5deb3435b9c932"
     }
   ]
 }

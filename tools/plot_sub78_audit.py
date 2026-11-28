@@ -128,12 +128,33 @@ def timing(eighth_evidence=None):
     )
     spend = source["spend_estimate_krw"]
     if eighth_evidence is None:
-        default_path = ROOT / "results/sub78-seoul-final-run-20261128.json"
+        default_path = ROOT / "results/seoul-eighth-200-20261128.json"
         eighth_evidence = default_path if default_path.is_file() else None
     final = json.loads(eighth_evidence.read_text(encoding="utf-8")) if eighth_evidence else {}
     clock8 = final.get("eighth", {}).get("kit_clock")
     cost8 = final.get("cost")
+    if "official_clock" in final:
+        actual = final["official_clock"]
+        if final["official_result"] != ["OK"] or actual["return_code"] != 0 or final["rows"] != 200:
+            raise ValueError("8th official run did not complete")
+        clock8 = {
+            "install_seconds": actual["install"],
+            "execution_seconds": actual["execute"],
+            "total_seconds": actual["total"],
+        }
+        estimate = final.get("cost_estimate_krw")
+        if estimate:
+            cost8 = {
+                "incremental_known_krw": estimate["increment_compute_disk_ip_vat"],
+                "incremental_allowance_krw": estimate["increment_with_510_krw_ancillary_allowance"],
+                "cumulative_known_krw": estimate["overall_known_transfer_estimate"],
+                "cumulative_allowance_krw": estimate["overall_with_ancillary_allowances"],
+                "approved_total_krw": estimate["overall_limit"],
+            }
     budget = spend["approved_budget_krw"]
+    ceiling = load("sub78-reject-runtime-audit-20261128")["spend_crosscheck"][
+        "additional_approved_ceiling_krw"
+    ]
     prior = [
         spend["using_known_transfer_scenario"],
         spend["including_1500_krw_total_network_and_miscellaneous_allowance"],
@@ -191,12 +212,19 @@ def timing(eighth_evidence=None):
     cost.set_xlabel(f"총 승인 한도 {budget:,}원 · 청구서 미확인")
     cost.set_title("서울 L4 누적 비용 추정", loc="left", fontsize=13, weight="bold", pad=16)
     fig.suptitle("서울 L4 200장 실행 시간과 비용", x=0.105, ha="left", weight="bold", fontsize=18)
-    message = (
-        "연한 막대는 이번 증분 추정이다. 시나리오별 이전 비용과 이번 비용을 합해 점선의 승인 한도와 비교했다."
-        if incremental is not None
-        else "8차 공식 200장 실행 및 추가 지출 산정이 끝나면 이 표에 반영한다."
+    if incremental is not None:
+        message = "연한 막대는 이번 증분 추정이다. 시나리오별 이전 비용과 이번 비용을 합해 점선의 승인 한도와 비교했다."
+    elif clock8 is not None:
+        message = "8차 실행은 확인했다. 이번 실제 사용시간 기준의 증분 비용 추정은 집계 중이다."
+    else:
+        message = "8차 공식 200장 실행 및 추가 지출 산정이 끝나면 이 그림에 반영한다."
+    fig.text(0.105, 0.065, message, fontsize=9.5)
+    fig.text(
+        0.105,
+        0.026,
+        f"이번 추가 승인 상한 {ceiling:,}원은 총한도에 포함되며 지출 막대에 표시하지 않았다.",
+        fontsize=9,
     )
-    fig.text(0.105, 0.043, message, fontsize=9.5)
     export(fig, "seoul-timing-budget-20261128")
 
 
