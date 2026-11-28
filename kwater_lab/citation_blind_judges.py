@@ -33,6 +33,14 @@ RATING = ["direct", "partial", "unrelated", "unknown", "NA"]
 FIELDS = {k: {"type": "string", "enum": RATING} for k in ("support_A", "support_B", "fit_A", "fit_B")}
 FIELDS.update(order={"type": "string", "enum": ["safe", "unsafe", "unclear", "NA"]}, reason={"type": "string"})
 SCHEMA = {"type": "object", "properties": FIELDS, "required": list(FIELDS), "additionalProperties": False}
+OPTIONS = ["A", "B", "tie", "unknown"]
+SHORT_FIELDS = {k: {"type":"string", "enum":OPTIONS} for k in ("action_support", "article_fit")}
+SHORT_FIELDS["common_order"] = {"type":"string","enum":["safe","unsafe","unclear","NA"]}
+SHORT_SCHEMA = {"type":"object","properties":SHORT_FIELDS,"required":list(SHORT_FIELDS),"additionalProperties":False}
+SHORT_RUBRIC = ("Choose which article (A or B) better supports the recommended action. Then choose which fits the "
+                "pictured hazard and regulated object. Choose tie if equally suitable or identical, unknown if you "
+                "cannot decide. Rate the order of the one shared prevention action: safe, unsafe, unclear, or NA "
+                "if no sequence applies. Read both Korean excerpts and inspect the photo before choosing.")
 
 
 def law_excerpt(article, observation, prevention):
@@ -96,14 +104,63 @@ def build_cards():
     return cards
 
 
+def historical_changes(panels, gold, baseline, queries, native, laws):
+    """Reader calibration on old design sites with the actual policy alternate."""
+    from .citation_review_panel import DEV, TRIAL
+    from .citation_site_generation import match_controls
+    from .fold4_citation_alignment import scope_veto
+    from .prevention_law_guard import build_active_records
+    from .qualitative_gate_pilot import digest
+    if digest(Path("kwater_lab/fold4_citation_alignment.py")) != read(TRIAL)["policy_script_sha256"]:
+        raise ValueError("Changed development policy")
+    photos = {p["sample_id"]: p for p in read(DEV)}
+    active = build_active_records(laws)
+    observed = []
+    for (sid, code), row in baseline.items():
+        query = queries[sid, code]
+        photo = photos[sid]
+        candidate = scope_veto(code, query, row["native"], row["published"], active)
+        observed.append(dict(sid=sid, group=photo["group_id"], photo=photo["image"],
+                             image_sha256=photo["sha256"], code=code, evidence=query[0], prevention=query[1],
+                             current=row["published"], candidate=candidate))
+    cards, counts = match_controls(observed)
+    if counts["actual_changed_sites"] != 3 or counts["actual_changed_rows"] != 3:
+        raise ValueError("Historical calibration did not reproduce three changes")
+    for card in cards:
+        card["kind"] = "historical_" + card["kind"]
+    return cards
+
+
 def prepare(wave):
-    if wave == "panel":
+    if wave in ("panel", "panel-relative"):
         witness = read(Path("results/fold4-citation-review-panel-v2.json"))
         if witness["exact_epoch1_changes_on_panel"] != 0:
             raise ValueError("This identical-citation panel template must be regenerated for a changed panel")
         cards = build_cards()
+        if wave == "panel-relative":
+            cards = [r for r in cards if r["kind"] == "panel"]
+    elif wave == "validation-relative":
+        controls = Path("data/local-reports/qualitative-gate-pilot-20261128")
+        answers = {r["id"]:r for r in read(controls/"s4-control-key.json")}
+        items = read(controls/"s4-controls.json")
+        ev = {r["image"]:r[answers[r["id"]]["expected"]] for r in items if r["axis"] == "evidence"}
+        cards = []
+        for r in items:
+            if r["axis"] != "law":
+                continue
+            relevant = r[answers[r["id"]]["expected"]]
+            cards.append(dict(sid=r["id"],code=r["code"],photo=r["image"],kind="development_control",
+                              image_sha256=sha256((Path("data/train")/r["image"]).read_bytes()).hexdigest(),
+                              evidence=ev[r["image"]], prevention=r["prevention"],current=r["A"],candidate=r["B"],
+                              relevant=relevant))
+    elif wave == "historical-relative":
+        from .qualitative_gate_pilot import frozen_v3
+        cards, _ = frozen_v3(historical_changes)
+    elif wave.startswith("fold2"):
+        cards = read(ROOT / "fold2" / "matched-private.json")
     else:
-        cards = read(ROOT / wave / "matched-private.json")
+        final_wave = "reserve-run" if (ROOT / "reserve-run" / "matched-private.json").is_file() else "challenge"
+        cards = read(ROOT / final_wave / "matched-private.json")
     dest = ROOT / wave
     dest.mkdir(exist_ok=True)
     keypath = dest / "random-key.bin"
@@ -125,10 +182,12 @@ def prepare(wave):
             A, B = (card["candidate"], card["current"]) if flip else (card["current"], card["candidate"])
             def excerpt(law):
                 return law_excerpt(laws[law], card["evidence"], card["prevention"]) if law else "(none)"
-            prompt = (RUBRIC + "\nObservation: " + card["evidence"] + "\nPrevention: " + (card["prevention"] or "(none)")
+            rubric = SHORT_RUBRIC if wave.endswith("-relative") else RUBRIC
+            prompt = (rubric + "\nObservation: " + card["evidence"] + "\nPrevention: " + (card["prevention"] or "(none)")
                       + "\nA: " + excerpt(A) + "\nB: " + excerpt(B))
             # Photo paths are consumed by the host image loader and never appear in the model prompt.
-            root = ROOT / "prospective-input" if card.get("source") == "71407" else Path("data/train")
+            source_dirs = {"71407":ROOT/"prospective-input", "71407-reserve":ROOT/"reserve-input"}
+            root = source_dirs.get(card.get("source"), Path("data/train"))
             deck.append(dict(tag=tag, path=(root / card["photo"]).as_posix(), image_sha256=card["image_sha256"], prompt=prompt))
             key[tag] = dict(reader=reader, slot=i, flip=flip, kind=card["kind"], code=card["code"],
                             relevant_side=("A" if card.get("relevant")==A else "B") if card.get("relevant") else None)
@@ -165,8 +224,9 @@ def run(reader, wave):
                 buf = io.BytesIO()
                 img.save(buf, format="JPEG", quality=90)
             imgbytes = buf.getvalue()
+            short = wave.endswith("-relative")
             result = generate(port, secret, "data:image/jpeg;base64,"+base64.b64encode(imgbytes).decode(),
-                              card["prompt"], SCHEMA, 155)
+                              card["prompt"], SHORT_SCHEMA if short else SCHEMA, 80 if short else 155)
             freeze(path, dict(raw=result["raw_output"], finish=result["finish_reason"], seconds=result["elapsed_s"],
                               tag=card["tag"], prompt_sha256=sha256(card["prompt"].encode()).hexdigest(),
                               presented_image_sha256=sha256(imgbytes).hexdigest(), weights=MODELS[reader]))
@@ -199,6 +259,30 @@ def summarize(wave):
         meta = key[tag]
         r = tally[meta["reader"]].setdefault(meta["kind"], Counter())
         r["presentations"] += 1
+        if wave.endswith("-relative"):
+            try:
+                grade = json.loads(raw["raw"])
+                ok = (raw["finish"]=="stop" and grade.keys()==SHORT_FIELDS.keys()
+                      and all(grade[k] in v["enum"] for k,v in SHORT_FIELDS.items()))
+            except (ValueError, AttributeError, TypeError):
+                ok = False
+            if not ok:
+                r["invalid"] += 1
+                continue
+            r["valid"] += 1
+            slot = by_slot.setdefault(meta["slot"], {"kind":meta["kind"]})
+            slot[meta["reader"]] = {"order":grade["common_order"]}
+            r["order_"+grade["common_order"]] += 1
+            candidate_side = "A" if meta["flip"] else "B"
+            for source,axis in (("action_support","support"),("article_fit","fit")):
+                value = grade[source]
+                pref = ("unassessable" if value=="unknown" else "tie" if value=="tie"
+                        else "better" if value==candidate_side else "worse")
+                r[f"{axis}_candidate_{pref}"] += 1
+                slot[meta["reader"]][axis] = pref
+                if meta["relevant_side"]:
+                    r[f"{axis}_selected_relevant"] += value==meta["relevant_side"]
+            continue
         try:
             grade = json.loads(raw["raw"])
             valid = (raw["finish"] == "stop" and isinstance(grade, dict) and grade.keys() == FIELDS.keys()
@@ -254,7 +338,8 @@ def summarize(wave):
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
     p.add_argument("action", choices=["prepare", "summarize", *MODELS])
-    p.add_argument("--wave", choices=["panel", "challenge"], default="panel")
+    p.add_argument("--wave", choices=["panel","challenge","panel-relative","challenge-relative","validation-relative",
+                                     "fold2-relative","historical-relative"], default="panel")
     args = p.parse_args()
     if args.action == "prepare":
         prepare(args.wave)

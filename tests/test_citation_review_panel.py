@@ -30,3 +30,17 @@ class CitationSamplingTests(unittest.TestCase):
         self.assertEqual(law_excerpt("짧은 조문","바닥","정리"), "짧은 조문")
         self.assertEqual(law_excerpt(text,"바닥","정리"), law_excerpt(text,"바닥","정리"))
         self.assertTrue(law_excerpt(text,"바닥","정리").endswith("[발췌]"))
+
+    def test_multiple_codes_at_one_control_site_do_not_block_two_pairs(self):
+        rows = [row("f", 1, "fire", True), row("m", 2, "machine", True),
+                row("x", 3, "fire"), row("x", 3, "machine"), row("y", 4, "fire")]
+        cards, stats = match_controls(rows)
+        self.assertEqual(stats["matched_pairs"], 2)
+        self.assertEqual(len({card["group"] for card in cards}), 4)
+
+    def test_controls_without_a_change_are_labelled_separately(self):
+        rows = [row(str(i), i, "slip_trip") for i in range(5)]
+        cards, stats = match_controls(rows)
+        self.assertEqual(stats["matched_pairs"], 0)
+        self.assertEqual(stats["unchanged_only"], 2)
+        self.assertEqual({card["kind"] for card in cards}, {"unchanged_only"})

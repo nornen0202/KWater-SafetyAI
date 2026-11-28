@@ -1,0 +1,13 @@
+{
+  "excluded_prior_sites": 7,
+  "local_manifest_sha256": "59d306d1ea3d44cf9a65c6ec613c88c509072ef9dd158ab880b05c1d22edcdde",
+  "photos": 37,
+  "provider_families": {
+    "caught_in_machine": 3,
+    "fire_explosion": 26,
+    "slip_trip": 8
+  },
+  "seed": "kwater-s1-71407-v1",
+  "sites": 7,
+  "source": "AI-Hub 71407 validation partition"
+}

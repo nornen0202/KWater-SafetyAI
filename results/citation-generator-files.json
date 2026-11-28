@@ -1,0 +1,22 @@
+{
+  "adapter/adapter_config.json": "670f90830c3022da8a8bcaf29e2f51b0fcc3f5cfc57df1ec324cefddb88f6867",
+  "adapter/adapter_model.safetensors": "6fba484b28650025bc8e558838f2e5d1c8f897c84c3d3965dfcc2b4061c15886",
+  "assets/cases_11code.jsonl": "b18b0d03534972b55876dbdff01fb7aaa772920257f11653023c8281c60ff7ad",
+  "assets/laws.jsonl": "1408b69db444cf90b31f9bebb4a773a30fa4362739e50b22c95f3bbe0e75bd9d",
+  "base_model/README.md": "a884e5e78f7d6f7bfe237f909dbc41a126542e259dc79d8ab33cc8980580ff79",
+  "base_model/chat_template.json": "6f8a6a55027e3da5160105556cda5dd69f6423f1c32645f6730d32de7773d0c4",
+  "base_model/config.json": "edac7703329133edfc53e46ac0081835144c99d7eebf28b71c732694d435224d",
+  "base_model/generation_config.json": "8469742d1fce0de951c8909b26a2c0c0d8490837ce476efb114da9e0cefc4d44",
+  "base_model/merges.txt": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3",
+  "base_model/model-00001-of-00002.safetensors": "30a01a0556622645a3cce87b655bbbbbc1f170c196099f1b666c93202c3339a9",
+  "base_model/model-00002-of-00002.safetensors": "046296a2a387efb43b0c997d5833c789604d168834f6e0d3064bf7bb13d002a6",
+  "base_model/model.safetensors.index.json": "58a7841d7bff2548dd91577d216274a83cf1b500bc6a534b809d6c1b1707cf2b",
+  "base_model/preprocessor_config.json": "27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516",
+  "base_model/tokenizer.json": "a5d85b6dcc535e6b93115a9ef287e6132fdbf30270da6218194ba742261173c7",
+  "base_model/tokenizer_config.json": "c2da771801886ad9ae98181793ffd3dfb7f1af30f6f7c6a4e15d7dbba52e2399",
+  "base_model/video_preprocessor_config.json": "7768af27c1fafa9cc9011c1dc20067e03f8915e03b63504550e11d5066986d13",
+  "base_model/vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+  "main.py": "b728c3be183cc3cfa4e49ee8bc38076ea7b572c8b91a11c159091eee3a9b1e98",
+  "pipeline_config.json": "5e11382cd5d71943f257d3b16cf46c628aecfdffd10327b79f8c61fe301cb29c",
+  "system_prompt_v3.txt": "13edaf96ccd032551ea0a1ebdc27934d958afd1259439f4b05773bdde1b2e07f"
+}

@@ -1,6 +1,7 @@
 """Sample real AI-Hub 71407 frames before seeing v3 predictions, grouped by site."""
 
 from collections import Counter, defaultdict
+import argparse
 from hashlib import sha256
 import json
 from pathlib import Path, PurePosixPath
@@ -18,15 +19,20 @@ def rank(value):
     return sha256(f"{SEED}/{value}".encode()).hexdigest()
 
 
-def main():
+def main(reserve=False):
     known = {int(x["site"]) for x in read(SOURCE / "verified-state-pairs.json")["pairs"]}
     for pair in read(Path("data/curation-side-20261127/71407-shortlist.json"))["pairs"]:
         known.update(int(x["site"]) for x in pair["members"])
     candidates = defaultdict(list)
+    primary = read(ROOT/"prospective-input/selection.json") if reserve else []
+    old_clips = {r["clip"] for r in primary}
+    old_pixels = {r["sha256"] for r in primary}
+    prefix = "VS" if reserve else "TS"
+    label_prefix = "VL" if reserve else "TL"
     for category, code in TYPES.items():
-        for pictures in sorted((SOURCE / "packages").glob(f"*-TS_5대사고유형_{category}_비정상_N-*.zip")):
-            suffix = pictures.name.split("-TS_", 1)[1]
-            annotations = next((SOURCE / "packages").glob("*-TL_" + suffix))
+        for pictures in sorted((SOURCE / "packages").glob(f"*-{prefix}_5대사고유형_{category}_비정상_N-*.zip")):
+            suffix = pictures.name.split(f"-{prefix}_", 1)[1]
+            annotations = next((SOURCE / "packages").glob(f"*-{label_prefix}_" + suffix))
             with ZipFile(pictures) as images, ZipFile(annotations) as labels:
                 by_stem = {PurePosixPath(n).stem: n for n in images.namelist() if n.lower().endswith((".jpg", ".jpeg", ".png"))}
                 by_clip = defaultdict(list)
@@ -35,6 +41,8 @@ def main():
                     if name.endswith(".json") and stem in by_stem:
                         by_clip[stem.rsplit("_", 1)[0]].append((name, by_stem[stem]))
                 for clip, frames in by_clip.items():
+                    if clip in old_clips:
+                        continue
                     member, photo = sorted(frames)[len(frames)//2]
                     annotation = json.loads(labels.read(member))
                     meta = annotation["Raw_Data_Info."]
@@ -49,14 +57,14 @@ def main():
     selected = []
     for values in candidates.values():
         values.sort(key=lambda row: rank(row["clip"]))
-    for depth in range(2):
+    for depth in range(10 if reserve else 2):
         for key in sorted(candidates, key=lambda k: rank(str(k))):
             if len(candidates[key]) > depth:
                 selected.append(candidates[key][depth])
-    selected = selected[:120]
+    selected = selected[:60 if reserve else 120]
     if not selected or len({r["clip"] for r in selected}) != len(selected):
         raise ValueError("No independent clip set")
-    directory = ROOT / "prospective-input"
+    directory = ROOT / ("reserve-input" if reserve else "prospective-input")
     images_dir = directory / "images"
     images_dir.mkdir(parents=True, exist_ok=True)
     for row in selected:
@@ -71,15 +79,18 @@ def main():
             raise ValueError("Previously frozen pixels changed")
         if not path.exists():
             path.write_bytes(image)
-    if len({r["sha256"] for r in selected}) != len(selected):
+    pixels = {r["sha256"] for r in selected}
+    if len(pixels) != len(selected) or pixels & old_pixels:
         raise ValueError("Duplicate content across clips")
     receipt = dict(photos=len(selected), sites=len({r["site"] for r in selected}), excluded_prior_sites=len(known),
                    provider_families=dict(Counter(r["provider_family"] for r in selected)),
-                   source="AI-Hub 71407 training partition", seed=SEED,
+                   source="AI-Hub 71407 validation partition" if reserve else "AI-Hub 71407 training partition", seed=SEED,
                    local_manifest_sha256=freeze(directory / "selection.json", selected))
-    freeze(Path("results/citation-prospective-site-inputs.json"), receipt)
+    freeze(Path("results/citation-reserve-site-inputs.json" if reserve else "results/citation-prospective-site-inputs.json"), receipt)
     print(json.dumps(receipt))
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--reserve", action="store_true")
+    main(parser.parse_args().reserve)
