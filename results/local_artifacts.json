@@ -1,7 +1,7 @@
 {
   "algorithm": "SHA-256",
-  "files": 2971,
-  "total_bytes": 203644297855,
+  "files": 2972,
+  "total_bytes": 203645434495,
   "scope": "Completed project data files and local-only research outputs. In-progress downloads, live transfer status and environment caches are excluded.",
   "artifacts": [
     {
@@ -14858,6 +14858,11 @@
       "path": "data/stage1-pure-inspect/full1045/freeze/pure-inspect-curriculum-local.json",
       "bytes": 946950,
       "sha256": "01c805b68f0e5a59434924871d280234ed7ebbc3fe3ff075ca2fe913ffb88e4e"
+    },
+    {
+      "path": "data/fold2-8b-pure-v3/pure-v3-overlay.tar",
+      "bytes": 1136640,
+      "sha256": "30e741c8c5c21e57e01dd3dbdae6dce93d46a9f153f8121518080ce930fa82e9"
     }
   ]
 }

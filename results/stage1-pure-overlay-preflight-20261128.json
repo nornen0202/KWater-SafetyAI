@@ -1,0 +1,31 @@
+{
+  "source_archive": {
+    "bytes": 1287813120,
+    "sha256": "1a16d134b4c09cf161cd06606033753f8ecedc1d6281e0a3d74c6b666209aadc"
+  },
+  "separate_workspace_required": true,
+  "reused_train_cli_sha256": "d15b8d6727ecc3369aeb82945e02da9154155d2d37e99ee4013ab76562f3565b",
+  "eval_archive": {
+    "bytes": 334417920,
+    "sha256": "9fc8ee6dabb796368c4c7f485bb0c2954ae1dfc1c4cfa5736aa0e9d566fe05fc"
+  },
+  "pure_recipe_sha256": "e4ca102829f2f5c9f4dc1c9a4b3a04e24fd78338016bf170b772f04cc4bfa5bb",
+  "pure_curriculum_sha256": "3f107c64ed0e0d6d9f38f9b8c8e8e2c227da3ae356ef3d8b257121906dc68e45",
+  "overlay": {
+    "bytes": 1136640,
+    "sha256": "30e741c8c5c21e57e01dd3dbdae6dce93d46a9f153f8121518080ce930fa82e9"
+  },
+  "overlay_members": [
+    "data/fold2-curriculum.json",
+    "data/fold2-recipe.json",
+    "data/fold2-pure-overlay.json"
+  ],
+  "training_photos": 769,
+  "training_slots": 1066,
+  "verify_slots_replaced": 156,
+  "optimizer_updates_first_epoch": 67,
+  "optimizer_updates_schedule": 134,
+  "shuffled_image_augmentation_sha256": "ddfc6cdcb3a72354e447191f956d4cd3936e61508b08f40664fdef53e7bbc6e1",
+  "trained_models": 0,
+  "generated_predictions": 0
+}

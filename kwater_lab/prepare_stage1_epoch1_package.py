@@ -13,6 +13,7 @@ from .stage1_pure_inspect import (
     ACCUM, BASE_CONFIG_SHA, BASE_REVISION, LR, PIXELS, PROMPTS, SCHEDULE_EPOCHS, SEED,
     curriculum_digest, digest, load_scope, replace_verify_slots,
 )
+from .stage1_pure_overlay import ARM as OVERLAY_ARM, PREFLIGHT as OVERLAY_SOURCE, PREP_REPORT as OVERLAY_REPORT
 
 
 def prepare(source: Path, candidate: Path, scope: str, variant: str, prompt_version: str) -> dict:
@@ -45,6 +46,15 @@ def prepare(source: Path, candidate: Path, scope: str, variant: str, prompt_vers
         },
     }
     state = torch.load(state_path, map_location="cpu", weights_only=True, mmap=True)
+    if (state["configuration"] != expected and (scope, variant, prompt_version) == ("fold2", "pure-inspect", "v3")
+            and state["configuration"].get("experiment", {}).get("arm") == OVERLAY_ARM):
+        proof = json.loads(OVERLAY_REPORT.read_bytes())
+        original = json.loads(OVERLAY_SOURCE.read_bytes())["frozen_control"]
+        if (proof["pure_curriculum_sha256"] != expected["curriculum_sha256"]
+                or (proof["optimizer_updates_first_epoch"], proof["optimizer_updates_schedule"]) != (steps, 2 * steps)):
+            raise ValueError("Archived Pure-Inspect overlay differs from the selected Stage 1 recipe")
+        expected["experiment"] = {"arm": OVERLAY_ARM, "base_revision": BASE_REVISION,
+                                  "strict_inner_oof_sha256": original["strict_inner_oof_sha256"]}
     if state["configuration"] != expected:
         raise ValueError("Checkpoint configuration differs from the selected Stage 1 curriculum, prompt or base")
     cursor = {key: state[key] for key in ("next_epoch", "next_offset", "global_step")}

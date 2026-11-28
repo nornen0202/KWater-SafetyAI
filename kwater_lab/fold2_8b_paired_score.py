@@ -89,36 +89,16 @@ def score_panel(ids, groups, gold, a, b, severe_gold):
     }
 
 
-def score(prepared, fit, evaluated, result):
-    from .v3_turnaround import ActionSupportedLawRetriever, format_v3_record
-
-    recipe = read(prepared / "transfer-receipt.json")["recipe"]
-    train, outer = split()
-    ids = [row["sample_id"] for row in outer]
-    if (recipe["training"] != read(CONTROL / "frozen-recipe.json")
-            or order_digest(outer) != recipe["eval_order_sha256"]
-            or digest(PROMPT) != recipe["training"]["prompt_sha256"]
-            or digest(LAWS) != recipe["training"]["law_corpus_sha256"]
-            or digest(LABELS) != recipe["training"]["label_source_sha256"]):
-        raise ValueError("Local scoring sources changed since preflight")
+def received_training(fit, recipe):
     adapter = fit / "epoch-1"
     state = checkpoint_state(adapter, STEPS, recipe)
     step_log = [json.loads(line) for line in (fit / "steps.jsonl").read_bytes().splitlines()]
     if step_log != state["records"]:
         raise ValueError("Recovered training log and checkpoint state differ")
-    records = state["records"]
-    del state
-    discrete_keys = ("examples", "supervised_tokens", "decision_tokens")
-    for actual, historic in zip(records, recipe["epoch1_step_controls_4b"], strict=True):
-        if ([actual[k] for k in discrete_keys] != historic[:3] or
-                not math.isclose(actual["applied_lr"], historic[3], rel_tol=1e-14, abs_tol=0.0)):
-            raise ValueError("Ordered training supervision or learning rate differs from original 4B")
-    adapter_sha = digest(adapter / "adapter_model.safetensors")
-    receipt = read(evaluated / "inference-receipt.json")
-    expected_cache_key = f"fold2-8b:{BASE_REVISION}:{adapter_sha}:{digest(PROMPT)}:bf16:px393216"
-    if (receipt["adapter_sha256"] != adapter_sha or receipt["cache_key"] != expected_cache_key
-            or receipt["eval_order_sha256"] != recipe["eval_order_sha256"]):
-        raise ValueError("Inference and recovered step-67 adapter identities differ")
+    return step_log, digest(adapter / "adapter_model.safetensors")
+
+
+def original_inference_controls():
     control_cache = CONTROL / "epoch1-bf16-raw-cache.json"
     old_inference = read(CONTROL_RESULT)["inference"]
     basis = read(control_cache)["identity"]
@@ -130,6 +110,15 @@ def score(prepared, fit, evaluated, result):
                 for start, _, batch in EVAL_SEGMENTS
             ]):
         raise ValueError("Original 4B cache or batch witness differs from the frozen evaluation")
+    return basis, old_inference
+
+
+def read_received_raw(evaluated, recipe, adapter_sha, basis, ids):
+    receipt = read(evaluated / "inference-receipt.json")
+    expected_cache_key = f"fold2-8b:{BASE_REVISION}:{adapter_sha}:{digest(PROMPT)}:bf16:px393216"
+    if (receipt["adapter_sha256"] != adapter_sha or receipt["cache_key"] != expected_cache_key
+            or receipt["eval_order_sha256"] != recipe["eval_order_sha256"]):
+        raise ValueError("Inference and recovered step-67 adapter identities differ")
     raw_outputs = {}
     for segment, (start, end, batch) in zip(receipt["segments"], EVAL_SEGMENTS, strict=True):
         path = evaluated / f"raw-{start}-{end}.json"
@@ -154,6 +143,11 @@ def score(prepared, fit, evaluated, result):
                 or any(row["sample_id"] != sid for sid, row in cache["outputs"].items())):
             raise ValueError("Recovered inference cache failed ordered coverage or batch verification")
         raw_outputs.update(cache["outputs"])
+    return receipt, raw_outputs
+
+
+def format_received_predictions(train, ids, raw_outputs, prediction_path):
+    from .v3_turnaround import ActionSupportedLawRetriever, format_v3_record
 
     train_ids = {row["sample_id"] for row in train}
     train_cases = {row["sample_id"]: row for row in read_selected_cases(LABELS, train_ids)}
@@ -162,11 +156,32 @@ def score(prepared, fit, evaluated, result):
     laws = [json.loads(line) for line in LAWS.read_bytes().splitlines() if line.strip()]
     ranker = ActionSupportedLawRetriever(laws, [train_cases[row["sample_id"]] for row in train])
     formatted = [format_v3_record(sid, raw_outputs[sid]["parsed"], ranker) for sid in ids]
-    prediction_path = evaluated / "epoch1-bf16-predictions.jsonl"
     pending = prediction_path.with_suffix(".part")
     pending.write_bytes("".join(json.dumps(row, ensure_ascii=False) + "\n" for row in formatted).encode())
     pending.replace(prediction_path)
-    candidate = read_index(prediction_path, lambda row: decode_target(row, local_ids=True), limit_size=True)
+    return read_index(prediction_path, lambda row: decode_target(row, local_ids=True), limit_size=True)
+
+
+def score(prepared, fit, evaluated, result):
+    recipe = read(prepared / "transfer-receipt.json")["recipe"]
+    train, outer = split()
+    ids = [row["sample_id"] for row in outer]
+    if (recipe["training"] != read(CONTROL / "frozen-recipe.json")
+            or order_digest(outer) != recipe["eval_order_sha256"]
+            or digest(PROMPT) != recipe["training"]["prompt_sha256"]
+            or digest(LAWS) != recipe["training"]["law_corpus_sha256"]
+            or digest(LABELS) != recipe["training"]["label_source_sha256"]):
+        raise ValueError("Local scoring sources changed since preflight")
+    records, adapter_sha = received_training(fit, recipe)
+    discrete_keys = ("examples", "supervised_tokens", "decision_tokens")
+    for actual, historic in zip(records, recipe["epoch1_step_controls_4b"], strict=True):
+        if ([actual[k] for k in discrete_keys] != historic[:3] or
+                not math.isclose(actual["applied_lr"], historic[3], rel_tol=1e-14, abs_tol=0.0)):
+            raise ValueError("Ordered training supervision or learning rate differs from original 4B")
+    basis, old_inference = original_inference_controls()
+    receipt, raw_outputs = read_received_raw(evaluated, recipe, adapter_sha, basis, ids)
+    prediction_path = evaluated / "epoch1-bf16-predictions.jsonl"
+    candidate = format_received_predictions(train, ids, raw_outputs, prediction_path)
     control_path = CONTROL / "epoch1-bf16-predictions.jsonl"
     control = read_index(control_path, lambda row: decode_target(row, local_ids=True), limit_size=True)
     if (list(control) != ids or list(candidate) != ids or
