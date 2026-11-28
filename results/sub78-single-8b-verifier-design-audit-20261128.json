@@ -1,0 +1,555 @@
+{
+  "scope": "Independent CPU-only review. Measurements are local data/provenance and archived 4B timings; the 8B verifier, adapter switch, VRAM, ZIP, and L4 runtime were not executed.",
+  "archive": {
+    "seventh_bytes": 10548013152,
+    "stored": true,
+    "framing_bytes": 5660,
+    "specialist_bytes": 1504223683,
+    "old_4b_complete_base_bytes": 8887291213,
+    "old_4b_adapter_bytes": 135999979,
+    "new_8b_base_bytes": 17545914364,
+    "one_adapter_substitution_model_shards_only": 19249887327,
+    "two_adapters_substitution_model_shards_only": 19429141313,
+    "one_adapter_substitution_complete_base_files": 19249890310,
+    "two_adapters_substitution_complete_base_files": 19429144296,
+    "model_shards_only_vs_complete_file_delta_bytes": 2983,
+    "one_adapter_complete_files_margin_to_20gb_bytes": 750109690,
+    "two_adapters_complete_files_margin_to_20gb_bytes": 570855704
+  },
+  "models": {
+    "4b": {
+      "config_sha256": "edac7703329133edfc53e46ac0081835144c99d7eebf28b71c732694d435224d",
+      "tokenizer_sha256": "a5d85b6dcc535e6b93115a9ef287e6132fdbf30270da6218194ba742261173c7",
+      "shards": [
+        {
+          "bytes": 4967229296,
+          "tensor_bytes_by_dtype": {
+            "BF16": 4967199232
+          }
+        },
+        {
+          "bytes": 3908490048,
+          "tensor_bytes_by_dtype": {
+            "BF16": 3908432384
+          }
+        }
+      ],
+      "tensor_shard_sizes": 8875719344
+    },
+    "8b": {
+      "config_sha256": "5cd452860dc1e9c29dd71cc3cef7f39b338b7a40793f7a260655c2d3568f3661",
+      "tokenizer_sha256": "a5d85b6dcc535e6b93115a9ef287e6132fdbf30270da6218194ba742261173c7",
+      "shards": [
+        {
+          "bytes": 4902275944,
+          "tensor_bytes_by_dtype": {
+            "BF16": 4902261760
+          }
+        },
+        {
+          "bytes": 4915962496,
+          "tensor_bytes_by_dtype": {
+            "BF16": 4915943936
+          }
+        },
+        {
+          "bytes": 4999831048,
+          "tensor_bytes_by_dtype": {
+            "BF16": 4999813120
+          }
+        },
+        {
+          "bytes": 2716270024,
+          "tensor_bytes_by_dtype": {
+            "BF16": 2716228576
+          }
+        }
+      ],
+      "tensor_shard_sizes": 17534339512
+    }
+  },
+  "eight_b_lora": {
+    "1": {
+      "bytes": 179252976,
+      "tensor_bytes_by_dtype": {
+        "F32": 179175424
+      },
+      "config_bytes": 1010,
+      "target_modules": ".*(language_model\\.layers\\.\\d+\\.(self_attn\\.(q_proj|k_proj|v_proj|o_proj)|mlp\\.(gate_proj|up_proj|down_proj))|visual\\.(merger|deepstack_merger_list\\.\\d+)\\.linear_fc[12])$",
+      "config_sha256": "7ad0ec40f33ef84c4230542bcf9b99518e6c2466dba2b9ded179989282801f31"
+    },
+    "2": {
+      "bytes": 179252976,
+      "tensor_bytes_by_dtype": {
+        "F32": 179175424
+      },
+      "config_bytes": 1010,
+      "target_modules": ".*(language_model\\.layers\\.\\d+\\.(self_attn\\.(q_proj|k_proj|v_proj|o_proj)|mlp\\.(gate_proj|up_proj|down_proj))|visual\\.(merger|deepstack_merger_list\\.\\d+)\\.linear_fc[12])$",
+      "config_sha256": "7ad0ec40f33ef84c4230542bcf9b99518e6c2466dba2b9ded179989282801f31"
+    }
+  },
+  "extra_loaded_tensor_mib_if_dtype_unchanged": 170.875,
+  "tokenizer": {
+    "short_fixture": {
+      "4b": {
+        "accept": {
+          "standalone": [
+            10330
+          ],
+          "next": 10330,
+          "prefix_matches": true
+        },
+        "reject": {
+          "standalone": [
+            46996
+          ],
+          "next": 46996,
+          "prefix_matches": true
+        }
+      },
+      "8b": {
+        "accept": {
+          "standalone": [
+            10330
+          ],
+          "next": 10330,
+          "prefix_matches": true
+        },
+        "reject": {
+          "standalone": [
+            46996
+          ],
+          "next": 46996,
+          "prefix_matches": true
+        }
+      },
+      "same": true
+    },
+    "actual_jinja_verifier_prefix": {
+      "template_sha256": [
+        "6f8a6a55027e3da5160105556cda5dd69f6423f1c32645f6730d32de7773d0c4",
+        "5c72a170d2a4a1a3bc5adad2e689ae28138a9700e5b8c96c0266331e86c0acce"
+      ],
+      "rendered_equal_codes": 11,
+      "codes_checked": 11,
+      "codes": [
+        {
+          "code": "fall_height",
+          "rendered_prefix_equal": true,
+          "prefix_sha256": [
+            "5e2406bde18e184f0bc3fa5d1a2c03cfb5ad01a9674bab02232a305b1ae5465a",
+            "5e2406bde18e184f0bc3fa5d1a2c03cfb5ad01a9674bab02232a305b1ae5465a"
+          ],
+          "decision_token_and_prefix_check": [
+            {
+              "accept": [
+                10330,
+                true
+              ],
+              "reject": [
+                46996,
+                true
+              ]
+            },
+            {
+              "accept": [
+                10330,
+                true
+              ],
+              "reject": [
+                46996,
+                true
+              ]
+            }
+          ]
+        },
+        {
+          "code": "slip_trip",
+          "rendered_prefix_equal": true,
+          "prefix_sha256": [
+            "2fc9311b7a7eb65b9ff754437c09a9bcf9a8a31e04a56dd70e6c905d70a1f3ac",
+            "2fc9311b7a7eb65b9ff754437c09a9bcf9a8a31e04a56dd70e6c905d70a1f3ac"
+          ],
+          "decision_token_and_prefix_check": [
+            {
+              "accept": [
+                10330,
+                true
+              ],
+              "reject": [
+                46996,
+                true
+              ]
+            },
+            {
+              "accept": [
+                10330,
+                true
+              ],
+              "reject": [
+                46996,
+                true
+              ]
+            }
+          ]
+        },
+        {
+          "code": "caught_in_machine",
+          "rendered_prefix_equal": true,
+          "prefix_sha256": [
+            "54a70f223f4292bef19d3ac243c2fea249322de1f00968f79694a9e22531120a",
+            "54a70f223f4292bef19d3ac243c2fea249322de1f00968f79694a9e22531120a"
+          ],
+          "decision_token_and_prefix_check": [
+            {
+              "accept": [
+                10330,
+                true
+              ],
+              "reject": [
+                46996,
+                true
+              ]
+            },
+            {
+              "accept": [
+                10330,
+                true
+              ],
+              "reject": [
+                46996,
+                true
+              ]
+            }
+          ]
+        },
+        {
+          "code": "struck_by_lifting",
+          "rendered_prefix_equal": true,
+          "prefix_sha256": [
+            "47a1fd6c8d7ea586b14be554d8325c27ce6a8023561f5a13e3c134c4344977c5",
+            "47a1fd6c8d7ea586b14be554d8325c27ce6a8023561f5a13e3c134c4344977c5"
+          ],
+          "decision_token_and_prefix_check": [
+            {
+              "accept": [
+                10330,
+                true
+              ],
+              "reject": [
+                46996,
+                true
+              ]
+            },
+            {
+              "accept": [
+                10330,
+                true
+              ],
+              "reject": [
+                46996,
+                true
+              ]
+            }
+          ]
+        },
+        {
+          "code": "electrical_energy",
+          "rendered_prefix_equal": true,
+          "prefix_sha256": [
+            "addc6774273e185d2f95edd81ca490db6414764eff08d7366b0c053846cf334b",
+            "addc6774273e185d2f95edd81ca490db6414764eff08d7366b0c053846cf334b"
+          ],
+          "decision_token_and_prefix_check": [
+            {
+              "accept": [
+                10330,
+                true
+              ],
+              "reject": [
+                46996,
+                true
+              ]
+            },
+            {
+              "accept": [
+                10330,
+                true
+              ],
+              "reject": [
+                46996,
+                true
+              ]
+            }
+          ]
+        },
+        {
+          "code": "drowning_inundation",
+          "rendered_prefix_equal": true,
+          "prefix_sha256": [
+            "0e3ac7ea7a65eaa024e244d521bf0b80eeaa0a0cfb33b9ce1f816d11efdb4f60",
+            "0e3ac7ea7a65eaa024e244d521bf0b80eeaa0a0cfb33b9ce1f816d11efdb4f60"
+          ],
+          "decision_token_and_prefix_check": [
+            {
+              "accept": [
+                10330,
+                true
+              ],
+              "reject": [
+                46996,
+                true
+              ]
+            },
+            {
+              "accept": [
+                10330,
+                true
+              ],
+              "reject": [
+                46996,
+                true
+              ]
+            }
+          ]
+        },
+        {
+          "code": "fire_explosion",
+          "rendered_prefix_equal": true,
+          "prefix_sha256": [
+            "82b98c10046cbd9638803af04ef56bb39edbeec4fd42bfb8c23d4db39027b875",
+            "82b98c10046cbd9638803af04ef56bb39edbeec4fd42bfb8c23d4db39027b875"
+          ],
+          "decision_token_and_prefix_check": [
+            {
+              "accept": [
+                10330,
+                true
+              ],
+              "reject": [
+                46996,
+                true
+              ]
+            },
+            {
+              "accept": [
+                10330,
+                true
+              ],
+              "reject": [
+                46996,
+                true
+              ]
+            }
+          ]
+        },
+        {
+          "code": "confined_space",
+          "rendered_prefix_equal": true,
+          "prefix_sha256": [
+            "985cd99731b89bb43cef0dce31a044476555fe9be2ed57e1cfec1e5b881d34b3",
+            "985cd99731b89bb43cef0dce31a044476555fe9be2ed57e1cfec1e5b881d34b3"
+          ],
+          "decision_token_and_prefix_check": [
+            {
+              "accept": [
+                10330,
+                true
+              ],
+              "reject": [
+                46996,
+                true
+              ]
+            },
+            {
+              "accept": [
+                10330,
+                true
+              ],
+              "reject": [
+                46996,
+                true
+              ]
+            }
+          ]
+        },
+        {
+          "code": "chemical_exposure",
+          "rendered_prefix_equal": true,
+          "prefix_sha256": [
+            "bab1ff4ba485511f16474e115d52c7d6b44bf7e6836334a7873e927dacfe52aa",
+            "bab1ff4ba485511f16474e115d52c7d6b44bf7e6836334a7873e927dacfe52aa"
+          ],
+          "decision_token_and_prefix_check": [
+            {
+              "accept": [
+                10330,
+                true
+              ],
+              "reject": [
+                46996,
+                true
+              ]
+            },
+            {
+              "accept": [
+                10330,
+                true
+              ],
+              "reject": [
+                46996,
+                true
+              ]
+            }
+          ]
+        },
+        {
+          "code": "thermal_weather",
+          "rendered_prefix_equal": true,
+          "prefix_sha256": [
+            "afef286aea75dbb2fbef398c4c6b8bc0744eaf4261d3d92dfafd1767e0bee160",
+            "afef286aea75dbb2fbef398c4c6b8bc0744eaf4261d3d92dfafd1767e0bee160"
+          ],
+          "decision_token_and_prefix_check": [
+            {
+              "accept": [
+                10330,
+                true
+              ],
+              "reject": [
+                46996,
+                true
+              ]
+            },
+            {
+              "accept": [
+                10330,
+                true
+              ],
+              "reject": [
+                46996,
+                true
+              ]
+            }
+          ]
+        },
+        {
+          "code": "other",
+          "rendered_prefix_equal": true,
+          "prefix_sha256": [
+            "fc2bbaa78108731202125ff4baf1ab2aa57604159b0ecc709e3ff8e51feeccda",
+            "fc2bbaa78108731202125ff4baf1ab2aa57604159b0ecc709e3ff8e51feeccda"
+          ],
+          "decision_token_and_prefix_check": [
+            {
+              "accept": [
+                10330,
+                true
+              ],
+              "reject": [
+                46996,
+                true
+              ]
+            },
+            {
+              "accept": [
+                10330,
+                true
+              ],
+              "reject": [
+                46996,
+                true
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "pixel_settings_stock_preprocessor_equal": true
+  },
+  "calibration": {
+    "actual_inner": {
+      "rows": 89,
+      "photos": 65,
+      "groups": 24
+    },
+    "c1_after_exclude_two_verifier_train_groups": {
+      "rows": 34,
+      "photos": 22,
+      "groups": 22
+    },
+    "c1_by_kind": {
+      "verify_pos": 20,
+      "verify_neg_hard": 13,
+      "verify_neg_safe": 1
+    },
+    "c1_exact_inspect_exposure_photos": 22,
+    "c1_exact_inspect_exposure_groups": 22,
+    "c2_full_inspect_exposure_photos": 65,
+    "outer_photo_overlap_at_calibration": 0,
+    "specialist_precision_outer_labels_used": false,
+    "actual_verifier_curriculum_rows": 157,
+    "actual_verifier_curriculum_by_kind": {
+      "verify_neg_hard": 44,
+      "verify_neg_safe": 34,
+      "verify_pos": 79
+    },
+    "verified_curriculum_hash": "57527215c3ffa8c568041ba6b19873ae3d38f8f07199aab45b1c831b7417f446",
+    "matched_4b_8b_training_configuration": {
+      "val_fold": 4,
+      "epochs": 2,
+      "grad_accum": 16,
+      "lr": 0.00014,
+      "max_pixels": 393216,
+      "seed": 42,
+      "curriculum_sha256": "57527215c3ffa8c568041ba6b19873ae3d38f8f07199aab45b1c831b7417f446",
+      "prompt_sha256": "13edaf96ccd032551ea0a1ebdc27934d958afd1259439f4b05773bdde1b2e07f",
+      "experiment": {
+        "arm": "v3_11code_fold4",
+        "curriculum_n": 1092,
+        "inner_cal_pairs_n": 89
+      }
+    },
+    "full_inner_original_gate_accept_count": 50,
+    "full_inner_original_gate_total": 89,
+    "c2_safe_candidate_accepted_count_verified": false,
+    "c1_safe_rows_at_most_q100_accept_by_construction": 1,
+    "zero_accepts_from_one_safe_candidate_one_sided_95pct_upper": 0.95
+  },
+  "time_cost": {
+    "proposed_gpu_minutes_range": [
+      6.5,
+      7.5
+    ],
+    "draft_outer_candidates_per_arm": 52,
+    "auditable_c1_inner_pairs_per_arm": 34,
+    "c2_inner_pairs_per_arm": 89,
+    "gpu_arms": 2,
+    "c1_margin_rows_both_arms": 172,
+    "c2_margin_rows_both_arms": 282,
+    "proposed_outer_generations_both_arms_range": [
+      30,
+      48
+    ],
+    "historic_seventh_4b_seconds_per_margin": 0.7883239436619718,
+    "historic_seventh_4b_seconds_per_generated_verdict": 4.604577777777777,
+    "4b_reference_arithmetic_c1_seconds_excluding_load_or_transfer": [
+      273.72905164319246,
+      356.6114516431925
+    ],
+    "4b_reference_arithmetic_c2_seconds_excluding_load_or_transfer": [
+      360.4446854460093,
+      443.32708544600933
+    ],
+    "historical_spot_compute_hourly_krw_with_vat": 605.4774000000001,
+    "historical_spot_vm_disk_ip_hourly_krw_with_vat_before_egress": 657.8038927653323,
+    "seven_minutes_compute_only_krw": 70.63903000000002,
+    "seven_minutes_vm_disk_ip_krw_before_egress": 76.74378748928876,
+    "quoted_cost_planning_range_krw": [
+      250,
+      650
+    ],
+    "observed_single_8b_runtime_or_invoice": false,
+    "cost_note": "Seven minutes of GPU arithmetic is not startup-to-deletion billing. Provisioning, base/adapter availability, independent parity, transfer, idle and cleanup are not included in this arithmetic."
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "scope": "Read-only local resource and historical 8B training check while the Fold 2 4B queue was running. No 8B model was loaded or run locally.",
+  "local_hardware": {
+    "gpu": "NVIDIA GeForce RTX 3060",
+    "driver_model": "WDDM",
+    "physical_vram_mib": 12288,
+    "before_fold2_4b_queue_used_mib": 1806,
+    "sampled_at_kst": "2026-11-28T13:19:29+09:00",
+    "during_4b_queue_used_mib": 8318,
+    "during_4b_queue_available_reported_mib": 3796,
+    "during_4b_queue_gpu_utilization_percent": 100,
+    "windows_host_total_physical_kib": 16615644,
+    "windows_host_free_physical_kib": 2847976,
+    "windows_host_total_virtual_kib": 58558684,
+    "windows_host_free_virtual_kib": 14015648,
+    "wddm_adapter_memory_separate_sample_bytes": {
+      "dedicated_usage": 8712093696,
+      "shared_usage": 175775744,
+      "total_committed": 9648562176
+    }
+  },
+  "historical_8b_seoul_l4_training": {
+    "recipe": "NF4 with double quantization and BF16 compute, unquantized visual and lm_head, SDPA, multimodal LoRA with language and visual mergers, AdamW",
+    "trainable_parameters": 44793856,
+    "lora_rank": 16,
+    "max_pixels": 393216,
+    "micro_batch": 1,
+    "gradient_accumulation": 16,
+    "base_learning_rate": 0.00014,
+    "visual_learning_rate_fraction": 0.65,
+    "weight_decay": 0.01,
+    "optimizer_steps": 138,
+    "cuda_peak_allocated_gib": 8.823,
+    "cuda_peak_reserved_gib": 9.0,
+    "sources": [
+      "results/seoul-l4-roadmap-experiments-20261128.json",
+      "data/vlm-scale-seoul-8b-fold4-20261128/fit/training_summary.json",
+      "data/vlm-scale-seoul-8b-fold4-20261128/fit/steps.jsonl",
+      "kwater_lab/vlm_11code.py"
+    ]
+  },
+  "local_8b_base": {
+    "revision_from_seoul_run_ledger": "0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+    "configuration_sha256_matches_seoul_run": "5cd452860dc1e9c29dd71cc3cef7f39b338b7a40793f7a260655c2d3568f3661",
+    "checkpoint_shards": 4,
+    "checkpoint_shard_bytes_total": 17534339512
+  },
+  "assessment": {
+    "nf4_training": "Historical 9.0 GiB peak reserved plus the prior desktop baseline gives roughly 1.2 GiB raw capacity margin. Windows residency budget, loader commit, fragmentation and transient demand vary; neither fit nor speed on RTX 3060 is confirmed.",
+    "bf16_inference": "The four source shards alone occupy about 16.33 GiB on disk, exceeding 12 GiB even before adapter, image activations or KV cache. The normal single-GPU BF16 loader maps the whole model to CUDA device 0, so reducing batch size cannot make that recipe resident. NF4 or CPU offload would be separate experimental conditions; neither was launched.",
+    "execution_policy": "The active Fold 2 4B train, BF16 evaluation and scoring retain exclusive local use. An 8B smoke is not scheduled."
+  }
+}
