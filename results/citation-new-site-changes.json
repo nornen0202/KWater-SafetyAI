@@ -1,0 +1,24 @@
+{
+  "actual_changed_rows": 0,
+  "actual_changed_sites": 0,
+  "emitted_codes": {
+    "caught_in_machine": 1,
+    "chemical_exposure": 2,
+    "fall_height": 1,
+    "fire_explosion": 3,
+    "slip_trip": 8,
+    "struck_by_lifting": 2
+  },
+  "emitted_hazards": 17,
+  "initial_batch_size": 2,
+  "matched_codes": {},
+  "matched_pairs": 0,
+  "matched_sha256": "c685af71baa43d7f35bf8e43ad7de72f4a745c0b0c62c6e79ac98ae97d16c6f9",
+  "photos": 37,
+  "policy_sha256": "8b3d596a5b5256649c78013b5cd34a68c976385d21eef06cf747e3e0a062d61f",
+  "sites": 12,
+  "submission_sha256": "d60b3f543def26647be9937d812611d370996f8f81b37c8119bae264041ed0c7",
+  "trace_sha256": "96178537f2e1f357c483e9c3dd548bcb2404fd2880f43bbda5d78187b70bf552",
+  "unchanged_only": 5,
+  "unmatched_changed_rows": 0
+}

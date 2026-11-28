@@ -1,0 +1,16 @@
+{
+  "actual_changed_rows": 0,
+  "actual_changed_sites": 0,
+  "matched_codes": {},
+  "matched_pairs": 0,
+  "matched_sha256": "5b74be1ed0bc2a44cbdec15c5efcc29c82d5456955456b5b5283dc3fe8469b9c",
+  "outer_changes": 0,
+  "outer_photos": 197,
+  "prediction_sha256": "2a3e4c5866d53a67680040bf2a43c164b73bffc330f4547c9a5c8c783e9ecc4a",
+  "raw_cache_sha256": "ee8f2cba053001c60422fe540aec9893c3ff8843ba39cb18ce67024dce0b5b43",
+  "retained_hazards": 47,
+  "retained_photos": 55,
+  "train_only_photos": 769,
+  "unchanged_only": 5,
+  "unmatched_changed_rows": 0
+}

@@ -94,7 +94,7 @@ def attest():
     freeze(Path("results/citation-generator-files.json"),hashes)
 
 
-def main(reserve=False):
+def main(reserve=False, batch_size=4):
     from .fold4_native_archive_replay import sha256_file
     if digest(Path("kwater_lab/fold4_citation_alignment.py")) != read(TRIAL)["policy_script_sha256"]:
         raise ValueError("Policy changed after development")
@@ -148,7 +148,7 @@ def main(reserve=False):
         return record
     module.format_v3_record = capture
     os.environ["KWATER_SEED"] = "42"
-    os.environ["KW_BATCH"] = "4"
+    os.environ["KW_BATCH"] = str(batch_size)
     sys.argv = [str(STAGE/"main.py"), "--input-dir", str(directory), "--output-dir", str(wave)]
     module.main()
     output = wave/"submission.jsonl"
@@ -158,6 +158,7 @@ def main(reserve=False):
     combined = read(WAVE/"traced-private.json") + observed if reserve else observed
     matched, counts = match_controls(combined)
     counts.update(photos=len(selected), sites=pool_receipt["sites"], emitted_hazards=len(observed),
+                  initial_batch_size=batch_size, emitted_codes=dict(Counter(r["code"] for r in observed)),
                   policy_sha256=read(TRIAL)["policy_script_sha256"], submission_sha256=digest(output),
                   trace_sha256=freeze(wave/"traced-private.json",observed),
                   matched_sha256=freeze(wave/"matched-private.json",matched))
@@ -168,8 +169,9 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("action", choices=["attest","run"])
     parser.add_argument("--reserve",action="store_true")
+    parser.add_argument("--batch-size", type=int, choices=[1, 2, 4], default=int(os.environ.get("KW_BATCH", 2 if os.name == "nt" else 4)))
     args = parser.parse_args()
     if args.action == "attest":
         attest()
     else:
-        main(args.reserve)
+        main(args.reserve, args.batch_size)
