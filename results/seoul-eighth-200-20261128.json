@@ -1,0 +1,121 @@
+{
+  "archive_sha256": "3c779368d462ea52e972ae1cdd1c33c4050867e60009288d47e301c1ad4c6645",
+  "hardware": "NVIDIA L4, 23034 MiB, 580.178.04",
+  "input_manifest_sha256": "8c86d0b60b7b879573ccdf4c81558ed4a3840588bb6d2fbbe656dfdb911335b6",
+  "official_result": [
+    "OK"
+  ],
+  "official_clock": {
+    "return_code": 0,
+    "execute": 1171,
+    "install": 19,
+    "total": 1190,
+    "limit": 1800
+  },
+  "kit_log_sha256": "e84415c4a3ea43ead47d5df860dfe474b18e0f20d82e26afd01aca1ef34f8dab",
+  "rows": 200,
+  "exact_id_order": true,
+  "output_sha256": "25d198e8081cbe4f19432d2aa6f4cdb597075608457b6d433d7ba1514b7d511e",
+  "peak_sampled_gpu_mib": 12018,
+  "independent_checker": {
+    "return_code": 0,
+    "valid_rows": 200,
+    "total_rows": 200,
+    "checker_dependency_missing": null,
+    "all_rows_valid": true
+  },
+  "hazard_photos": 103,
+  "hazard_code_counts": {
+    "fall_height": 7,
+    "chemical_exposure": 11,
+    "fire_explosion": 36,
+    "slip_trip": 41,
+    "other": 11,
+    "electrical_energy": 25,
+    "caught_in_machine": 2,
+    "struck_by_lifting": 2
+  },
+  "compared_with_6": {
+    "prior_output_sha256": "034517ef1078a831eb61bd9406b0f27eca97b613e9266478773c4631fbd7ab75",
+    "normal_to_hazard": 2,
+    "hazard_to_normal": 37,
+    "changed_codes": 73
+  },
+  "compared_with_7": {
+    "prior_output_sha256": "c9fe0310478ea28a7c6ebe8521946e702f21c4e770a4382ab30db9ef284999cd",
+    "normal_to_hazard": 0,
+    "hazard_to_normal": 32,
+    "changed_codes": 60
+  },
+  "raw_parsed": [
+    199,
+    200
+  ],
+  "initial_and_final_batch": [
+    4,
+    4
+  ],
+  "telemetry": {
+    "input_photos": 200,
+    "enable_hybrid_booster": false,
+    "max_candidates_per_photo": 0,
+    "inspect_initial_batch_size": 4,
+    "inspect_final_effective_batch_size": 4,
+    "inspect_backoff_count": 0,
+    "verify_initial_batch_size": 0,
+    "verify_margin_effective_batch_size": 0,
+    "verify_gen_effective_batch_size": 0,
+    "verify_max_new_tokens": 0,
+    "verify_backoff_count": 0,
+    "raw_vlm_parsed_count": 199,
+    "raw_specialist_candidates": 0,
+    "margin_gate_passed_candidates": 0,
+    "verified_accepted_candidates": 0,
+    "specialist_seconds": 0.0,
+    "vlm_load_seconds": 7.387,
+    "inspect_seconds": 1158.848,
+    "margin_gate_seconds": 0.0,
+    "verify_generate_seconds": 0.0,
+    "postprocess_seconds": 1.849,
+    "total_seconds": 1168.377,
+    "sec_per_photo": 5.842,
+    "output_submission_sha256": "25d198e8081cbe4f19432d2aa6f4cdb597075608457b6d433d7ba1514b7d511e"
+  },
+  "scope": "200 fixed development photos from 192 groups, timing and paired output behavior only.",
+  "archive_bytes": 9043784038,
+  "resource": {
+    "zone": "asia-northeast3-a",
+    "type": "g2-standard-16",
+    "gpu": "NVIDIA L4",
+    "start": "2026-11-27T20:01:55.301000-08:00",
+    "confirmed_instance_and_boot_disk_gone": "2026-11-28T13:38:29.512350+09:00",
+    "charged_duration_proxy_minutes": 36.57,
+    "disk_gib": 150,
+    "hard_ttl_minutes": 72
+  },
+  "cost_estimate_krw": {
+    "invoice_available": false,
+    "increment_compute_disk_ip_vat": 1514,
+    "output_transfer_bytes": 147890,
+    "increment_with_510_krw_ancillary_allowance": 2024,
+    "increment_limit": 3500,
+    "prior_known_transfer_estimate": 9273,
+    "overall_known_transfer_estimate": 10787,
+    "overall_with_ancillary_allowances": 12590,
+    "overall_limit": 15000,
+    "usd_to_krw_planning_rate": 1500,
+    "vat_rate": 0.1
+  },
+  "five_frozen_requests": {
+    "rows": 5,
+    "with_generation": 5,
+    "runtime": {
+      "torch": "2.5.1+cu124",
+      "transformers": "4.57.1",
+      "peft": "0.17.1"
+    },
+    "seconds_with_model_load": 45.47726662299988,
+    "packet_sha256": "7fd3e9c05681aa37ab5bb16c3108137fa8cd8e6eae12d735a1242665e587a65c",
+    "response_sha256": "0e143db53c05a9dcedb111b67d25ae63169acc7b9aab6a836018fd17eb3e5833"
+  }
+}
