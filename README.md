@@ -1,5 +1,7 @@
 # K-water 현장 안전 AI 연구 기록
 
+[SafeGround v6 Stage 1 실행계획·판정 원장](reports/safeground-v6-stage1-20261128.md)
+
 [8차 제출 1분 요약과 점수 그림](reports/submission-008-brief-20261128.md)
 
 **8차 8B 단독이 Public 55.22점으로 팀 최고점을 갱신했다.** 7차 53.98보다 1.24점, 6차 53.65보다 1.57점, 최초 42.04보다 13.18점 높다. 11월 28일 16:29 KST에는 140팀 중 30위였고, Private 진출선인 20위까지 1.17점이 남았다. [8차 결과·서울 L4 실측·실제 현장 6장](reports/eighth-deadline-and-carbon-review-20261128.md) · [8차 공식 점수 영수증](results/public_submission_008.json)
