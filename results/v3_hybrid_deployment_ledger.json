@@ -1,0 +1,294 @@
+{
+  "schema_version": "1.0",
+  "generated_at_kst": "2026-11-28T09:12:00+09:00",
+  "purpose": "Strictly separated ledger of (A) Official Leaderboard results, (B) Fold-4 Clean Unseen & Same-Verifier Benchmarks, and (C) Actual Full-1045 Production Hybrid ZIP Provenance, Output Validation, and 200-Photo Native Wall-Clock Telemetry for 7th-submission decision support.",
+  "submission_policy_note": "Additional official competition upload is strictly reserved for separate user decision; full-1045 Fold-4 metrics are NEVER computed or reported as independent generalization scores.",
+  "official_leaderboard_status_20261127_2316_kst": {
+    "team": "도니",
+    "rank": "12 / 100",
+    "best_public_score": 53.65,
+    "baseline_score": 42.04,
+    "gain_over_baseline": 11.61,
+    "submissions_on_20261127": [
+      {
+        "submission_no": 5,
+        "model": "Fresh Clean 8-Code Baseline (Fold 0..3, 790 photos, 2 epochs, 100/100 steps)",
+        "fold4_primary_175_macro_f1": 0.52162,
+        "fold4_sensitivity_107_macro_f1": 0.54289,
+        "public_score": 47.35,
+        "delta_vs_baseline": 5.31
+      },
+      {
+        "submission_no": 6,
+        "archive": "data/submissions/kwater-safeground-v3-epoch1-vlmonly-20261127.zip",
+        "model": "SafeGround v3 11-Code Standalone (Epoch 1/2 boundary, 69/138 steps, --vlm-only, 791 photos)",
+        "fold4_primary_175_macro_f1": 0.54201,
+        "fold4_sensitivity_107_macro_f1": 0.56252,
+        "public_score": 53.65,
+        "delta_vs_baseline": 11.61,
+        "selected_as_best": true
+      }
+    ]
+  },
+  "fold4_benchmark_ledger": {
+    "source_files": [
+      "results/fold4_v3_clean_benchmark.json",
+      "results/fold4-paired-code-evaluation.json",
+      "results/fold4_v3_epoch1_standalone_benchmark.json",
+      "data/local-eval-predictions/fold4-same-verifier/completed.json"
+    ],
+    "training_and_calibration_scope": {
+      "eval_cohort_primary": {"photos": 175, "groups": 39, "max_group_share": 0.28},
+      "eval_cohort_crosssplit_excluded": {"photos": 107, "groups": 36, "excluded_groups": 3, "excluded_photos": 68},
+      "eval_cohort_leave_largest_out": {"photos": 58, "groups": 35},
+      "vlm_base_inspect_train_photos": 791,
+      "vlm_fold4_exposure_photos": 0,
+      "specialist_benchmark_source": "Fold-4 OOF head ensemble (fold_models['4'], 3 seeds trained strictly on 791 Fold 0..3 photos) + strict inner 4-fold calibration (results/clean-neural-calibration-pooled.json['calibration_by_fold']['4'], strict-inner-oof/fold-4.npz)",
+      "specialist_fold4_exposure_photos": 0,
+      "margin_gate_calibration": {
+        "beta": 0.6,
+        "tau_when_hazard": -0.9,
+        "tau_when_empty": 1.489,
+        "inner_pairs_n": 89,
+        "unique_photos_n": 65,
+        "unique_active_groups_n": 24,
+        "verify_supervision_exact_pair_overlap_count": 0,
+        "verify_supervision_photo_overlap_count": 3,
+        "verify_supervision_group_overlap_count": 2,
+        "base_inspect_photo_overlap_count": 65,
+        "disclosure": "All 65 calibration photos were used in base inspect VLM supervision; exact (photo, code) pairs had 0 overlap with verify_* supervision, while 3 photos / 2 groups overlapped verify_* supervision via other codes/photos."
+      }
+    },
+    "metrics_by_panel": {
+      "primary_175": {
+        "clean_8code_2ep": {"macro_f1": 0.52162, "quant_70": 36.513, "no_hazard_fa": "10/49", "no_hazard_fa_rate": 0.20408},
+        "v3_epoch1_standalone": {"macro_f1": 0.54201, "quant_70": 37.941, "no_hazard_fa": "10/49", "no_hazard_fa_rate": 0.20408},
+        "v3_epoch2_standalone": {"macro_f1": 0.53103, "quant_70": 37.172, "no_hazard_fa": "8/49", "no_hazard_fa_rate": 0.16327},
+        "v3_epoch2_hybrid": {
+          "macro_f1": 0.59574,
+          "quant_70": 41.702,
+          "no_hazard_fa": "8/49",
+          "no_hazard_fa_rate": 0.16327,
+          "new_false_alarm_photos": 0,
+          "delta_vs_clean_8code": 0.07412,
+          "ci95_vs_clean_8code": [0.00602, 0.12561],
+          "delta_vs_v3_epoch2_standalone": 0.06471,
+          "ci95_vs_v3_epoch2_standalone": [0.00922, 0.13381]
+        },
+        "v3_epoch1_draft_plus_epoch2_verifier": {
+          "macro_f1": 0.60569,
+          "quant_70": 42.398,
+          "no_hazard_fa": "10/49",
+          "no_hazard_fa_rate": 0.20408,
+          "proposed_passed_accepted": [54, 22, 12],
+          "added_tp_fp_newfa": {"tp": 8, "fp": 4, "new_fa_photos": 0},
+          "delta_vs_v3_epoch1_standalone": 0.06368,
+          "ci95_vs_v3_epoch1_standalone": [0.00594, 0.13562],
+          "delta_vs_v3_epoch2_hybrid": 0.00995,
+          "ci95_vs_v3_epoch2_hybrid": [-0.04657, 0.09928]
+        }
+      },
+      "sensitivity_107": {
+        "normal_false_alarm_threshold_note": "6/27 (22.22%) exceeds the 20% target (5.4 photos) by 1 photo across Clean-8Code, v3 Standalone, and Hybrid (Hybrid added 0 false alarms).",
+        "clean_8code_2ep": {"macro_f1": 0.54289, "no_hazard_fa": "6/27", "no_hazard_fa_rate": 0.22222},
+        "v3_epoch1_standalone": {"macro_f1": 0.56252, "no_hazard_fa": "6/27", "no_hazard_fa_rate": 0.22222},
+        "v3_epoch2_standalone": {"macro_f1": 0.57566, "no_hazard_fa": "6/27", "no_hazard_fa_rate": 0.22222},
+        "v3_epoch2_hybrid": {
+          "macro_f1": 0.63746,
+          "no_hazard_fa": "6/27",
+          "no_hazard_fa_rate": 0.22222,
+          "delta_vs_clean_8code": 0.09456,
+          "ci95_vs_clean_8code": [-0.00255, 0.14217],
+          "delta_vs_v3_epoch2_standalone": 0.06179,
+          "ci95_vs_v3_epoch2_standalone": [0.00503, 0.13977]
+        },
+        "v3_epoch1_draft_plus_epoch2_verifier": {
+          "macro_f1": 0.63071,
+          "no_hazard_fa": "6/27",
+          "no_hazard_fa_rate": 0.22222,
+          "delta_vs_v3_epoch1_standalone": 0.06819,
+          "ci95_vs_v3_epoch1_standalone": [0.0097, 0.17281],
+          "delta_vs_v3_epoch2_hybrid": -0.00675,
+          "ci95_vs_v3_epoch2_hybrid": [-0.02268, 0.04093]
+        }
+      },
+      "leave_largest_group_out_58": {
+        "clean_8code_2ep": 0.51822,
+        "v3_epoch1_standalone": 0.5168,
+        "v3_epoch2_standalone": 0.51274,
+        "v3_epoch2_hybrid": 0.57992,
+        "v3_epoch1_draft_plus_epoch2_verifier": 0.59992
+      }
+    },
+    "same_verifier_parity_audit": {
+      "unique_inference_pairs": 72,
+      "epoch2_exact_prior_hybrid_rows": 175,
+      "epoch2_fixed_verifier_output_sha256": "2bb40e65568a85277fde653d3013bb75e0ada004ba0759201b66a11c644ac048",
+      "epoch1_fixed_verifier_output_sha256": "544f9faa9daa9e43f02004e8b4cf858c07f7076b3e24f8498f9ed503a394a021"
+    },
+    "benchmark_timing_vs_zip_differences": {
+      "fold4_primary_inspect_seconds_175_photos": 987.6,
+      "fold4_recorded_verification_seconds_total": 580.75,
+      "includes_89_pair_inner_margin_calibration": true,
+      "includes_specialist_7view_feature_extraction": false,
+      "explanation": "In evaluate_fold4_benchmark, 580.75s combined (1) one-time 89-pair inner margin gate calibration (not executed in deployed ZIPs), (2) 66-candidate 1-token margin scoring (batch=2), and (3) 26-candidate verification generation (batch=2, max_new_tokens=280), while Specialist 7-view features were read from precomputed .npz cache."
+    }
+  },
+  "production_full1045_hybrid_zip_ledger": {
+    "archive_paths": [
+      "data/submissions/kwater-safeground-v3-full1045-hybrid-20261128.zip",
+      "data/submissions/kwater-full1045-hybrid.zip"
+    ],
+    "stage_dir": "data/submissions/safeground_v3_full1045_hybrid_dir",
+    "archive_sha256": "83c76f441f122279cd925998ce41dbc978f8dcb88cd141d5828e679d6e3ab713",
+    "archive_bytes": 10548013152,
+    "archive_gib": 9.824,
+    "unpacked_bytes": 10548007492,
+    "files_count": 33,
+    "stream_crc_checked": true,
+    "enforced_production_settings": {
+      "enable_hybrid_booster": true,
+      "max_candidates_per_photo": 1,
+      "margin_gate_required": true,
+      "margin_gate": {
+        "beta": 0.6,
+        "tau_when_hazard": -1.2,
+        "tau_when_empty": 0.553,
+        "inner_pairs_n": 251,
+        "inner_tp_accepted": 128,
+        "inner_fp_accepted": 50
+      },
+      "inspect_batch_size": 4,
+      "inspect_max_new_tokens": 620,
+      "verify_batch_size": 2,
+      "verify_max_new_tokens": 280,
+      "max_pixels_infer": 393216,
+      "precision": "BF16 VLM + FP16 SigLIP2/DINOv2 Vision Specialist"
+    },
+    "training_and_calibration_scope": {
+      "vlm_validation_fold": -1,
+      "vlm_base_inspect_train_photos": 1045,
+      "vlm_curriculum_examples": 1345,
+      "vlm_optimizer_steps": 170,
+      "vlm_epoch_losses": [0.932, 0.6738],
+      "law_case_bank_train_photos": 1045,
+      "fold4_is_independent_holdout": false,
+      "fold4_evaluation_guardrail": "In-sample for full-1045 weights; Fold-4 metrics on these weights MUST NOT be treated as an independent score.",
+      "specialist_checkpoint_spec": "clean-spec-v1-1045-full",
+      "specialist_train_photos": 1045,
+      "specialist_ensemble_models": 15,
+      "specialist_oof_archive": "oof_1045_predictions.npz",
+      "specialist_calibration_method": "Single calibration fit (temperatures, code thresholds, scene threshold) and per-code precisions computed on all 1045 pooled 5-fold x 3-seed incident-group OOF predictions (oof_1045_predictions.npz); not a separate inner calibration split; inference averages all 15 heads.",
+      "specialist_oof_code_precisions": {
+        "fall_height": 0.7151,
+        "slip_trip": 0.5724,
+        "caught_in_machine": 0.6957,
+        "struck_by_lifting": 0.2212,
+        "electrical_energy": 0.9231,
+        "drowning_inundation": 0.0,
+        "fire_explosion": 0.8776,
+        "confined_space": 0.0,
+        "chemical_exposure": 1.0,
+        "thermal_weather": 0.0,
+        "other": 0.7481
+      },
+      "margin_gate_exposure_audit": {
+        "inner_pairs_n": 251,
+        "unique_photos_n": 170,
+        "unique_groups_n": 40,
+        "exact_pair_disjoint_from_verify_supervision": true,
+        "verify_supervision_exact_pair_overlap_count": 0,
+        "verify_supervision_photo_overlap_count": 5,
+        "verify_supervision_group_overlap_count": 4,
+        "base_inspect_photo_overlap_count": 170,
+        "all_calibration_photos_used_in_base_inspect_training": true
+      },
+      "provenance_sha256": {
+        "main_py_sha256": "4d74805cf260fd15f784eeb984aecbeae0ee5bcd5726ac78568760e33dcffb05",
+        "assets_json_sha256": "eb850b929ba8fd6df38dc1c1d8ec17ce9020357415db3737b70e9014b09b6ea3",
+        "adapter_safetensors_sha256": "09bf25c6a91670fef30027a5e558d444bca03564db888414bac9f238ca554453",
+        "adapter_config_sha256": "670f90830c3022da8a8bcaf29e2f51b0fcc3f5cfc57df1ec324cefddb88f6867",
+        "prompt_sha256": "13edaf96ccd032551ea0a1ebdc27934d958afd1259439f4b05773bdde1b2e07f",
+        "curriculum_sha256": "1c337bf5f5ae922a3e8ccae0ee2b4423862aff9001b6715bfa706e816f641699",
+        "margin_gate_calibration_sha256": "f5f55fc97cc7a81e9fbb1332d2623d5fe2359445cf339bf25895057cd838b943",
+        "inner_margin_cal_pairs_sha256": "83b9d2cdb0b859266da338355bb4e759b1029431027c5002fa5db96ef32db75f",
+        "specialist_ckpt_sha256": "e1c7d566a032e8cc8f6593da0805cce794a48d55e7127ff8d1e4539a25eefaa5",
+        "specialist_oof_sha256": "6798d085ff81895ca7b0c73e3ff8700324b910a98595270e34eea5819b16d35b"
+      }
+    },
+    "actual_zip_runtime_and_output_verification": {
+      "hardware_environment": "Windows 11 + NVIDIA GeForce RTX 3060 (12 GB VRAM) + External USB SSD G: (diagnostic only; NOT extrapolated to Linux L4 container or offline wheel install)",
+      "official_sample_10_run": {
+        "input_dir": "data/local-kit/sample-input",
+        "check_output_valid_rows": "10/10",
+        "check_output_errors": 0,
+        "output_submission_sha256": "6960985fed090b9a633d757d151e3c3debea2fa10ebc8ced49bb7634bf180502",
+        "output_status_counts": {"hazard": 2, "no_visible_hazard": 8},
+        "total_hazard_items": 3,
+        "runtime_phases": {
+          "specialist_seconds": 229.015,
+          "vlm_load_seconds": 190.522,
+          "inspect_seconds": 76.56,
+          "margin_gate_seconds": 4.991,
+          "verify_generate_seconds": 18.489,
+          "postprocess_seconds": 1.213,
+          "total_seconds": 524.456,
+          "sec_per_photo": 52.446,
+          "raw_specialist_candidates": 4,
+          "margin_gate_passed_candidates": 3,
+          "verified_accepted_candidates": 1
+        }
+      },
+      "fresh_zip_200_photo_windows_native_run": {
+        "timing_report_path": "data/local-reports/full1045-hybrid-windows-timing.json",
+        "scope_guardrail": "Timing and schema validation ONLY on 200 fixed dev photos from fresh extraction of the exact full-1045 ZIP; zero accuracy/generalization claim.",
+        "passed": true,
+        "archive_check_exit": 0,
+        "archive_check_extract_seconds": 403.778,
+        "native_main_wall_seconds": 2727.972,
+        "official_output_check": {"return_code": 0, "valid_rows": 200, "total_rows": 200, "all_rows_valid": true},
+        "exact_output_ids": true,
+        "output_submission_sha256": "279a58ed6fdfe0cd76020b7eb10a24c15881cd0ad3839eefe79411512d3d1e26",
+        "native_main_log_sha256": "fc7c569c55d008e4e60eb46f7fce4e4e816a92941b0d240fb7e34dceee799ca5",
+        "output_structure_summary": {
+          "status_counts": {"hazard": 132, "no_visible_hazard": 68},
+          "total_hazard_items": 178,
+          "total_law_refs": 178,
+          "code_counts": {
+            "slip_trip": 52,
+            "fire_explosion": 37,
+            "electrical_energy": 26,
+            "other": 22,
+            "fall_height": 19,
+            "chemical_exposure": 14,
+            "struck_by_lifting": 4,
+            "caught_in_machine": 4
+          }
+        },
+        "runtime_phases": {
+          "input_photos": 200,
+          "inspect_initial_batch_size": 4,
+          "inspect_final_effective_batch_size": 4,
+          "inspect_backoff_count": 0,
+          "verify_initial_batch_size": 2,
+          "verify_margin_effective_batch_size": 2,
+          "verify_gen_effective_batch_size": 2,
+          "verify_max_new_tokens": 280,
+          "verify_backoff_count": 0,
+          "raw_vlm_parsed_count": 200,
+          "raw_specialist_candidates": 65,
+          "margin_gate_passed_candidates": 41,
+          "verified_accepted_candidates": 9,
+          "specialist_seconds": 423.063,
+          "vlm_load_seconds": 142.061,
+          "inspect_seconds": 1636.284,
+          "margin_gate_seconds": 151.626,
+          "verify_generate_seconds": 268.819,
+          "postprocess_seconds": 1.975,
+          "total_seconds": 2627.222,
+          "sec_per_photo": 13.136
+        }
+      }
+    }
+  }
+}
