@@ -1,7 +1,7 @@
 """Self-contained competition submission builder & ZIP packager (`safeground_v5` / `v3` engine).
 
 Stages local artifacts and builds the archive for the official local kit:
-  - Matches adapter training prompt (`system_prompt_v3.txt` or `system_prompt_11code.txt`) & `max_pixels` by SHA-256.
+  - Matches the packaged prompt to the recorded adapter training prompt and uses its training pixel cap by default.
   - Bundles 1-token log-odds margin verification (`margin_gate_calibration.json`) when hybrid mode is enabled.
   - Bundles `ActionSupportedLawRetriever`, `prevention_law_guard`, `ULTRA_RARE_EVIDENCE_CUES`, and `format_v3_record`.
 """
@@ -503,15 +503,21 @@ def render_entrypoint() -> str:
 
 
 ZIP_LIMIT_BYTES = 20_000_000_000
+RESEARCH_8B_BASE_CONFIG_SHA256 = "5cd452860dc1e9c29dd71cc3cef7f39b338b7a40793f7a260655c2d3568f3661"
+RESEARCH_HIGH_RES_PIXEL_CAPS = (655360, 786432)
 
 
 def _resolve_prompt_file(root: Path, expected_sha: str | None, explicit_prompt: Path | None = None) -> Path:
-    candidates = [explicit_prompt] if explicit_prompt is not None else [
-        root / "kwater_lab/system_prompt_v3.txt",
-        root / "kwater_lab/system_prompt_11code.txt",
-    ]
+    if explicit_prompt is not None:
+        if expected_sha is None:
+            raise ValueError("An explicit prompt requires an adapter training prompt hash")
+        candidates = [explicit_prompt]
+    else:
+        candidates = [root / "kwater_lab/system_prompt_v3.txt", root / "kwater_lab/system_prompt_11code.txt"]
+        if expected_sha is not None:
+            candidates.append(root / "kwater_lab/system_prompt_v4.txt")
     for p in candidates:
-        if p is not None and p.is_file() and (expected_sha is None or digest(p) == expected_sha):
+        if p.is_file() and (expected_sha is None or digest(p) == expected_sha):
             return p
     raise ValueError("Bundled prompt differs from the adapter training prompt")
 
@@ -608,6 +614,8 @@ def validated_release_inputs(
         validate_margin_gate_config(json.loads(gate_file.read_text(encoding="utf-8")))
 
     base = base_dir or root / "data/baseline/base_model"
+    if json.loads((base / "config.json").read_bytes()).get("quantization_config"):
+        raise ValueError("The official kit package path supports BF16 base weights only")
     training_base = summary.get("configuration", {}).get("base_config_sha256")
     if training_base is not None and training_base != digest(base / "config.json"):
         raise ValueError("Bundled base model config differs from the training config")
@@ -665,9 +673,10 @@ def _describe_training_and_calibration_scope(
         "law_case_bank_train_photos": len(train_ids),
         "fold4_is_independent_holdout": val_fold == 4 and not enable_hybrid,
         "fold4_evaluation_guardrail": (
-            "In-sample for full-1045 weights; Fold-4 metrics on these weights MUST NOT be treated as an independent score."
-            if val_fold == -1
-            else "Fold 4 (175 photos, 39 groups) excluded from VLM training."
+            "Fold 4 (175 photos, 39 groups) excluded from VLM training."
+            if val_fold == 4
+            else ("In-sample for full-1045 weights; Fold-4 metrics on these weights MUST NOT be treated as an independent score."
+                  if val_fold == -1 else f"Fold {val_fold} excluded from VLM training. Fold 4 is in-sample.")
         ),
         "provenance_sha256": provenance_hashes,
     }
@@ -783,7 +792,21 @@ def build_submission_package(
     prompt_path: Path | None = None,
     allow_fold_hybrid: bool = False,
     research_8b_base_dir: Path | None = None,
+    research_8b_fp8_base_dir: Path | None = None,
+    research_max_pixels_infer: int | None = None,
+    allow_experimental_8b_adapter: bool = False,
 ) -> dict:
+    if research_8b_fp8_base_dir is not None:
+        raise ValueError(
+            "FP8 research packaging is blocked: the pinned PEFT 0.17.1 load path casts LoRA weights "
+            "to FP8 on the quantized language projections. Use the BF16 research base for high-resolution runs."
+        )
+    if research_max_pixels_infer is not None and (
+        research_8b_base_dir is None or research_max_pixels_infer not in RESEARCH_HIGH_RES_PIXEL_CAPS
+    ):
+        raise ValueError("High-resolution research requires the BF16 8B base and a 655360 or 786432 pixel cap")
+    if allow_experimental_8b_adapter and research_8b_base_dir is None:
+        raise ValueError("An experimental 8B adapter requires the pinned BF16 8B research base")
     if batch_size < 1 or verify_batch_size < 1 or verify_max_new_tokens < 1:
         raise ValueError("Batch sizes and verify_max_new_tokens must be positive")
     if max_candidates_per_photo < 1 or max_candidates_per_photo > 3:
@@ -806,6 +829,8 @@ def build_submission_package(
         source = json.loads((base_dir / "source.json").read_bytes())
         if (source["repo"], source["revision"]) != (f"Qwen/{base_name}", base_revision):
             raise ValueError("Expected the pinned BF16 Qwen3-VL-8B-Instruct source")
+        if digest(base_dir / "config.json") != RESEARCH_8B_BASE_CONFIG_SHA256:
+            raise ValueError("Expected the pinned BF16 Qwen3-VL-8B-Instruct config")
         base_file_names = {
             "chat_template.json", "config.json", "generation_config.json", "merges.txt",
             "model.safetensors.index.json", "preprocessor_config.json", "tokenizer_config.json",
@@ -827,13 +852,18 @@ def build_submission_package(
         root, adapter_dir, specialist_ckpt, enable_hybrid, prompt_path=prompt_path,
         allow_fold_hybrid=allow_fold_hybrid, base_dir=base_dir,
     )
-    if research_8b_base_dir is not None and (
-        summary["val_fold"] != 4 or len(train_ids) != 791
-        or summary.get("completed_epochs") != 1 or summary.get("optimizer_steps") != 69
-        or summary["configuration"].get("base_config_sha256")
-        != "5cd452860dc1e9c29dd71cc3cef7f39b338b7a40793f7a260655c2d3568f3661"
-    ):
-        raise ValueError("Expected the measured Fold 4 8B first-epoch adapter")
+    if research_8b_base_dir is not None:
+        configuration = summary.get("configuration", {})
+        if configuration.get("base_config_sha256") != RESEARCH_8B_BASE_CONFIG_SHA256 or not configuration.get("prompt_sha256"):
+            raise ValueError("A BF16 8B research adapter requires matching training base and prompt hashes")
+        if allow_experimental_8b_adapter:
+            if (configuration.get("experiment") or {}).get("base_revision") != base_revision:
+                raise ValueError("An experimental 8B adapter must record the pinned training base revision")
+        elif (
+            summary["val_fold"] != 4 or len(train_ids) != 791
+            or summary.get("completed_epochs") != 1 or summary.get("optimizer_steps") != 69
+        ):
+            raise ValueError("Expected the measured Fold 4 8B first-epoch adapter")
     dest_dir.mkdir(parents=True, exist_ok=False)
 
     oof_code_precs = {}
@@ -879,7 +909,7 @@ def build_submission_package(
     (dest_dir / "main.py").write_text(entrypoint, encoding="utf-8", newline="\n")
     prompt_filename = resolved_prompt.name
     shutil.copy2(resolved_prompt, dest_dir / prompt_filename)
-    max_pixels_infer = int(summary.get("max_pixels") or v3_turnaround.TRAIN_EVAL_MAX_PIXELS)
+    max_pixels_infer = research_max_pixels_infer or int(summary.get("max_pixels") or v3_turnaround.TRAIN_EVAL_MAX_PIXELS)
     save_atomic(
         dest_dir / "pipeline_config.json",
         lambda f: f.write(
@@ -1141,6 +1171,11 @@ def main() -> None:
     ap.add_argument("--verify-max-new-tokens", type=int, default=PRODUCTION_VERIFY_MAX_NEW_TOKENS)
     ap.add_argument("--max-candidates-per-photo", type=int, default=1)
     ap.add_argument("--research-8b-base-dir", type=Path, default=None)
+    ap.add_argument("--research-8b-fp8-base-dir", type=Path, help="Request FP8 preflight. The pinned kit stack currently blocks packaging.")
+    ap.add_argument("--research-max-pixels-infer", type=int, choices=RESEARCH_HIGH_RES_PIXEL_CAPS,
+                    help="Override the inference pixel cap for the standalone BF16 8B research package.")
+    ap.add_argument("--allow-experimental-8b-adapter", action="store_true",
+                    help="Allow other completed, provenance-checked adapters on the pinned BF16 8B research base.")
     args = ap.parse_args()
 
     info = build_submission_package(
@@ -1157,6 +1192,9 @@ def main() -> None:
         prompt_path=args.prompt_path.resolve() if args.prompt_path else None,
         allow_fold_hybrid=args.allow_fold_hybrid,
         research_8b_base_dir=args.research_8b_base_dir,
+        research_8b_fp8_base_dir=args.research_8b_fp8_base_dir,
+        research_max_pixels_infer=args.research_max_pixels_infer,
+        allow_experimental_8b_adapter=args.allow_experimental_8b_adapter,
     )
     print(json.dumps(info, indent=2, ensure_ascii=False))
 

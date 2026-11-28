@@ -11,7 +11,9 @@ import sys
 import tempfile
 from types import SimpleNamespace
 import unittest
+from unittest.mock import patch
 
+from kwater_lab.fold4_native_archive_replay import load_packaged_entrypoint
 from kwater_lab.fold0_official_resume import infer_cached
 from kwater_lab.fold0_production_compare import generation_conditions
 from kwater_lab.hybrid_pipeline import count_added_predictions
@@ -20,6 +22,7 @@ from kwater_lab.metrics import CODES
 from kwater_lab.package_submission import (
     PRODUCTION_VERIFY_MAX_NEW_TOKENS,
     _describe_training_and_calibration_scope,
+    _resolve_prompt_file,
     build_submission_package,
     render_entrypoint,
     validate_margin_gate_config,
@@ -96,6 +99,130 @@ class ReleasePipelineTests(unittest.TestCase):
         with self.assertRaises(FileExistsError):
             build_submission_package(ROOT, self.path / "adapter", self.path / "specialist.pt", destination, archive)
         self.assertEqual(existing.read_text(encoding="utf-8"), "keep")
+
+    def test_prompt_selection_preserves_v3_default_and_binds_v4(self):
+        prompt_dir = self.path / "kwater_lab"
+        prompt_dir.mkdir()
+        v3 = prompt_dir / "system_prompt_v3.txt"
+        v4 = prompt_dir / "system_prompt_v4.txt"
+        v3.write_bytes(b"legacy prompt")
+        v4.write_bytes(b"new prompt")
+        v4_sha = hashlib.sha256(v4.read_bytes()).hexdigest()
+        self.assertEqual(_resolve_prompt_file(self.path, None), v3)
+        self.assertEqual(_resolve_prompt_file(self.path, v4_sha), v4)
+        self.assertEqual(_resolve_prompt_file(self.path, v4_sha, v4), v4)
+        with self.assertRaisesRegex(ValueError, "differs from the adapter training prompt"):
+            _resolve_prompt_file(self.path, v4_sha, v3)
+        with self.assertRaisesRegex(ValueError, "requires an adapter training prompt hash"):
+            _resolve_prompt_file(self.path, None, v4)
+
+    def test_research_precision_requests_fail_before_packaging(self):
+        destination, archive = self.path / "stage", self.path / "future.zip"
+        for kwargs, reason in (
+            ({"research_8b_fp8_base_dir": self.path / "fp8"}, "PEFT 0.17.1"),
+            ({"research_max_pixels_infer": 655360}, "requires the BF16 8B base"),
+            ({"research_max_pixels_infer": 123, "research_8b_base_dir": self.path / "bf16"}, "pixel cap"),
+            ({"allow_experimental_8b_adapter": True}, "requires the pinned BF16"),
+        ):
+            with self.subTest(kwargs=kwargs), self.assertRaisesRegex(ValueError, reason):
+                build_submission_package(ROOT, self.path / "adapter", self.path / "specialist.pt", destination, archive, **kwargs)
+            self.assertFalse(destination.exists())
+            self.assertFalse(archive.exists())
+
+    def test_packaged_entrypoint_receives_selected_prompt_and_pixel_cap(self):
+        from safetensors.torch import save_file
+        import torch
+
+        from kwater_lab import prepare_stage1_epoch1_package as stage1_package
+
+        root = self.path
+        prompt = root / "kwater_lab/system_prompt_v4.txt"
+        prompt.parent.mkdir()
+        prompt.write_text("v4 fixture", encoding="utf-8")
+        clean_manifest = root / "data/clean-split-v1/split_manifest_dev.json"
+        clean_manifest.parent.mkdir(parents=True)
+        training_rows = [{"sample_id": "fixture", "split": "dev", "dev_fold": 4}]
+        clean_manifest.write_text(json.dumps(training_rows), encoding="utf-8")
+        baseline = root / "data/baseline"
+        (baseline / "wheelhouse").mkdir(parents=True)
+        (baseline / "assets").mkdir()
+        (baseline / "requirements.lock").touch()
+        (baseline / "assets/laws.jsonl").touch()
+
+        base = root / "tiny-bf16"
+        base.mkdir()
+        config = base / "config.json"
+        config.write_text('{"model_type":"qwen3_vl"}', encoding="utf-8")
+        base_sha = hashlib.sha256(config.read_bytes()).hexdigest()
+        weights = {}
+        for number in range(1, 5):
+            name = f"model-{number:05d}-of-00004.safetensors"
+            key = f"tensor_{number}"
+            weights[key] = name
+            save_file({key: torch.ones(1)}, base / name)
+        (base / "model.safetensors.index.json").write_text(json.dumps({"weight_map": weights}), encoding="utf-8")
+        for name in ("chat_template.json", "generation_config.json", "merges.txt", "preprocessor_config.json",
+                     "tokenizer_config.json", "tokenizer.json", "video_preprocessor_config.json", "vocab.json"):
+            (base / name).touch()
+        (base / "source.json").write_text(json.dumps({
+            "repo": "Qwen/Qwen3-VL-8B-Instruct", "revision": "0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+            "files": [{"rfilename": file.name, "size": file.stat().st_size} for file in base.iterdir()],
+        }), encoding="utf-8")
+
+        source = root / "fit"
+        checkpoint = source / "epoch-1"
+        checkpoint.mkdir(parents=True)
+        (checkpoint / "adapter_config.json").write_text('{"peft_type":"LORA"}', encoding="utf-8")
+        adapter_weights = checkpoint / "adapter_model.safetensors"
+        save_file({f"{key}.lora_A.weight": torch.ones(1) for key in ("language_model.layers", "visual.merger", "visual.deepstack_merger_list")}, adapter_weights)
+        curriculum = [{"kind": "inspect"}]
+        configuration = {
+            "val_fold": 2, "epochs": 2, "grad_accum": 16, "lr": .00014, "max_pixels": 393216, "seed": 42,
+            "base_config_sha256": base_sha, "prompt_sha256": hashlib.sha256(prompt.read_bytes()).hexdigest(),
+            "curriculum_sha256": stage1_package.curriculum_digest(curriculum),
+            "experiment": {"arm": "stage1_fold2_mixed_v4", "curriculum_n": 1, "base_revision": stage1_package.BASE_REVISION},
+        }
+        history = [{"epoch": 1}]
+        (source / "history.json").write_text(json.dumps(history), encoding="utf-8")
+        torch.save({"configuration": configuration, "next_epoch": 2, "next_offset": 0, "global_step": 1,
+                    "scheduler": {"last_epoch": 1}, "history": history,
+                    "records": [{"epoch": 1, "step": 1, "total_steps": 2}]}, checkpoint / "training_state.pt")
+        candidate = root / "candidate"
+        train_scope = (training_rows, [], [], clean_manifest, curriculum, {})
+        with patch.object(stage1_package, "load_scope", return_value=train_scope), \
+                patch.object(stage1_package, "BASE_CONFIG_SHA", base_sha), \
+                patch.object(stage1_package, "PROMPTS", {"v4": prompt}):
+            stage1_package.prepare(source, candidate, "fold2", "mixed", "v4")
+        self.assertFalse((candidate / "adapter/training_state.pt").exists())
+        adapter = candidate / "adapter"
+        destination = root / "stage"
+        with patch("kwater_lab.package_submission.RESEARCH_8B_BASE_CONFIG_SHA256", base_sha):
+            with self.assertRaisesRegex(ValueError, "measured Fold 4 8B first-epoch adapter"):
+                build_submission_package(root, adapter, root / "unused", destination, None,
+                                         enable_hybrid=False, research_8b_base_dir=base)
+            with patch("kwater_lab.package_submission.read_selected_cases", return_value=[{"target": {"status": "no_visible_hazard"}}]):
+                info = build_submission_package(root, adapter, root / "unused", destination, None,
+                                                enable_hybrid=False, research_8b_base_dir=base,
+                                                allow_experimental_8b_adapter=True, research_max_pixels_infer=655360)
+        self.assertEqual(info["prompt_filename"], prompt.name)
+        self.assertEqual((destination / prompt.name).read_bytes(), prompt.read_bytes())
+        runtime = load_packaged_entrypoint(destination / "main.py")
+        inputs = root / "input"
+        (inputs / "images").mkdir(parents=True)
+        (inputs / "manifest.jsonl").touch()
+
+        def confirm_template(messages, **kwargs):
+            self.assertEqual(messages[0]["content"], "v4 fixture")
+            raise StopIteration("checked runtime prompt")
+
+        def confirm_loader(base_dir, adapter_dir, *, max_pixels):
+            self.assertEqual(max_pixels, 655360)
+            return None, SimpleNamespace(apply_chat_template=confirm_template)
+
+        runtime.load_vlm = confirm_loader
+        with patch.object(sys, "argv", ["main.py", "--input-dir", str(inputs), "--output-dir", str(root / "out")]):
+            with self.assertRaisesRegex(StopIteration, "checked runtime prompt"):
+                runtime.main()
 
     def test_official_resume_retains_committed_batch(self):
         rows = [{"sample_id": "a"}, {"sample_id": "b"}]

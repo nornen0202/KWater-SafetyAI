@@ -1,0 +1,109 @@
+{
+  "version": "stage1-fp8-adapter-cpu-probe-v1",
+  "peft": "0.17.1",
+  "torch": "2.5.1",
+  "adapter_sha256": "8269bc13e8c211ce1414f749da663c0c243bb93038d16e3891086cf30c44509b",
+  "method": "Stock PEFT LoRA wrapping and state-dict loading with original FP32 A/B tensors for three projections. Zero base forward isolates the LoRA branch. The restoration branch sets FP32 destination parameters before copying original checkpoint tensors.",
+  "projection_results": {
+    "language_projection": {
+      "a_b_storage_dtypes": {
+        "reference": [
+          "torch.float32",
+          "torch.float32"
+        ],
+        "stock_fp8": [
+          "torch.float8_e4m3fn",
+          "torch.float8_e4m3fn"
+        ],
+        "restored_fp8": [
+          "torch.float32",
+          "torch.float32"
+        ]
+      },
+      "a_b_match_original": {
+        "reference": [
+          true,
+          true
+        ],
+        "stock_fp8": [
+          false,
+          false
+        ],
+        "restored_fp8": [
+          true,
+          true
+        ]
+      },
+      "restored_output_matches_bf16_reference": true,
+      "bf16_reference_nonzero_output_values": 4096
+    },
+    "vision_merger": {
+      "a_b_storage_dtypes": {
+        "reference": [
+          "torch.float32",
+          "torch.float32"
+        ],
+        "stock_fp8": [
+          "torch.float32",
+          "torch.float32"
+        ],
+        "restored_fp8": [
+          "torch.float32",
+          "torch.float32"
+        ]
+      },
+      "a_b_match_original": {
+        "reference": [
+          true,
+          true
+        ],
+        "stock_fp8": [
+          true,
+          true
+        ],
+        "restored_fp8": [
+          true,
+          true
+        ]
+      },
+      "restored_output_matches_bf16_reference": true,
+      "bf16_reference_nonzero_output_values": 4608
+    },
+    "deepstack_merger": {
+      "a_b_storage_dtypes": {
+        "reference": [
+          "torch.float32",
+          "torch.float32"
+        ],
+        "stock_fp8": [
+          "torch.float32",
+          "torch.float32"
+        ],
+        "restored_fp8": [
+          "torch.float32",
+          "torch.float32"
+        ]
+      },
+      "a_b_match_original": {
+        "reference": [
+          true,
+          true
+        ],
+        "stock_fp8": [
+          true,
+          true
+        ],
+        "restored_fp8": [
+          true,
+          true
+        ]
+      },
+      "restored_output_matches_bf16_reference": true,
+      "bf16_reference_nonzero_output_values": 4608
+    }
+  },
+  "stock_fp8_wrapper_cpu_forward": {
+    "cpu_error": "\"mul_cpu_reduced_float\" not implemented for 'Float8_e4m3fn'"
+  },
+  "official_kit_l4_kernel_or_model_run": false
+}

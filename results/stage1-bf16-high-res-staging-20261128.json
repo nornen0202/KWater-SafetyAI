@@ -1,0 +1,12 @@
+{
+  "staged_files": 29,
+  "unpacked_bytes_both": 17745546014,
+  "max_pixels_infer": [
+    393216,
+    655360
+  ],
+  "main_sha256_both": "a9b999caff991651757894f18d1a85926a9e574d6b9f7577c71839ad0bafa244",
+  "sole_pipeline_change": "max_pixels_infer",
+  "compared_models_and_files_as_hardlinks_or_byte_identical": true,
+  "real_generator_executed": false
+}

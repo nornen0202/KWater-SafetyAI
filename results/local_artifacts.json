@@ -1,7 +1,7 @@
 {
   "algorithm": "SHA-256",
-  "files": 2965,
-  "total_bytes": 202020210576,
+  "files": 2971,
+  "total_bytes": 203644297855,
   "scope": "Completed project data files and local-only research outputs. In-progress downloads, live transfer status and environment caches are excluded.",
   "artifacts": [
     {
@@ -14828,6 +14828,36 @@
       "path": "data/stage2-oof-design-20261128/fold-manifest-local.json",
       "bytes": 361132,
       "sha256": "369556b1b7b65b16749232813666261ebcd60ca2ce5c4abca5d313efe32c03d3"
+    },
+    {
+      "path": "data/fold2-8b-matched-epoch1/eval.tar",
+      "bytes": 334417920,
+      "sha256": "9fc8ee6dabb796368c4c7f485bb0c2954ae1dfc1c4cfa5736aa0e9d566fe05fc"
+    },
+    {
+      "path": "data/fold2-8b-matched-epoch1/train.tar",
+      "bytes": 1287813120,
+      "sha256": "1a16d134b4c09cf161cd06606033753f8ecedc1d6281e0a3d74c6b666209aadc"
+    },
+    {
+      "path": "data/fold2-8b-matched-epoch1/transfer-receipt.json",
+      "bytes": 8608,
+      "sha256": "2f55cbb1175cb87366ee19b7ae6661425e29ea60dcc67b812a5447b5b5f12c8e"
+    },
+    {
+      "path": "data/stage1-image-tokens/token-counts-by-photo-sha256.jsonl",
+      "bytes": 154660,
+      "sha256": "f69ee33fc85cac9ba6f3ad6aeca5af4020e703870c5082cb0aa2648c23c377c7"
+    },
+    {
+      "path": "data/stage1-pure-inspect/fold2/freeze/pure-inspect-curriculum-local.json",
+      "bytes": 746021,
+      "sha256": "aff1cfbadf939cb37dd80147e9cf33199f5882f281743767e7a62e402a5da8a2"
+    },
+    {
+      "path": "data/stage1-pure-inspect/full1045/freeze/pure-inspect-curriculum-local.json",
+      "bytes": 946950,
+      "sha256": "01c805b68f0e5a59434924871d280234ed7ebbc3fe3ff075ca2fe913ffb88e4e"
     }
   ]
 }

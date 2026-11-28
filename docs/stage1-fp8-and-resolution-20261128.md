@@ -1,0 +1,80 @@
+# Stage 1 8B FP8 및 해상도 사전점검
+
+공식 `Qwen/Qwen3-VL-8B-Instruct-FP8` 리비전은 `9cdc6310a8cb770ce18efaf4e9935334512aee45`, 라이선스는 Apache-2.0이다. 가중치 두 파일은 **10,590,299,512바이트**, 추론에 필요한 파일 11개 합계는 **10,605,560,594바이트**다. 두 샤드의 바이트 수와 SHA-256은 공개 Hugging Face LFS 메타데이터를 확인했다. 로컬에서 받은 설정·토크나이저 등 9개 파일은 모두 해당 리비전의 Git blob ID와 일치했다. 설정은 동적 e4m3, 128×128 가중치 블록이며 `lm_head`와 `model.visual`을 제외한다. 텐서 색인에 언어층의 `weight_scale_inv`가 252개 있고 시각층의 해당 스케일은 0개다. [공식 배포 리비전](https://huggingface.co/Qwen/Qwen3-VL-8B-Instruct-FP8/tree/9cdc6310a8cb770ce18efaf4e9935334512aee45) · [바이트·해시 영수증](../results/stage1-fp8-source-audit-20261128.json)
+
+## 키트와 어댑터 로딩
+
+대회 키트는 이미지 `sha256:2e924d941c41876e9eb1de79a1af7eaf796aacb1210fb86f6ff3345cc7c58d64`의 Python 3.12, CUDA 12.8, PyTorch 2.11.0+cu128, Triton 3.6.0 위에 제출 ZIP의 오프라인 잠금 휠을 설치한다. 8차 ZIP은 Transformers 4.57.1, PEFT 0.17.1, Accelerate 1.10.1을 사용했다. Transformers의 fine-grained FP8 검사 하한은 CUDA CC 8.9이며 L4는 CC 8.9다. 해당 버전의 `FP8Linear`에는 Triton 동적 활성화 양자화와 블록 W8A8 행렬 곱이 들어 있다. Triton 3.6.0 NVIDIA 백엔드는 CC 8.9부터 `fp8e4nv`를 허용한다. `FP8Linear`는 각 블록 FP8 선형 계층에서 GPU 동기화도 호출하므로 배포 속도는 실측한다. [8차 ZIP 잠금·키트 실측](../results/fold4-8b-epoch1-research-package-20261128.json) · [NVIDIA L4](https://developer.nvidia.com/cuda/gpus) · [Transformers 4.57.1 FP8 검사](https://raw.githubusercontent.com/huggingface/transformers/v4.57.1/src/transformers/quantizers/quantizer_finegrained_fp8.py) · [FP8 선형 계층](https://raw.githubusercontent.com/huggingface/transformers/v4.57.1/src/transformers/integrations/finegrained_fp8.py) · [Triton 3.6.0 NVIDIA 백엔드](https://github.com/triton-lang/triton/blob/v3.6.0/third_party/nvidia/backend/compiler.py#L184-L194)
+
+현재 패키지의 `PeftModel.from_pretrained`는 일반 `nn.Linear` 경로로 `FP8Linear`를 감싸고 LoRA 파라미터를 기반층 가중치의 dtype으로 옮긴다. 언어층 A/B 파라미터가 e4m3가 되며 원본 체크포인트는 FP32다. PEFT의 자동 상향 변환은 FP16과 BF16에만 적용된다. `low_cpu_mem_usage=True` 역시 state dict를 대입한 뒤 dtype을 기반층과 다시 맞춘다. 두 경로 모두 동일 어댑터 대조에 부적합하므로 패키저에서 FP8을 차단한다. [PEFT 0.17.1 dtype 이동](https://github.com/huggingface/peft/blob/v0.17.1/src/peft/tuners/tuners_utils.py#L1070-L1107) · [자동 상향](https://github.com/huggingface/peft/blob/v0.17.1/src/peft/tuners/tuners_utils.py#L353-L369) · [state dict 로딩](https://github.com/huggingface/peft/blob/v0.17.1/src/peft/utils/save_and_load.py#L517-L524)
+
+8차 체크포인트의 언어 투영, 시각 병합, DeepStack 병합에서 A/B 총 6개를 읽어 Windows CPU의 PEFT 0.17.1로 검산했다. 기본 경로는 언어층 A/B의 원래 값을 모두 바꿨다. 저장 대상 A/B를 먼저 FP32로 배치하고 원본을 다시 읽으면 6개 텐서와 세 개의 LoRA 출력이 모두 BF16 기반층 대조와 비트 단위로 일치했다. 기반층은 어댑터 경로를 격리하도록 영점을 반환했다. [CPU 검산 영수증](../results/stage1-fp8-adapter-probe-20261128.json)
+
+향후 비교는 원본 A/B를 FP32로 배치한 뒤 safetensors에서 다시 읽어 모든 LoRA 텐서 값과 시각 합성층 적용을 확인하는 방식으로 시작한다. L4의 동일 오프라인 이미지에서 `FP8Linear`가 실제로 실행되는지와 Triton 컴파일·캐시·로드 시간을 먼저 소수 입력으로 확인한다. 이 단계는 정확한 공식 이미지의 Linux 실행이 필요하다. 로컬 RTX 3060은 CUDA CC 8.6이다. 공식 FP8·BF16의 전처리·토크나이저·대화 템플릿·생성 설정 JSON은 파싱한 값이 같다. 모델 `config.json`도 FP8 양자화 항목을 빼면 일치한다. 정밀도를 비교할 때 같은 토큰 ID와 입력·배치·프롬프트·어댑터·생성 조건을 사용한다. [공개 파일 비교](../results/stage1-fp8-source-audit-20261128.json)
+
+393,216픽셀 BF16과 FP8을 먼저 비교하고, 같은 BF16 어댑터에서 655,360픽셀과 786,432픽셀을 따로 비교한다. Fold 2·4 외측 평가에서는 쌍체 위험 코드 Macro-F1, 정상 오경보와 중대 위험 미탐을 집계하고 FP8의 목표 차이는 `|ΔF1| ≤ .005`로 둔다. 같은 200장 공식 키트에서 200/200 형식, 설치 포함 시간, 최고 VRAM, 실제 배치 및 OOM 재시도를 기록한다. 393,216픽셀 8차 BF16 기준은 1,329초와 21,472MiB다. 더 높은 해상도와 FP8의 시간·메모리·품질은 실측 전이다. [8차 서울 L4 영수증](../results/seoul-8b-fold4-epoch1-solo-200-20261128.json)
+
+## 학습 사진 1,045장의 이미지 토큰
+
+| 입력 상한 픽셀 | 평균 | 중앙값 | p95 | 최댓값 | 393,216픽셀 대비 증가한 사진 |
+|---:|---:|---:|---:|---:|---:|
+| 393,216 | 281.6478 | 352 | 368 | 384 | 0 |
+| 655,360 | 413.7139 | 540 | 609 | 638 | 580 |
+| 786,432 | 483.2163 | 540 | 768 | 768 | 580 |
+
+전체 사진을 실제 프로세서에 넣고 `image_grid_thw`와 토크나이저의 이미지 토큰 수가 1,045장×3개 상한 모두에서 일치함을 확인했다. 655,360픽셀에서 사진당 평균 132.1토큰이 늘었다. 786,432픽셀에서는 기준 대비 평균 201.6토큰이 늘었고 중앙값은 655,360픽셀과 같다. 이 분포로 실제 GPU 시간이나 작은 위험 단서의 회수 효과를 추정하지 않는다. [전체 집계 영수증](../results/stage1-image-token-audit-20261128.json)
+
+로컬 `data/stage1-image-tokens/token-counts-by-photo-sha256.jsonl`에는 사진 원문 SHA-256과 각 상한의 토큰 수를 보관한다. 이전 감사가 EXIF 방향을 적용해 저장한 사진 크기를 고정 전량 학습 명단의 SHA-256과 연결하고, 오프라인 휠의 정확한 리사이즈 규칙을 다시 실행했다. 세 상한의 히스토그램과 기준 대비 증가 분포가 실제 전처리 실측과 일치했다. Fold 2·4의 명단에 있는 사진 SHA-256으로 연결할 수 있다. 영수증에는 로컬 파일의 전체 SHA-256·바이트·행 수가 들어 있다.
+
+## 재현 명령
+
+로컬 CPU 감사는 기존 8B BF16 제출 폴더의 프로세서만 읽는다. Windows에서는 [기존 로컬 Python 환경](official-baseline-windows.md)의 `env_aias_test`와 오버레이를 활성화한다. 사진과 사진별 행은 실험 결과에 출력하지 않는다.
+
+```powershell
+python -B -m kwater_lab.stage1_image_token_audit --output results/stage1-image-token-audit-20261128.json
+python -B -m kwater_lab.stage1_fp8_adapter_probe --adapter data/vlm-scale-seoul-8b-fold4-20261128/fit/epoch-1 --output results/stage1-fp8-adapter-probe-20261128.json
+```
+
+픽셀 디코딩 없이 토큰 계산을 재검산하려면 같은 스크립트에 `--geometry-wheel data/baseline/wheelhouse/transformers-4.57.1-py3-none-any.whl`과 다른 출력 경로를 지정한다. 이 방식은 PNG 크기와 EXIF 방향을 읽고 제출 휠의 `smart_resize`를 사용한다. 기존 로컬 감사 크기를 다시 쓰고 사진별 파일을 만들려면 다음 명령을 사용한다.
+
+```powershell
+python -B -m kwater_lab.stage1_image_token_audit --geometry-wheel data/baseline/wheelhouse/transformers-4.57.1-py3-none-any.whl --decoded-inventory results/train_audit_full.json --local-sidecar data/stage1-image-tokens/token-counts-by-photo-sha256.jsonl --output .runtime/stage1-image-token-sidecar-geometry.json
+```
+
+BF16 해상도 대조는 원본 8차 `source.json`을 보관한 고정 BF16 모델 폴더와 8차 LoRA를 사용한다. 다음 예시는 기존 8차 패키지 폴더에서 모델 파일을 하드링크한 `.runtime/stage1-known-bf16`와 `prepare_fold4_8b_epoch1`로 만든 `.runtime/stage1-known-adapter`를 가정한다. 8차에 제출한 ZIP 이후 CUDA OOM 재시도 코드가 추가됐으므로 현재 패키저로 393,216픽셀 대조군과 높은 상한 후보를 함께 만든다. 용량과 런타임을 비교할 실제 ZIP에는 `--stage-only`를 빼고 `--zip-path`를 지정한다.
+
+```powershell
+python -B -m kwater_lab.package_submission --vlm-only --research-8b-base-dir .runtime/stage1-known-bf16 --adapter-dir .runtime/stage1-known-adapter/adapter --dest-dir data/submissions/stage1-8b-bf16-393216 --stage-only
+python -B -m kwater_lab.package_submission --vlm-only --research-8b-base-dir .runtime/stage1-known-bf16 --adapter-dir .runtime/stage1-known-adapter/adapter --research-max-pixels-infer 655360 --dest-dir data/submissions/stage1-8b-bf16-655360 --stage-only
+```
+
+같은 8B 어댑터로 스테이징한 393,216·655,360픽셀 결과는 각각 파일 29개·17,745,546,014바이트였다. 두 폴더의 차이는 `pipeline_config.json`의 `max_pixels_infer` 값 하나였다. [실물 스테이징 비교](../results/stage1-bf16-high-res-staging-20261128.json)
+
+Stage 1 학습기는 두 에폭으로 설계한 학습률 스케줄에서 첫 에폭을 마친 뒤 멈춘다. 체크포인트의 구성과 원본 이력·스케줄 단계가 일치하면 다음 명령으로 패키지용 어댑터 입력을 만든다. 1045장 학습 후보에는 `--scope full1045`와 해당 학습 출력 경로를 사용한다. 프롬프트는 체크포인트에 기록한 SHA-256으로 v3·v4를 찾고 같은 파일을 `pipeline_config.json`을 통해 실행기에 전달한다. 아래 명령은 해당 Stage 1 체크포인트가 생성된 뒤 실행한다.
+
+```powershell
+python -B -m kwater_lab.prepare_stage1_epoch1_package --source data/stage1-pure-inspect/fold2/pure-inspect-v4 --candidate data/submissions/stage1-fold2-v4-input --scope fold2 --curriculum pure-inspect --prompt-version v4
+python -B -m kwater_lab.package_submission --vlm-only --research-8b-base-dir .runtime/stage1-known-bf16 --adapter-dir data/submissions/stage1-fold2-v4-input/adapter --allow-experimental-8b-adapter --dest-dir data/submissions/stage1-fold2-v4-stage --stage-only
+```
+
+## L4 정밀도 실행 점검
+
+퀀타이저의 하드웨어 검사를 통과한 후 실행되는 커널은 공식 Linux L4 환경에서 점검한다. 아래 명령의 `KIT_VENV`는 8차의 5개 잠금 휠을 공식 키트가 설치한 `/venv`의 호스트 경로다. `BF16_BASE`와 `FP8_BASE`에는 해당 모드의 고정 파일을 두고, `SMOKE_OUT`은 UID 10001이 쓸 수 있는 로컬 디렉터리로 준비한다. 같은 3개 학습측 입력으로 각 모드를 별도 프로세스에서 실행한다. 스크립트는 모델 파일 해시와 원본 LoRA A/B 520개 모두를 확인한 뒤 유한한 프리필 로짓, 생성 토큰 수와 해시, 실행 시간, CUDA 피크 할당·예약량을 집계한다. 가중치 확인 시간은 실행 시간과 함께 각각 보관한다. [L4 실행기](../kwater_lab/stage1_fp8_l4_smoke.py)
+
+```bash
+KIT_IMAGE=ghcr.io/jiwoochris/kwater-runtime@sha256:2e924d941c41876e9eb1de79a1af7eaf796aacb1210fb86f6ff3345cc7c58d64
+for mode in bf16 fp8; do
+  base_dir="$BF16_BASE"
+  if [ "$mode" = fp8 ]; then base_dir="$FP8_BASE"; fi
+  docker run --rm --platform linux/amd64 --entrypoint '' --gpus all --network none --read-only \
+    --cpus 6 --memory 56g --memory-swap 56g --pids-limit 4096 --user 10001:10001 \
+    --tmpfs /scratch:rw,exec,size=32g,mode=1777 --tmpfs /tmp:rw,size=64m,mode=1777 \
+    -e HOME=/scratch -e TMPDIR=/scratch -v "$PWD:/repo:ro" -v "$base_dir:/base:ro" \
+    -v "$KIT_VENV:/venv:ro" -v "$SMOKE_OUT:/audit-output" -w /repo "$KIT_IMAGE" \
+    timeout -s KILL 600 python -I /repo/data/local-kit/kit/sandbox_exec.py --mode seccomp --cpus 0-5 -- \
+    /venv/bin/python -B -m kwater_lab.stage1_fp8_l4_smoke --mode "$mode" --base /base \
+    --adapter data/vlm-scale-seoul-8b-fold4-20261128/fit/epoch-1 --output "/audit-output/$mode.json"
+done
+```
+
+이 실행은 최대 64개 토큰의 기술 점검이다. 패키징 승격에는 별도의 전체 생성 조건에서 동일 어댑터의 외측 평가 패리티와 200장 공식 키트의 시간·메모리·출력 결과가 필요하다.
