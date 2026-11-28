@@ -1,7 +1,7 @@
 {
   "algorithm": "SHA-256",
-  "files": 2992,
-  "total_bytes": 204753991982,
+  "files": 2994,
+  "total_bytes": 204754133813,
   "scope": "Completed project data files and local-only research outputs. In-progress downloads, live transfer status and environment caches are excluded.",
   "artifacts": [
     {
@@ -14963,6 +14963,16 @@
       "path": "data/fold2-8b-matched-epoch1/returned.tar",
       "bytes": 554250240,
       "sha256": "6d95e75610c035a50b361b7ea1cab12166f56f2ecaef28927364fcb271fcabaf"
+    },
+    {
+      "path": "data/stage2-rare-base-nf4-20261129/recipe.json",
+      "bytes": 3982,
+      "sha256": "d88e712a68707cb955a96f75b72f42dd82981432bf940246db39d4327349408d"
+    },
+    {
+      "path": "data/stage2-representation-head-fold2/frozen-local.json",
+      "bytes": 137849,
+      "sha256": "4a84a483a5b909522f1900f11a70e3bda0ea30c5e3ab975d1852092f58d3d989"
     }
   ]
 }

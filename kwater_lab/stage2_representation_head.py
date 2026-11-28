@@ -205,7 +205,9 @@ def read_feature(work, row, context):
 
 
 @torch.inference_mode()
-def extract(work, base, part, limit):
+def extract(work, base, part, limit, *, after_extract=None):
+    if after_extract is not None and (part != "all" or limit is not None):
+        raise ValueError("A resident-model continuation requires complete feature coverage")
     import msvcrt
     from .vlm_11code import INSPECT_USER_TEXT, load_qwen_model, load_qwen_processor, seed_all
 
@@ -256,7 +258,7 @@ def extract(work, base, part, limit):
                 read_feature(work, row, context)
             else:
                 pending.append(row)
-        if not pending or limit == 0:
+        if (not pending and after_extract is None) or limit == 0:
             print(f"FEATURE_CACHE_REUSED {len(rows)-len(pending)}/{len(rows)}", flush=True)
             return
         torch.cuda.reset_peak_memory_stats()
@@ -286,6 +288,7 @@ def extract(work, base, part, limit):
                       f"forward_and_copy={forward_seconds:.2f}s "
                       f"peak_allocated_gib={torch.cuda.max_memory_allocated()/2**30:.3f} "
                       f"peak_reserved_gib={torch.cuda.max_memory_reserved()/2**30:.3f}", flush=True)
+            del inputs, artifact
         receipt_dir = work / "extract-receipts"
         receipt_dir.mkdir(exist_ok=True)
         write_json(receipt_dir / f"{time.time_ns()}.json", {
@@ -295,6 +298,11 @@ def extract(work, base, part, limit):
             "cuda_peak_allocated_bytes": torch.cuda.max_memory_allocated(),
             "cuda_peak_reserved_bytes": torch.cuda.max_memory_reserved(),
         })
+        if len(selected) == len(pending):
+            print(f"FEATURE_EXTRACTION_COMPLETE {len(rows)}", flush=True)
+        if after_extract is not None:
+            torch.cuda.empty_cache()
+            after_extract(model, processor, controls)
 
 
 def padded(samples):

@@ -1,0 +1,369 @@
+{
+  "scope": "B1 development readiness audit; no new image inference",
+  "cohort": {
+    "manifest_sha256": "3864848fe26b951ec070710499d2694078b17c76ffd2aaf38d312b99ad3b2f60",
+    "photos": 966,
+    "groups": 192,
+    "normal_photos": 290,
+    "nonrare_photos": 963,
+    "rare_photos": 3,
+    "folds": [
+      {
+        "fold": 0,
+        "photos": 216,
+        "rare_support": {
+          "confined_space": 1
+        }
+      },
+      {
+        "fold": 1,
+        "photos": 177,
+        "rare_support": {
+          "drowning_inundation": 1
+        }
+      },
+      {
+        "fold": 2,
+        "photos": 197,
+        "rare_support": {
+          "thermal_weather": 1
+        }
+      },
+      {
+        "fold": 3,
+        "photos": 201,
+        "rare_support": {}
+      },
+      {
+        "fold": 4,
+        "photos": 175,
+        "rare_support": {}
+      }
+    ]
+  },
+  "verified_vlm_scene_note_artifacts": {
+    "8b_fold2_mixed_epoch1": {
+      "fold": 2,
+      "training_photos_from_active_adapter": 769,
+      "photos": 197,
+      "nonempty_scene_notes": 197,
+      "parse_errors": 0,
+      "schema_errors": 0,
+      "official_rare_support_among_notes": {
+        "thermal_weather": 1
+      },
+      "raw_files": [
+        {
+          "path": "data/fold2-8b-matched-epoch1/eval/raw-0-44.json",
+          "sha256": "8b88201b36ffbb96cf9c14a6d708c5d63ee89002502142b843a7a2f8e514e4fc"
+        },
+        {
+          "path": "data/fold2-8b-matched-epoch1/eval/raw-44-197.json",
+          "sha256": "eea39092a0fa0809b55bef83b02459f2e94f266faed8db0361b945516217ba7f"
+        }
+      ]
+    },
+    "8b_fold4_epoch1": {
+      "fold": 4,
+      "training_photos_from_active_adapter": 791,
+      "photos": 175,
+      "nonempty_scene_notes": 175,
+      "parse_errors": 0,
+      "schema_errors": 1,
+      "official_rare_support_among_notes": {},
+      "raw_files": [
+        {
+          "path": "data/vlm-scale-seoul-8b-fold4-20261128/eval1/cache.json",
+          "sha256": "a6e7521b05fa428004d950ede933d7bb04be240cfde936d7010e9f6170d774ec"
+        }
+      ]
+    },
+    "8b_fold4_epoch2": {
+      "fold": 4,
+      "training_photos_from_active_adapter": 791,
+      "photos": 175,
+      "nonempty_scene_notes": 175,
+      "parse_errors": 0,
+      "schema_errors": 1,
+      "official_rare_support_among_notes": {},
+      "raw_files": [
+        {
+          "path": "data/vlm-scale-seoul-8b-fold4-20261128/eval2/cache.json",
+          "sha256": "d0023bffc2fe820b0326e45e824ceae78f1d63bf3e315f9467ae862f3165da3a"
+        }
+      ]
+    },
+    "4b_fold0_v2_epoch2": {
+      "fold": 0,
+      "training_photos_from_active_adapter": 750,
+      "photos": 216,
+      "nonempty_scene_notes": 216,
+      "parse_errors": 0,
+      "schema_errors": 0,
+      "official_rare_support_among_notes": {
+        "confined_space": 1
+      },
+      "raw_files": [
+        {
+          "path": "data/local-eval-predictions/fold0/fold0-qlora-v2-118-bf16/ft_vlm_raw_cache.json",
+          "sha256": "9991553cb75f2f51993dc696858b39ebf30404eab3faa27ccc7976d723002b2c"
+        }
+      ]
+    },
+    "4b_fold0_adapter_disabled": {
+      "fold": 0,
+      "training_photos_from_active_adapter": 0,
+      "photos": 216,
+      "nonempty_scene_notes": 216,
+      "parse_errors": 0,
+      "schema_errors": 0,
+      "official_rare_support_among_notes": {
+        "confined_space": 1
+      },
+      "raw_files": [
+        {
+          "path": "data/local-eval-predictions/fold0/fold0-qlora-v2-118-bf16/zeroshot_vlm_raw_cache.json",
+          "sha256": "c6e8ee0e565e820ea79738f7186eb461bc36ec743d1587b5a6118b730fef2b15"
+        }
+      ]
+    },
+    "4b_fold2_v3_epoch1": {
+      "fold": 2,
+      "training_photos_from_active_adapter": 769,
+      "photos": 197,
+      "nonempty_scene_notes": 197,
+      "parse_errors": 0,
+      "schema_errors": 0,
+      "official_rare_support_among_notes": {
+        "thermal_weather": 1
+      },
+      "raw_files": [
+        {
+          "path": "data/v3-11code-fold2-4b-epoch1/epoch1-bf16-raw-cache.json",
+          "sha256": "ee8f2cba053001c60422fe540aec9893c3ff8843ba39cb18ce67024dce0b5b43"
+        }
+      ]
+    },
+    "4b_fold4_v3_epoch1": {
+      "fold": 4,
+      "training_photos_from_active_adapter": 791,
+      "photos": 175,
+      "nonempty_scene_notes": 175,
+      "parse_errors": 0,
+      "schema_errors": 0,
+      "official_rare_support_among_notes": {},
+      "raw_files": [
+        {
+          "path": "data/local-eval-predictions/fold4-v3-benchmark/v3_epoch1_infer_cache.json",
+          "sha256": "88cbd17e6c5bfe3a58cbbd307af1047bb5b7c318e197359af46c3f1502b540db"
+        }
+      ]
+    },
+    "4b_fold4_v3_epoch2": {
+      "fold": 4,
+      "training_photos_from_active_adapter": 791,
+      "photos": 175,
+      "nonempty_scene_notes": 175,
+      "parse_errors": 0,
+      "schema_errors": 0,
+      "official_rare_support_among_notes": {},
+      "raw_files": [
+        {
+          "path": "data/local-eval-predictions/fold4-v3-benchmark/v3_epoch2_infer_cache.json",
+          "sha256": "721e18cce627a45e4200aac808e1767b176a1481ce06d9a182d9fe4bb7f1281d"
+        }
+      ]
+    }
+  },
+  "scene_note_availability": {
+    "8b_with_active_adapter": {
+      "unique_photos": 372,
+      "missing_by_fold": [
+        216,
+        177,
+        0,
+        201,
+        0
+      ],
+      "official_rare_support": 1
+    },
+    "8b_with_adapter_disabled": {
+      "unique_photos": 0,
+      "official_rare_support": 0
+    },
+    "4b_with_active_adapter": {
+      "unique_photos": 588,
+      "missing_by_fold": [
+        0,
+        177,
+        0,
+        201,
+        0
+      ],
+      "official_rare_support": 2
+    },
+    "4b_with_adapter_disabled": {
+      "unique_photos": 216,
+      "official_rare_support": 1
+    },
+    "union_4b_and_8b": {
+      "unique_photos": 588,
+      "missing_by_fold": [
+        0,
+        177,
+        0,
+        201,
+        0
+      ],
+      "official_rare_support": 2
+    },
+    "27b_stock_q4_formatted": {
+      "fold": 4,
+      "unique_photos": 175,
+      "official_rare_support": 0,
+      "representation": "formatted responses only; no equivalent full raw scene_note cache"
+    }
+  },
+  "raw_image_only_oof": {
+    "path": "data/clean-specialist-v1/dev_oof_predictions.npz",
+    "sha256": "0c4b22b31225a42b50dc087c9f4e79bb44c5f6c5380f5b1846db7f840f9f0e08",
+    "shape": [
+      966,
+      11
+    ],
+    "finite_rare_scores": 2898,
+    "image_model": "frozen SigLIP2+DINOv2; three outer-training heads per fold",
+    "target_or_metadata_inputs_at_inference": 0,
+    "calibrated_policy_applied": false,
+    "candidate_stats": {
+      "p_ge_05": {
+        "official_correct_rare_code_matches": 0,
+        "any_rare_candidate_nonrare_photos": 0,
+        "by_code_nonrare_candidate_photos": {
+          "drowning_inundation": 0,
+          "confined_space": 0,
+          "thermal_weather": 0
+        }
+      },
+      "top1": {
+        "official_correct_rare_code_matches": 0,
+        "any_rare_candidate_nonrare_photos": 3,
+        "by_code_nonrare_candidate_photos": {
+          "drowning_inundation": 1,
+          "confined_space": 1,
+          "thermal_weather": 1
+        }
+      },
+      "top3": {
+        "official_correct_rare_code_matches": 0,
+        "any_rare_candidate_nonrare_photos": 144,
+        "by_code_nonrare_candidate_photos": {
+          "drowning_inundation": 61,
+          "confined_space": 45,
+          "thermal_weather": 52
+        }
+      }
+    }
+  },
+  "legacy_clip_rare_probe": {
+    "photos": 170,
+    "official_rare_support": 0,
+    "any_rare_top1": 38,
+    "any_rare_top3": 88
+  },
+  "external_registry": {
+    "verified_industrial_positives_or_matched_normal_controls": 0,
+    "floodnet_licensed_cross_view_only": {
+      "train": 192,
+      "test": 114,
+      "test_positive": 50,
+      "test_negative": 64
+    },
+    "busan_cctv_provider_label_concerns": true,
+    "rights_cleared_independent_industrial_cohort": false
+  },
+  "new_model_forward_calls": 0,
+  "new_training_updates": 0,
+  "b1_cpu_preflight": {
+    "frozen_recipe_sha256": "97021d629bf817a25af93f4f300f9403abfe08c35f08692c4835f395150ed77f",
+    "local_recipe_file_sha256": "d88e712a68707cb955a96f75b72f42dd82981432bf940246db39d4327349408d",
+    "processor_max_pixels": 393216,
+    "checks": [
+      "pinned AutoProcessor chat template and real tokenizer for seven prefixes",
+      "one 640-by-640 synthetic RGB image per query, one grid, 361 expanded visual tokens, same assistant boundary",
+      "four CPU unit tests for prompt token context, independent gates, denominators and disabled-adapter resume"
+    ],
+    "queries": {
+      "select": {
+        "prefix_sha256": "537a95c8c59ebdd499edf771a7d7a7fe59d57b1fa1ba7e2eb113a0e23bf49cba",
+        "last_prefix_token": 25,
+        "choice_tokens": [
+          362,
+          425,
+          356,
+          422,
+          468,
+          434,
+          479,
+          472,
+          358
+        ]
+      },
+      "drowning_inundation:environment": {
+        "prefix_sha256": "9bd0fb6b5027f5b324af0f31c67127fa166ac5ef73b959243f564a9fcb78af47",
+        "last_prefix_token": 25,
+        "choice_tokens": [
+          362,
+          425,
+          356
+        ]
+      },
+      "drowning_inundation:protection": {
+        "prefix_sha256": "e75cb40a5449f809b13851d55c3dcebc51a61c2b44ae3bc9bc94b464cf6a1b7b",
+        "last_prefix_token": 25,
+        "choice_tokens": [
+          362,
+          425,
+          356
+        ]
+      },
+      "confined_space:environment": {
+        "prefix_sha256": "54d177947a3607c3c156aae140046b603c82770b606e5f77ec4d2c31a5edd126",
+        "last_prefix_token": 25,
+        "choice_tokens": [
+          362,
+          425,
+          356
+        ]
+      },
+      "confined_space:protection": {
+        "prefix_sha256": "e4cd314d5334f16cb5c21af534f2abec5e746eb9cc6b77b6aa33f2fa4b5078b5",
+        "last_prefix_token": 25,
+        "choice_tokens": [
+          362,
+          425,
+          356
+        ]
+      },
+      "thermal_weather:environment": {
+        "prefix_sha256": "2f62fee97eff901382d795817931e2205525a85722487680f8b4fb0268235367",
+        "last_prefix_token": 25,
+        "choice_tokens": [
+          362,
+          425,
+          356
+        ]
+      },
+      "thermal_weather:protection": {
+        "prefix_sha256": "58597ddcc16b7a444fd4e783fcf1c346f56e21c6d5668c0b0dcba5034dd414eb",
+        "last_prefix_token": 25,
+        "choice_tokens": [
+          362,
+          425,
+          356
+        ]
+      }
+    },
+    "GPU_forward_calls": 0
+  }
+}
