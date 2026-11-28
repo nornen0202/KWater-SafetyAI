@@ -1,0 +1,123 @@
+{
+  "fold": 2,
+  "scope": "Fit-only actual specialist heads; fixed empty-draft diagnostic, no thresholds fitted or candidate verifier run",
+  "feature_cache_sha256": "a6586a149b28df3b6e31f263aed82f010541e98a5316b054b63572f0de0d22f0",
+  "feature_cache_key": "c7fecadd2bdd2219a7fe9b40de0683704bfeb60453c0fd4676e971b585ce7738",
+  "training_source_sha256": "644938f696cf7dd7b80880a3058f946110f7870ab4c279b73ac59b406c4f7003",
+  "script_sha256": "db8477a32e920e82497edf75d59c087e339847df77e1ea72ea10a3583c53e87d",
+  "recipe": {
+    "inner_folds": 4,
+    "epochs": 55,
+    "batch_size": 64,
+    "base_seeds": [
+      42,
+      1042,
+      2042
+    ]
+  },
+  "device": "CPU",
+  "torch_threads": 2,
+  "contract_sha256": "7f59f1c7bbe1ac25315594a43d89ab879a3bacf5b5f24062af7a9cbb44bd6987",
+  "fit_and_prediction_witness_sha256": "21fa0f7630e0a75a6ae8cf38ea6a4607db584c530c1e83e8e43a3a5940e44576",
+  "fit_only_law_case_sha256": "c3da52984b08e1c0ad1ff4a0240c5ffcc49a75dd344f24156c8a7b885c103386",
+  "fit_only_law_cases": 536,
+  "fit_only_law_source_photos": 631,
+  "scores_sha256": "f498c6f714a7c59400130e37779f231fb697a9bb8e261fce76776774f315a1b0",
+  "inner_folds": [
+    {
+      "inner_fold": 0,
+      "fit_count": 427,
+      "oof_count": 204,
+      "seed_seconds": [
+        8.22,
+        7.73,
+        7.48
+      ]
+    },
+    {
+      "inner_fold": 1,
+      "fit_count": 488,
+      "oof_count": 143,
+      "seed_seconds": [
+        8.5,
+        8.53,
+        8.45
+      ]
+    },
+    {
+      "inner_fold": 2,
+      "fit_count": 489,
+      "oof_count": 142,
+      "seed_seconds": [
+        8.09,
+        8.03,
+        8.45
+      ]
+    },
+    {
+      "inner_fold": 3,
+      "fit_count": 489,
+      "oof_count": 142,
+      "seed_seconds": [
+        8.48,
+        8.55,
+        8.78
+      ]
+    }
+  ],
+  "fit_oof_covered_once": 631,
+  "calibration_ensemble_heads": 12,
+  "policy": {
+    "temperatures": 1.0,
+    "code_threshold": 0.5,
+    "scene_threshold": 0.5,
+    "empty_code_bonus": 0.12,
+    "additional_scene_requirement": 0.08,
+    "max_proposals_per_photo": 1,
+    "code_precision_gate": false,
+    "draft": "empty"
+  },
+  "fit_oof_proposal_support": {
+    "photos": 631,
+    "proposals": 388,
+    "true_proposed_pairs": 259,
+    "false_proposed_pairs": 129,
+    "normal_photos": 177,
+    "normal_false_proposals": 52,
+    "severity4_photos": 195,
+    "severity4_photos_with_proposals": 154,
+    "severity4_matching_proposals": 105,
+    "per_code_proposals": {
+      "fire_explosion": 23,
+      "chemical_exposure": 5,
+      "other": 57,
+      "slip_trip": 125,
+      "electrical_energy": 24,
+      "fall_height": 112,
+      "struck_by_lifting": 15,
+      "caught_in_machine": 27
+    }
+  },
+  "calibration_proposal_support": {
+    "photos": 138,
+    "proposals": 70,
+    "true_proposed_pairs": 51,
+    "false_proposed_pairs": 19,
+    "normal_photos": 46,
+    "normal_false_proposals": 6,
+    "severity4_photos": 40,
+    "severity4_photos_with_proposals": 29,
+    "severity4_matching_proposals": 19,
+    "per_code_proposals": {
+      "fire_explosion": 5,
+      "chemical_exposure": 1,
+      "struck_by_lifting": 4,
+      "other": 14,
+      "slip_trip": 22,
+      "fall_height": 20,
+      "caught_in_machine": 3,
+      "electrical_energy": 1
+    }
+  },
+  "current_process_seconds_including_loaded_heads": 107.3
+}

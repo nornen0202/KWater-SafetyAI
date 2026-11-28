@@ -1,0 +1,123 @@
+{
+  "fold": 4,
+  "scope": "Fit-only actual specialist heads; fixed empty-draft diagnostic, no thresholds fitted or candidate verifier run",
+  "feature_cache_sha256": "a6586a149b28df3b6e31f263aed82f010541e98a5316b054b63572f0de0d22f0",
+  "feature_cache_key": "c7fecadd2bdd2219a7fe9b40de0683704bfeb60453c0fd4676e971b585ce7738",
+  "training_source_sha256": "644938f696cf7dd7b80880a3058f946110f7870ab4c279b73ac59b406c4f7003",
+  "script_sha256": "db8477a32e920e82497edf75d59c087e339847df77e1ea72ea10a3583c53e87d",
+  "recipe": {
+    "inner_folds": 4,
+    "epochs": 55,
+    "batch_size": 64,
+    "base_seeds": [
+      42,
+      1042,
+      2042
+    ]
+  },
+  "device": "CPU",
+  "torch_threads": 2,
+  "contract_sha256": "4befb885b6b7b757b97b367190a2828038a0f94f5489572171c6bac137444dd4",
+  "fit_and_prediction_witness_sha256": "ec4f909bbd173df0715cb70c0bf18e34de30b2e644b83754e986540e33408e78",
+  "fit_only_law_case_sha256": "51b386899c124f5670123fa1be681fa0beb9dd3e012c887d612163ca43a2b768",
+  "fit_only_law_cases": 575,
+  "fit_only_law_source_photos": 709,
+  "scores_sha256": "19ef5e616046a71bc491cf8c9d656416d2b2165a8bcb9c60fa0ae6dc1527bb41",
+  "inner_folds": [
+    {
+      "inner_fold": 0,
+      "fit_count": 480,
+      "oof_count": 229,
+      "seed_seconds": [
+        50.39,
+        35.95,
+        8.22
+      ]
+    },
+    {
+      "inner_fold": 1,
+      "fit_count": 549,
+      "oof_count": 160,
+      "seed_seconds": [
+        9.78,
+        10.64,
+        9.88
+      ]
+    },
+    {
+      "inner_fold": 2,
+      "fit_count": 549,
+      "oof_count": 160,
+      "seed_seconds": [
+        9.41,
+        9.44,
+        9.64
+      ]
+    },
+    {
+      "inner_fold": 3,
+      "fit_count": 549,
+      "oof_count": 160,
+      "seed_seconds": [
+        10.34,
+        10.52,
+        10.36
+      ]
+    }
+  ],
+  "fit_oof_covered_once": 709,
+  "calibration_ensemble_heads": 12,
+  "policy": {
+    "temperatures": 1.0,
+    "code_threshold": 0.5,
+    "scene_threshold": 0.5,
+    "empty_code_bonus": 0.12,
+    "additional_scene_requirement": 0.08,
+    "max_proposals_per_photo": 1,
+    "code_precision_gate": false,
+    "draft": "empty"
+  },
+  "fit_oof_proposal_support": {
+    "photos": 709,
+    "proposals": 427,
+    "true_proposed_pairs": 289,
+    "false_proposed_pairs": 138,
+    "normal_photos": 220,
+    "normal_false_proposals": 63,
+    "severity4_photos": 206,
+    "severity4_photos_with_proposals": 159,
+    "severity4_matching_proposals": 108,
+    "per_code_proposals": {
+      "fire_explosion": 20,
+      "chemical_exposure": 5,
+      "other": 58,
+      "slip_trip": 158,
+      "electrical_energy": 26,
+      "fall_height": 125,
+      "struck_by_lifting": 8,
+      "caught_in_machine": 27
+    }
+  },
+  "calibration_proposal_support": {
+    "photos": 82,
+    "proposals": 51,
+    "true_proposed_pairs": 40,
+    "false_proposed_pairs": 11,
+    "normal_photos": 21,
+    "normal_false_proposals": 5,
+    "severity4_photos": 28,
+    "severity4_photos_with_proposals": 21,
+    "severity4_matching_proposals": 14,
+    "per_code_proposals": {
+      "fire_explosion": 7,
+      "chemical_exposure": 2,
+      "other": 12,
+      "slip_trip": 18,
+      "fall_height": 6,
+      "struck_by_lifting": 1,
+      "electrical_energy": 3,
+      "caught_in_machine": 2
+    }
+  },
+  "current_process_seconds_including_loaded_heads": 147.38
+}
