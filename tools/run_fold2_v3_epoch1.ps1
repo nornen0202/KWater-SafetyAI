@@ -1,6 +1,7 @@
 param(
     [string] $Python = 'C:/Users/JY/.antigravity_kwater_venv/Scripts/python.exe',
-    [string] $Resume
+    [string] $Resume,
+    [switch] $RetryBf16OOM
 )
 $ErrorActionPreference = 'Stop'
 Set-Location -LiteralPath (Join-Path $PSScriptRoot '..')
@@ -23,6 +24,9 @@ try {
     $stamp = Get-Date -Format 'yyyyMMdd-HHmmss'
     foreach ($stage in @('train', 'infer', 'score')) {
         $cli = @('-B', '-u', '-m', 'kwater_lab.fold2_v3_epoch1', $stage)
+        if ($stage -eq 'infer' -and $RetryBf16OOM) {
+            $cli = @('-B', '-u', '-m', 'kwater_lab.fold2_bf16_oom_recovery')
+        }
         if ($stage -eq 'train' -and $Resume) { $cli += @('--resume', ('"{0}"' -f $Resume)) }
         if ($stage -eq 'infer' -and (Test-Path -LiteralPath (Join-Path $run 'epoch1-bf16-inference-receipt.json'))) { continue }
         if ($stage -eq 'score') { $env:CUDA_VISIBLE_DEVICES = '-1' }
