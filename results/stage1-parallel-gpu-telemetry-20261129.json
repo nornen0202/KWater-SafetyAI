@@ -1,0 +1,25 @@
+{
+  "scope": "Device-wide sampled GPU utilization from the Seoul Pure-Inspect run and local RTX 3060 research. One paired observation per local poll, nearest Seoul poll within five seconds. Includes desktop GPU use and model load gaps.",
+  "local_sampling_target_seconds": 15,
+  "seoul_sampling_target_seconds": 5,
+  "matched_local_polls": 300,
+  "first_matched_kst": "2026-11-29T00:49:31.818240+09:00",
+  "last_matched_kst": "2026-11-29T02:06:07.787618+09:00",
+  "simultaneous_util_at_least_pct": {
+    "30": 158,
+    "50": 92,
+    "80": 43
+  },
+  "sources": [
+    {
+      "path": "data/stage1-gpu-telemetry-20261129/seoul-l4.csv",
+      "bytes": 46408,
+      "sha256": "e23112f19abcae37afcd3850b3d86a145b1db89fa2251d9d8b3612618285a936"
+    },
+    {
+      "path": "data/stage1-gpu-telemetry-20261129/local-3060-during-seoul.csv",
+      "bytes": 14749,
+      "sha256": "95307f7bc7352b5674c133c7bea02837b34efcf897b24f822e4fb852aa94dde1"
+    }
+  ]
+}

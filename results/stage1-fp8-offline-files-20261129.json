@@ -1,0 +1,96 @@
+{
+  "version": "stage1-fp8-offline-files-v1",
+  "repo": "Qwen/Qwen3-VL-8B-Instruct-FP8",
+  "revision": "9cdc6310a8cb770ce18efaf4e9935334512aee45",
+  "license": "apache-2.0",
+  "files": {
+    "chat_template.json": {
+      "bytes": 5497,
+      "sha256": "2c1437f11fc16ab501b984c000f6e291c599f0d28d2c9c6bf2c4533e65429b42"
+    },
+    "config.json": {
+      "bytes": 12005,
+      "sha256": "8bbb7d41e722c000d4079c2520fd7d8438a5c13cf084c89784c0a2770cc9bf88"
+    },
+    "generation_config.json": {
+      "bytes": 241,
+      "sha256": "a8aeb4072b54a2b54755557cad7f2dddc9f99ea858a6eccd704731180b788592"
+    },
+    "model-00001-of-00002.safetensors": {
+      "bytes": 5363407552,
+      "sha256": "e2dea2e85e643ef7045c31a485a426631a1e0a84e463f8b2c7e9c6682a06eafd"
+    },
+    "model-00002-of-00002.safetensors": {
+      "bytes": 5226891960,
+      "sha256": "3dc64ec934af27a7007d265014e907aff9e16658d409e5cd4cf79869bf2bd8c1"
+    },
+    "model.safetensors.index.json": {
+      "bytes": 94475,
+      "sha256": "751e4b7c17b148d5cc8fb1296b281fe98a711c0182d88b8516f459186990f49d"
+    },
+    "preprocessor_config.json": {
+      "bytes": 336,
+      "sha256": "6a970fd06f30e6943b3e2c14d5d3b42d49b06cf99b99103d56689bef462d90f8"
+    },
+    "tokenizer.json": {
+      "bytes": 10179867,
+      "sha256": "ba85e4e5222d9f53d4bd00b303ef7e9743c8ac3d07e3c23f8498dbe17baa9a2d"
+    },
+    "tokenizer_config.json": {
+      "bytes": 10868,
+      "sha256": "c2da771801886ad9ae98181793ffd3dfb7f1af30f6f7c6a4e15d7dbba52e2399"
+    },
+    "video_preprocessor_config.json": {
+      "bytes": 331,
+      "sha256": "e203bc065dfcd75226838b8e937d624bec8f0eb6ef6630a397e9a675f2873ea6"
+    },
+    "vocab.json": {
+      "bytes": 4957462,
+      "sha256": "7a0cfa95c65792d7510205839f80cfd8a3c8f6b1fdad5132d95cee481800374d"
+    }
+  },
+  "shards": {
+    "model-00001-of-00002.safetensors": {
+      "header_bytes_excluding_length_prefix": 35000,
+      "header_sha256": "fdc3b6af8532a9d5abca60b115a33f63c924df9298003478f929ead897c205aa",
+      "tensor_payload_bytes": 5363372544,
+      "tensors": 268,
+      "tensor_count_by_dtype": {
+        "F32": 103,
+        "BF16": 62,
+        "F8_E4M3": 103
+      }
+    },
+    "model-00002-of-00002.safetensors": {
+      "header_bytes_excluding_length_prefix": 88784,
+      "header_sha256": "ca801a626186e95339ba06a5dcb7b71262b61930660e3182b670eb0814e2d727",
+      "tensor_payload_bytes": 5226803168,
+      "tensors": 734,
+      "tensor_count_by_dtype": {
+        "F32": 149,
+        "BF16": 436,
+        "F8_E4M3": 149
+      }
+    }
+  },
+  "indexed_tensors": 1002,
+  "shard_bytes": 10590299512,
+  "inference_file_bytes": 10605560594,
+  "tensor_payload_bytes": 10590175712,
+  "scale_audit": {
+    "paired_projection_weights": 252,
+    "scale_tensors": 252,
+    "scale_values": 423936,
+    "scale_min": 0.00013637542724609375,
+    "scale_max": 0.00634765625,
+    "block_size": [
+      128,
+      128
+    ],
+    "each_weight_and_scale_same_shard": true,
+    "visual_and_lm_head_bf16_tensors": 352
+  },
+  "l4_smoke_verify_base_executed": true,
+  "model_loaded": false,
+  "l4_kernel_executed": false
+}

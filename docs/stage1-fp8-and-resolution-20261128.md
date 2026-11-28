@@ -112,3 +112,76 @@ done
 ```
 
 이 실행은 최대 64개 토큰의 기술 점검이다. 패키징 승격에는 별도의 전체 생성 조건에서 동일 어댑터의 외측 평가 패리티와 200장 공식 키트의 시간·메모리·출력 결과가 필요하다.
+
+## 로컬 FP8 파일 준비와 검사
+
+모델은 `data/stage1-fp8-base/`에 둔다. 수신기는 고정 공개 리비전의 파일을 HTTPS로 받아 `.partial` 이름에서 이어받고, 전체 크기와 LFS SHA-256을 확인한 뒤 같은 폴더에서 정식 이름으로 바꾼다. CPU 검사는 기존 L4 스모크의 `verify_base`를 직접 호출하고, 두 safetensors 헤더의 키·자료형·shape·오프셋을 인덱스와 대조한다. 언어 투영 가중치마다 128×128 블록에 대응하는 FP32 스케일의 shape과 값도 확인한다. [공식 FP8 리비전](https://huggingface.co/Qwen/Qwen3-VL-8B-Instruct-FP8/tree/9cdc6310a8cb770ce18efaf4e9935334512aee45) · [Safetensors 파일 형식](https://github.com/safetensors/safetensors#format)
+
+```powershell
+python -B -m kwater_lab.stage1_fp8_local_assets --fetch
+```
+
+이미 받은 폴더를 인터넷 없이 검산하려면 `--fetch`를 생략한다. 실제 L4 추론은 앞 절의 별도 실행기로 점검한다.
+
+11월 29일 로컬 G:에 두 샤드를 이어받고 공개 LFS SHA-256을 확인했다. 수신이 끝난 뒤 기존 L4 스모크의 `verify_base`가 같은 폴더에서 설정·토크나이저와 두 샤드를 포함한 11개 파일의 SHA-256을 모두 다시 확인했다. [로컬 전체 파일·헤더·스케일 검산 영수증](../results/stage1-fp8-offline-files-20261129.json)
+
+| safetensors 샤드 | 실측 바이트 | 실측 SHA-256 |
+|---|---:|---|
+| `model-00001-of-00002.safetensors` | 5,363,407,552 | `e2dea2e85e643ef7045c31a485a426631a1e0a84e463f8b2c7e9c6682a06eafd` |
+| `model-00002-of-00002.safetensors` | 5,226,891,960 | `3dc64ec934af27a7007d265014e907aff9e16658d409e5cd4cf79869bf2bd8c1` |
+
+인덱스와 헤더에서 텐서 1,002개가 일치했다. 252개 E4M3 가중치와 각 FP32 스케일이 같은 샤드에서 128×128 블록 크기에 맞았고, 저장된 스케일 값 423,936개는 모두 유한한 양수였다. 시각층과 출력층 텐서 352개는 BF16이다. CPU 검산으로 모델 파일 준비가 끝났으며, 공식 L4에서의 커널 실행·동일 어댑터 적재·품질·속도·VRAM 실측은 별도로 남아 있다.
+
+## Windows RTX 3060의 NF4 해상도 대조
+
+두 팔은 실제 Fold 2 혼합 8B 첫 에폭 어댑터, v3 지시문, 같은 55장·정규 순서·배치 1·탐욕 생성 상한 620토큰을 사용한다. 언어층은 NF4 이중 양자화와 BF16 연산을 쓰며, 시각부와 출력 헤드는 BF16으로 둔다. 393,216픽셀과 655,360픽셀의 입력 상한을 비교한다. 학습측과 교차 현장이 있는 197장 중 사전에 고정한 55장을 사용하며, 이전 ROI 검토 사진 16장이 남아 있다. [회수한 8B 기준선](../results/fold2-matched-4b-8b-epoch1-20261128.json) · [고정 평가 범위](../results/sub78-fold2-prospective-readiness-20261128.json)
+
+```powershell
+$runtimeBase='C:/Users/JY/anaconda3/envs/env_aias_test'
+$env:PATH="$runtimeBase/Library/bin;$runtimeBase/DLLs;$runtimeBase;$env:PATH"
+$env:CUDA_VISIBLE_DEVICES='0'
+$env:OMP_NUM_THREADS='1'
+$env:PYTHONUTF8='1'
+$runner='C:/Users/JY/.antigravity_kwater_venv/Scripts/python.exe'
+& $runner -u -B -m kwater_lab.stage1_local_resolution
+& $runner -B -m kwater_lab.stage1_local_resolution --score
+```
+
+원생성 캐시와 사진별 출력은 `data/stage1-local-nf4-resolution-55/`에 보관한다. 채점은 입력 지문과 배치, 프롬프트, 다른 실행 조건이 두 팔에서 같았음을 검산하고 사진별 짝을 유지한 채 현장 그룹을 2,000회 재표집한다. 이 실험의 수치는 Windows RTX 3060에서 NF4로 읽은 두 해상도의 결과에 해당한다.
+
+| 고정 55장·34그룹 | 393,216픽셀 | 655,360픽셀 |
+|---|---:|---:|
+| 순서가 일치하는 최종 출력 | 55/55 | 55/55 |
+| 원생성 JSON·엄격 스키마 통과 | 55/55 | 53/55 |
+| 생성 상한 도달 | 0 | 2 |
+| 활성 Macro-F1 | .49484 | .50012 |
+| 정상 오경보 | 2/12 | 1/12 |
+| 심각도 4 완전 미탐 | 5/15 | 6/15 |
+| 복수 위험 코드 마이크로 재현 · 정확 일치 | 14/31 · 2/15 | 11/31 · 1/15 |
+| 정답에 걸림·미끄러짐이 없는 사진의 해당 오탐 | 3/37 | 3/37 |
+| 생성 경과 시간 | 1,153.7초 | 1,213.1초 |
+| CUDA 최대 할당 · 예약 메모리 | 8.213 · 9.982GiB | 8.590 · 8.850GiB |
+
+F1 차이는 **+.00528**, 현장 그룹 95% 구간은 **[−.14405, +.09242]**였다. 추락의 TP/FP/FN은 4/0/7로 유지됐다. 인양은 0/1/3→0/0/3, 협착은 4/1/0→3/1/1이었다. 토큰 수가 그대로인 17장은 원생성 문장과 최종 코드 집합이 모두 같았고, 토큰이 증가한 38장에서는 10장의 코드 집합이 바뀌었다. [55장 NF4 쌍체 실측과 지문](../results/stage1-local-nf4-resolution-55-20261129.json)
+
+655,360픽셀에서 상한에 닿은 두 장은 JSON·엄격 스키마 검사에 실패했고 같은 후처리를 거쳐 위험 없음으로 집계했다. 두 장 모두 55장 평가에 남겼다. 이 두 장에서 정상 오경보 한 장이 해소되고 정답 코드 두 건이 사라졌다. 상한에 도달하지 않은 53장에서도 정답 코드 회수 3건과 소실 4건이 있었고, 중대 완전 미탐 한 장이 추가됐다. [생성 상한과 오류 변화의 교차 집계](../results/stage1-local-nf4-resolution-55-20261129.json)
+
+가중치는 한 번 적재했고 631.9초가 걸렸다. 생성 시간에는 사진 읽기와 캐시 기록이 포함된다. 저화소 팔 실행 중 FP8 다운로드가 일부 겹쳤고 고화소 팔 실행 동안에는 중단했다. 측정된 사진당 시간을 단순 적용하면 이미 처리한 55장을 재사용할 수 있는 197장 확장에서 나머지 142장의 양팔 생성은 약 102분, 전량 재생성은 약 141분이다. 실제 197장 실행에 걸리는 시간에는 대상 사진과 생성 길이, 적재와 파일 검사도 영향을 준다.
+
+### Fold 2에서 실측한 두 변경의 쌍체 결과
+
+서울 L4 BF16에서는 393,216픽셀과 v3 프롬프트를 유지한 채 혼합 학습을 Pure-Inspect 학습으로 바꿨다. 로컬 RTX 3060 NF4에서는 혼합 v3 어댑터로 입력 상한만 높였다. 그림의 차이와 오류 건수는 각 환경과 표본 안에서 계산했다. [서울 커리큘럼 영수증](../results/stage1-pure-vs-mixed-fold2-20261128.json) · [로컬 해상도 영수증](../results/stage1-local-nf4-resolution-55-20261129.json)
+
+![서울 BF16 커리큘럼과 로컬 NF4 해상도 비교 각각의 활성 Macro-F1 차이와 95% 구간, 정상 오경보와 심각도 4 완전 미탐](../reports/figures/stage1-measured-contrasts-20261129.png)
+
+```powershell
+& $runner -B tools/plot_stage1_measured_contrasts.py
+```
+
+### 같은 55장의 로컬 프롬프트 대조 준비
+
+B2·B1 실행이 끝나고 LoRA 활성 상태와 장치·자료형이 복원된 모델을 이어받는다. 393,216픽셀, 배치 1, 최대 생성 620토큰, 시드 42와 원래 평가 순서를 고정한다. 기존 v3의 첫 두 사진을 재생성하고 보관된 원문과 정확히 일치한 경우에만 v4로 55장을 생성한다. 출력은 `data/stage1-local-nf4-prompt-v4-55/`에 보관한다. 채점은 같은 법령과 769장 학습 사례를 사용하며, 두 프롬프트의 차이와 이전 v3 예측 SHA-256을 확인한다.
+
+```powershell
+& $runner -B -m kwater_lab.stage1_local_resolution --score-v4
+```

@@ -2,6 +2,21 @@
 
 지난 서울 Fold 2 혼합 v3 8B 어댑터와 고정 Qwen3-VL-8B-Instruct 기반을 로컬에서 NF4·BF16 계산으로 적재한다. 사진마다 v3 시스템 지시문과 기존 사진 판독 질문만 넣고 프리필을 한 번 한다. 토크나이저가 만든 이미지 슬롯의 개수를 전처리 격자 토큰 수와 대조한 뒤, 언어층 모델의 마지막 히든 상태에서 그 위치만 BF16으로 저장한다. 정답·사진별 법령·예방조치와 생성 답변은 입력에서 제외한다. 텍스트 토큰, 앞선 레이어 상태와 생성 KV는 보존하지 않는다. [기반 8B 학습·평가](../reports/fold2-8b-matched-baseline-20261128.md)
 
+## 실측
+
+보정에서 정상 오경보 기준을 통과한 문턱을 고정하고 평가하자, 헤드의 정상 오경보는 정본 **33/67 (49.3%)**, 고정 55장 **8/12 (66.7%)**였다. 고정 55장의 같은 NF4 생성 대조군은 2/12였다. 헤드 승격을 보류하고 외측 결과를 사용한 문턱 조정은 0건이다. [실측 영수증](../results/stage2-representation-head-fold2-20261129.json)
+
+| 분모·경로 | 활성 Macro-F1 | 공통 8종 F1 | 정상 오경보 | 심각도 4 완전 미탐 |
+|---|---:|---:|---:|---:|
+| 보정 42장 · 헤드 | 미집계 | .26668 | 1/8 (12.5%) | 미집계 |
+| 정본 197장 · 헤드 | .14324 | .16115 | 33/67 | 33/59 |
+| 고정 55장 · 헤드 | .15329 | .17245 | 8/12 | 8/15 |
+| 고정 55장 · 같은 NF4 생성 | .49484 | .55669 | 2/12 | 5/15 |
+
+고정 55장에서 헤드의 활성 F1은 같은 NF4 생성보다 **.34155 낮았다**. 사진을 같은 현장 묶음으로 2,000회 재표집한 95% 차이 구간은 [−.46542, −.15955]다. 정상 사진 6장이 헤드에서 오경보로 바뀌었고 오경보가 해소된 사진은 0장이다. 심각도 4에서 생성만 정답을 하나 이상 맞힌 사진은 3장이고 헤드만 맞힌 사진은 0장이다. 정본에서 추락·인양·끼임의 헤드 적중은 각각 0/37, 0/12, 0/8이었다. [쌍체 지표·코드별 오류](../results/stage2-representation-head-fold2-20261129.json)
+
+로컬 RTX 3060의 8B 적재는 261.7초였다. 454장·129,775개 시각 토큰을 **1,063,884,968바이트**의 로컬 캐시에 저장했다. 적재 뒤 사진 읽기·프리필·저장에는 1,003.1초, 프리필·CPU 복사 누적은 920.7초였다. 최고 CUDA 할당은 8.009GiB, 예약은 9.068GiB였다. CPU 적합은 초기화와 캐시 읽기를 포함해 445.1초이며, 헤드 파일은 **2,373,426바이트**다. 보정에는 정상 8장과 끼임 양성 0장이 있으므로 이 보정 지표의 재현 범위는 작다. [고정 입력과 지원](../results/stage2-representation-head-fold2-preflight-20261129.json) · [실측 집계와 모델 지문](../results/stage2-representation-head-fold2-20261129.json)
+
 ## 고정한 분모와 정책
 
 기존 Fold 2 Clean-Cal 학습 631장과 보정 138장에서, 외측 197장과 보수적 현장 구성요소로 연결된 **512장**을 함께 제외했다. 남은 **215장·121묶음**만 헤드 학습에 쓰고, **42장·21묶음**에서 임계값을 고른다. 이 두 집합과 외측의 구성요소 교집합은 0이다. 외측 정본은 197장이고, 같은 과거 학습 구성요소로 이어진 142장이 정본에 포함된다. 고정 55장에서는 이 교차가 0장이다. 55장에는 과거 탐색 노출이 남아 있다. 동결한 VLM은 769장으로 먼저 학습했으므로 헤드 훈련·보정 특징도 그 VLM이 이미 본 사진에서 왔다. [입력 무결성·지원표](../results/stage2-representation-head-fold2-preflight-20261129.json) · [현장 구성요소의 한계](../reports/stage2-oof-fold-design-20261128.md)
@@ -11,25 +26,28 @@
 ## 로컬 실행
 
 ```powershell
-$py = 'C:/Users/JY/.antigravity_kwater_venv/Scripts/python.exe'
 $env:OMP_NUM_THREADS = '2'
-& $py -B -m kwater_lab.stage2_representation_head prepare
-& $py -B -m unittest discover -s tests -p test_stage2_representation_head.py -v
+python -B -m kwater_lab.stage2_representation_head prepare
+python -B -m unittest discover -s tests -p test_stage2_representation_head.py -v
 
 # 로컬 GPU 차례가 넘어오면 시작하고, 같은 프로세스의 첫 4장 로그를 확인한다.
-& $py -B -u -m kwater_lab.stage2_representation_head extract
+python -B -u -m kwater_lab.stage2_representation_head extract
 
 # 이하 단계는 CPU에서 실행한다.
 $env:CUDA_VISIBLE_DEVICES = '-1'
-& $py -B -u -m kwater_lab.stage2_representation_head fit
-& $py -B -u -m kwater_lab.stage2_representation_head calibrate
-& $py -B -u -m kwater_lab.stage2_representation_head score
+python -B -u -m kwater_lab.stage2_representation_head fit
+python -B -u -m kwater_lab.stage2_representation_head calibrate
+python -B -u -m kwater_lab.stage2_representation_head score
 ```
 
 사진은 G:에서 한 번 읽은 바이트로 SHA-256과 디코딩을 함께 처리한다. CPU가 다음 사진 한 장만 앞서 준비한다. 사진별 캐시는 지문, 이미지 토큰 수, 전처리 격자, 프롬프트 토큰·마스크 지문, NF4 계산 환경 및 기반 모델·어댑터·토크나이저 지문을 묶어 G:에서 원자적으로 공개한다. 같은 설정에서 재실행하면 완성된 사진을 건너뛴다. 헤드의 CPU 적합·보정과 평가가 한 번에 메모리로 가져오는 최대 분량은 8장이다. 384시각 토큰 상한으로 계산하면 캐시 텐서는 총 1.43GB 이하다. 미니배치 FP32 패딩 본체는 최대 약 50.3MB, 같은 원자료 BF16은 약 25.2MB다. 헤드 적합은 12에폭 동안 최대 약 8.1GB를 디스크에서 읽으므로 로컬 캐시 속도에 따라 시간이 달라진다.
 
 기존 로컬 NF4 8B 모델 적재는 351.6초였고, 별도의 생성·검증 작업 최대 예약량은 10.14~10.30GiB였다. 이번 작업은 같은 종류의 NF4 어댑터 로드와 사진당 한 번의 프리필로, 가계획은 로드 약 6분과 사진당 1~3초에 G: 입출력을 합한 약 15~35분이다. 한 프로세스에서 네 번째 캐시 저장 직후 처리 시간과 피크 메모리를 출력하고 이후 사진을 계속 처리한다. 중단하게 되면 다음 동일 실행이 완성된 캐시를 재사용한다. [이전 로컬 NF4 계측](../results/sub78-single8-verifier-nf4.json)
 
-같은 GPU 세션에서 별도로 승인한 후속 진단을 이어갈 때는 Python 실행기에 `extract(work, base, "all", None, after_extract=callback)`을 쓴다. 완료 영수증과 `FEATURE_EXTRACTION_COMPLETE 454`가 기록된 뒤에 로드된 모델·전처리기·지문을 콜백에 넘긴다. CPU 헤드는 완료 신호 이후 별도 프로세스에서 적합할 수 있다.
+승인된 세 진단을 한 모델 적재로 재현할 때는 기존 로컬 CUDA 환경에서 GPU 차례를 확인한 뒤 아래 명령을 실행한다. B2 시각 토큰 454장이 완료되면 같은 모델로 B1 희귀 유형 966장을 판독한다. B1 완료 영수증과 어댑터 활성·병합 상태 및 모든 대상 층의 기반·LoRA 텐서 dtype·device 복귀가 일치한 다음 v4 판독기를 호출한다. v4의 앞선 v3 두 행 재실행 검사와 출력 제한은 해당 판독기가 적용한다. 실패는 명령의 종료 상태를 통해 보고된다. 완성된 사진별 원자 캐시는 같은 지문에서 재사용하고 CPU 헤드 적합·보정·채점은 독립 실행한다. [실행기](../kwater_lab/local_gpu_stage2_sequence.py)
+
+```powershell
+python -B -u -m kwater_lab.local_gpu_stage2_sequence
+```
 
 외측에서는 정본 197장과 고정 55장의 헤드 단독 지표를 보고한다. 393,216픽셀·같은 NF4·같은 어댑터와 입력의 로컬 55장 생성 영수증이 있을 때만 생성 기준선과 사진별로 비교한다. 이 파일럿의 범위는 1개 모델과 1개 외측 폴드다. 전량 5-Fold OOF와 공식 대회 점수는 별도 실험에서 확인한다.
