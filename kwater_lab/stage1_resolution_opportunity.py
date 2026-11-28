@@ -159,7 +159,7 @@ def run(fold2_8b=None, fold2_8b_receipt=FOLD2_8B_RECEIPT):
         "cohort_caveats": {
             "fold4": "175 includes confirmed cross-split scene links. The nested 107 removes three linked groups; the limited review leaves possible undiscovered overlap.",
             "fold2": "197 includes known cross-site links. The nested 55 uses its frozen prospective group exclusions and retains 16 prior ROI review photos.",
-            "strata": "Token strata describe image resize geometry. Manifest groups may contribute to both strata. These are separate baselines on different folds and do not estimate an effect of resolution or establish visible cue distance.",
+            "strata": "Token strata describe image resize geometry. Manifest groups may contribute to both strata. Models are paired only within a fold. These counts do not estimate an effect of resolution or establish visible cue distance.",
         },
         "baseline_max_pixels": 393216, "comparison_max_pixels": 655360,
         "input_sha256": source_sha, "arms": results,

@@ -1,0 +1,52 @@
+{
+  "scope": "One approved Seoul Spot Fold 2 matched baseline. Training and BF16 development inference; no official container/submission run.",
+  "zone": "asia-northeast3-a",
+  "machine": "g2-standard-8",
+  "gpu": "NVIDIA L4",
+  "provisioning": "SPOT",
+  "boot_pd_balanced_gib": 150,
+  "training_environment_bootstrap_sha256": "b34df36c2d75c451c1ce0a8bc27da07654c5b37d9986e2bb4ec399d51d643950",
+  "source_train_sha256": "1a16d134b4c09cf161cd06606033753f8ecedc1d6281e0a3d74c6b666209aadc",
+  "creation_kst": "2026-11-28T22:43:11.499000+09:00",
+  "absence_verified_kst": "2026-11-29T00:38:04.253251+09:00",
+  "elapsed_seconds_through_verified_absence": 6892.75,
+  "remaining_run_instances": 0,
+  "remaining_run_disks": 0,
+  "returned_tar": {
+    "bytes": 554250240,
+    "sha256": "6d95e75610c035a50b361b7ea1cab12166f56f2ecaef28927364fcb271fcabaf"
+  },
+  "adapter_sha256": "4ca7c4a810b7834261cd21013fc90cab99993494411564b22ae337c36ca0ddf8",
+  "training_steps": 67,
+  "schedule_total_steps": 134,
+  "examples": 1066,
+  "training_step_seconds": 3344.19,
+  "supervised_tokens": 134372,
+  "decision_tokens": 20707,
+  "cost_estimate_krw": {
+    "invoice_available": false,
+    "approved_increment_cap": 3000,
+    "approved_max_hours": 3,
+    "usd_per_hour_spot_machine_from_prior_seoul_receipt": 0.366956,
+    "pd_balanced_and_ipv4_usd_per_hour_estimate": 0.03171233,
+    "assumed_krw_per_usd": 1500,
+    "vat": 0.1,
+    "machine_disk_ip_estimate_including_vat": 1260,
+    "known_egress_usd_per_gib_scenario": 0.19,
+    "known_output_egress_estimate_including_vat": 162,
+    "increment_estimate": 1422,
+    "network_and_misc_reserve_including_egress_krw": 500,
+    "increment_estimate_with_reserve": 1760
+  },
+  "resource_observations": {
+    "training_epoch_seconds": 3354.5,
+    "training_weighted_token_loss": 0.91,
+    "peak_allocated_gib_training": 8.82,
+    "peak_reserved_gib_training": 9.03,
+    "post_epoch_sampled_gpu_used_mib_max": 20334,
+    "nvidia_smi_sampling_seconds": 5,
+    "bf16_generation_seconds_excluding_load": 1297.2,
+    "bf16_raw_json_and_schema_passed": 197,
+    "bf16_token_limit_hits": 0
+  }
+}

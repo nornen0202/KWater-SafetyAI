@@ -3,7 +3,7 @@
   "cohort_caveats": {
     "fold4": "175 includes confirmed cross-split scene links. The nested 107 removes three linked groups; the limited review leaves possible undiscovered overlap.",
     "fold2": "197 includes known cross-site links. The nested 55 uses its frozen prospective group exclusions and retains 16 prior ROI review photos.",
-    "strata": "Token strata describe image resize geometry. Manifest groups may contribute to both strata. These are separate baselines on different folds and do not estimate an effect of resolution or establish visible cue distance."
+    "strata": "Token strata describe image resize geometry. Manifest groups may contribute to both strata. Models are paired only within a fold. These counts do not estimate an effect of resolution or establish visible cue distance."
   },
   "baseline_max_pixels": 393216,
   "comparison_max_pixels": 655360,
@@ -12,7 +12,8 @@
     "official_labels": "ab427fed4615b32627b76001e27124e99ae9202c855ba4170916ebe4fdc4de55",
     "fold4_mask": "ec85cb77fa974c63ba750d2c8201db679921bd91099a015fafe5ca1c2c334060",
     "fold2_mask": "04a494751de9720893959095529f0ffbdd521be3b11be0b4dd99fddfd7cb2165",
-    "image_tokens": "f69ee33fc85cac9ba6f3ad6aeca5af4020e703870c5082cb0aa2648c23c377c7"
+    "image_tokens": "f69ee33fc85cac9ba6f3ad6aeca5af4020e703870c5082cb0aa2648c23c377c7",
+    "fold2_8b_matched_receipt": "ee50802c4ebd3077b75af0c88754e8b4f3d80b50ddecb63905355a0cec622dd1"
   },
   "arms": {
     "fold4_8b_epoch1_bf16": {
@@ -482,6 +483,245 @@
             "normal": {
               "photos": 6,
               "false_alarm_photos": 2
+            },
+            "multi_hazard": {
+              "photos": 4,
+              "target_codes": 8,
+              "correct_codes": 4,
+              "micro_recall": 0.5
+            }
+          }
+        }
+      }
+    },
+    "fold2_8b_epoch1_bf16": {
+      "predictions_sha256": "046737f0ab2fbc134a4eae93b851618aaf1e68cc5839cfd42f7bbab48e5e1b1e",
+      "panels": {
+        "primary_197": {
+          "all": {
+            "photos": 197,
+            "manifest_groups": 38,
+            "target_codes": {
+              "fall_height": {
+                "support": 37,
+                "tp": 17,
+                "fn": 20,
+                "fp": 5
+              },
+              "struck_by_lifting": {
+                "support": 12,
+                "tp": 1,
+                "fn": 11,
+                "fp": 5
+              },
+              "caught_in_machine": {
+                "support": 8,
+                "tp": 3,
+                "fn": 5,
+                "fp": 1
+              }
+            },
+            "severity4": {
+              "photos": 59,
+              "complete_misses": 25
+            },
+            "normal": {
+              "photos": 67,
+              "false_alarm_photos": 5
+            },
+            "multi_hazard": {
+              "photos": 38,
+              "target_codes": 80,
+              "correct_codes": 43,
+              "micro_recall": 0.5375
+            }
+          },
+          "manifest_groups_in_both_token_strata": 5,
+          "token_increase": {
+            "photos": 114,
+            "manifest_groups": 29,
+            "target_codes": {
+              "fall_height": {
+                "support": 18,
+                "tp": 11,
+                "fn": 7,
+                "fp": 4
+              },
+              "struck_by_lifting": {
+                "support": 8,
+                "tp": 0,
+                "fn": 8,
+                "fp": 3
+              },
+              "caught_in_machine": {
+                "support": 5,
+                "tp": 3,
+                "fn": 2,
+                "fp": 0
+              }
+            },
+            "severity4": {
+              "photos": 40,
+              "complete_misses": 14
+            },
+            "normal": {
+              "photos": 34,
+              "false_alarm_photos": 2
+            },
+            "multi_hazard": {
+              "photos": 28,
+              "target_codes": 60,
+              "correct_codes": 34,
+              "micro_recall": 0.5666666666666667
+            }
+          },
+          "unchanged": {
+            "photos": 83,
+            "manifest_groups": 14,
+            "target_codes": {
+              "fall_height": {
+                "support": 19,
+                "tp": 6,
+                "fn": 13,
+                "fp": 1
+              },
+              "struck_by_lifting": {
+                "support": 4,
+                "tp": 1,
+                "fn": 3,
+                "fp": 2
+              },
+              "caught_in_machine": {
+                "support": 3,
+                "tp": 0,
+                "fn": 3,
+                "fp": 1
+              }
+            },
+            "severity4": {
+              "photos": 19,
+              "complete_misses": 11
+            },
+            "normal": {
+              "photos": 33,
+              "false_alarm_photos": 3
+            },
+            "multi_hazard": {
+              "photos": 10,
+              "target_codes": 20,
+              "correct_codes": 9,
+              "micro_recall": 0.45
+            }
+          }
+        },
+        "sensitivity_55": {
+          "all": {
+            "photos": 55,
+            "manifest_groups": 34,
+            "target_codes": {
+              "fall_height": {
+                "support": 11,
+                "tp": 5,
+                "fn": 6,
+                "fp": 0
+              },
+              "struck_by_lifting": {
+                "support": 3,
+                "tp": 0,
+                "fn": 3,
+                "fp": 1
+              },
+              "caught_in_machine": {
+                "support": 4,
+                "tp": 2,
+                "fn": 2,
+                "fp": 1
+              }
+            },
+            "severity4": {
+              "photos": 15,
+              "complete_misses": 6
+            },
+            "normal": {
+              "photos": 12,
+              "false_alarm_photos": 2
+            },
+            "multi_hazard": {
+              "photos": 15,
+              "target_codes": 31,
+              "correct_codes": 16,
+              "micro_recall": 0.5161290322580645
+            }
+          },
+          "manifest_groups_in_both_token_strata": 1,
+          "token_increase": {
+            "photos": 38,
+            "manifest_groups": 25,
+            "target_codes": {
+              "fall_height": {
+                "support": 7,
+                "tp": 4,
+                "fn": 3,
+                "fp": 0
+              },
+              "struck_by_lifting": {
+                "support": 1,
+                "tp": 0,
+                "fn": 1,
+                "fp": 1
+              },
+              "caught_in_machine": {
+                "support": 4,
+                "tp": 2,
+                "fn": 2,
+                "fp": 0
+              }
+            },
+            "severity4": {
+              "photos": 11,
+              "complete_misses": 3
+            },
+            "normal": {
+              "photos": 6,
+              "false_alarm_photos": 1
+            },
+            "multi_hazard": {
+              "photos": 11,
+              "target_codes": 23,
+              "correct_codes": 12,
+              "micro_recall": 0.5217391304347826
+            }
+          },
+          "unchanged": {
+            "photos": 17,
+            "manifest_groups": 10,
+            "target_codes": {
+              "fall_height": {
+                "support": 4,
+                "tp": 1,
+                "fn": 3,
+                "fp": 0
+              },
+              "struck_by_lifting": {
+                "support": 2,
+                "tp": 0,
+                "fn": 2,
+                "fp": 0
+              },
+              "caught_in_machine": {
+                "support": 0,
+                "tp": 0,
+                "fn": 0,
+                "fp": 1
+              }
+            },
+            "severity4": {
+              "photos": 4,
+              "complete_misses": 3
+            },
+            "normal": {
+              "photos": 6,
+              "false_alarm_photos": 1
             },
             "multi_hazard": {
               "photos": 4,
