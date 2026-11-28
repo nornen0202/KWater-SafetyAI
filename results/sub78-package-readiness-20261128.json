@@ -68,7 +68,7 @@
         "valid_rows": 200,
         "comparative_diagnostic": "results/sub78-four-arm-200-20261128.json"
       },
-      "candidate_role": "Submitted as the eighth entry; awaiting individual scoring",
+      "candidate_role": "Eighth entry, scored and automatically selected at the 16:29 KST observation",
       "research_archive_receipt": "results/fold4-8b-epoch1-research-package-20261128.json",
       "archive_filename": "kwater-research-8b-fold4-epoch1-bf16-20261128.zip",
       "archive_bytes": 17745550610,
@@ -79,7 +79,9 @@
       "prebuild_standalone_zip_estimate_bytes": 17745653528,
       "portal_submitted": true,
       "official_portal_receipt": "results/public_submission_008.json",
-      "submitted_at_kst": "2026-11-28T15:13:50.195+09:00"
+      "submitted_at_kst": "2026-11-28T15:13:50.195+09:00",
+      "portal_individual_status": "scored",
+      "individual_public_score": 55.22
     },
     "full_inspect_only_8b": {
       "existing_candidate": false,

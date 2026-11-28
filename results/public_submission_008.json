@@ -1,6 +1,6 @@
 {
   "event": "K-water 5th Public leaderboard",
-  "stage": "judging",
+  "stage": "scored",
   "submission_number": 8,
   "submitted_at_kst": "2026-11-28T15:13:50.195+09:00",
   "submitted_at_utc": "2026-11-28T06:13:50.195Z",
@@ -10,8 +10,8 @@
   "source": "Qwen3-VL-8B-Instruct standalone with the first-epoch Fold 4 adapter, 791 training photos and 69 of 138 scheduled updates.",
   "bytes": 17745550610,
   "sha256": "4b1523af723ec7f6863c0297f3dc6db84d7854e4e3c52dd26f30b26280bbd549",
-  "public_score": null,
-  "public_score_source": null,
+  "public_score": 55.22,
+  "public_score_source": "Authenticated My Submissions",
   "individual_status_observation": {
     "observed_at_kst": "2026-11-28T15:24:00+09:00",
     "time_precision": "minute",
@@ -54,5 +54,40 @@
     "remaining_attempts_today": 0,
     "daily_quota": 2,
     "automatically_selected_submission_number": 7
+  },
+  "previous_best_public_score": 53.98,
+  "delta_public_points": 1.24,
+  "delta_against_sixth": 1.57,
+  "delta_against_42_04_baseline": 13.18,
+  "automatically_selected_at_observation": true,
+  "individual_scored_observation": {
+    "observed_at_kst": "2026-11-28T16:29:00+09:00",
+    "time_precision": "minute",
+    "source": "Authenticated My Submissions",
+    "status": "채점 완료",
+    "automatically_selected_submission_number": 8,
+    "result_posted_at_kst": null
+  },
+  "scored_team_leaderboard_observation": {
+    "observed_at_kst": "2026-11-28T16:29:20.7626014+09:00",
+    "source": "https://hackathon.imaginationgroup.co.kr/kwater/api/leaderboard",
+    "best_public_score": 55.22,
+    "team_public_rank": 30,
+    "ranked_teams": 140,
+    "submissions": 8,
+    "last_submitted_at_utc": "2026-11-28T06:13:50.195Z",
+    "top_20_cutoff": 56.39,
+    "top_10_cutoff": 60.97,
+    "leading_score": 71.69,
+    "distance_to_top_20": 1.17,
+    "distance_to_top_10": 5.75
+  },
+  "prediction_comparison": {
+    "carbon_predicted_range": [
+      56,
+      58
+    ],
+    "shortfall_from_lower_bound": 0.78,
+    "official_quantitative_and_qualitative_breakdown_available": false
   }
 }

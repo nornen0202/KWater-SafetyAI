@@ -145,5 +145,8 @@
   },
   "release_pipeline_cpu_tests_passed": 9,
   "packaged_control_comparison": "results/fold4-4b-8b-packaged-controls-20261128.json",
-  "archive_completed_at_kst": "2026-11-28T14:08:26.5486854+09:00"
+  "archive_completed_at_kst": "2026-11-28T14:08:26.5486854+09:00",
+  "official_portal_receipt": "results/public_submission_008.json",
+  "portal_individual_status": "scored",
+  "individual_public_score": 55.22
 }
