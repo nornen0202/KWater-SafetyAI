@@ -180,5 +180,73 @@
     },
     "frozen_inference_identical": true,
     "local_8b_source_shards_verified": 4
+  },
+  "full1045_seventh_public200": {
+    "verified_local_200_photo_kit_run": true,
+    "hardware_observation": "NVIDIA L4 (23034 MiB), driver 580.178.04, Seoul g2-standard-16, official Linux x86-64 kit with 6 CPU and 56 GiB RAM",
+    "archive_sha256": "83c76f441f122279cd925998ce41dbc978f8dcb88cd141d5828e679d6e3ab713",
+    "kit_result": [
+      "OK"
+    ],
+    "kit_valid_row_report": [
+      [
+        "200",
+        "200"
+      ]
+    ],
+    "input_rows": 200,
+    "output_unique_rows": 200,
+    "output_sha256": "c9fe0310478ea28a7c6ebe8521946e702f21c4e770a4382ab30db9ef284999cd",
+    "kit_clock": {
+      "return_code": 0,
+      "execution_seconds": 1482,
+      "install_seconds": 15,
+      "total_seconds": 1497,
+      "limit_seconds": 1800
+    },
+    "runtime_phases": {
+      "input_photos": 200,
+      "enable_hybrid_booster": true,
+      "max_candidates_per_photo": 1,
+      "inspect_initial_batch_size": 4,
+      "inspect_final_effective_batch_size": 4,
+      "inspect_backoff_count": 0,
+      "verify_initial_batch_size": 2,
+      "verify_margin_effective_batch_size": 2,
+      "verify_gen_effective_batch_size": 2,
+      "verify_max_new_tokens": 280,
+      "verify_backoff_count": 0,
+      "raw_vlm_parsed_count": 200,
+      "raw_specialist_candidates": 71,
+      "margin_gate_passed_candidates": 45,
+      "verified_accepted_candidates": 9,
+      "specialist_seconds": 102.944,
+      "vlm_load_seconds": 6.149,
+      "inspect_seconds": 1104.869,
+      "margin_gate_seconds": 55.971,
+      "verify_generate_seconds": 207.206,
+      "postprocess_seconds": 1.922,
+      "total_seconds": 1479.416,
+      "sec_per_photo": 7.397,
+      "output_submission_sha256": "c9fe0310478ea28a7c6ebe8521946e702f21c4e770a4382ab30db9ef284999cd"
+    },
+    "kit_log_sha256": "0cc6a7d3955665c149a1741cda6a839b7b27177399f98f61d238e5fdc7518dc6",
+    "input_manifest_sha256": "8c86d0b60b7b879573ccdf4c81558ed4a3840588bb6d2fbbe656dfdb911335b6",
+    "archive_bytes": 10548013152,
+    "unique_input_ids": 200,
+    "actual_output_rows": 200,
+    "exact_order": true,
+    "prefix_in_order": true,
+    "independent_official_checker": {
+      "return_code": 0,
+      "valid_rows": 200,
+      "total_rows": 200,
+      "checker_dependency_missing": null,
+      "all_rows_valid": true
+    },
+    "sampled_gpu_memory_peak_mib": 11998,
+    "sampled_gpu_interval_seconds": 2,
+    "stderr_in_official_run_log": true,
+    "scope": "200 development photos / 192 groups; deployment timing only"
   }
 }
