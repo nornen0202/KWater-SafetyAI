@@ -1,0 +1,239 @@
+{
+  "schema_version": "safeground-v6-external-assets-draft-1.0",
+  "status": "pre_declaration_inventory",
+  "checked_at_kst": "2026-11-28T23:39:47+09:00",
+  "reviewed_repo_head": "ac90a7402adb41ac97886858342fffdf1708843e",
+  "organizer": {
+    "public_rules_url": "https://hackathon.imaginationgroup.co.kr/kwater/api/report",
+    "public_rules_revision": 94,
+    "public_notice_url": "https://hackathon.imaginationgroup.co.kr/kwater/api/notices",
+    "declaration_url": "https://hackathon.imaginationgroup.co.kr/kwater/#my/data",
+    "external_training_data_deadline_kst": "2026-12-06T23:59:00+09:00",
+    "data_submission": "One web form record per eligible external training dataset. Prior email filings need no duplicate.",
+    "data_form_fields": ["dataset_name", "provider_or_rightsholder", "source_url", "license", "terms", "available_free_to_anyone", "actual_image_count", "purpose", "ai_model_if_data_generated", "self_labeled", "evaluation_data_exclusion_attestation"],
+    "model_and_artifact_disclosure": "Report actual model names, versions and applicable licenses, and the models/methods used to generate training data. ZIP root assets.json records used models, data, libraries and seed.",
+    "separate_model_only_portal_procedure": null,
+    "team_portal_receipt_checked": false
+  },
+  "historical_evidence": [
+    {
+      "artifact": "Submission 008 BF16 8B standalone",
+      "zip_sha256": "4b1523af723ec7f6863c0297f3dc6db84d7854e4e3c52dd26f30b26280bbd549",
+      "evidence": ["results/public_submission_008.json", "results/fold4-8b-epoch1-research-package-20261128.json"],
+      "manifest_asset_count": 4,
+      "lineage_reconciliation": "Manifest lists the Qwen base and local adapter. The two towers were absent from runtime and the manifest, but their specialist OOF scores selected examples for the mixed training curriculum."
+    },
+    {
+      "artifact": "Submission 007 full1045 4B hybrid",
+      "evidence": ["results/public_submission_007.json", "results/v3_full1045_hybrid_archive_audit.json"],
+      "manifest_asset_count": 7,
+      "lineage_reconciliation": "Both encoded vision towers shipped. Historical manifest SigLIP2 pin e8e48729f2eff3c8178b57bfbefdb9cde2fb12b3 returned publisher HTTP 404. The corrected original cached tower identity is in the assets section. Historical receipts and archives are preserved."
+    },
+    {
+      "artifact": "27B stock GGUF corrected official-kit research archive",
+      "zip_sha256": "ed76a5dec461d783b263d4e227944dd85da7b9069dbc58116470f3a5e905307f",
+      "evidence": ["results/seoul-l4-roadmap-experiments-20261128.json", "results/stock-27b-fold4-20261128.json"],
+      "lineage_reconciliation": "Tested with a BF16 projector. The older phase2 source inventory also lists an F16 projector at the same repository revision."
+    }
+  ],
+  "assets": [
+    {
+      "key": "qwen3_vl_8b_bf16",
+      "kind": "model",
+      "publisher": "Qwen",
+      "repo": "Qwen/Qwen3-VL-8B-Instruct",
+      "revision": "0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+      "license": "Apache-2.0",
+      "source": "https://huggingface.co/Qwen/Qwen3-VL-8B-Instruct/tree/0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+      "observed_use": ["shipped_submission_008", "historical_mixed_v3_training_base", "stage1_fold2_control_and_cpu_preparation"],
+      "candidate_use": ["bf16_runtime_if_selected", "bf16_origin_of_adapter_also_if_fp8_runtime_selected"],
+      "evidence": ["results/fold4-8b-epoch1-research-package-20261128.json", "reports/safeground-v6-stage1-20261128.md"],
+      "weight_shard_bytes": 17534339512,
+      "declaration_receipt": null
+    },
+    {
+      "key": "qwen3_vl_8b_fp8",
+      "kind": "model",
+      "publisher": "Qwen",
+      "repo": "Qwen/Qwen3-VL-8B-Instruct-FP8",
+      "revision": "9cdc6310a8cb770ce18efaf4e9935334512aee45",
+      "license": "Apache-2.0",
+      "source": "https://huggingface.co/Qwen/Qwen3-VL-8B-Instruct-FP8/tree/9cdc6310a8cb770ce18efaf4e9935334512aee45",
+      "observed_use": ["publisher_metadata_and_cpu_preflight"],
+      "candidate_use": ["paired_precision_validation", "fp8_runtime_if_selected"],
+      "evidence": ["results/stage1-fp8-source-audit-20261128.json", "results/stage1-fp8-adapter-probe-20261128.json"],
+      "weight_shard_bytes": 10590299512,
+      "declaration_receipt": null
+    },
+    {
+      "key": "qwen3_vl_4b",
+      "kind": "model",
+      "publisher": "Qwen",
+      "repo": "Qwen/Qwen3-VL-4B-Instruct",
+      "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+      "license": "Apache-2.0",
+      "source": "https://huggingface.co/Qwen/Qwen3-VL-4B-Instruct/tree/ebb281ec70b05090aa6165b016eac8ec08e71b17",
+      "observed_use": ["historically_shipped_submission_006_and_007", "fold2_validation_control"],
+      "candidate_use": ["validation_only_for_current_v6_8b_comparison", "training_or_runtime_dependency_if_verifier_or_teacher_selected"],
+      "evidence": ["results/fold4-4b-8b-packaged-controls-20261128.json", "results/fold2-v3-4b-epoch1-20261128.json"],
+      "declaration_receipt": null
+    },
+    {
+      "key": "siglip2_so400m",
+      "kind": "model",
+      "publisher": "Google",
+      "repo": "google/siglip2-so400m-patch14-384",
+      "revision": "e8e487298228002f3d8a82e0cd5c8ea9c567f57f",
+      "license": "Apache-2.0",
+      "source": "https://huggingface.co/google/siglip2-so400m-patch14-384/tree/e8e487298228002f3d8a82e0cd5c8ea9c567f57f",
+      "publisher_metadata": "https://huggingface.co/api/models/google/siglip2-so400m-patch14-384/revision/e8e487298228002f3d8a82e0cd5c8ea9c567f57f?blobs=true",
+      "observed_use": ["shipped_vision_tower_in_submission_007", "frozen_training_features_for_specialist_group_oof", "indirect_v3_mixed_curriculum_mining", "indirect_current_pure_inspect_slot_selection"],
+      "candidate_use": ["training_lineage_when_reusing_current_curriculum", "runtime_only_when_dual_tower_hybrid_selected"],
+      "original_cached_files_verified_against_publisher": {
+        "model.safetensors": {"bytes": 4544143072, "sha256": "9f4f4a49f908ef0c979bce8ff5a5c0e88882dc6c5dc4304387cbbd152558e2c2"},
+        "config.json": {"git_blob_sha1": "7c1e0ed1759922fc4eb362d3b405958e829f364d"},
+        "preprocessor_config.json": {"git_blob_sha1": "e9e084ab5a0d74573432f1dcf11c1bdd8d9b3655"}
+      },
+      "evidence": ["kwater_lab/clean_specialist.py", "kwater_lab/v3_turnaround.py", "kwater_lab/stage1_pure_inspect.py", "results/v3_full1045_hybrid_archive_audit.json"],
+      "declaration_receipt": null
+    },
+    {
+      "key": "dinov2_large",
+      "kind": "model",
+      "publisher": "Meta",
+      "repo": "facebook/dinov2-large",
+      "revision": "47b73eefe95e8d44ec3623f8890bd894b6ea2d6c",
+      "license": "Apache-2.0",
+      "source": "https://huggingface.co/facebook/dinov2-large/tree/47b73eefe95e8d44ec3623f8890bd894b6ea2d6c",
+      "observed_use": ["shipped_vision_tower_in_submission_007", "frozen_training_features_for_specialist_group_oof", "indirect_v3_mixed_curriculum_mining", "indirect_current_pure_inspect_slot_selection"],
+      "candidate_use": ["training_lineage_when_reusing_current_curriculum", "runtime_only_when_dual_tower_hybrid_selected"],
+      "original_cached_files_verified_against_publisher": {
+        "model.safetensors": {"bytes": 1217522888, "sha256": "399fba97a95f22c36834418bc69373364a99af3a1153da1c0fb31db567c92e23"}
+      },
+      "evidence": ["kwater_lab/clean_specialist.py", "kwater_lab/v3_turnaround.py", "kwater_lab/stage1_pure_inspect.py", "results/v3_full1045_hybrid_archive_audit.json"],
+      "declaration_receipt": null
+    },
+    {
+      "key": "qwen3_8_27b_gguf",
+      "kind": "model",
+      "publisher": "Unsloth, from Qwen/Qwen3.8-27B",
+      "repo": "unsloth/Qwen3.8-27B-GGUF",
+      "revision": "4af51b3542f775b0a8e4b310bfb3f17e01c306c9",
+      "license": "Apache-2.0",
+      "source": "https://huggingface.co/unsloth/Qwen3.8-27B-GGUF/tree/4af51b3542f775b0a8e4b310bfb3f17e01c306c9",
+      "publisher_metadata": "https://huggingface.co/api/models/unsloth/Qwen3.8-27B-GGUF/revision/4af51b3542f775b0a8e4b310bfb3f17e01c306c9?blobs=true",
+      "observed_use": ["stock_gguf_research_runtime", "fold4_quality_validation"],
+      "candidate_use": ["teacher_only_if_generation_uses_this_exact_pair", "runtime_only_if_this_pair_selected"],
+      "files_verified_against_publisher_and_local_archive_receipt": {
+        "Qwen3.8-27B-UD-Q4_K_M.gguf": {"bytes": 16564259744, "sha256": "1bce504dfecd84153666928a41d8a66706f0158d3a317bc5196b72819d7dc529"},
+        "mmproj-BF16.gguf": {"bytes": 931146432, "sha256": "83ee4f4f205fa514161778c41df1ea14144faa0f713510893b63c2395f5c2d53"}
+      },
+      "upstream_exact_native_commit_used_by_converter": null,
+      "publisher_quantization_calibration_corpus_provenance": null,
+      "evidence": ["results/seoul-l4-roadmap-experiments-20261128.json", "results/stock-27b-fold4-20261128.json"],
+      "declaration_receipt": null
+    },
+    {
+      "key": "qwen3_8_27b_native",
+      "kind": "model",
+      "publisher": "Qwen",
+      "repo": "Qwen/Qwen3.8-27B",
+      "revision": "37561816e66b5b9153b1b64c10968c18c1e6f4a0",
+      "license": "Apache-2.0",
+      "source": "https://huggingface.co/api/models/Qwen/Qwen3.8-27B/revision/37561816e66b5b9153b1b64c10968c18c1e6f4a0",
+      "observed_use": ["publisher_revision_confirmed", "model_family_identified_as_upstream_of_stock_gguf"],
+      "candidate_use": ["conditional_native_teacher", "conditional_native_finetune_merge_requantize"],
+      "evidence": ["results/phase2_public_model_sources.json"],
+      "declaration_receipt": null
+    },
+    {
+      "key": "llama_cpp",
+      "kind": "library",
+      "publisher": "ggml-org",
+      "repo": "ggml-org/llama.cpp",
+      "revision": "b12721",
+      "license": "MIT",
+      "source": "https://github.com/ggml-org/llama.cpp/releases/tag/b12721",
+      "observed_use": ["cuda_12_8_runtime_in_corrected_27b_research_archive"],
+      "candidate_use": ["runtime_if_gguf_selected", "confirm_exporter_version_independently_for_new_conversion"],
+      "binary_tar_gz_sha256": "f150cc31b798b334a11682812897e287c3e8041912df9936f95d52a2f9d5f7f5",
+      "evidence": ["results/seoul-l4-roadmap-experiments-20261128.json"],
+      "declaration_receipt": null
+    },
+    {
+      "key": "floodnet_supervised",
+      "kind": "data",
+      "publisher": "BinaLab / FloodNet authors",
+      "repo": "BinaLab/FloodNet-Supervised_v1.0",
+      "revision": "Supervised v1.0, archive SHA-256 13edcce9a23526fc5eaee6ec6b12005464222928e24cfd4808cd5f00eb8f18f4",
+      "license": "CDLA-Permissive-1.0",
+      "license_source": "https://cdla.io/permissive-1-0/",
+      "source": "https://github.com/BinaLab/FloodNet-Supervised_v1.0",
+      "archive_bytes": 13057835433,
+      "observed_use": ["separate_research_pilot_fitting_192_images_and_scoring_114_images"],
+      "candidate_use": ["conditional_external_rare_code_validation_only", "declare_actual_training_or_selection_use_if_adopted"],
+      "evidence": ["results/external_inventory.json", "results/external_flood.json", "public-data/floodnet-pilot/README.md"],
+      "declaration_receipt": null
+    },
+    {
+      "key": "xenova_clip_floodnet_features",
+      "kind": "model",
+      "publisher": "Xenova, from openai/clip-vit-base-patch32",
+      "repo": "Xenova/clip-vit-base-patch32",
+      "revision": "6b7c523703ae26e39be4b03774966f8571c7f523",
+      "license": "MIT",
+      "source": "https://huggingface.co/Xenova/clip-vit-base-patch32/tree/6b7c523703ae26e39be4b03774966f8571c7f523",
+      "observed_use": ["precomputed_floodnet_pilot_features"],
+      "candidate_use": ["conditional_validation_feature_lineage_if_reused"],
+      "feature_file_sha256": "50ec39f21c94e861de24a90b4289e5fed48d24ab86753f0e63610475c88ee3cc",
+      "evidence": ["public-data/floodnet-pilot/README.md"],
+      "declaration_receipt": null
+    },
+    {
+      "key": "aihub_71793",
+      "kind": "data",
+      "publisher": "AI-Hub / NIA, lead implementing organization ㈜아이오티솔루션",
+      "source": "https://www.aihub.or.kr/aihubdata/data/view.do?aihubDataSe=data&currMenu=120&dataSetSn=71793&topMenu=100",
+      "revision": "AI-Hub dataset 71793 v1.1 (2024-10-30), exact earlier diagnostic sample archive and catalog hashes below",
+      "public_download_access": "Application and approval required for full data",
+      "license": "AI-Hub dataset-specific agreement and data-use policy",
+      "license_source": "https://www.aihub.or.kr/intrcn/guid/usagepolicy.do?currMenu=151&topMenu=105",
+      "immutable_provenance": {
+        "earlier_sample_archive_bytes": 430244083,
+        "earlier_sample_archive_sha256": "66f684adb4de819172605b6aaa1cf49c517a1165776f788868d4bb8cd404d52e",
+        "local_catalog_sha256": "3a2badd1bcebb314b492440bea09a614fe0630a51bb485db95c50dd75c6bb80a",
+        "v6_final_selected_subset_sha256": null
+      },
+      "observed_use": ["research_cctv_label_alignment_and_reference_feature_pilot"],
+      "candidate_use": ["conditional_local_flood_validation_after_use_scope_review"],
+      "evidence": ["results/external_inventory.json", "results/external_busan.json", "results/busan_alignment.json"],
+      "declaration_receipt": null
+    },
+    {
+      "key": "aihub_71407",
+      "kind": "data",
+      "publisher": "AI-Hub / NIA, lead implementing organization ㈜휴랜",
+      "source": "https://www.aihub.or.kr/aihubdata/data/view.do?aihubDataSe=data&currMenu=120&dataSetSn=71407&topMenu=100",
+      "revision": "AI-Hub dataset 71407 v1.1 (2023-12-06), exact earlier diagnostic sample, source catalog and selected full-source pilot audit hashes below",
+      "public_download_access": "Application and approval required for full data",
+      "license": "AI-Hub dataset-specific agreement and data-use policy",
+      "license_source": "https://www.aihub.or.kr/intrcn/guid/usagepolicy.do?currMenu=151&topMenu=105",
+      "immutable_provenance": {
+        "earlier_sample_archive_bytes": 147267723,
+        "earlier_sample_archive_sha256": "ea98d07191a8ad8b6b39f3916e5948d482bdec98e891bff314cde498a5e044b1",
+        "local_catalog_sha256": "65c09f188daee2dac5967b50f90c752f4bfbb1c456671e23b5bbab4209f8a84e",
+        "selected_full_source_pilot_audit_sha256": "db73be845c66e2bdfdefecbbbff7d8037da4c5375b510f5a0f325e685f3650f5",
+        "selected_full_source_pilot_images": 4
+      },
+      "observed_use": ["separate_research_head_ablation", "separate_opening_cover_pilot_selection"],
+      "candidate_use": ["excluded_from_current_v6_base_plan", "check_actual_lineage_and_declaration_if_a_descendant_is_adopted"],
+      "evidence": ["results/external_inventory.json", "docs/phase2-item38-measured-20261126.md", "docs/phase2-71407-declaration-draft.md"],
+      "declaration_receipt": null
+    }
+  ],
+  "open_items": [
+    {"key": "rare_external_panels", "status": "selection_pending", "scope": "drowning_inundation, confined_space and thermal_weather positives and negatives", "needs": ["physical_scene_and_independent_source_confirmed", "owner_consent_and_specific_eval_use_terms", "immutable_selected_subset_hash", "actual_use_counts_and_roles"], "human_reference_sources": ["https://www.moel.go.kr/local/boryeong/info/dataroom/view.do?bbs_seq=20230501649", "https://www.moel.go.kr/policy/policydata/view.do?bbs_seq=20260500439"]},
+    {"key": "teacher_generated_data", "status": "candidate_pending", "needs": ["choose_native_or_gguf_teacher_and_exact_checkpoint", "record_training_only_generation_cohort_and_adopted_image_count", "record_generation_method_and_adopted_subset_hash", "confirm_portal_treatment_of_new_labels_on_organizer_training_photos"]},
+    {"key": "final_zip_and_team_declarations", "status": "manual_reconciliation_pending", "needs": ["match_team_portal_and_email_receipts_to_actual_datasets", "match_zip_runtime_precision_and_adapters_to_training_base", "record_indirect_oof_specialist_models_for_current_recipes", "match_selected_teacher_and_validation_only_assets_to_report", "match_actual_packaged_libraries_versions_and_file_hashes"]}
+  ]
+}

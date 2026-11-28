@@ -33,6 +33,26 @@ from .metrics import CODES, LIKELIHOOD, RISK_BANDS, SEVERITY
 from .train_head import save_atomic
 
 
+SPECIALIST_TOWER_ASSETS = (
+    {
+        "kind": "model",
+        "name": "SigLIP 2 So400m/14-384 Vision Tower",
+        "source": "https://huggingface.co/google/siglip2-so400m-patch14-384",
+        "revision": "e8e487298228002f3d8a82e0cd5c8ea9c567f57f",
+        "license": "Apache-2.0",
+        "use": "다중 뷰(7-View) 의미 특징 추출을 통한 미탐 위험 후보 제안",
+    },
+    {
+        "kind": "model",
+        "name": "DINOv2-Large Vision Tower",
+        "source": "https://huggingface.co/facebook/dinov2-large",
+        "revision": "47b73eefe95e8d44ec3623f8890bd894b6ea2d6c",
+        "license": "Apache-2.0",
+        "use": "다중 뷰(7-View) 구조·형상 특징 추출을 통한 미탐 위험 후보 제안",
+    },
+)
+
+
 MAIN_PY_SOURCE = r'''"""SafeGround v5 (v3 Engine): Native 11-Code Multimodal Qwen3-VL-4B LoRA + 1-Token Margin Verified Dual-Vision Specialist."""
 
 from __future__ import annotations
@@ -647,6 +667,27 @@ def link_or_copy(src: Path, dst: Path) -> None:
         shutil.copy2(src, dst)
 
 
+def _stage1_specialist_training_variant(root: Path, summary: dict) -> str | None:
+    """Recognize only curriculum hashes bound to the audited training scope."""
+    scope = {2: "fold2", -1: "full1045"}.get(summary["val_fold"])
+    if scope is None:
+        return None
+    path = root / "results" / f"stage1-pure-inspect-{scope}.json"
+    if not path.is_file():
+        return None
+    audit = json.loads(path.read_bytes())
+    configuration = summary["configuration"]
+    curriculum_sha = configuration.get("curriculum_sha256")
+    if (not curriculum_sha or audit["scope"] != scope or audit["train_photos"] != summary["train_photos"]
+            or sum(audit["mixed_kinds"].values()) != summary["curriculum_examples"]):
+        return None
+    if curriculum_sha == audit["mixed_curriculum_sha256"]:
+        return "v3 혼합 학습의 OOF 검증 예제 선택"
+    if curriculum_sha == audit["pure_inspect_curriculum_sha256"]:
+        return "v3 OOF가 선택한 사진을 이어받는 Pure-Inspect 슬롯 구성"
+    return None
+
+
 def _describe_training_and_calibration_scope(
     root: Path,
     adapter_dir: Path,
@@ -1028,22 +1069,7 @@ def build_submission_package(
     if enable_hybrid:
         mg_audit = scope_info["margin_gate_exposure_audit"]
         assets_list.extend([
-            {
-                "kind": "model",
-                "name": "SigLIP 2 So400m/14-384 Vision Tower",
-                "source": "https://huggingface.co/google/siglip2-so400m-patch14-384",
-                "revision": "e8e48729f2eff3c8178b57bfbefdb9cde2fb12b3",
-                "license": "Apache-2.0",
-                "use": "다중 뷰(7-View) 의미 특징 추출을 통한 미탐 위험 후보 제안",
-            },
-            {
-                "kind": "model",
-                "name": "DINOv2-Large Vision Tower",
-                "source": "https://huggingface.co/facebook/dinov2-large",
-                "revision": "47b73eefe95e8d44ec3623f8890bd894b6ea2d6c",
-                "license": "Apache-2.0",
-                "use": "다중 뷰(7-View) 구조·형상 특징 추출을 통한 미탐 위험 후보 제안",
-            },
+            *SPECIALIST_TOWER_ASSETS,
             {
                 "kind": "model",
                 "name": "SafeGround 5-Fold Spatial Dual-Vision Specialist Ensemble",
@@ -1064,6 +1090,11 @@ def build_submission_package(
                 ),
             },
         ])
+    elif allow_experimental_8b_adapter:
+        training_variant = _stage1_specialist_training_variant(root, summary)
+        if training_variant:
+            assets_list.extend({**asset, "use": f"학습 전용. 동결 7-view 특징을 통한 {training_variant}."}
+                               for asset in SPECIALIST_TOWER_ASSETS)
 
     assets_manifest = {"schema_version": "1.0", "seed": 42, "assets": assets_list}
     (dest_dir / "assets.json").write_text(json.dumps(assets_manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
