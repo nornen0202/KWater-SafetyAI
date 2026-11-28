@@ -1,7 +1,7 @@
 {
   "algorithm": "SHA-256",
-  "files": 4469,
-  "total_bytes": 217535491835,
+  "files": 4471,
+  "total_bytes": 217535868576,
   "scope": "Completed project data files and local-only research outputs. In-progress downloads, live transfer status and environment caches are excluded.",
   "artifacts": [
     {
@@ -22348,6 +22348,16 @@
       "path": "data/stage1-local-nf4-prompt-v4-55/v3-replay-gate.json",
       "bytes": 1469,
       "sha256": "f16dbafe01eae2c1a6dcaadf9c49559814913add56effcf31f1a88ef11299c82"
+    },
+    {
+      "path": "data/stage1-prompt-remote-20261129/source.tar",
+      "bytes": 368640,
+      "sha256": "3c81eac87e7c957bfee34d51c71b4a526f9b5fbe41631915c9e242bc944afc5c"
+    },
+    {
+      "path": "data/stage1-prompt-remote-20261129/stage1-prompt-plan.json",
+      "bytes": 8101,
+      "sha256": "bc9dd3badbc0904d81ebfc5c6b30f7c8149447e4d495a7e49a1c27263b52cf7e"
     }
   ]
 }

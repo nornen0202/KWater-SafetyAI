@@ -4,6 +4,71 @@
 
 8B BF16의 `0c351dd01ed87e9c1b53cbc748cba10e6187ff3b`, 393,216픽셀, 출력 상한 620토큰, 같은 디코딩·법령 포매터를 사용한다. 처음 44장은 4장씩 11배치, 뒤 153장은 2장씩 76배치에 마지막 1장이다. 실제 배치 축소가 발생하면 동일 조건 대조에서 실패로 처리한다. 55장은 197장에서 이미 고정한 민감도 부분집합이며 별도 생성 비용이 없다. 이 부분집합에는 과거 탐색 노출 이력이 있다. [공용 추론 계약](../kwater_lab/stage1_pure_inspect.py) · [Fold 2 민감도 원장](../results/sub78-fold2-prospective-readiness-20261128.json)
 
+## 서울 BF16 추론 전용 경로
+
+로컬 NF4의 고정 55장에서는 v4의 활성 Macro-F1이 `+.11656` 높았고 쌍체 95% 구간은 `[+.04077, +.24172]`였다. 중대성 4 완전 미탐은 그대로였고, `slip_trip`을 다른 코드와 함께 낸 오탐은 2건에서 4건으로 늘었다. 서울 BF16의 197장에서는 같은 혼합 어댑터로 두 팔을 한 실행환경에서 새로 판독한다. [로컬 NF4 실측](../results/stage1-local-nf4-prompt-v4-55-20261129.json)
+
+로컬 준비기는 원래 `eval.tar`의 334,417,920바이트와 SHA-256을 대조하고, 197개 사진의 실제 바이트와 ID·경로·지문만 담긴 명세 한 개를 검사한다. 전송할 소스는 고정 목록의 자체 Python 모듈 18개, v3/v4 프롬프트, 해시만 담은 실행 계획으로 이뤄진 **368,640바이트 `source.tar`**다. 어댑터는 회수한 혼합 체크포인트의 `adapter_config.json`과 `adapter_model.safetensors` 두 파일만 사용한다. 훈련 TAR, 평가 정답과 민감도 마스크, 과거 예측, 법령 원문과 사례집은 G:에 남긴다. [전송 멤버와 지문](../results/stage1-prompt-remote-preflight-20261129.json) · [추론·로컬 채점 코드](../kwater_lab/stage1_prompt_remote.py)
+
+```powershell
+$Python = 'C:/Users/JY/.antigravity_kwater_venv/Scripts/python.exe'
+$Work = 'data/stage1-prompt-remote-20261129'
+$env:CUDA_VISIBLE_DEVICES = '-1'
+$env:HF_HUB_OFFLINE = '1'
+$env:TRANSFORMERS_OFFLINE = '1'
+& $Python -B -u -m kwater_lab.stage1_prompt_remote prepare --work $Work
+if ($LASTEXITCODE) { throw 'Eval-only preparation failed' }
+$Proof = Get-Content -Raw results/stage1-prompt-remote-preflight-20261129.json | ConvertFrom-Json
+```
+
+다음 전송·실행 명령은 별도 승인을 받은 서울 인스턴스에서 쓴다. `$SshHost`에는 승인된 SSH 별칭, `$RemoteTrial`에는 새 전용 디렉터리의 절대 경로를 지정한다. 같은 평가 TAR가 승인된 인스턴스에 있으면 원장 SHA-256을 확인해 재사용할 수 있다.
+
+```powershell
+ssh $SshHost "umask 077 && mkdir -m 0700 '$RemoteTrial' '$RemoteTrial/adapter'"
+if ($LASTEXITCODE) { throw 'Remote trial setup failed' }
+$Adapter = $Proof.adapter_upload.local_directory
+scp $Proof.eval_tar.path $Proof.source_tar.path "${SshHost}:${RemoteTrial}/"
+if ($LASTEXITCODE) { throw 'Eval-only archive upload failed' }
+scp "$Adapter/adapter_config.json" "$Adapter/adapter_model.safetensors" "${SshHost}:${RemoteTrial}/adapter/"
+if ($LASTEXITCODE) { throw 'Adapter upload failed' }
+```
+
+아래의 `EVAL_SHA`, `SOURCE_SHA`, `ADAPTER_CONFIG_SHA`, `ADAPTER_SHA`는 로컬 준비 영수증의 지문이다. `BASE8`은 같은 고정 리비전의 BF16 파일이 준비된 평가 디렉터리 밖 절대 경로이며 `PYTHON`은 앞선 서울 실측에 쓴 CUDA 환경의 인터프리터다. 런처는 데이터 트리를 사진과 명세로 제한하고 원격 기반 가중치·프로세서 파일과 어댑터를 해시한다. 모델과 프로세서를 각각 한 번 적재한 뒤 v3·v4를 이어서 실행한다. 실제 적재된 FP32 LoRA 520개, 렌더링된 지시문, 두 팔의 런타임, 각 원생성 구간 지문을 영수증에 기록한다.
+
+```bash
+set -euo pipefail
+umask 077
+cd "$REMOTE_TRIAL"
+printf '%s  %s\n' "$EVAL_SHA" eval.tar "$SOURCE_SHA" source.tar \
+  "$ADAPTER_CONFIG_SHA" adapter/adapter_config.json "$ADAPTER_SHA" adapter/adapter_model.safetensors \
+  | sha256sum --check
+tar -xf source.tar
+tar -xf eval.tar
+unset PYTHONPATH
+export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 OMP_NUM_THREADS=1
+flock -n infer.lock "$PYTHON" -B -u -m kwater_lab.stage1_prompt_remote infer --base "$BASE8" --returned returned
+```
+
+G:로 회수할 파일은 `returned/run-receipt.json`과 `returned/{v3,v4}/raw-{0-44,44-197}.json` 네 개다. 동일 `--work`의 `returned/`에 각 하위 경로 그대로 저장한다. 로컬 브리지는 원생성 바이트를 보존하며 같은 학습 측 769장의 법령 사례로 양쪽을 포매팅한다. 이때 공용 영수증 형식을 생성하고 기존 `stage1_fold2_quality` 검사와 쌍체 197장·55장 채점을 호출한다.
+
+```powershell
+$Returned = Join-Path $Work 'returned'
+foreach ($Tag in ('v3', 'v4')) {
+    $Dest = New-Item -ItemType Directory -Path (Join-Path $Returned $Tag) -Force
+    scp "${SshHost}:${RemoteTrial}/returned/$Tag/raw-0-44.json" `
+        "${SshHost}:${RemoteTrial}/returned/$Tag/raw-44-197.json" $Dest.FullName
+    if ($LASTEXITCODE) { throw 'Raw cache download failed' }
+}
+scp "${SshHost}:${RemoteTrial}/returned/run-receipt.json" $Returned
+if ($LASTEXITCODE) { throw 'Run receipt download failed' }
+& $Python -B -m kwater_lab.stage1_prompt_remote score --work $Work --returned $Returned
+if ($LASTEXITCODE) { throw 'Paired local scoring failed' }
+$V3 = Join-Path $Work 'scored/v3'
+$V4 = Join-Path $Work 'scored/v4'
+```
+
+로컬 검산에서 소스 TAR만 펼친 빈 디렉터리의 진입점을 확인했다. 합성 원생성 두 팔로 G:의 769개 법령 사례, 포매터, 정본 197장·부분집합 55장 공용 검사를 통과했고 원생성 바이트가 그대로 유지됐다. 이 준비에서는 서울로 전송하거나 GPU 판독·학습한 건이 0이다. [격리 준비와 브리지 검산](../results/stage1-prompt-remote-preflight-20261129.json)
+
 ## 실행과 채점
 
 승인된 동일 실행 환경에서 두 팔을 연속 실행한다. 기존 수신 혼합 어댑터를 쓰는 명령이다. Pure-v3에는 `$Adapter`를 회수한 `data/fold2-8b-pure-v3/fit-pure/epoch-1`로 바꾸고 `$Work`·`--result`에 별도 이름을 쓴다. 각 실행의 원생성 캐시·예측·영수증은 `data/`에 둔다.
