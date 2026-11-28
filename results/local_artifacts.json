@@ -1,7 +1,7 @@
 {
   "algorithm": "SHA-256",
-  "files": 2571,
-  "total_bytes": 156449289731,
+  "files": 2605,
+  "total_bytes": 174252814336,
   "scope": "Completed project data files and local-only research outputs. In-progress downloads, live transfer status and environment caches are excluded.",
   "artifacts": [
     {
@@ -12858,6 +12858,176 @@
       "path": "data/local-reports/vision-gate-v1-seoul/started.utc",
       "bytes": 21,
       "sha256": "c46c46da5c06051a65a6fb427e56192305a10d402d7ecc5773837ce4489235da"
+    },
+    {
+      "path": "data/local-reports/seoul-seventh-200-20261128/aggregate.json",
+      "bytes": 2300,
+      "sha256": "eb246cde06f365ce99681b6eda8f2d8351d446455e44e110c03f05e6b1cc83f6"
+    },
+    {
+      "path": "data/local-reports/seoul-seventh-200-20261128/seven/gpu.csv",
+      "bytes": 27515,
+      "sha256": "e5bceb1f634ed997a89717f2f6748728553230a686c0b46aa4c481788822dbd9"
+    },
+    {
+      "path": "data/local-reports/seoul-seventh-200-20261128/seven/kit.log",
+      "bytes": 13224,
+      "sha256": "0cc6a7d3955665c149a1741cda6a839b7b27177399f98f61d238e5fdc7518dc6"
+    },
+    {
+      "path": "data/local-reports/seoul-seventh-200-20261128/seven/run.log",
+      "bytes": 1354,
+      "sha256": "75d4e6655976dc905a905b3a1caa2f2b0cce27b58717320a8372eb9bd1932edc"
+    },
+    {
+      "path": "data/local-reports/seoul-seventh-200-20261128/seven/output/submission.jsonl",
+      "bytes": 104440,
+      "sha256": "c9fe0310478ea28a7c6ebe8521946e702f21c4e770a4382ab30db9ef284999cd"
+    },
+    {
+      "path": "data/local-reports/seoul-27b-fold4-20261128/canonical-predictions.jsonl",
+      "bytes": 121986,
+      "sha256": "7cbb487bc85f12878972d79138bd485f155f9b0e267c09b340deeb1167b0cd5f"
+    },
+    {
+      "path": "data/local-reports/seoul-27b-fold4-20261128/gpu.csv",
+      "bytes": 24328,
+      "sha256": "dae30b51e1abac75f32ec7b71d88b8918e9bccf6302fc4898e95f0a0fb253e49"
+    },
+    {
+      "path": "data/local-reports/seoul-27b-fold4-20261128/input-receipt.json",
+      "bytes": 827,
+      "sha256": "b6d12edec5aa6ecc79274a4d831fad95660d4c6323a858b7a972e6babca83804"
+    },
+    {
+      "path": "data/local-reports/seoul-27b-fold4-20261128/job.log",
+      "bytes": 64,
+      "sha256": "904e9687ba1d92cf3bdeed181e3a138b968ff06692fff107c38ff3d61ff6dd59"
+    },
+    {
+      "path": "data/local-reports/seoul-27b-fold4-20261128/kit.log",
+      "bytes": 216192,
+      "sha256": "2cb5f644610be7d7eef3c240179454a3853d26252cd5844a39440550110ad799"
+    },
+    {
+      "path": "data/local-reports/seoul-27b-fold4-20261128/manifest.jsonl",
+      "bytes": 8575,
+      "sha256": "893ae31366c28a060fae31762f3948b1fd20728e81fe9c5e69f51260b70b8c20"
+    },
+    {
+      "path": "data/local-reports/seoul-27b-fold4-20261128/run.log",
+      "bytes": 215690,
+      "sha256": "c5d78968f9c1459a7df1f35a33415b8c6dfdeab151dbad1b5f7df84ed2f82ba4"
+    },
+    {
+      "path": "data/local-reports/seoul-27b-fold4-20261128/output/submission.jsonl",
+      "bytes": 131068,
+      "sha256": "e41adad85bacceb0a45141e4440790d07153516b02f820efeab01bd6c492717b"
+    },
+    {
+      "path": "data/local-reports/seoul-27b-official-20261128/archive.json",
+      "bytes": 101,
+      "sha256": "870e556b42389bb36a443da0dbb1cbb15110b7c6000b5cca6414efda8a0d07d7"
+    },
+    {
+      "path": "data/local-reports/seoul-27b-official-20261128/job.log",
+      "bytes": 342,
+      "sha256": "c7d45f250dfe303abc7fc37784364e022d0c467a49463124e184bcd116db43b7"
+    },
+    {
+      "path": "data/local-reports/seoul-27b-official-20261128/retry.log",
+      "bytes": 454,
+      "sha256": "a8f10481fe88e139336cf1c8098da4e33aa57b6b3c387b9df026f276afb04c0f"
+    },
+    {
+      "path": "data/local-reports/seoul-27b-official-20261128/first/archive.json",
+      "bytes": 101,
+      "sha256": "efeb0760bd8a825f051a57001a11b61c3f8b0cb353949ddc44cf15fbbf8501ac"
+    },
+    {
+      "path": "data/local-reports/seoul-27b-official-20261128/first/job.log",
+      "bytes": 342,
+      "sha256": "c7d45f250dfe303abc7fc37784364e022d0c467a49463124e184bcd116db43b7"
+    },
+    {
+      "path": "data/local-reports/seoul-27b-official-20261128/first/run.log",
+      "bytes": 450,
+      "sha256": "01f13296f9d76b5bef758bfa8a6578d4e44028bdea2d82a703630c0a30681dce"
+    },
+    {
+      "path": "data/local-reports/seoul-27b-official-20261128/first/sample1-gpu.csv",
+      "bytes": 1350,
+      "sha256": "3caefb46493e3764d14c6d6872e29f541182d935f503b22a7f1263eda6c0f344"
+    },
+    {
+      "path": "data/local-reports/seoul-27b-official-20261128/first/sample1.log",
+      "bytes": 831,
+      "sha256": "b414e7ebfe3ab5e21e7840b79096b1f7fd075af9ff46af4c0e288ca146f6d47c"
+    },
+    {
+      "path": "data/local-reports/seoul-27b-official-20261128/input200/gpu.csv",
+      "bytes": 29453,
+      "sha256": "100e77835e09fc4474ed3f3aa7935d81cb12b6d569ee3f0ab4cb9b93fcc13afb"
+    },
+    {
+      "path": "data/local-reports/seoul-27b-official-20261128/input200/kit.log",
+      "bytes": 253474,
+      "sha256": "1c004fb46cfc634374d498ab007eb35218fd1435ea6a5d9287ccf27166e73775"
+    },
+    {
+      "path": "data/local-reports/seoul-27b-official-20261128/input200/run.log",
+      "bytes": 252972,
+      "sha256": "e2f10712787414c2ce731d868aa64da4572b4ce0bdb4b4d2e903731f70daa5c2"
+    },
+    {
+      "path": "data/local-reports/seoul-27b-official-20261128/sample1/gpu.csv",
+      "bytes": 1920,
+      "sha256": "ab1b57bcb770ecef21fe2b89a3a2e34b5b76f32b832323474d9bf5eab6168dc9"
+    },
+    {
+      "path": "data/local-reports/seoul-27b-official-20261128/sample1/kit.log",
+      "bytes": 4593,
+      "sha256": "45b5f546ecf45b38f08fa29382e7b19546cce250e438849b53698b9ec01b9918"
+    },
+    {
+      "path": "data/local-reports/seoul-27b-official-20261128/sample1/run.log",
+      "bytes": 4103,
+      "sha256": "d8a405e50802fab4ac8464f38ebe107690612bbed96978ac459f3e6aeb6027e1"
+    },
+    {
+      "path": "data/local-reports/seoul-27b-official-20261128/sample10/gpu.csv",
+      "bytes": 3254,
+      "sha256": "a8aa83dc5ed854a6b955bf60080ff3c316e40e605e31f5d1d4c44242ae0863a9"
+    },
+    {
+      "path": "data/local-reports/seoul-27b-official-20261128/sample10/kit.log",
+      "bytes": 14980,
+      "sha256": "3dfd338afc9a199b677fc3d6463abe0d81edf1c03a4743d76c6873771cb19ff1"
+    },
+    {
+      "path": "data/local-reports/seoul-27b-official-20261128/sample10/run.log",
+      "bytes": 14487,
+      "sha256": "0eaebb1315007379821d51abcd35e69a2022d0b4ce47df65250b650af0fbb914"
+    },
+    {
+      "path": "data/local-reports/seoul-27b-official-20261128/sample10/output/submission.jsonl",
+      "bytes": 6991,
+      "sha256": "2af549812153e36fabf848b608045f11e0a02c45a3b490604ba2188c6931850c"
+    },
+    {
+      "path": "data/local-reports/seoul-27b-official-20261128/sample1/output/submission.jsonl",
+      "bytes": 771,
+      "sha256": "534cf6a60db931426ad40722a2d1541e8a4edb1dc003562b5b043de7b952dad8"
+    },
+    {
+      "path": "data/local-reports/seoul-27b-official-20261128/input200/output/submission.jsonl",
+      "bytes": 161134,
+      "sha256": "62005c1ceb3ca42fa832ddb6fa59b861814708bb8bbc9c868fdd9a43c116d965"
+    },
+    {
+      "path": "data/submissions/kwater-qwen38-27b-q4-timing-ed76a5dec461.zip",
+      "bytes": 17801904939,
+      "sha256": "ed76a5dec461d783b263d4e227944dd85da7b9069dbc58116470f3a5e905307f"
     }
   ]
 }

@@ -108,6 +108,32 @@
       "boot_pd_balanced_gib": 150,
       "compute_disk_ip_before_tax_usd": 1.1036,
       "planning_krw_including_vat_before_egress": 1821
+    },
+    {
+      "purpose": "8B two-epoch matched training and 175-photo evaluations; shared V1/V2 diagnostic after evaluations",
+      "zone": "asia-northeast3-a",
+      "machine": "g2-standard-8",
+      "provisioning": "SPOT",
+      "started_kst": "2026-11-28T05:11:14.177+09:00",
+      "vm_and_disk_absence_verified_kst": "2026-11-28T08:35:27.6808642+09:00",
+      "elapsed_through_absence_check_seconds": 12253.5,
+      "boot_pd_balanced_gib": 150,
+      "machine_hourly_usd": 0.366956,
+      "compute_disk_ip_before_tax_usd": 1.35697,
+      "planning_krw_including_vat_before_egress": 2239
+    },
+    {
+      "purpose": "Full1045 hybrid and stock 27B official-kit rehearsals plus conditional 175-photo 27B quality evaluation",
+      "zone": "asia-northeast3-a",
+      "machine": "g2-standard-16",
+      "provisioning": "STANDARD",
+      "started_kst": "2026-11-28T08:35:30.315+09:00",
+      "vm_and_disk_absence_verified_kst": "2026-11-28T10:24:33.5316224+09:00",
+      "elapsed_through_absence_check_seconds": 6543.2,
+      "boot_pd_balanced_gib": 230,
+      "machine_hourly_usd": 1.473244916,
+      "compute_disk_ip_before_tax_usd": 2.76124,
+      "planning_krw_including_vat_before_egress": 4556
     }
   ],
   "local_27b_pinned_weights": {
@@ -390,5 +416,27 @@
     "input200_manifest_sha256": "8c86d0b60b7b879573ccdf4c81558ed4a3840588bb6d2fbbe656dfdb911335b6",
     "cost_hardware": "Seoul g2-standard-16, NVIDIA L4 23034 MiB driver 580.178.04; official kit 6 CPUs, RAM 56 GiB",
     "official_image": "ghcr.io/jiwoochris/kwater-runtime@sha256:2e924d941c41876e9eb1de79a1af7eaf796aacb1210fb86f6ff3345cc7c58d64"
+  },
+  "spend_estimate_krw": {
+    "this_session_compute_disk_ip_vat": 8616,
+    "earlier_separate_benchmark": 450,
+    "known_local_output_collections_bytes": 708136960,
+    "premium_tier_korea_scenario_usd_per_gib": 0.19,
+    "priced_known_egress_scenario_krw": 207,
+    "using_known_transfer_scenario": 9273,
+    "including_1500_krw_total_network_and_miscellaneous_allowance": 10566,
+    "approved_budget_krw": 15000,
+    "remaining_under_allowance_scenario": 4434,
+    "invoice_observed": false,
+    "scope": "Indicative upper VM durations through absence confirmation. The network allowance replaces the known-transfer estimate and covers small diagnostic outputs, traffic overhead and miscellaneous traffic. Shared V1/V2 time already included.",
+    "after_200_gate_through_final_deletion_minutes": 25.53,
+    "increment_for_175_quality_and_release_krw": 1067
+  },
+  "stock_27b_fold4_quality": {
+    "aggregate": "results/stock-27b-fold4-20261128.json",
+    "archive_sha256": "ed76a5dec461d783b263d4e227944dd85da7b9069dbc58116470f3a5e905307f",
+    "output_sha256": "e41adad85bacceb0a45141e4440790d07153516b02f820efeab01bd6c492717b",
+    "official_valid_rows": 175,
+    "kit_seconds": 1304
   }
 }
