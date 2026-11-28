@@ -1,0 +1,42 @@
+{
+  "event": "K-water 5th Public leaderboard",
+  "stage": "judging",
+  "submission_number": 7,
+  "submitted_at_kst": "2026-11-28T12:56:00.930+09:00",
+  "submitted_at_utc": "2026-11-28T03:56:00.930Z",
+  "receipt_source": "User confirmed submission. Organizer leaderboard API confirmed seven submissions and lastSubmittedAt.",
+  "receipt_observed_at_kst": "2026-11-28T12:59:30+09:00",
+  "submission_page": "https://hackathon.imaginationgroup.co.kr/kwater/#my",
+  "submitted_archive": "kwater-safeground-v3-full1045-hybrid-20261128.zip",
+  "source": "SafeGround v3 full1045 epoch-2 hybrid, 170 of 170 updates, with specialist and visual verifier",
+  "bytes": 10548013152,
+  "sha256": "83c76f441f122279cd925998ce41dbc978f8dcb88cd141d5828e679d6e3ab713",
+  "public_score": null,
+  "public_score_source": null,
+  "team_leaderboard_observation": {
+    "observed_at_kst": "2026-11-28T12:59:30+09:00",
+    "source": "https://hackathon.imaginationgroup.co.kr/kwater/api/leaderboard",
+    "best_public_score": 53.65,
+    "team_public_rank": 28,
+    "ranked_teams": 134,
+    "submissions": 7,
+    "last_submitted_at_utc": "2026-11-28T03:56:00.930Z",
+    "top_20_cutoff": 55.89,
+    "top_10_cutoff": 60.19
+  },
+  "local_evidence": {
+    "scope": "Developer measurements, separate from the leaderboard and contest runtime",
+    "official_kit_l4_200": "results/seoul-l4-roadmap-experiments-20261128.json",
+    "windows_run": "results/seventh-full1045-windows-native-20261128.json",
+    "archive_audit": "results/v3_full1045_hybrid_archive_audit.json"
+  },
+  "individual_status_observation": {
+    "observed_at_kst": "2026-11-28T13:04:00+09:00",
+    "source": "Authenticated My Submissions",
+    "status": "채점 중",
+    "estimated_result_at_kst": "2026-11-28T14:30:00+09:00",
+    "remaining_attempts_today": 1,
+    "daily_quota": 2,
+    "automatically_selected_submission_number": 6
+  }
+}

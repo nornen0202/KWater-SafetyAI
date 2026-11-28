@@ -1,0 +1,444 @@
+{
+  "candidate_design": {
+    "confirmed_related_outer_training_groups_for_review": 3,
+    "fresh_both_same_outer_train_groups": 154,
+    "fresh_both_same_outer_train_photos": 769,
+    "interpretation": "Newly trained VLMs may be outer-fold held out. Prior development exposure prevents describing Fold 2 as pristine. Newly acquired sites or an existing separately governed untouched holdout are needed for stronger confirmation."
+  },
+  "confirmed_cross_group_by_ledger": {
+    "fold0-crosssplit-visual-review": {
+      "groups": 2,
+      "hazard_photos": 33,
+      "max_normal_false_alarms_at_18pct": 3,
+      "normal": 22,
+      "photos": 55,
+      "severity4_code_instances": 19,
+      "severity4_photos": 19
+    },
+    "fold4-crosssplit-visual-review": {
+      "groups": 1,
+      "hazard_photos": 28,
+      "max_normal_false_alarms_at_18pct": 3,
+      "normal": 20,
+      "photos": 48,
+      "severity4_code_instances": 12,
+      "severity4_photos": 10
+    }
+  },
+  "known_exposure_by_source": {
+    "any_crosssplit_audit_sheet_photo": {
+      "exact": {
+        "groups": 8,
+        "hazard_photos": 7,
+        "max_normal_false_alarms_at_18pct": 1,
+        "normal": 7,
+        "photos": 14,
+        "severity4_code_instances": 6,
+        "severity4_photos": 6
+      },
+      "including_manifest_group": {
+        "groups": 8,
+        "hazard_photos": 104,
+        "max_normal_false_alarms_at_18pct": 11,
+        "normal": 63,
+        "photos": 167,
+        "severity4_code_instances": 55,
+        "severity4_photos": 50
+      },
+      "listed_ids": 88,
+      "unjoinable_to_dev_ids": 0
+    },
+    "completed_visual_roi_48_exact_photo": {
+      "exact": {
+        "groups": 14,
+        "hazard_photos": 11,
+        "max_normal_false_alarms_at_18pct": 0,
+        "normal": 5,
+        "photos": 16,
+        "severity4_code_instances": 3,
+        "severity4_photos": 3
+      },
+      "including_manifest_group": {
+        "groups": 14,
+        "hazard_photos": 25,
+        "max_normal_false_alarms_at_18pct": 1,
+        "normal": 10,
+        "photos": 35,
+        "severity4_code_instances": 6,
+        "severity4_photos": 6
+      },
+      "listed_ids": 48,
+      "unjoinable_to_dev_ids": 0
+    },
+    "earlier_170_prefix_label_pilot": {
+      "exact": {
+        "groups": 3,
+        "hazard_photos": 59,
+        "max_normal_false_alarms_at_18pct": 6,
+        "normal": 35,
+        "photos": 94,
+        "severity4_code_instances": 37,
+        "severity4_photos": 34
+      },
+      "including_manifest_group": {
+        "groups": 3,
+        "hazard_photos": 59,
+        "max_normal_false_alarms_at_18pct": 6,
+        "normal": 35,
+        "photos": 94,
+        "severity4_code_instances": 37,
+        "severity4_photos": 34
+      },
+      "listed_ids": 170,
+      "unjoinable_to_dev_ids": 0
+    },
+    "early_specialist_oof_scored_rows": {
+      "exact": {
+        "groups": 21,
+        "hazard_photos": 114,
+        "max_normal_false_alarms_at_18pct": 11,
+        "normal": 66,
+        "photos": 180,
+        "severity4_code_instances": 57,
+        "severity4_photos": 52
+      },
+      "including_manifest_group": {
+        "groups": 21,
+        "hazard_photos": 114,
+        "max_normal_false_alarms_at_18pct": 11,
+        "normal": 66,
+        "photos": 180,
+        "severity4_code_instances": 57,
+        "severity4_photos": 52
+      },
+      "listed_ids": 920,
+      "unjoinable_to_dev_ids": 58
+    },
+    "fold0-crosssplit-visual-review-wave2_visually_selected_pairs": {
+      "exact": {
+        "groups": 5,
+        "hazard_photos": 4,
+        "max_normal_false_alarms_at_18pct": 0,
+        "normal": 1,
+        "photos": 5,
+        "severity4_code_instances": 3,
+        "severity4_photos": 3
+      },
+      "including_manifest_group": {
+        "groups": 5,
+        "hazard_photos": 75,
+        "max_normal_false_alarms_at_18pct": 7,
+        "normal": 42,
+        "photos": 117,
+        "severity4_code_instances": 42,
+        "severity4_photos": 39
+      },
+      "listed_ids": 33,
+      "unjoinable_to_dev_ids": 0
+    },
+    "fold0-crosssplit-visual-review_visually_selected_pairs": {
+      "exact": {
+        "groups": 3,
+        "hazard_photos": 2,
+        "max_normal_false_alarms_at_18pct": 0,
+        "normal": 1,
+        "photos": 3,
+        "severity4_code_instances": 2,
+        "severity4_photos": 2
+      },
+      "including_manifest_group": {
+        "groups": 3,
+        "hazard_photos": 61,
+        "max_normal_false_alarms_at_18pct": 7,
+        "normal": 42,
+        "photos": 103,
+        "severity4_code_instances": 31,
+        "severity4_photos": 29
+      },
+      "listed_ids": 16,
+      "unjoinable_to_dev_ids": 0
+    },
+    "fold4-crosssplit-visual-review_visually_selected_pairs": {
+      "exact": {
+        "groups": 6,
+        "hazard_photos": 2,
+        "max_normal_false_alarms_at_18pct": 0,
+        "normal": 5,
+        "photos": 7,
+        "severity4_code_instances": 2,
+        "severity4_photos": 2
+      },
+      "including_manifest_group": {
+        "groups": 6,
+        "hazard_photos": 88,
+        "max_normal_false_alarms_at_18pct": 10,
+        "normal": 56,
+        "photos": 144,
+        "severity4_code_instances": 50,
+        "severity4_photos": 45
+      },
+      "listed_ids": 49,
+      "unjoinable_to_dev_ids": 0
+    },
+    "holdout_exclusion_ledger_union": {
+      "exact": {
+        "groups": 4,
+        "hazard_photos": 59,
+        "max_normal_false_alarms_at_18pct": 6,
+        "normal": 36,
+        "photos": 95,
+        "severity4_code_instances": 37,
+        "severity4_photos": 34
+      },
+      "including_manifest_group": {
+        "groups": 4,
+        "hazard_photos": 87,
+        "max_normal_false_alarms_at_18pct": 9,
+        "normal": 55,
+        "photos": 142,
+        "severity4_code_instances": 49,
+        "severity4_photos": 44
+      },
+      "listed_ids": 182,
+      "unjoinable_to_dev_ids": 0
+    },
+    "local_kit_candidate_or_other_ledger_entries": {
+      "exact": {
+        "groups": 1,
+        "hazard_photos": 0,
+        "max_normal_false_alarms_at_18pct": 0,
+        "normal": 1,
+        "photos": 1,
+        "severity4_code_instances": 0,
+        "severity4_photos": 0
+      },
+      "including_manifest_group": {
+        "groups": 1,
+        "hazard_photos": 28,
+        "max_normal_false_alarms_at_18pct": 3,
+        "normal": 20,
+        "photos": 48,
+        "severity4_code_instances": 12,
+        "severity4_photos": 10
+      },
+      "listed_ids": 9,
+      "unjoinable_to_dev_ids": 0
+    },
+    "manifest_exposed_prior": {
+      "exact": {
+        "groups": 4,
+        "hazard_photos": 59,
+        "max_normal_false_alarms_at_18pct": 6,
+        "normal": 36,
+        "photos": 95,
+        "severity4_code_instances": 37,
+        "severity4_photos": 34
+      },
+      "including_manifest_group": {
+        "groups": 4,
+        "hazard_photos": 87,
+        "max_normal_false_alarms_at_18pct": 9,
+        "normal": 55,
+        "photos": 142,
+        "severity4_code_instances": 49,
+        "severity4_photos": 44
+      },
+      "listed_ids": 182,
+      "unjoinable_to_dev_ids": 0
+    },
+    "newer_specialist_oof_scored_rows": {
+      "exact": {
+        "groups": 38,
+        "hazard_photos": 130,
+        "max_normal_false_alarms_at_18pct": 12,
+        "normal": 67,
+        "photos": 197,
+        "severity4_code_instances": 64,
+        "severity4_photos": 59
+      },
+      "including_manifest_group": {
+        "groups": 38,
+        "hazard_photos": 130,
+        "max_normal_false_alarms_at_18pct": 12,
+        "normal": 67,
+        "photos": 197,
+        "severity4_code_instances": 64,
+        "severity4_photos": 59
+      },
+      "listed_ids": 966,
+      "unjoinable_to_dev_ids": 0
+    },
+    "official_candidates_in_42_photo_curation_pilot": {
+      "exact": {
+        "groups": 4,
+        "hazard_photos": 5,
+        "max_normal_false_alarms_at_18pct": 0,
+        "normal": 3,
+        "photos": 8,
+        "severity4_code_instances": 4,
+        "severity4_photos": 3
+      },
+      "including_manifest_group": {
+        "groups": 4,
+        "hazard_photos": 71,
+        "max_normal_false_alarms_at_18pct": 7,
+        "normal": 39,
+        "photos": 110,
+        "severity4_code_instances": 35,
+        "severity4_photos": 30
+      },
+      "listed_ids": 32,
+      "unjoinable_to_dev_ids": 0
+    },
+    "published_examples": {
+      "exact": {
+        "groups": 0,
+        "hazard_photos": 0,
+        "max_normal_false_alarms_at_18pct": 0,
+        "normal": 0,
+        "photos": 0,
+        "severity4_code_instances": 0,
+        "severity4_photos": 0
+      },
+      "including_manifest_group": {
+        "groups": 0,
+        "hazard_photos": 0,
+        "max_normal_false_alarms_at_18pct": 0,
+        "normal": 0,
+        "photos": 0,
+        "severity4_code_instances": 0,
+        "severity4_photos": 0
+      },
+      "listed_ids": 3,
+      "unjoinable_to_dev_ids": 0
+    }
+  },
+  "known_source_sha256": {
+    "data/clean-specialist-v1/dev_oof_predictions.npz": "0c4b22b31225a42b50dc087c9f4e79bb44c5f6c5380f5b1846db7f840f9f0e08",
+    "data/clean-split-v1/split_manifest_dev.json": "3864848fe26b951ec070710499d2694078b17c76ffd2aaf38d312b99ad3b2f60",
+    "data/curation-side-20261127/real-pairs.json": "2eb152b5c5758e99b556d2efe7b7f7fa27f3f037fd784788b3a67e832382b4f4",
+    "data/fold0-crosssplit-visual-review-wave2/mapping-local.json": "ce9a2f91bf6ef80e1d95264a43188fa9f344bde605e435183c28ec9ab456fa41",
+    "data/fold0-crosssplit-visual-review/fold0-group-exclusions-confirmed.json": "c97e83f55808db09372d3dc0e80f531b041fc7c6f38ee25b876a1213111fc41c",
+    "data/fold0-crosssplit-visual-review/mapping-local.json": "d73f98a281e557621db074b17015275bf5faf2f74ec749033e35cae20de48478",
+    "data/fold4-crosssplit-visual-review/fold4-group-exclusions-local.json": "ec85cb77fa974c63ba750d2c8201db679921bd91099a015fafe5ca1c2c334060",
+    "data/fold4-crosssplit-visual-review/mapping-local.json": "90bc0b38b07742b9bd318044bf7ebb2b3a6f70c03299eb29820092cf2ea215d5",
+    "data/holdout-exclusions.json": "ba500320718fda2924907a9fe0cf225693097f1f2ca6846c882f68840435ce51",
+    "data/phase01-runs/phase01-20261126-0513-2155e8fa/dev_fold-oof.jsonl": "4d1f337ac3bad2197019a50726cbc623e868217b3e0f1b935652a2ddf65b9519",
+    "data/prefix-pilot/exposure.json": "3e049cac60ec3db236ad3a98bcf44785ccf24621eadd1d16286f72855f0643e4",
+    "data/train/train.jsonl": "ab427fed4615b32627b76001e27124e99ae9202c855ba4170916ebe4fdc4de55",
+    "data/vision-roi-48/aggregate.json": "ed750ef68be2782ae441651d6612e9d8f293dcf227a079f864e5952de2b5c86f",
+    "data/vision-roi-48/key-local.json": "c0ee6ca20d0c1c66e5e8ebd0e0cf48d8b09904e7a1522b4cce96eeeb3df3e60d",
+    "results/clean_specialist_v1_oof.json": "f909d68786b1f58edcb3f554cc931562d5ce4c097f61237d0b26695020d741a0",
+    "results/fold4-qualitative-panel-20261127.json": "5849116071ca14e8213bb101c41ede3967301445e120f196b00f1c94f4a9ee75"
+  },
+  "primary_197": {
+    "groups": 38,
+    "hazard_photos": 130,
+    "max_normal_false_alarms_at_18pct": 12,
+    "normal": 67,
+    "photos": 197,
+    "severity4_code_instances": 64,
+    "severity4_photos": 59
+  },
+  "prior_training_distinct_from_label_review": {
+    "fold2_photos_in_prior_fold4_and_full1045_training": 197,
+    "fold2_photos_in_same_fixed_earlier_specialist_oof": 180,
+    "fold4_24_blind_panel_event_overlap_unknown_beyond_reviewed_groups": true,
+    "fold4_24_blind_panel_exact_fold2_overlap_by_scope": 0,
+    "known_rowwise_manual_gold_view_counts": null,
+    "newer_specialist_oof_aggregate_has_same_unsealed_manifest_sha": false,
+    "newer_specialist_oof_fold2_aggregate_photos": 197,
+    "newer_specialist_oof_fold2_exact_local_archive_photos": 197
+  },
+  "scope": "Known exposure ledgers joined by exact development ID, content hash or reviewed group only. No filename-prefix inference, sealed Fold 4 24-panel key, withheld labels or photo reads.",
+  "sensitivity_mask": {
+    "confirmed_duplicate_group_exclusion": {
+      "groups": 3,
+      "hazard_photos": 61,
+      "max_normal_false_alarms_at_18pct": 7,
+      "normal": 42,
+      "photos": 103,
+      "severity4_code_instances": 31,
+      "severity4_photos": 29
+    },
+    "excluded_union": {
+      "groups": 4,
+      "hazard_photos": 87,
+      "max_normal_false_alarms_at_18pct": 9,
+      "normal": 55,
+      "photos": 142,
+      "severity4_code_instances": 49,
+      "severity4_photos": 44
+    },
+    "holdout_ledger_group_exclusion": {
+      "groups": 4,
+      "hazard_photos": 87,
+      "max_normal_false_alarms_at_18pct": 9,
+      "normal": 55,
+      "photos": 142,
+      "severity4_code_instances": 49,
+      "severity4_photos": 44
+    },
+    "optional_stricter_visual_exposure_sensitivity_roi_and_curation": {
+      "groups": 19,
+      "hazard_photos": 17,
+      "max_normal_false_alarms_at_18pct": 0,
+      "normal": 2,
+      "photos": 19,
+      "severity4_code_instances": 9,
+      "severity4_photos": 9
+    },
+    "overlap_of_two_exclusion_reasons": {
+      "groups": 3,
+      "hazard_photos": 61,
+      "max_normal_false_alarms_at_18pct": 7,
+      "normal": 42,
+      "photos": 103,
+      "severity4_code_instances": 31,
+      "severity4_photos": 29
+    },
+    "recipe_sha256": "04a494751de9720893959095529f0ffbdd521be3b11be0b4dd99fddfd7cb2165",
+    "retained": {
+      "groups": 34,
+      "hazard_photos": 43,
+      "max_normal_false_alarms_at_18pct": 2,
+      "normal": 12,
+      "photos": 55,
+      "severity4_code_instances": 15,
+      "severity4_photos": 15
+    },
+    "retained_in_roi_observed_manifest_groups": {
+      "groups": 14,
+      "hazard_photos": 25,
+      "max_normal_false_alarms_at_18pct": 1,
+      "normal": 10,
+      "photos": 35,
+      "severity4_code_instances": 6,
+      "severity4_photos": 6
+    },
+    "retained_with_documented_curation_pilot_membership": {
+      "groups": 2,
+      "hazard_photos": 3,
+      "max_normal_false_alarms_at_18pct": 0,
+      "normal": 0,
+      "photos": 3,
+      "severity4_code_instances": 1,
+      "severity4_photos": 1
+    },
+    "retained_with_documented_roi_photo_observation": {
+      "groups": 14,
+      "hazard_photos": 11,
+      "max_normal_false_alarms_at_18pct": 0,
+      "normal": 5,
+      "photos": 16,
+      "severity4_code_instances": 3,
+      "severity4_photos": 3
+    }
+  },
+  "unknown_exposures": [
+    "No complete rowwise human annotation-access or tuning ledger.",
+    "Cross-group audit is selective; unmatched similarities and unreviewed site links remain possible.",
+    "Potential sealed-panel related event beyond known Fold 4 scope cannot be inferred from group labels alone.",
+    "OOF scoring processes labels; this does not establish human viewing of individual labels."
+  ]
+}

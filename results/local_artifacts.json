@@ -1,7 +1,7 @@
 {
   "algorithm": "SHA-256",
-  "files": 2605,
-  "total_bytes": 174252814336,
+  "files": 2606,
+  "total_bytes": 183296598374,
   "scope": "Completed project data files and local-only research outputs. In-progress downloads, live transfer status and environment caches are excluded.",
   "artifacts": [
     {
@@ -13028,6 +13028,11 @@
       "path": "data/submissions/kwater-qwen38-27b-q4-timing-ed76a5dec461.zip",
       "bytes": 17801904939,
       "sha256": "ed76a5dec461d783b263d4e227944dd85da7b9069dbc58116470f3a5e905307f"
+    },
+    {
+      "path": "data/submissions/kwater-safeground-v3-full1045-epoch1-vlmonly-20261128.zip",
+      "bytes": 9043784038,
+      "sha256": "3c779368d462ea52e972ae1cdd1c33c4050867e60009288d47e301c1ad4c6645"
     }
   ]
 }

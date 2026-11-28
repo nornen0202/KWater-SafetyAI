@@ -6,7 +6,10 @@
     "archive_sha256": "83c76f441f122279cd925998ce41dbc978f8dcb88cd141d5828e679d6e3ab713",
     "archive_members": 33,
     "archive_sha_evidence": "Independent previous archive hash and Windows native run witness. Current local named path, size and main hash rechecked.",
-    "official_portal_receipt_present_at_check": false,
+    "official_portal_receipt": "results/public_submission_007.json",
+    "portal_submission_confirmed": true,
+    "portal_individual_status": "judging",
+    "individual_public_score": null,
     "official_linux_l4": {
       "install_seconds": 15,
       "execution_seconds": 1482,
@@ -104,8 +107,80 @@
   "fallback_8_full1045_epoch1_standalone": {
     "archive_filename": "kwater-safeground-v3-full1045-epoch1-vlmonly-20261128.zip",
     "archive_bytes": 9043784038,
-    "archive_sha256": null,
-    "archive_cpu_audit": null,
+    "archive_sha256": "3c779368d462ea52e972ae1cdd1c33c4050867e60009288d47e301c1ad4c6645",
+    "archive_cpu_audit": {
+      "files": 28,
+      "unpacked_bytes": 9043779288,
+      "seed": "42",
+      "offline_lock": true,
+      "asset_sha256": {
+        "main.py": "4d74805cf260fd15f784eeb984aecbeae0ee5bcd5726ac78568760e33dcffb05",
+        "assets.json": "8ea8a2e17c41f0a79e8254b94962f87e961b008e8d54f2665b49ca663a528699",
+        "adapter/adapter_model.safetensors": "52829241aeb04eadaadec690649c86031ac251ebc41ddbc425d2d090e539d5d1"
+      },
+      "declared_asset_count": 4,
+      "offline_wheels": [
+        {
+          "package": "accelerate",
+          "version": "1.10.1",
+          "matching_wheels": [
+            {
+              "filename": "accelerate-1.10.1-py3-none-any.whl",
+              "sha256": "3621cff60b9a27ce798857ece05e2b9f56fcc71631cfb31ccf71f0359c311f11"
+            }
+          ]
+        },
+        {
+          "package": "huggingface-hub",
+          "version": "0.36.0",
+          "matching_wheels": [
+            {
+              "filename": "huggingface_hub-0.36.0-py3-none-any.whl",
+              "sha256": "7bcc9ad17d5b3f07b57c78e79d527102d08313caa278a641993acddcb894548d"
+            }
+          ]
+        },
+        {
+          "package": "peft",
+          "version": "0.17.1",
+          "matching_wheels": [
+            {
+              "filename": "peft-0.17.1-py3-none-any.whl",
+              "sha256": "3d129d64def3d74779c32a080d2567e5f7b674e77d546e3585138216d903f99e"
+            }
+          ]
+        },
+        {
+          "package": "tokenizers",
+          "version": "0.22.1",
+          "matching_wheels": [
+            {
+              "filename": "tokenizers-0.22.1-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+              "sha256": "e2ef6063d7a84994129732b47e7915e8710f27f99f3a3260b8a38fc7ccd083f4"
+            }
+          ]
+        },
+        {
+          "package": "transformers",
+          "version": "4.57.1",
+          "matching_wheels": [
+            {
+              "filename": "transformers-4.57.1-py3-none-any.whl",
+              "sha256": "b10d05da8fa67dc41644dbbf9bc45a44cb86ae33da6f9295f5fbf5b7890bd267"
+            }
+          ]
+        }
+      ],
+      "restricted_or_unneeded_members": [],
+      "restricted_source_exact_content_matches": [],
+      "network_or_process_static_indicators": [],
+      "linux_seccomp_executed": false,
+      "offline_install_executed": false,
+      "archive_bytes": 9043784038,
+      "stream_crc_checked": false,
+      "official_full_zip_extraction_executed": false,
+      "official_existing_output_check": null
+    },
     "cross_archive_7_to_8": {
       "identical_archive_member_crc_sizes_7_to_8_base_and_wheels": 18,
       "byte_identical_cross_archive_small_assets": [
