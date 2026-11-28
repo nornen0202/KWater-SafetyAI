@@ -185,7 +185,7 @@ def training_packet():
                 s4_additional_donor_groups=len(used_donors), s4_blinded_presentations=len(mirror), s4_scored=0)
 
 
-def frozen_v3():
+def frozen_v3(analyzer=analyze):
     panels, _, _ = fold4()
     prior = json.loads(Path("results/fold4-law-policy-replay-20261127.json").read_bytes())
     raw = DATA / "v3_epoch1_raw_175.jsonl"
@@ -227,7 +227,7 @@ def frozen_v3():
             if refs:
                 gold[row["sample_id"], code] = refs
     baseline = prediction_refs(queries, outputs, native, action)
-    return analyze(panels, gold, baseline, queries, native, laws), hashes
+    return analyzer(panels, gold, baseline, queries, native, laws), hashes
 
 
 def main():
