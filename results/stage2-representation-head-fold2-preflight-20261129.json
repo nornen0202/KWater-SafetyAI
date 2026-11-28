@@ -1,0 +1,83 @@
+{
+  "scope": "One Fold 2 diagnostic design. Frozen VLM already trained on the full 769-photo training side.",
+  "role_support": {
+    "fit": {
+      "photos": 215,
+      "components": 121,
+      "normal": 43,
+      "severity4": 78,
+      "codes": {
+        "fall_height": 43,
+        "slip_trip": 55,
+        "caught_in_machine": 13,
+        "struck_by_lifting": 4,
+        "electrical_energy": 23,
+        "drowning_inundation": 0,
+        "fire_explosion": 22,
+        "confined_space": 0,
+        "chemical_exposure": 11,
+        "thermal_weather": 0,
+        "other": 40
+      }
+    },
+    "calibration": {
+      "photos": 42,
+      "components": 21,
+      "normal": 8,
+      "severity4": 13,
+      "codes": {
+        "fall_height": 6,
+        "slip_trip": 16,
+        "caught_in_machine": 0,
+        "struck_by_lifting": 3,
+        "electrical_energy": 1,
+        "drowning_inundation": 0,
+        "fire_explosion": 6,
+        "confined_space": 0,
+        "chemical_exposure": 2,
+        "thermal_weather": 0,
+        "other": 14
+      }
+    }
+  },
+  "outer_photos": 197,
+  "sensitivity_photos": 55,
+  "old_training_rows_dropped_by_outer_components": 512,
+  "outer_in_historical_training_components": 142,
+  "head_fit_calibration_outer_component_overlaps": 0,
+  "rules": {
+    "epochs": 12,
+    "batch": 8,
+    "seed": 42,
+    "width": 128,
+    "hidden": 4096,
+    "min_pixels": 131072,
+    "max_pixels": 393216,
+    "storage_dtype": "bfloat16",
+    "optimizer": "AdamW",
+    "learning_rate": 0.001,
+    "weight_decay": 0.01,
+    "loss": "repo asymmetric focal BCE, smooth=0",
+    "code_and_scene_grid": [
+      0.15,
+      0.3,
+      0.45,
+      0.5,
+      0.6,
+      0.75,
+      0.9,
+      1.01
+    ],
+    "fpr_max": 0.14,
+    "unsupported_common_code_cut": 0.5,
+    "rare_output_codes_enabled": false
+  },
+  "calibration_fp_limit": 1,
+  "feature_cache_max_bf16_tensor_bytes": 1428160512,
+  "head_tensor_bytes": 2369588,
+  "preflight_frozen_local_sha256": "4a84a483a5b909522f1900f11a70e3bda0ea30c5e3ab975d1852092f58d3d989",
+  "blocks_sha256": "369556b1b7b65b16749232813666261ebcd60ca2ce5c4abca5d313efe32c03d3",
+  "fitted_models": 0,
+  "extracted_photos": 0,
+  "generated_predictions": 0
+}
