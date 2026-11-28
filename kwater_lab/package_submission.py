@@ -522,6 +522,7 @@ def validated_release_inputs(
     enable_hybrid: bool,
     prompt_path: Path | None = None,
     allow_fold_hybrid: bool = False,
+    base_dir: Path | None = None,
 ):
     """Reject incomplete adapters and identify the exact case-bank training population."""
     from safetensors import safe_open
@@ -597,7 +598,7 @@ def validated_release_inputs(
                 raise FileNotFoundError(f"Hybrid artifact required: {path}")
         validate_margin_gate_config(json.loads(gate_file.read_text(encoding="utf-8")))
 
-    base = root / "data/baseline/base_model"
+    base = base_dir or root / "data/baseline/base_model"
     training_base = summary.get("configuration", {}).get("base_config_sha256")
     if training_base is not None and training_base != digest(base / "config.json"):
         raise ValueError("Bundled base model config differs from the training config")
@@ -772,6 +773,7 @@ def build_submission_package(
     max_candidates_per_photo: int = 1,
     prompt_path: Path | None = None,
     allow_fold_hybrid: bool = False,
+    research_8b_base_dir: Path | None = None,
 ) -> dict:
     if batch_size < 1 or verify_batch_size < 1 or verify_max_new_tokens < 1:
         raise ValueError("Batch sizes and verify_max_new_tokens must be positive")
@@ -783,9 +785,46 @@ def build_submission_package(
         raise FileExistsError("Use a fresh staging directory and archive path")
     if zip_path is not None and zip_path.is_relative_to(dest_dir):
         raise ValueError("Archive path must be outside the staging directory")
+    base_dir = root / "data/baseline/base_model"
+    base_name = "Qwen3-VL-4B-Instruct"
+    base_revision = "ebb281ec70b05090aa6165b016eac8ec08e71b17"
+    if research_8b_base_dir is not None:
+        if enable_hybrid:
+            raise ValueError("The research 8B base requires --vlm-only")
+        base_dir = research_8b_base_dir.resolve()
+        base_name = "Qwen3-VL-8B-Instruct"
+        base_revision = "0c351dd01ed87e9c1b53cbc748cba10e6187ff3b"
+        source = json.loads((base_dir / "source.json").read_bytes())
+        if (source["repo"], source["revision"]) != (f"Qwen/{base_name}", base_revision):
+            raise ValueError("Expected the pinned BF16 Qwen3-VL-8B-Instruct source")
+        base_file_names = {
+            "chat_template.json", "config.json", "generation_config.json", "merges.txt",
+            "model.safetensors.index.json", "preprocessor_config.json", "tokenizer_config.json",
+            "tokenizer.json", "video_preprocessor_config.json", "vocab.json",
+        }
+        index = json.loads((base_dir / "model.safetensors.index.json").read_bytes())
+        shards = {f"model-{number:05d}-of-00004.safetensors" for number in range(1, 5)}
+        if set(index["weight_map"].values()) != shards:
+            raise ValueError("Expected four official 8B shards")
+        base_file_names.update(shards)
+        source_sizes = {item["rfilename"]: item["size"] for item in source["files"]}
+        for name in base_file_names:
+            if (base_dir / name).stat().st_size != source_sizes.get(name):
+                raise ValueError(f"Research base file size differs from pinned asset: {name}")
+    else:
+        base_file_names = {path.name for path in base_dir.iterdir() if path.is_file()}
+
     summary, train_ids, resolved_prompt = validated_release_inputs(
-        root, adapter_dir, specialist_ckpt, enable_hybrid, prompt_path=prompt_path, allow_fold_hybrid=allow_fold_hybrid
+        root, adapter_dir, specialist_ckpt, enable_hybrid, prompt_path=prompt_path,
+        allow_fold_hybrid=allow_fold_hybrid, base_dir=base_dir,
     )
+    if research_8b_base_dir is not None and (
+        summary["val_fold"] != 4 or len(train_ids) != 791
+        or summary.get("completed_epochs") != 1 or summary.get("optimizer_steps") != 69
+        or summary["configuration"].get("base_config_sha256")
+        != "5cd452860dc1e9c29dd71cc3cef7f39b338b7a40793f7a260655c2d3568f3661"
+    ):
+        raise ValueError("Expected the measured Fold 4 8B first-epoch adapter")
     dest_dir.mkdir(parents=True, exist_ok=False)
 
     oof_code_precs = {}
@@ -824,7 +863,11 @@ def build_submission_package(
     )
 
     # 1. Write main.py, prompt file, pipeline_config.json
-    (dest_dir / "main.py").write_text(render_entrypoint(), encoding="utf-8", newline="\n")
+    entrypoint = render_entrypoint()
+    if research_8b_base_dir is not None:
+        entrypoint = entrypoint.replace("Qwen3-VL-4B LoRA + 1-Token Margin Verified Dual-Vision Specialist",
+                                        "Qwen3-VL-8B Standalone LoRA", 1)
+    (dest_dir / "main.py").write_text(entrypoint, encoding="utf-8", newline="\n")
     prompt_filename = resolved_prompt.name
     shutil.copy2(resolved_prompt, dest_dir / prompt_filename)
     max_pixels_infer = int(summary.get("max_pixels") or v3_turnaround.TRAIN_EVAL_MAX_PIXELS)
@@ -863,9 +906,8 @@ def build_submission_package(
             link_or_copy(wf, dest_dir / "wheelhouse" / wf.name)
 
     # 3. Link unmodified BF16 Qwen3-VL-4B-Instruct base_model/ and fine-tuned 11-code adapter/
-    for bf in (root / "data/baseline/base_model").iterdir():
-        if bf.is_file():
-            link_or_copy(bf, dest_dir / "base_model" / bf.name)
+    for name in sorted(base_file_names):
+        link_or_copy(base_dir / name, dest_dir / "base_model" / name)
     for af in adapter_dir.iterdir():
         if af.is_file() and af.name in ("adapter_config.json", "adapter_model.safetensors"):
             link_or_copy(af, dest_dir / "adapter" / af.name)
@@ -913,9 +955,9 @@ def build_submission_package(
     assets_list = [
         {
             "kind": "model",
-            "name": "Qwen3-VL-4B-Instruct",
-            "source": "https://huggingface.co/Qwen/Qwen3-VL-4B-Instruct",
-            "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+            "name": base_name,
+            "source": f"https://huggingface.co/Qwen/{base_name}",
+            "revision": base_revision,
             "license": "Apache-2.0",
             "use": "현장 사진 11종 위험 판정, 근거·예방조치 생성 및 후보 시각 검증 기반 모델",
         },
@@ -986,7 +1028,7 @@ def build_submission_package(
 
     assets_manifest = {"schema_version": "1.0", "seed": 42, "assets": assets_list}
     (dest_dir / "assets.json").write_text(json.dumps(assets_manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
-    title = "SafeGround v5 (v3 Engine) · Native 11-Code Qwen3-VL-4B"
+    title = f"SafeGround v5 (v3 Engine) · Native 11-Code {base_name.removesuffix('-Instruct')}"
     if enable_hybrid:
         title += " + 1-Token Margin Verified Dual-Vision Specialist"
     purpose = (
@@ -1089,6 +1131,7 @@ def main() -> None:
     ap.add_argument("--verify-batch-size", type=int, default=2)
     ap.add_argument("--verify-max-new-tokens", type=int, default=PRODUCTION_VERIFY_MAX_NEW_TOKENS)
     ap.add_argument("--max-candidates-per-photo", type=int, default=1)
+    ap.add_argument("--research-8b-base-dir", type=Path, default=None)
     args = ap.parse_args()
 
     info = build_submission_package(
@@ -1104,6 +1147,7 @@ def main() -> None:
         max_candidates_per_photo=args.max_candidates_per_photo,
         prompt_path=args.prompt_path.resolve() if args.prompt_path else None,
         allow_fold_hybrid=args.allow_fold_hybrid,
+        research_8b_base_dir=args.research_8b_base_dir,
     )
     print(json.dumps(info, indent=2, ensure_ascii=False))
 

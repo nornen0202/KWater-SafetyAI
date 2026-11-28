@@ -1,0 +1,186 @@
+{
+  "scope": "6th submitted 4B archive vs local research 8B stage signed from the fold4 first epoch. Matched controls, not an isolated size intervention.",
+  "sixth_zip": "kwater-safeground-v3-epoch1-vlmonly-20261127.zip",
+  "research_8b_zip": "kwater-research-8b-fold4-epoch1-bf16-20261128.zip",
+  "same_runtime": {
+    "enable_hybrid_booster": false,
+    "use_v3_formatter": true,
+    "prompt_filename": "system_prompt_v3.txt",
+    "max_pixels_infer": 393216,
+    "batch_size": 4,
+    "margin_gate": null,
+    "minimum_pixels": 131072,
+    "max_new_tokens": 620,
+    "do_sample": false,
+    "dtype": "bfloat16",
+    "attention": "sdpa"
+  },
+  "small_members": {
+    "main.py": {
+      "sixth_sha256": "b728c3be183cc3cfa4e49ee8bc38076ea7b572c8b91a11c159091eee3a9b1e98",
+      "research_8b_sha256": "e2d9d931569cc24743a5931137476a3df8dce28d6ce2c18819591485ea0cd307",
+      "identical": false
+    },
+    "pipeline_config.json": {
+      "sixth_sha256": "5e11382cd5d71943f257d3b16cf46c628aecfdffd10327b79f8c61fe301cb29c",
+      "research_8b_sha256": "2cf832f1ff148e24fe57d7f7ec60547076e99c80bab22ab5dd704947569bdf88",
+      "identical": false
+    },
+    "system_prompt_v3.txt": {
+      "sixth_sha256": "13edaf96ccd032551ea0a1ebdc27934d958afd1259439f4b05773bdde1b2e07f",
+      "research_8b_sha256": "13edaf96ccd032551ea0a1ebdc27934d958afd1259439f4b05773bdde1b2e07f",
+      "identical": true
+    },
+    "assets/cases_11code.jsonl": {
+      "sixth_sha256": "b18b0d03534972b55876dbdff01fb7aaa772920257f11653023c8281c60ff7ad",
+      "research_8b_sha256": "b18b0d03534972b55876dbdff01fb7aaa772920257f11653023c8281c60ff7ad",
+      "identical": true
+    },
+    "assets/laws.jsonl": {
+      "sixth_sha256": "1408b69db444cf90b31f9bebb4a773a30fa4362739e50b22c95f3bbe0e75bd9d",
+      "research_8b_sha256": "1408b69db444cf90b31f9bebb4a773a30fa4362739e50b22c95f3bbe0e75bd9d",
+      "identical": true
+    },
+    "requirements.lock": {
+      "sixth_sha256": "e14f1fe44e58786ad1284289b455ae9c482ef7659c7db5208a6c270f4623a517",
+      "research_8b_sha256": "e14f1fe44e58786ad1284289b455ae9c482ef7659c7db5208a6c270f4623a517",
+      "identical": true
+    },
+    "base_model/config.json": {
+      "sixth_sha256": "edac7703329133edfc53e46ac0081835144c99d7eebf28b71c732694d435224d",
+      "research_8b_sha256": "5cd452860dc1e9c29dd71cc3cef7f39b338b7a40793f7a260655c2d3568f3661",
+      "identical": false
+    },
+    "base_model/tokenizer.json": {
+      "sixth_sha256": "a5d85b6dcc535e6b93115a9ef287e6132fdbf30270da6218194ba742261173c7",
+      "research_8b_sha256": "a5d85b6dcc535e6b93115a9ef287e6132fdbf30270da6218194ba742261173c7",
+      "identical": true
+    },
+    "base_model/tokenizer_config.json": {
+      "sixth_sha256": "c2da771801886ad9ae98181793ffd3dfb7f1af30f6f7c6a4e15d7dbba52e2399",
+      "research_8b_sha256": "c2da771801886ad9ae98181793ffd3dfb7f1af30f6f7c6a4e15d7dbba52e2399",
+      "identical": true
+    },
+    "base_model/preprocessor_config.json": {
+      "sixth_sha256": "27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516",
+      "research_8b_sha256": "27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516",
+      "identical": true
+    },
+    "base_model/generation_config.json": {
+      "sixth_sha256": "8469742d1fce0de951c8909b26a2c0c0d8490837ce476efb114da9e0cefc4d44",
+      "research_8b_sha256": "8469742d1fce0de951c8909b26a2c0c0d8490837ce476efb114da9e0cefc4d44",
+      "identical": true
+    },
+    "base_model/chat_template.json": {
+      "sixth_sha256": "6f8a6a55027e3da5160105556cda5dd69f6423f1c32645f6730d32de7773d0c4",
+      "research_8b_sha256": "5c72a170d2a4a1a3bc5adad2e689ae28138a9700e5b8c96c0266331e86c0acce",
+      "identical": false,
+      "json_decoded_template_identical": true,
+      "raw_sha_difference_scope": "JSON serialization; identical decoded template."
+    },
+    "base_model/merges.txt": {
+      "sixth_sha256": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3",
+      "research_8b_sha256": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3",
+      "identical": true
+    },
+    "base_model/vocab.json": {
+      "sixth_sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+      "research_8b_sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+      "identical": true
+    },
+    "base_model/video_preprocessor_config.json": {
+      "sixth_sha256": "7768af27c1fafa9cc9011c1dc20067e03f8915e03b63504550e11d5066986d13",
+      "research_8b_sha256": "7768af27c1fafa9cc9011c1dc20067e03f8915e03b63504550e11d5066986d13",
+      "identical": true
+    }
+  },
+  "lock_wheel_count": 5,
+  "all_lock_wheels_byte_identical": true,
+  "ast_function_or_class_differences": {
+    "changed": [
+      "main",
+      "score_candidates_1token_margin"
+    ],
+    "added": [
+      "validate_margin_gate_config"
+    ],
+    "removed": [],
+    "same": [
+      "ActionSupportedLawRetriever",
+      "Native11LawRetriever",
+      "OrderCheck",
+      "RerankDecision",
+      "SpatialDualSpecialistHead",
+      "SupportRule",
+      "_TFIDFIndex",
+      "_pil_list_to_dino_tensor",
+      "_pil_list_to_sig_tensor",
+      "_repair_unsafe_prevention_order",
+      "_text",
+      "action_support",
+      "article_to_osh_id",
+      "build_active_records",
+      "check_keys",
+      "check_level",
+      "check_text",
+      "check_unsafe_action_order",
+      "decode_target",
+      "extract_batch_7view_features",
+      "extract_terms",
+      "format_competition_record",
+      "format_v3_record",
+      "hazard_query_terms",
+      "load_vlm",
+      "make_spatial_crops",
+      "merge_verified_candidates",
+      "parse_json_loose",
+      "parse_verified_hazard",
+      "predict_probs",
+      "reject_constant",
+      "rerank_top1_by_action_support",
+      "run_vision_specialist",
+      "sanitize_text",
+      "seed_all",
+      "select_booster_candidates",
+      "unique_keys",
+      "usable_draft_hazards",
+      "validate_vlm_11code_obj",
+      "verified_hazard",
+      "verify_user_text"
+    ]
+  },
+  "active_path_note": "Same load_vlm and format_v3_record (including case/reranker and rare-code rules); main is a different revision with telemetry and OOM bookkeeping, plus inactive verifier changes.",
+  "case_bank": {
+    "training_photos": 791,
+    "compact_cases": 658
+  },
+  "same_training_schedule": {
+    "val_fold": 4,
+    "train_photos": 791,
+    "curriculum_examples": 1092,
+    "configured_epochs": 2,
+    "completed_epochs": 1,
+    "grad_accum": 16,
+    "max_pixels": 393216,
+    "optimizer_steps": 69,
+    "scheduled_total_steps": 138,
+    "resume_cursor": {
+      "next_epoch": 2,
+      "next_offset": 0,
+      "global_step": 69
+    },
+    "seed": 42,
+    "lr": 0.00014,
+    "curriculum_sha256": "57527215c3ffa8c568041ba6b19873ae3d38f8f07199aab45b1c831b7417f446",
+    "prompt_sha256": "13edaf96ccd032551ea0a1ebdc27934d958afd1259439f4b05773bdde1b2e07f"
+  },
+  "training_backend": {
+    "shared_recipe": "NF4 QLoRA, double quantization, BF16 compute, vision and lm_head excluded from quantization, SDPA; use_4bit=True in train_multimodal_qlora",
+    "sixth_4b": "Windows, local RTX 3060; 33980416 trainable parameters",
+    "research_8b": "Linux, Seoul L4; 44793856 trainable parameters",
+    "backend_versions_exact_equal": null,
+    "step_supervision_per_update_matched": true,
+    "source_results": "results/paired-qwen-4b-8b-fold4-20261128.json"
+  },
+  "archive_layout_note": "Both are offline standalone; actual base config and weight count differ. Tokenizer JSON, tokenizer config, preprocessor config, and decoded chat template match."
+}

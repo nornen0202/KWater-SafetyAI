@@ -269,11 +269,12 @@ def fold2_masks():
 def package_options():
     result = load("sub78-single-8b-verifier-design-audit-20261128")
     budget = load("sub78-package-readiness-20261128")["eight_a"]
+    standalone = load("fold4-8b-epoch1-research-package-20261128")
     archive = result["archive"]
     limit = budget["fold4_mixed_model_replay"]["unquantized_archive_limit_bytes"] / 1e9
     bars = [
         ("7차 전량 4B 하이브리드", archive["seventh_bytes"], "실물 ZIP", GREEN),
-        ("8B 단독", budget["fold4_8b_epoch1"]["standalone_zip_estimate_bytes"], "치환 계산", BLUE),
+        ("8B 단독", standalone["bytes"], "실물 ZIP", GREEN),
         (
             "8B + 전문가 · LoRA 공유",
             archive["one_adapter_substitution_complete_base_files"],
@@ -320,7 +321,7 @@ def package_options():
     fig.text(
         0.10,
         0.053,
-        "치환 계산에는 기존 ZIP의 구성과 여유를 적용했다. 실제 8B ZIP 크기는 제작 후 확인한다.",
+        "하이브리드 두 안의 크기는 기존 ZIP 구성으로 계산했다. 8B 단독은 제작한 ZIP의 파일 크기다.",
         fontsize=9,
     )
     export(fig, "single-8b-package-options-20261128")

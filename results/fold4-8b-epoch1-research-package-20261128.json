@@ -1,0 +1,135 @@
+{
+  "scope": "Fold 4 8B standalone candidate for the eighth slot. Neither it nor the full1045 epoch-1 4B rehearsal alternative has been submitted. No official 200-photo GPU run at this observation.",
+  "archive": "kwater-research-8b-fold4-epoch1-bf16-20261128.zip",
+  "bytes": 17745550610,
+  "sha256": "4b1523af723ec7f6863c0297f3dc6db84d7854e4e3c52dd26f30b26280bbd549",
+  "archive_cpu_check": {
+    "files": 29,
+    "unpacked_bytes": 17745545588,
+    "seed": "42",
+    "offline_lock": true,
+    "asset_sha256": {
+      "main.py": "e2d9d931569cc24743a5931137476a3df8dce28d6ce2c18819591485ea0cd307",
+      "assets.json": "0c8881c4113ce244e708e21dcc73b781f450dfe24c98719f4ffd03e9e084a9d7",
+      "adapter/adapter_model.safetensors": "8269bc13e8c211ce1414f749da663c0c243bb93038d16e3891086cf30c44509b"
+    },
+    "declared_asset_count": 4,
+    "offline_wheels": [
+      {
+        "package": "accelerate",
+        "version": "1.10.1",
+        "matching_wheels": [
+          {
+            "filename": "accelerate-1.10.1-py3-none-any.whl",
+            "sha256": "3621cff60b9a27ce798857ece05e2b9f56fcc71631cfb31ccf71f0359c311f11"
+          }
+        ]
+      },
+      {
+        "package": "huggingface-hub",
+        "version": "0.36.0",
+        "matching_wheels": [
+          {
+            "filename": "huggingface_hub-0.36.0-py3-none-any.whl",
+            "sha256": "7bcc9ad17d5b3f07b57c78e79d527102d08313caa278a641993acddcb894548d"
+          }
+        ]
+      },
+      {
+        "package": "peft",
+        "version": "0.17.1",
+        "matching_wheels": [
+          {
+            "filename": "peft-0.17.1-py3-none-any.whl",
+            "sha256": "3d129d64def3d74779c32a080d2567e5f7b674e77d546e3585138216d903f99e"
+          }
+        ]
+      },
+      {
+        "package": "tokenizers",
+        "version": "0.22.1",
+        "matching_wheels": [
+          {
+            "filename": "tokenizers-0.22.1-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+            "sha256": "e2ef6063d7a84994129732b47e7915e8710f27f99f3a3260b8a38fc7ccd083f4"
+          }
+        ]
+      },
+      {
+        "package": "transformers",
+        "version": "4.57.1",
+        "matching_wheels": [
+          {
+            "filename": "transformers-4.57.1-py3-none-any.whl",
+            "sha256": "b10d05da8fa67dc41644dbbf9bc45a44cb86ae33da6f9295f5fbf5b7890bd267"
+          }
+        ]
+      }
+    ],
+    "restricted_or_unneeded_members": [],
+    "restricted_source_exact_content_matches": [],
+    "network_or_process_static_indicators": [],
+    "linux_seccomp_executed": false,
+    "offline_install_executed": false
+  },
+  "main_sha256": "e2d9d931569cc24743a5931137476a3df8dce28d6ce2c18819591485ea0cd307",
+  "base_member_sha256": {
+    "base_model/chat_template.json": "5c72a170d2a4a1a3bc5adad2e689ae28138a9700e5b8c96c0266331e86c0acce",
+    "base_model/config.json": "5cd452860dc1e9c29dd71cc3cef7f39b338b7a40793f7a260655c2d3568f3661",
+    "base_model/generation_config.json": "8469742d1fce0de951c8909b26a2c0c0d8490837ce476efb114da9e0cefc4d44",
+    "base_model/merges.txt": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3",
+    "base_model/model-00001-of-00004.safetensors": "d5d0aef0eb170fc7453a296c43c0849a56f510555d3588e4fd662bb35490aefa",
+    "base_model/model-00002-of-00004.safetensors": "8be88fb5501e4d5719a6d4cc212e6a13480330e74f3e8c77daa1a68f199106b5",
+    "base_model/model-00003-of-00004.safetensors": "83de00eafe6e0d57ccd009dbcf71c9974d74df2f016c27afb7e95aafd16b2192",
+    "base_model/model-00004-of-00004.safetensors": "0a88b98e9f96270973f567e6a2c103ede6ccdf915ca3075e21c755604d0377a5",
+    "base_model/model.safetensors.index.json": "520b2e05079402e9468a8701d03d1154d14b2599593afb6effa7fb60c1bff070",
+    "base_model/preprocessor_config.json": "27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516",
+    "base_model/tokenizer.json": "a5d85b6dcc535e6b93115a9ef287e6132fdbf30270da6218194ba742261173c7",
+    "base_model/tokenizer_config.json": "c2da771801886ad9ae98181793ffd3dfb7f1af30f6f7c6a4e15d7dbba52e2399",
+    "base_model/video_preprocessor_config.json": "7768af27c1fafa9cc9011c1dc20067e03f8915e03b63504550e11d5066986d13",
+    "base_model/vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+  },
+  "adapter_sha256": "8269bc13e8c211ce1414f749da663c0c243bb93038d16e3891086cf30c44509b",
+  "prompt_sha256": "13edaf96ccd032551ea0a1ebdc27934d958afd1259439f4b05773bdde1b2e07f",
+  "checkpoint": {
+    "train_photos": 791,
+    "updates": 69,
+    "total_updates": 138,
+    "epoch": 1,
+    "configured_epochs": 2
+  },
+  "law_case_bank": {
+    "train_photos": 791,
+    "compact_rows": 658,
+    "exact_791_case_bank_parity": true,
+    "sha256": "b18b0d03534972b55876dbdff01fb7aaa772920257f11653023c8281c60ff7ad"
+  },
+  "synthetic_generation_official_checker": {
+    "return_code": 0,
+    "valid_rows": 3,
+    "total_rows": 3,
+    "checker_dependency_missing": null,
+    "all_rows_valid": true,
+    "output_hazard_counts": [
+      0,
+      1,
+      0
+    ],
+    "model_execution_mocked": true
+  },
+  "official_200_latency": null,
+  "cpu_check_details": "Single sequential raw ZIP read for complete SHA and member hashes. Official archive metadata and official synthetic output checker ran locally.",
+  "actual_offline_auto_processor": {
+    "cpu_auto_processor_loaded_offline": true,
+    "single_mock_pixel_image_processed": true,
+    "token_count": 1358,
+    "pixel_tensor_shape": [
+      900,
+      1536
+    ],
+    "no_model_weights_loaded": true
+  },
+  "release_pipeline_cpu_tests_passed": 9,
+  "packaged_control_comparison": "results/fold4-4b-8b-packaged-controls-20261128.json",
+  "archive_completed_at_kst": "2026-11-28T14:08:26.5486854+09:00"
+}
