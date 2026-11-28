@@ -1,0 +1,128 @@
+{
+  "scope": "791-photo Fold 4 first-epoch 8B standalone research archive, unsubmitted. Mixed training exposure on 200 latency photos.",
+  "archive_bytes": 17745550610,
+  "archive_sha256": "4b1523af723ec7f6863c0297f3dc6db84d7854e4e3c52dd26f30b26280bbd549",
+  "official_result": "OK",
+  "hardware": "NVIDIA L4, 23034 MiB, 580.178.04",
+  "kit_log_sha256": "dc95bc87ae5d2b0d56c967f2dc55b9d0308f2b1cece146d01aa69d262488dcaf",
+  "run_log_sha256": "ca4208e1557a94e3ddaa4ae3513809981ae218718cf0ac0c45d90bf9780080d6",
+  "clock": {
+    "rc": 0,
+    "run": 1315,
+    "install": 14,
+    "total": 1329,
+    "limit": 1800
+  },
+  "peak_sampled_gpu_mib": 21472,
+  "input_manifest_sha256": "8c86d0b60b7b879573ccdf4c81558ed4a3840588bb6d2fbbe656dfdb911335b6",
+  "rows": 200,
+  "output_sha256": "1df8384259564d773bd096c316ed078300453a762cd04397a0f7ce5bfabc5c89",
+  "exact_id_order": true,
+  "telemetry": {
+    "input_photos": 200,
+    "enable_hybrid_booster": false,
+    "max_candidates_per_photo": 0,
+    "inspect_initial_batch_size": 4,
+    "inspect_final_effective_batch_size": 4,
+    "inspect_backoff_count": 0,
+    "verify_initial_batch_size": 0,
+    "verify_margin_effective_batch_size": 0,
+    "verify_gen_effective_batch_size": 0,
+    "verify_max_new_tokens": 0,
+    "verify_backoff_count": 0,
+    "raw_vlm_parsed_count": 200,
+    "raw_specialist_candidates": 0,
+    "margin_gate_passed_candidates": 0,
+    "verified_accepted_candidates": 0,
+    "specialist_seconds": 0.0,
+    "vlm_load_seconds": 21.776,
+    "inspect_seconds": 1288.293,
+    "margin_gate_seconds": 0.0,
+    "verify_generate_seconds": 0.0,
+    "postprocess_seconds": 1.809,
+    "total_seconds": 1312.216,
+    "sec_per_photo": 6.561,
+    "output_submission_sha256": "1df8384259564d773bd096c316ed078300453a762cd04397a0f7ce5bfabc5c89"
+  },
+  "output_checker": {
+    "return_code": 0,
+    "valid_rows": 200,
+    "total_rows": 200,
+    "checker_dependency_missing": null,
+    "all_rows_valid": true
+  },
+  "panel_split": {
+    "fold4": 40,
+    "other_development_folds": 160
+  },
+  "arms": {
+    "8B": {
+      "official_normal": 37,
+      "false_alarms": 4,
+      "official_severity4": 68,
+      "severity4_missed": 26,
+      "hazard_photos": 135
+    },
+    "6": {
+      "official_normal": 37,
+      "false_alarms": 1,
+      "official_severity4": 68,
+      "severity4_missed": 19,
+      "hazard_photos": 138
+    },
+    "7": {
+      "official_normal": 37,
+      "false_alarms": 1,
+      "official_severity4": 68,
+      "severity4_missed": 22,
+      "hazard_photos": 135
+    },
+    "4B_full_epoch1": {
+      "official_normal": 37,
+      "false_alarms": 0,
+      "official_severity4": 68,
+      "severity4_missed": 34,
+      "hazard_photos": 103
+    }
+  },
+  "compared_with_7": {
+    "code_changes": {
+      "changed_type": 47,
+      "same": 121,
+      "hazard_to_normal": 16,
+      "normal_to_hazard": 16
+    },
+    "hazard_to_normal_detail": {
+      "corrected_false_alarm": 1,
+      "prior_correct": 11,
+      "prior_wrong_type": 4
+    }
+  },
+  "resource": {
+    "zone": "asia-northeast3-a",
+    "machine_type": "g2-standard-16",
+    "single_l4": true,
+    "boot_disk_gib": 150,
+    "hard_auto_delete_seconds": 2700,
+    "created_at": "2026-11-28T14:18:39+09:00",
+    "kit_finished_by_kst": "2026-11-28T14:51:43+09:00",
+    "termination_confirmed": "2026-11-28T14:52:52.8066524+09:00",
+    "instances_found_after_delete": [],
+    "disks_found_after_delete": [],
+    "elapsed_minutes_to_cleanup_confirmation": 34.226,
+    "receipt_tar_bytes": 153600,
+    "receipt_tar_sha256": "8b1072658009eaed87af3c01c93f5c18fc69e0d39ee86b99d4c611a4cf6be9fe"
+  },
+  "cost_estimate_krw": {
+    "invoice_available": false,
+    "method": "Previous identical Seoul G2-16 + 150GB pd-balanced + external IP and VAT estimate of KRW 1514 for 36.57 minutes, scaled through deletion confirmation and rounded up.",
+    "increment_estimate": 1417,
+    "ancillary_allowance": 510,
+    "increment_with_allowance": 1927,
+    "increment_limit": 2400,
+    "cumulative_estimate": 12204,
+    "cumulative_including_prior_and_current_allowances": 14517,
+    "unallocated_with_allowances": 483,
+    "total_budget": 15000
+  }
+}
