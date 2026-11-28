@@ -248,5 +248,147 @@
     "sampled_gpu_interval_seconds": 2,
     "stderr_in_official_run_log": true,
     "scope": "200 development photos / 192 groups; deployment timing only"
+  },
+  "gguf_27b_official": {
+    "bytes": 17801904939,
+    "sha256": "ed76a5dec461d783b263d4e227944dd85da7b9069dbc58116470f3a5e905307f",
+    "under_20gb_by": 2198095061,
+    "stock_quantized_model_no_domain_adapter": true,
+    "q4_and_projector_bytes": 17495406176,
+    "archive_match_local_and_cloud": true,
+    "decode": {
+      "seed": 42,
+      "concurrency": 2,
+      "max_new_tokens": 620,
+      "context_total": 8192,
+      "max_pixels": 393216,
+      "jpeg_quality": 92,
+      "temperature": 0
+    },
+    "panels": {
+      "sample1": {
+        "expected_images": 1,
+        "result": "OK",
+        "observed_output_rows": 1,
+        "exact_id_sequence": true,
+        "observed_prefix_in_order": true,
+        "distinct_observed_ids": 1,
+        "output_sha256": "534cf6a60db931426ad40722a2d1541e8a4edb1dc003562b5b043de7b952dad8",
+        "kit_log_sha256": "45b5f546ecf45b38f08fa29382e7b19546cce250e438849b53698b9ec01b9918",
+        "checker_valid": [
+          1,
+          1
+        ],
+        "peak_gpu_sampled_mib": 17150,
+        "gpu_sample_interval_seconds": 2,
+        "model_ready_seconds": 17.45,
+        "official_clock": {
+          "return_code": 0,
+          "execution_seconds": 37,
+          "install_seconds": 0,
+          "total_seconds": 37,
+          "limit_seconds": 300
+        },
+        "last_logged_generation": {
+          "rows": 1,
+          "images": 1,
+          "parseable": 1,
+          "native_schema_valid": 1,
+          "output_tokens": 168,
+          "prompt_tokens": 1396,
+          "capped": 0,
+          "seconds_since_model_start": 31.49
+        }
+      },
+      "sample10": {
+        "expected_images": 10,
+        "result": "OK",
+        "observed_output_rows": 10,
+        "exact_id_sequence": true,
+        "observed_prefix_in_order": true,
+        "distinct_observed_ids": 10,
+        "output_sha256": "2af549812153e36fabf848b608045f11e0a02c45a3b490604ba2188c6931850c",
+        "kit_log_sha256": "3dfd338afc9a199b677fc3d6463abe0d81edf1c03a4743d76c6873771cb19ff1",
+        "checker_valid": [
+          10,
+          10
+        ],
+        "peak_gpu_sampled_mib": 17158,
+        "gpu_sample_interval_seconds": 2,
+        "model_ready_seconds": 14.74,
+        "official_clock": {
+          "return_code": 0,
+          "execution_seconds": 90,
+          "install_seconds": 0,
+          "total_seconds": 90,
+          "limit_seconds": 600
+        },
+        "last_logged_generation": {
+          "rows": 10,
+          "images": 10,
+          "parseable": 10,
+          "native_schema_valid": 10,
+          "output_tokens": 1535,
+          "prompt_tokens": 12761,
+          "capped": 0,
+          "seconds_since_model_start": 84.06
+        }
+      },
+      "input200": {
+        "expected_images": 200,
+        "result": "OK",
+        "observed_output_rows": 200,
+        "exact_id_sequence": true,
+        "observed_prefix_in_order": true,
+        "distinct_observed_ids": 200,
+        "output_sha256": "62005c1ceb3ca42fa832ddb6fa59b861814708bb8bbc9c868fdd9a43c116d965",
+        "kit_log_sha256": "1c004fb46cfc634374d498ab007eb35218fd1435ea6a5d9287ccf27166e73775",
+        "checker_valid": [
+          200,
+          200
+        ],
+        "peak_gpu_sampled_mib": 17158,
+        "gpu_sample_interval_seconds": 2,
+        "model_ready_seconds": 14.74,
+        "official_clock": {
+          "return_code": 0,
+          "execution_seconds": 1591,
+          "install_seconds": 0,
+          "total_seconds": 1591,
+          "limit_seconds": 1800
+        },
+        "last_logged_generation": {
+          "rows": 200,
+          "images": 200,
+          "parseable": 200,
+          "native_schema_valid": 200,
+          "output_tokens": 36470,
+          "prompt_tokens": 266408,
+          "capped": 0,
+          "seconds_since_model_start": 1585.79
+        },
+        "official_checker_replayed_on_recovered_output": {
+          "return_code": 0,
+          "valid_rows": 200,
+          "total_rows": 200,
+          "checker_dependency_missing": null,
+          "all_rows_valid": true
+        }
+      }
+    },
+    "first_archive_attempt": {
+      "bytes": 17801904701,
+      "sha256": "aa00a442eb9079cd5a00140be281071b1230a81cc72b0f5429a5aede6185ff6c",
+      "one_image_result": "E03",
+      "install_seconds": 0,
+      "execution_seconds": 4,
+      "output_images": 0,
+      "cause": "The OpenMP library shipped with PyTorch was outside the native executable search path.",
+      "kit_log_sha256": "b414e7ebfe3ab5e21e7840b79096b1f7fd075af9ff46af4c0e288ca146f6d47c"
+    },
+    "corrected_archive_path": "data/submissions/kwater-qwen38-27b-q4-timing-ed76a5dec461.zip",
+    "input200_manifest_sha256": "8c86d0b60b7b879573ccdf4c81558ed4a3840588bb6d2fbbe656dfdb911335b6",
+    "cost_hardware": "Seoul g2-standard-16, NVIDIA L4 23034 MiB driver 580.178.04; official kit 6 CPUs, RAM 56 GiB",
+    "official_image": "ghcr.io/jiwoochris/kwater-runtime@sha256:2e924d941c41876e9eb1de79a1af7eaf796aacb1210fb86f6ff3345cc7c58d64"
   }
 }

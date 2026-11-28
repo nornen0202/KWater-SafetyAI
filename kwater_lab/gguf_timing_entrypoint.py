@@ -16,6 +16,7 @@ from tempfile import TemporaryDirectory
 import time
 
 from PIL import Image, ImageOps
+import torch
 from format_runtime import ActionSupportedLawRetriever, format_v3_record, parse_json_loose, validate_vlm_11code_obj
 
 
@@ -84,8 +85,11 @@ def main(input_dir, output_dir):
         binary.chmod(0o700)
         for library in (root / "runtime").glob("*.so*"):
             (binary.parent / library.name).symlink_to(library)
-        lib = str(root / "runtime")
-        env = {**os.environ, "LD_LIBRARY_PATH": lib + ":" + os.environ.get("LD_LIBRARY_PATH", "")}
+        # The official image ships the OpenMP runtime alongside PyTorch.
+        library_dirs = [str(root / "runtime"), str(Path(torch.__file__).resolve().parent / "lib")]
+        if os.environ.get("LD_LIBRARY_PATH"):
+            library_dirs.append(os.environ["LD_LIBRARY_PATH"])
+        env = {**os.environ, "LD_LIBRARY_PATH": os.pathsep.join(library_dirs)}
         command = [str(binary), "--host", str(sock), "--model", str(root / "model.gguf"),
                    "--mmproj", str(root / "mmproj.gguf"), "-ngl", "99", "--parallel", "2",
                    "--ctx-size", "8192", "--threads", "4", "--cache-ram", "0", "--reasoning-budget", "0"]
