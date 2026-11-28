@@ -139,18 +139,9 @@ def non_accept_state(raw):
     return "invalid_generation"
 
 
-def audit(response_path=None):
-    w = FROZEN.parent
-    cache = load(w / "fixed_verifier_cache.json")
-    e = load(RUN / "cache.json")
-    rows = [r for r in load(DEV) if r["split"] == "dev" and r["dev_fold"] == 4]
-    ids = [r["sample_id"] for r in rows]
-    if list(e["outputs"]) != ids or e["identity"]["samples"] != [[r["sample_id"], r["image"]] for r in rows]:
-        raise ValueError("8B drafts differ from the ordered evaluation cohort")
-    if cache["identity"]["proposal_sha256"] != digest(FROZEN) or cache["identity"]["gate_sha256"] != digest(
-        MARGIN_GATE
-    ):
-        raise ValueError("Cache does not match the frozen proposal and margin gate")
+def select_8b_fold4_candidates(rows, draft):
+    """Replay the original strict-inner OOF selector on ordered 8B draft outputs."""
+    ids = [row["sample_id"] for row in rows]
     scope = {
         "np": np,
         "CODES": CODES,
@@ -197,7 +188,7 @@ def audit(response_path=None):
         take = [ix[sid] for sid in ids]
         cand = scope["select_booster_candidates"](
             rows,
-            list(e["outputs"].values()),
+            list(draft.values()),
             outer["code_probs"][take],
             outer["scene_probs"][take],
             cfg,
@@ -206,6 +197,22 @@ def audit(response_path=None):
             margin_boost_when_empty=0.12,
             max_candidates_per_photo=1,
         )
+    return cand, scope, prec
+
+
+def audit(response_path=None):
+    w = FROZEN.parent
+    cache = load(w / "fixed_verifier_cache.json")
+    e = load(RUN / "cache.json")
+    rows = [r for r in load(DEV) if r["split"] == "dev" and r["dev_fold"] == 4]
+    ids = [r["sample_id"] for r in rows]
+    if list(e["outputs"]) != ids or e["identity"]["samples"] != [[r["sample_id"], r["image"]] for r in rows]:
+        raise ValueError("8B drafts differ from the ordered evaluation cohort")
+    if cache["identity"]["proposal_sha256"] != digest(FROZEN) or cache["identity"]["gate_sha256"] != digest(
+        MARGIN_GATE
+    ):
+        raise ValueError("Cache does not match the frozen proposal and margin gate")
+    cand, scope, prec = select_8b_fold4_candidates(rows, e["outputs"])
     gold = {r["sample_id"]: set(r["codes"]) for r in rows}
     gate = load(MARGIN_GATE)
     dec = []

@@ -1,6 +1,6 @@
 {
   "event": "K-water 5th Public leaderboard",
-  "stage": "judging",
+  "stage": "scored",
   "submission_number": 7,
   "submitted_at_kst": "2026-11-28T12:56:00.930+09:00",
   "submitted_at_utc": "2026-11-28T03:56:00.930Z",
@@ -11,8 +11,8 @@
   "source": "SafeGround v3 full1045 epoch-2 hybrid, 170 of 170 updates, with specialist and visual verifier",
   "bytes": 10548013152,
   "sha256": "83c76f441f122279cd925998ce41dbc978f8dcb88cd141d5828e679d6e3ab713",
-  "public_score": null,
-  "public_score_source": null,
+  "public_score": 53.98,
+  "public_score_source": "Authenticated My Submissions",
   "team_leaderboard_observation": {
     "observed_at_kst": "2026-11-28T12:59:30+09:00",
     "source": "https://hackathon.imaginationgroup.co.kr/kwater/api/leaderboard",
@@ -38,5 +38,27 @@
     "remaining_attempts_today": 1,
     "daily_quota": 2,
     "automatically_selected_submission_number": 6
+  },
+  "previous_best_public_score": 53.65,
+  "delta_public_points": 0.33,
+  "delta_against_42_04_baseline": 11.94,
+  "automatically_selected_at_observation": true,
+  "individual_scored_observation": {
+    "observed_at_kst": "2026-11-28T13:55:00+09:00",
+    "time_precision": "minute",
+    "source": "Authenticated My Submissions",
+    "status": "채점 완료",
+    "automatically_selected_submission_number": 7
+  },
+  "scored_team_leaderboard_observation": {
+    "observed_at_kst": "2026-11-28T13:55:48.7233917+09:00",
+    "source": "https://hackathon.imaginationgroup.co.kr/kwater/api/leaderboard",
+    "best_public_score": 53.98,
+    "team_public_rank": 29,
+    "ranked_teams": 136,
+    "submissions": 7,
+    "top_20_cutoff": 56.03,
+    "top_10_cutoff": 60.25,
+    "leading_score": 71.69
   }
 }

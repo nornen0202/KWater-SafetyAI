@@ -1,0 +1,19 @@
+{
+  "candidate_count": 52,
+  "draft_count": 175,
+  "empty_draft_proposal_count": 24,
+  "base_shard_bytes": 17534339512,
+  "manifest_sha256": "770d50ffc8c96e4d39ef24aee19155a7f97ae42cbd511667ba4fb16290d05887",
+  "adapter_sha256": {
+    "epoch-1": "8269bc13e8c211ce1414f749da663c0c243bb93038d16e3891086cf30c44509b",
+    "epoch-2": "2d501955745c8a0239ce91dfa5abf39782585f1fc10b909524ae41af78c745a8"
+  },
+  "candidate_code_counts": {
+    "other": 18,
+    "chemical_exposure": 1,
+    "slip_trip": 18,
+    "fall_height": 11,
+    "caught_in_machine": 3,
+    "fire_explosion": 1
+  }
+}

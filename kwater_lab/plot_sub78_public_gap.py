@@ -1,5 +1,6 @@
 """Render the dated Public leaderboard gap from public aggregate scores."""
 import argparse
+from datetime import datetime
 import json
 from pathlib import Path
 
@@ -51,12 +52,20 @@ def main():
     if args.comparisons:
         comparison_plot(json.loads(args.comparisons.read_bytes()), args.output or "reports/figures/sub78-output-changes-20261128.png")
         return
-    scores = [42.04, 16.12, 42.04, 42.04, 47.35, 53.65, args.seventh, args.eighth]
+    receipt = json.loads(Path("results/public_submission_007.json").read_bytes())
+    observation = receipt.get("scored_team_leaderboard_observation") or receipt["team_leaderboard_observation"]
+    timestamp = datetime.fromisoformat(observation["observed_at_kst"])
+    seventh = receipt["public_score"] if args.seventh is None else args.seventh
+    scores = [42.04, 16.12, 42.04, 42.04, 47.35, 53.65, seventh, args.eighth]
     fig, ax = plt.subplots(figsize=(10.6, 6.4), layout="constrained")
     ax.set_title("공개 점수와 현재 순위 진입선", loc="left", fontsize=23, weight="bold", pad=29)
-    ax.text(0, 1.015, "11월 28일 12:33 KST 관측 · 우리 팀 27위 / 133팀",
+    subtitle = (f"{timestamp.month}월 {timestamp.day}일 {timestamp:%H:%M} KST 관측 · "
+                f"우리 팀 {observation['team_public_rank']}위 / {observation['ranked_teams']}팀")
+    ax.text(0, 1.015, subtitle,
             transform=ax.transAxes, color="#35455c", fontsize=13)
-    for score, label, color in [(55.89, "20위  55.89", "#35705e"), (60.19, "10위  60.19", "#9b3c25")]:
+    for rank, color in ((20, "#35705e"), (10, "#9b3c25")):
+        score = observation[f"top_{rank}_cutoff"]
+        label = f"{rank}위  {score:.2f}"
         ax.axhline(score, color=color, linewidth=1.6, linestyle="--")
         ax.text(8.46, score, label, color=color, va="center", fontsize=13, bbox={"facecolor": "white", "edgecolor": "none", "pad": 2})
     for index, score in enumerate(scores, 1):

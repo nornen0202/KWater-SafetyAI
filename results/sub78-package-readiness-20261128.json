@@ -8,8 +8,8 @@
     "archive_sha_evidence": "Independent previous archive hash and Windows native run witness. Current local named path, size and main hash rechecked.",
     "official_portal_receipt": "results/public_submission_007.json",
     "portal_submission_confirmed": true,
-    "portal_individual_status": "judging",
-    "individual_public_score": null,
+    "portal_individual_status": "scored",
+    "individual_public_score": 53.98,
     "official_linux_l4": {
       "install_seconds": 15,
       "execution_seconds": 1482,
