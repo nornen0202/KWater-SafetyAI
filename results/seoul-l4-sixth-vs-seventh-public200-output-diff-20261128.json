@@ -1,0 +1,186 @@
+{
+  "scope": "Output changes on 200 development photos; no correctness or leaderboard claim. The same-archive comparison measures native Windows versus the official South Korea L4 kit environment.",
+  "photos": 200,
+  "groups_in_frozen_selection": 192,
+  "input_manifest_sha256": "8c86d0b60b7b879573ccdf4c81558ed4a3840588bb6d2fbbe656dfdb911335b6",
+  "receipt_sha256": {
+    "sixth_public_record": "e7e33d140003c08124ea5822a5c779bf613b5e17ceade1e807b286472902bc30",
+    "seventh_seoul": "eb246cde06f365ce99681b6eda8f2d8351d446455e44e110c03f05e6b1cc83f6",
+    "seventh_windows": "5420fa6ef32acb632ae09ea9241ef0de2cfe0166fb2a9320bdd8281775b17226"
+  },
+  "official_checker_script_sha256": "22dd4bf71c2a47b5d5928ae90b7a098cecc692b4ec32c8bbe7506c4876c45fed",
+  "official_prediction_schema_sha256": "b6d5fcb79db56aea692ef57105ade98fe9c6cfb17b801fbd73224e704a199e2d",
+  "runs": {
+    "sixth_seoul_l4": {
+      "archive_sha256": "5b6527c82bac445f76463ee183600d3c44c202dd4c448722ca09dc810455cfe6",
+      "output_sha256": "034517ef1078a831eb61bd9406b0f27eca97b613e9266478773c4631fbd7ab75",
+      "rows": 200,
+      "unique_rows": 200,
+      "matches_manifest_order": true,
+      "official_checker": {
+        "return_code": 0,
+        "valid_rows": 200,
+        "total_rows": 200,
+        "checker_dependency_missing": null,
+        "all_rows_valid": true
+      },
+      "hazard_rows": 138
+    },
+    "seventh_seoul_l4": {
+      "archive_sha256": "83c76f441f122279cd925998ce41dbc978f8dcb88cd141d5828e679d6e3ab713",
+      "output_sha256": "c9fe0310478ea28a7c6ebe8521946e702f21c4e770a4382ab30db9ef284999cd",
+      "rows": 200,
+      "unique_rows": 200,
+      "matches_manifest_order": true,
+      "official_checker": {
+        "return_code": 0,
+        "valid_rows": 200,
+        "total_rows": 200,
+        "checker_dependency_missing": null,
+        "all_rows_valid": true
+      },
+      "hazard_rows": 135
+    },
+    "seventh_windows_native": {
+      "archive_sha256": "83c76f441f122279cd925998ce41dbc978f8dcb88cd141d5828e679d6e3ab713",
+      "output_sha256": "279a58ed6fdfe0cd76020b7eb10a24c15881cd0ad3839eefe79411512d3d1e26",
+      "rows": 200,
+      "unique_rows": 200,
+      "matches_manifest_order": true,
+      "official_checker": {
+        "return_code": 0,
+        "valid_rows": 200,
+        "total_rows": 200,
+        "checker_dependency_missing": null,
+        "all_rows_valid": true
+      },
+      "hazard_rows": 132
+    }
+  },
+  "comparisons": {
+    "seoul_l4_sixth_to_seventh": {
+      "same_output_order": true,
+      "same_status_rows": 179,
+      "same_code_set_rows": 143,
+      "status_transitions_from_a_to_b": {
+        "no_visible_hazard_to_no_visible_hazard": 53,
+        "no_visible_hazard_to_hazard": 9,
+        "hazard_to_no_visible_hazard": 12,
+        "hazard_to_hazard": 126
+      },
+      "exact_json_rows": 2,
+      "changed_json_rows": 198,
+      "changed_code_set_rows": 57,
+      "same_code_set_but_changed_json_rows": 141,
+      "hazard_to_hazard_with_changed_code_set": 36,
+      "code_changes_from_a_to_b": {
+        "fall_height": {
+          "added": 8,
+          "removed": 2
+        },
+        "slip_trip": {
+          "added": 11,
+          "removed": 17
+        },
+        "caught_in_machine": {
+          "added": 0,
+          "removed": 3
+        },
+        "struck_by_lifting": {
+          "added": 3,
+          "removed": 1
+        },
+        "electrical_energy": {
+          "added": 0,
+          "removed": 0
+        },
+        "drowning_inundation": {
+          "added": 0,
+          "removed": 0
+        },
+        "fire_explosion": {
+          "added": 1,
+          "removed": 3
+        },
+        "confined_space": {
+          "added": 0,
+          "removed": 0
+        },
+        "chemical_exposure": {
+          "added": 7,
+          "removed": 1
+        },
+        "thermal_weather": {
+          "added": 0,
+          "removed": 0
+        },
+        "other": {
+          "added": 7,
+          "removed": 9
+        }
+      }
+    },
+    "seventh_seoul_l4_to_windows_native": {
+      "same_output_order": true,
+      "same_status_rows": 193,
+      "same_code_set_rows": 185,
+      "status_transitions_from_a_to_b": {
+        "no_visible_hazard_to_no_visible_hazard": 63,
+        "no_visible_hazard_to_hazard": 2,
+        "hazard_to_no_visible_hazard": 5,
+        "hazard_to_hazard": 130
+      },
+      "exact_json_rows": 61,
+      "changed_json_rows": 139,
+      "changed_code_set_rows": 15,
+      "same_code_set_but_changed_json_rows": 124,
+      "hazard_to_hazard_with_changed_code_set": 8,
+      "code_changes_from_a_to_b": {
+        "fall_height": {
+          "added": 3,
+          "removed": 3
+        },
+        "slip_trip": {
+          "added": 3,
+          "removed": 6
+        },
+        "caught_in_machine": {
+          "added": 0,
+          "removed": 0
+        },
+        "struck_by_lifting": {
+          "added": 0,
+          "removed": 0
+        },
+        "electrical_energy": {
+          "added": 0,
+          "removed": 0
+        },
+        "drowning_inundation": {
+          "added": 0,
+          "removed": 0
+        },
+        "fire_explosion": {
+          "added": 0,
+          "removed": 0
+        },
+        "confined_space": {
+          "added": 0,
+          "removed": 0
+        },
+        "chemical_exposure": {
+          "added": 0,
+          "removed": 1
+        },
+        "thermal_weather": {
+          "added": 0,
+          "removed": 0
+        },
+        "other": {
+          "added": 3,
+          "removed": 0
+        }
+      }
+    }
+  }
+}

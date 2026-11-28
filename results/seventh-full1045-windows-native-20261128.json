@@ -1,0 +1,81 @@
+{
+  "archive_bytes": 10548013152,
+  "main_assembler_sha256": "4d74805cf260fd15f784eeb984aecbeae0ee5bcd5726ac78568760e33dcffb05",
+  "input_sha256": {
+    "adapter": "09bf25c6a91670fef30027a5e558d444bca03564db888414bac9f238ca554453",
+    "specialist": "e1c7d566a032e8cc8f6593da0805cce794a48d55e7127ff8d1e4539a25eefaa5",
+    "specialist_oof": "6798d085ff81895ca7b0c73e3ff8700324b910a98595270e34eea5819b16d35b",
+    "prompt": "13edaf96ccd032551ea0a1ebdc27934d958afd1259439f4b05773bdde1b2e07f",
+    "margin_gate": "f5f55fc97cc7a81e9fbb1332d2623d5fe2359445cf339bf25895057cd838b943",
+    "margin_pairs": "83b9d2cdb0b859266da338355bb4e759b1029431027c5002fa5db96ef32db75f",
+    "training_manifest": "e8de8a002eb235c16bc558e2ab7bfb91d6f8f60fa1e1c74634b179b95fe6659b"
+  },
+  "generation": {
+    "enable_hybrid_booster": true,
+    "use_v3_formatter": true,
+    "batch_size": 4,
+    "verify_batch_size": 2,
+    "max_candidates_per_photo": 1,
+    "verify_max_new_tokens": 280,
+    "max_pixels_infer": 393216
+  },
+  "offline_wheels": 5,
+  "packaged_gate": {
+    "beta": 0.6,
+    "tau_when_hazard": -1.2,
+    "tau_when_empty": 0.553,
+    "inner_pairs_n": 251,
+    "inner_tp_accepted": 128,
+    "inner_fp_accepted": 50
+  },
+  "compact_cases": 886,
+  "native": {
+    "archive_sha256": "83c76f441f122279cd925998ce41dbc978f8dcb88cd141d5828e679d6e3ab713",
+    "native_execution_scope": "Windows/Linux native diagnostic; no offline wheel install, Linux seccomp or Public environment claim",
+    "passed": true,
+    "input_output_order_exact": true,
+    "local_verified_count": 200,
+    "status_counts": {
+      "hazard": 132,
+      "no_visible_hazard": 68
+    },
+    "hazards_output": 178,
+    "official_output_check": {
+      "return_code": 0,
+      "valid_rows": 200,
+      "total_rows": 200,
+      "checker_dependency_missing": null,
+      "all_rows_valid": true
+    },
+    "output_sha256": "279a58ed6fdfe0cd76020b7eb10a24c15881cd0ad3839eefe79411512d3d1e26",
+    "native_main_wall_seconds": 2727.972,
+    "native_phases": {
+      "input_photos": 200,
+      "enable_hybrid_booster": true,
+      "max_candidates_per_photo": 1,
+      "inspect_initial_batch_size": 4,
+      "inspect_final_effective_batch_size": 4,
+      "inspect_backoff_count": 0,
+      "verify_initial_batch_size": 2,
+      "verify_margin_effective_batch_size": 2,
+      "verify_gen_effective_batch_size": 2,
+      "verify_max_new_tokens": 280,
+      "verify_backoff_count": 0,
+      "raw_vlm_parsed_count": 200,
+      "raw_specialist_candidates": 65,
+      "margin_gate_passed_candidates": 41,
+      "verified_accepted_candidates": 9,
+      "specialist_seconds": 423.063,
+      "vlm_load_seconds": 142.061,
+      "inspect_seconds": 1636.284,
+      "margin_gate_seconds": 151.626,
+      "verify_generate_seconds": 268.819,
+      "postprocess_seconds": 1.975,
+      "total_seconds": 2627.222,
+      "sec_per_photo": 13.136,
+      "output_submission_sha256": "279a58ed6fdfe0cd76020b7eb10a24c15881cd0ad3839eefe79411512d3d1e26"
+    },
+    "archive_check_extract_seconds": 403.778,
+    "native_main_log_sha256": "fc7c569c55d008e4e60eb46f7fce4e4e816a92941b0d240fb7e34dceee799ca5"
+  }
+}
