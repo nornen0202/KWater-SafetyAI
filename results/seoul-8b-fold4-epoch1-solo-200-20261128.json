@@ -1,5 +1,5 @@
 {
-  "scope": "791-photo Fold 4 first-epoch 8B standalone research archive, unsubmitted. Mixed training exposure on 200 latency photos.",
+  "scope": "791-photo Fold 4 first-epoch 8B standalone archive, captured before the eighth portal submission. Mixed training exposure on 200 latency photos.",
   "archive_bytes": 17745550610,
   "archive_sha256": "4b1523af723ec7f6863c0297f3dc6db84d7854e4e3c52dd26f30b26280bbd549",
   "official_result": "OK",
@@ -124,5 +124,6 @@
     "cumulative_including_prior_and_current_allowances": 14517,
     "unallocated_with_allowances": 483,
     "total_budget": 15000
-  }
+  },
+  "subsequent_portal_receipt": "results/public_submission_008.json"
 }

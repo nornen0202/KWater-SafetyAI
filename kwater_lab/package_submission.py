@@ -104,6 +104,15 @@ def run_vision_specialist(image_paths: list[Path], spec_dir: Path, device: torch
     return codes, scenes, checkpoint["full_dev_calibration"]
 
 
+def is_cuda_oom(error: RuntimeError) -> bool:
+    if isinstance(error, torch.OutOfMemoryError):
+        return True
+    first_line = str(error).partition("\n")[0].strip().lower()
+    return first_line.rstrip(".") in {"cuda error: out of memory", "cuda out of memory"} or first_line.startswith(
+        "cuda out of memory. tried to allocate "
+    )
+
+
 def load_vlm(base_dir: Path, adapter_dir: Path, max_pixels: int):
     from peft import PeftModel
     from transformers import AutoProcessor, Qwen3VLForConditionalGeneration
@@ -156,8 +165,8 @@ def score_candidates_1token_margin(
         try:
             vb = proc(text=txts, images=pics, padding=True, return_tensors="pt").to("cuda")
             out = model(**vb, logits_to_keep=1, use_cache=False)
-        except torch.OutOfMemoryError:
-            if len(chunk) == 1:
+        except RuntimeError as error:
+            if len(chunk) == 1 or not is_cuda_oom(error):
                 raise
             oom = True
         if oom:
@@ -249,8 +258,8 @@ def main() -> None:
             try:
                 batch = proc(text=[prefix] * len(sub_p), images=pics, padding=True, return_tensors="pt").to("cuda")
                 gen = model.generate(**batch, do_sample=False, max_new_tokens=INSPECT_MAX_NEW_TOKENS, use_cache=True)
-            except torch.OutOfMemoryError:
-                if len(sub_p) == 1:
+            except RuntimeError as error:
+                if len(sub_p) == 1 or not is_cuda_oom(error):
                     raise
                 oom = True
             if oom:
@@ -318,8 +327,8 @@ def main() -> None:
                 try:
                     vb = proc(text=v_txts, images=v_pics, padding=True, return_tensors="pt").to("cuda")
                     vgen = model.generate(**vb, do_sample=False, max_new_tokens=verify_max_new_tokens, use_cache=True)
-                except torch.OutOfMemoryError:
-                    if len(chunk) == 1:
+                except RuntimeError as error:
+                    if len(chunk) == 1 or not is_cuda_oom(error):
                         raise
                     voom = True
                 if voom:

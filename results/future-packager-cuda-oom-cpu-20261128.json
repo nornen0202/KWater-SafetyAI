@@ -1,0 +1,39 @@
+{
+  "scope": "Future generated package only; no model weights loaded and no GPU tests",
+  "execution_environment": {
+    "CUDA_VISIBLE_DEVICES": "-1",
+    "OMP_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "tested_files": {
+    "test_release_pipeline.py": 9,
+    "test_offline_archive_audit.py": 3,
+    "test_packaged_cuda_oom.py": 3
+  },
+  "tests_passed": 15,
+  "tests_failed": 0,
+  "reproduction_command_template": "python -B -m unittest discover -s tests -p <test filename>",
+  "source_sha256": {
+    "kwater_lab/package_submission.py": "2d1c264489624b7ac488630a378a928b25331b4e515f988add4deac7a70d7ae2",
+    "tests/test_release_pipeline.py": "6b5174b6832dbfe288d63d23ec75b982b543164eea211167b3154bea54d187d4",
+    "tests/test_offline_archive_audit.py": "7746ab3461af81678e2504e353e24beba03fab2fa36ad4cd4562b12e42d2eda9",
+    "tests/test_packaged_cuda_oom.py": "d8b2d609994e9c5f7a79987587222ea7f6a1a7edb98649d66ca08d8d28867765"
+  },
+  "frozen_eighth": {
+    "archive_name": "kwater-research-8b-fold4-epoch1-bf16-20261128.zip",
+    "observed_bytes": 17745550610,
+    "rechecked_main_sha256": "e2d9d931569cc24743a5931137476a3df8dce28d6ce2c18819591485ea0cd307",
+    "full_archive_sha256_receipt": "results/public_submission_008.json"
+  },
+  "generated_oom_mock": {
+    "cuda_runtime_error_retries": [
+      2,
+      1,
+      1
+    ],
+    "ordered_rows": 2,
+    "singleton_rethrows": true,
+    "generic_runtime_error_rethrows": true
+  }
+}

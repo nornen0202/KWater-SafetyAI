@@ -1,6 +1,6 @@
 {
   "event": "K-water 5th Public leaderboard",
-  "stage": "judging_pending",
+  "stage": "judging",
   "submission_number": 8,
   "submitted_at_kst": "2026-11-28T15:13:50.195+09:00",
   "submitted_at_utc": "2026-11-28T06:13:50.195Z",
@@ -13,10 +13,10 @@
   "public_score": null,
   "public_score_source": null,
   "individual_status_observation": {
-    "observed_at_kst": "2026-11-28T15:13:00+09:00",
+    "observed_at_kst": "2026-11-28T15:24:00+09:00",
     "time_precision": "minute",
     "source": "Authenticated My Submissions",
-    "status": "채점 대기 중",
+    "status": "채점 중",
     "estimated_result_at_kst": "2026-11-28T16:50:00+09:00",
     "remaining_attempts_today": 0,
     "daily_quota": 2,
@@ -44,5 +44,15 @@
     "seoul_official_kit_rehearsal": "results/seoul-8b-fold4-epoch1-solo-200-20261128.json",
     "offline_package_audit": "results/fold4-8b-epoch1-research-package-20261128.json",
     "four_arm_output_comparison": "results/sub78-four-arm-200-20261128.json"
+  },
+  "initial_individual_status_observation": {
+    "observed_at_kst": "2026-11-28T15:13:00+09:00",
+    "time_precision": "minute",
+    "source": "Authenticated My Submissions",
+    "status": "채점 대기 중",
+    "estimated_result_at_kst": "2026-11-28T16:50:00+09:00",
+    "remaining_attempts_today": 0,
+    "daily_quota": 2,
+    "automatically_selected_submission_number": 7
   }
 }

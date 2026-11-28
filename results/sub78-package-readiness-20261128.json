@@ -68,7 +68,7 @@
         "valid_rows": 200,
         "comparative_diagnostic": "results/sub78-four-arm-200-20261128.json"
       },
-      "candidate_role": "Standalone candidate for the eighth slot; not yet submitted",
+      "candidate_role": "Submitted as the eighth entry; awaiting individual scoring",
       "research_archive_receipt": "results/fold4-8b-epoch1-research-package-20261128.json",
       "archive_filename": "kwater-research-8b-fold4-epoch1-bf16-20261128.zip",
       "archive_bytes": 17745550610,
@@ -76,7 +76,10 @@
       "archive_completed_at_kst": "2026-11-28T14:08:26.5486854+09:00",
       "packager_option": "--vlm-only --research-8b-base-dir",
       "archive_cpu_check_receipt": "results/fold4-8b-epoch1-research-package-20261128.json",
-      "prebuild_standalone_zip_estimate_bytes": 17745653528
+      "prebuild_standalone_zip_estimate_bytes": 17745653528,
+      "portal_submitted": true,
+      "official_portal_receipt": "results/public_submission_008.json",
+      "submitted_at_kst": "2026-11-28T15:13:50.195+09:00"
     },
     "full_inspect_only_8b": {
       "existing_candidate": false,
@@ -85,14 +88,20 @@
     },
     "fold4_mixed_model_replay": {
       "candidates": 52,
-      "measured_cached_margins": 47,
-      "unmeasured_candidates": 5,
       "verifier": "4B Fold4 epoch-2",
       "verifier_adapter_sha256": "87fdaff0b57299f9bc66502950e1a5c0a630e052ae3f9914d67c58b0fbac6be2",
       "archive_bf16_bases_only_bytes": 26410058856,
       "unquantized_archive_limit_bytes": 20000000000,
       "quantized_archive_size_or_parity_measured": false,
-      "aggregate": "results/sub78-8b-verifier-audit-20261128.json"
+      "aggregate": "results/sub78-8b-verifier-audit-20261128.json",
+      "initial_cache_audit": {
+        "measured_cached_margins": 47,
+        "unmeasured_candidates_at_initial_audit": 5
+      },
+      "completed_verifier_replay": {
+        "measured_candidates": 52,
+        "aggregate": "results/sub78-8b-verifier-audit-20261128.json"
+      }
     }
   },
   "eight_b": {
