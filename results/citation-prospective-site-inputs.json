@@ -1,0 +1,13 @@
+{
+  "excluded_prior_sites": 7,
+  "local_manifest_sha256": "11b3cdd8805135260e5a836d6e47555d079de427aa445ec91ae0543b710ac307",
+  "photos": 37,
+  "provider_families": {
+    "caught_in_machine": 10,
+    "fire_explosion": 13,
+    "slip_trip": 14
+  },
+  "seed": "kwater-s1-71407-v1",
+  "sites": 12,
+  "source": "AI-Hub 71407 training partition"
+}

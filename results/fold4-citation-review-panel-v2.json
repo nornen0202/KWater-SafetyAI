@@ -1,0 +1,65 @@
+{
+  "exact_epoch1_changes_on_panel": 0,
+  "locked_policy_sha256": "8b3d596a5b5256649c78013b5cd34a68c976385d21eef06cf747e3e0a062d61f",
+  "panel": {
+    "distinct_groups": 24,
+    "historical_panel_sha256": "2f845195dd46412ad1340e09f8d50b8767e4cbd1254ed367dbb0d9456959bd67",
+    "old_review_groups": 8,
+    "overlap_review_groups": 0,
+    "panel_sha256": "fe9d55e3aede513cda1411c7f567af140868692dfd28aa80c90c0dd5f6449640",
+    "photos": 24,
+    "replaced": 4,
+    "replacement_pool": 10,
+    "retained": 20,
+    "sources": {
+      "ADD": 9,
+      "SBE": 2,
+      "stage3": 5,
+      "stage6": 3,
+      "stage9": 5
+    },
+    "strata": {
+      "other_hazard": 11,
+      "safe": 3,
+      "severity4": 10
+    },
+    "unchanged_three_arm_slot_assignment_sha256": "5b8dc2670a9ed536b8c579d104c30dfe81ec223f811e335d54da516a9c2bcaf0"
+  },
+  "screens": {
+    "eighth": {
+      "output_sha256": "25d198e8081cbe4f19432d2aa6f4cdb597075608457b6d433d7ba1514b7d511e",
+      "outside_review_hazards": 129,
+      "outside_review_photos": 191,
+      "photos": 200,
+      "possible_changes_upper_bound": 0
+    },
+    "fold4_epoch1": {
+      "output_sha256": "5ebbe7a7b3198b944d241a68dd2733e7dc3cca4afe8fb42b4c98a6ac2f9f7a2d",
+      "outside_review_hazards": 24,
+      "outside_review_photos": 31,
+      "photos": 175,
+      "possible_changes_upper_bound": 0
+    },
+    "fold4_epoch2": {
+      "output_sha256": "399cf2eda57734e87e12d98819fe98176d2a00754947701ce9489b475def2e05",
+      "outside_review_hazards": 24,
+      "outside_review_photos": 31,
+      "photos": 175,
+      "possible_changes_upper_bound": 0
+    },
+    "seventh": {
+      "output_sha256": "c9fe0310478ea28a7c6ebe8521946e702f21c4e770a4382ab30db9ef284999cd",
+      "outside_review_hazards": 171,
+      "outside_review_photos": 191,
+      "photos": 200,
+      "possible_changes_upper_bound": 0
+    },
+    "sixth": {
+      "output_sha256": "034517ef1078a831eb61bd9406b0f27eca97b613e9266478773c4631fbd7ab75",
+      "outside_review_hazards": 173,
+      "outside_review_photos": 191,
+      "photos": 200,
+      "possible_changes_upper_bound": 0
+    }
+  }
+}
