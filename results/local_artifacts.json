@@ -1,7 +1,7 @@
 {
   "algorithm": "SHA-256",
-  "files": 2684,
-  "total_bytes": 201926914868,
+  "files": 2688,
+  "total_bytes": 201926981499,
   "scope": "Completed project data files and local-only research outputs. In-progress downloads, live transfer status and environment caches are excluded.",
   "artifacts": [
     {
@@ -13423,6 +13423,26 @@
       "path": "data/local-reports/sub78-tail-replay/fixed85-raw.json",
       "bytes": 42838,
       "sha256": "15d8ab0c9719fca04b762fb44a1eb5ba429a0fe817c5b748f48b2b0ff4f6bf0a"
+    },
+    {
+      "path": "data/local-eval-predictions/sub78-single8-verifier/manifest.json",
+      "bytes": 22291,
+      "sha256": "770d50ffc8c96e4d39ef24aee19155a7f97ae42cbd511667ba4fb16290d05887"
+    },
+    {
+      "path": "data/local-eval-predictions/sub78-single8-verifier/nf4-epoch-1.json",
+      "bytes": 20031,
+      "sha256": "f328ebc1537225295c4fb83d7315732260f3611863856c812522afd003fc1da7"
+    },
+    {
+      "path": "data/local-eval-predictions/sub78-single8-verifier/nf4-epoch-2.json",
+      "bytes": 23805,
+      "sha256": "0948420d135d9ed62c87bc52a40967db2bc92c483a965486b9f7762b57bcb12f"
+    },
+    {
+      "path": "data/local-eval-predictions/sub78-single8-verifier/nf4-measure.stderr.log",
+      "bytes": 504,
+      "sha256": "d7956f73d50995e4dbcf2ba9b14fffb734542dd65c6b8167d1b1f0aeacd89bae"
     }
   ]
 }
