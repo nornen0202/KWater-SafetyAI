@@ -2,6 +2,8 @@
 
 [SafeGround v6 Stage 1 실행계획·판정 원장](reports/safeground-v6-stage1-20261128.md)
 
+**로컬 8B NF4의 복수위험 프롬프트 v4가 고정 55장에서 F1을 .49484→.61140으로 높였다.** 정상 오경보와 중대 미탐은 같았고 부수 걸림 오탐은 2건 늘어, 서울 BF16 재검증 후보로 선정했다. 같은 GPU에서 454장 시각 토큰 헤드와 966장 희귀 반증 프로브도 실측했다. [로컬 GPU 실험과 판정](reports/local-gpu-parallel-experiments-20261129.md)
+
 **검증 질문 156개를 판독으로 대체한 8B는 Fold 2에서 중대 미탐이 25→29/59로 늘었다.** 서울 Pure-Inspect 1회는 87.79분, 추정 1,125원에 종료했고 VM·디스크 부재를 검증했다. 로컬 3060에서 병행한 55장 해상도 대조에서도 655,360픽셀은 추락·인양 적중을 늘리지 못했다. [197·55장 Pure-Inspect 결과](reports/fold2-pure-inspect-8b-epoch1-20261129.md) · [로컬 GPU 실험 결과](reports/local-gpu-parallel-experiments-20261129.md)
 
 **Fold 2의 혼합 8B는 4B보다 정상 오경보가 19→5/67로 줄고 중대 미탐은 17→25/59로 늘었다.** 같은 769장 첫 에폭과 197장 BF16 판독에서 활성 F1은 .55037→.52644였다. 서울 기준선은 114.88분, 추정 1,422원으로 종료했으며 VM·디스크 부재를 확인했다. [쌍체 결과](reports/fold2-8b-matched-baseline-20261128.md) · [외부 자산 신고 초안](docs/safeground-v6-external-assets-declaration-draft.md)

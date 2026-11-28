@@ -1,7 +1,7 @@
 {
   "algorithm": "SHA-256",
-  "files": 4464,
-  "total_bytes": 217535373091,
+  "files": 4469,
+  "total_bytes": 217535491835,
   "scope": "Completed project data files and local-only research outputs. In-progress downloads, live transfer status and environment caches are excluded.",
   "artifacts": [
     {
@@ -22323,6 +22323,31 @@
       "path": "data/stage2-rare-base-nf4-20261129/rows/0965.json",
       "bytes": 537,
       "sha256": "113c025370a25b97bc7d46758c2cbd66f082953dc722fb9a1c7ede03570bc843"
+    },
+    {
+      "path": "data/stage1-local-nf4-prompt-v4-55/arm-393216.json",
+      "bytes": 635,
+      "sha256": "0772aed09b125bd5c7dea151571fb77c1c5b8f7f30d02b3484b7ce4e8b2c97d6"
+    },
+    {
+      "path": "data/stage1-local-nf4-prompt-v4-55/generation-controls.json",
+      "bytes": 961,
+      "sha256": "c66f38d8e5ef5f5f6ca7a0243c8629dfcdbd40d02ed41a567b7f9d3784155a6f"
+    },
+    {
+      "path": "data/stage1-local-nf4-prompt-v4-55/predictions-393216.jsonl",
+      "bytes": 28498,
+      "sha256": "8372a945bc09f44023cf81f6dfa9d7b3a1bdffd1a7a7aa97c3cc2f9e479330e3"
+    },
+    {
+      "path": "data/stage1-local-nf4-prompt-v4-55/raw-393216.json",
+      "bytes": 87181,
+      "sha256": "409016116f9a1faa9d099ad12dc210d6fa3be99b494f0f71ea8075f1bff10c79"
+    },
+    {
+      "path": "data/stage1-local-nf4-prompt-v4-55/v3-replay-gate.json",
+      "bytes": 1469,
+      "sha256": "f16dbafe01eae2c1a6dcaadf9c49559814913add56effcf31f1a88ef11299c82"
     }
   ]
 }

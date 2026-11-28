@@ -1,0 +1,467 @@
+{
+  "scope": "Local RTX 3060 NF4 prompt-only comparison with fixed 55-photo sensitivity, including 16 prior ROI reviews.",
+  "max_pixels": 393216,
+  "shared_controls": {
+    "precision": "nf4_double_quant_bf16_compute",
+    "base_revision": "0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+    "base_config_sha256": "5cd452860dc1e9c29dd71cc3cef7f39b338b7a40793f7a260655c2d3568f3661",
+    "adapter_sha256": "4ca7c4a810b7834261cd21013fc90cab99993494411564b22ae337c36ca0ddf8",
+    "adapter_config_sha256": "3715f1706b271189e131d9f5023fc8debc19304482926ab20acc110f3ed6eae3",
+    "cohort_order_sha256": "0a943367e30d7f79fedfcf942f3d5e311c0f17c43fcd9e0a6803f8d7b38967f0",
+    "mask_sha256": "04a494751de9720893959095529f0ffbdd521be3b11be0b4dd99fddfd7cb2165",
+    "photos": 55,
+    "batch_size": 1,
+    "max_new_tokens": 620,
+    "seed": 42,
+    "runtime": {
+      "torch": "2.5.1",
+      "cuda": "12.4",
+      "gpu": "NVIDIA GeForce RTX 3060",
+      "transformers": "4.57.1",
+      "peft": "0.17.1",
+      "accelerate": "1.10.1",
+      "bitsandbytes": "0.50.2",
+      "Pillow": "11.0.0"
+    }
+  },
+  "prompt_sha256": {
+    "v3": "13edaf96ccd032551ea0a1ebdc27934d958afd1259439f4b05773bdde1b2e07f",
+    "v4": "023304292db08d0a14c358fa731842a50f21bf579d5b7030093692c4cc86c176"
+  },
+  "changed_cache_field": "prefix_sha256",
+  "base_file_check": {
+    "prior_archive_file_receipt_sha256": "106c00f03fff3677f1b16708697bd41a15ef64009750b11284780aa9a6e9b280",
+    "matching_file_identities": 14,
+    "hardlinked_weight_shards": 4,
+    "fresh_small_file_hashes": 10,
+    "fresh_whole_weight_hashes": false
+  },
+  "replay_gate": {
+    "passed": true,
+    "photos": 2,
+    "order_sha256": "9a893c3d33b94baf303fbcef5e58c9bcf079452c9612e6a503502418d05a817f",
+    "archived_raw_pair_sha256": "8c17f1948e69a6ee74d22160fed2471b56d5c98e76b6ac544f6af68c83c2deb2",
+    "replayed_raw_pair_sha256": "8c17f1948e69a6ee74d22160fed2471b56d5c98e76b6ac544f6af68c83c2deb2",
+    "archived_v3_full_raw_sha256": "63b075683be9f73f21060a68e525c283747dcef811a46dddc7129de572805583",
+    "v3_prefix_sha256": "d21e3ab9acb03e88ea18405e59cf9fd091c466fc4f659f484a1a77b349d8d6ef",
+    "v4_prefix_sha256": "3a2ef026977c9aaff54c74f2f6e785f1f9c0a79a4574565861d1024a5711e899",
+    "resident_active_fp32_lora_layers": 260,
+    "base_file_check": {
+      "prior_archive_file_receipt_sha256": "106c00f03fff3677f1b16708697bd41a15ef64009750b11284780aa9a6e9b280",
+      "matching_file_identities": 14,
+      "hardlinked_weight_shards": 4,
+      "fresh_small_file_hashes": 10,
+      "fresh_whole_weight_hashes": false
+    },
+    "b2_feature_controls_sha256": "fd38c9cca618dc22768d950dde3c24c73e52d83ece4c819e85f46a126b239f8a",
+    "same_checkpoint_and_loader": true,
+    "cold_load_seed": 42,
+    "same_runtime_and_processor": true,
+    "stats": {
+      "photos": 2,
+      "raw_json_parse_success": 2,
+      "raw_json_parse_rate": 1.0,
+      "strict_vlm_schema_success": 2,
+      "strict_vlm_schema_rate": 1.0,
+      "token_cap_hits": 0,
+      "cache_reused_rows": 0,
+      "initial_batch_size": 1,
+      "final_effective_batch_size": 1,
+      "total_seconds": 48.2,
+      "sec_per_photo": 24.082
+    }
+  },
+  "shared_law_case_bank_sha256": "cc48223c94da89663eb05f9cb2ec81068b29238838c3ecb8e541529bd0e05b76",
+  "law_corpus_sha256": "1408b69db444cf90b31f9bebb4a773a30fa4362739e50b22c95f3bbe0e75bd9d",
+  "ancillary_slip_false_positive": {
+    "photos_without_gold_slip": 37,
+    "v3": 2,
+    "v4": 4,
+    "added": 2,
+    "resolved": 0
+  },
+  "measurement": {
+    "v3": {
+      "controls_sha256": "2beabb0b11018bb99d2e92d361f07f98fd6b7171aefde6289d97f2905761607f",
+      "max_pixels": 393216,
+      "raw_sha256": "63b075683be9f73f21060a68e525c283747dcef811a46dddc7129de572805583",
+      "stats": {
+        "photos": 55,
+        "raw_json_parse_success": 55,
+        "raw_json_parse_rate": 1.0,
+        "strict_vlm_schema_success": 55,
+        "strict_vlm_schema_rate": 1.0,
+        "token_cap_hits": 0,
+        "cache_reused_rows": 0,
+        "initial_batch_size": 1,
+        "final_effective_batch_size": 1,
+        "total_seconds": 1153.7,
+        "sec_per_photo": 20.976
+      },
+      "model_load_seconds": 631.896,
+      "load_peak_allocated_bytes": 7591382016,
+      "load_peak_reserved_bytes": 7616856064,
+      "cuda_peak_allocated_bytes": 8818411008,
+      "cuda_peak_reserved_bytes": 10718543872,
+      "predictions_sha256": "3012adcd60abdeada556d58cb94bb88cca137ebe7036ec62501dec06517d900d"
+    },
+    "v4": {
+      "controls_sha256": "c66f38d8e5ef5f5f6ca7a0243c8629dfcdbd40d02ed41a567b7f9d3784155a6f",
+      "max_pixels": 393216,
+      "raw_sha256": "409016116f9a1faa9d099ad12dc210d6fa3be99b494f0f71ea8075f1bff10c79",
+      "stats": {
+        "photos": 55,
+        "raw_json_parse_success": 55,
+        "raw_json_parse_rate": 1.0,
+        "strict_vlm_schema_success": 55,
+        "strict_vlm_schema_rate": 1.0,
+        "token_cap_hits": 0,
+        "cache_reused_rows": 0,
+        "initial_batch_size": 1,
+        "final_effective_batch_size": 1,
+        "total_seconds": 899.0,
+        "sec_per_photo": 16.345
+      },
+      "cuda_peak_allocated_bytes": 8900356608,
+      "cuda_peak_reserved_bytes": 10945036288,
+      "predictions_sha256": "8372a945bc09f44023cf81f6dfa9d7b3a1bdffd1a7a7aa97c3cc2f9e479330e3"
+    }
+  },
+  "quality": {
+    "photos": 55,
+    "manifest_groups": 34,
+    "metrics": {
+      "v3": {
+        "photos": 55,
+        "active_codes": 9,
+        "macro_f1": 0.49483726150392815,
+        "quantitative_points_out_of_70": 34.63860830527497,
+        "exact_set_matches": 27,
+        "no_hazard_photos": 12,
+        "no_hazard_false_alarms": 2,
+        "no_hazard_false_alarm_rate": 0.16666666666666666,
+        "hazard_photos": 43,
+        "hazard_completely_missed": 9,
+        "hazard_predicted_empty_rate": 0.20930232558139536,
+        "per_code": {
+          "fall_height": {
+            "support": 11,
+            "predicted": 4,
+            "tp": 4,
+            "fp": 0,
+            "fn": 7,
+            "f1": 0.5333333333333333,
+            "support_groups": 9
+          },
+          "slip_trip": {
+            "support": 18,
+            "predicted": 10,
+            "tp": 7,
+            "fp": 3,
+            "fn": 11,
+            "f1": 0.5,
+            "support_groups": 8
+          },
+          "caught_in_machine": {
+            "support": 4,
+            "predicted": 5,
+            "tp": 4,
+            "fp": 1,
+            "fn": 0,
+            "f1": 0.8888888888888888,
+            "support_groups": 2
+          },
+          "struck_by_lifting": {
+            "support": 3,
+            "predicted": 1,
+            "tp": 0,
+            "fp": 1,
+            "fn": 3,
+            "f1": 0.0,
+            "support_groups": 2
+          },
+          "electrical_energy": {
+            "support": 6,
+            "predicted": 5,
+            "tp": 5,
+            "fp": 0,
+            "fn": 1,
+            "f1": 0.9090909090909091,
+            "support_groups": 6
+          },
+          "drowning_inundation": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "fire_explosion": {
+            "support": 8,
+            "predicted": 10,
+            "tp": 8,
+            "fp": 2,
+            "fn": 0,
+            "f1": 0.8888888888888888,
+            "support_groups": 8
+          },
+          "confined_space": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "chemical_exposure": {
+            "support": 3,
+            "predicted": 3,
+            "tp": 1,
+            "fp": 2,
+            "fn": 2,
+            "f1": 0.3333333333333333,
+            "support_groups": 3
+          },
+          "thermal_weather": {
+            "support": 1,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 1,
+            "f1": 0.0,
+            "support_groups": 1
+          },
+          "other": {
+            "support": 5,
+            "predicted": 5,
+            "tp": 2,
+            "fp": 3,
+            "fn": 3,
+            "f1": 0.4,
+            "support_groups": 3
+          }
+        },
+        "fixed_8_common_macro_f1": 0.5566919191919192,
+        "prediction_only_active_codes": [],
+        "severity4": {
+          "photos": 15,
+          "groups": 11,
+          "complete_misses": 5
+        },
+        "multi_hazard": {
+          "photos": 15,
+          "target_codes": 31,
+          "correct_codes": 14,
+          "micro_recall": 0.45161290322580644,
+          "exact_set_matches": 2
+        },
+        "slip_trip_on_absent_target": {
+          "photos": 37,
+          "false_positives": 3,
+          "false_positive_rate": 0.08108108108108109
+        }
+      },
+      "v4": {
+        "photos": 55,
+        "active_codes": 9,
+        "macro_f1": 0.6114015976761075,
+        "quantitative_points_out_of_70": 42.798111837327525,
+        "exact_set_matches": 30,
+        "no_hazard_photos": 12,
+        "no_hazard_false_alarms": 2,
+        "no_hazard_false_alarm_rate": 0.16666666666666666,
+        "hazard_photos": 43,
+        "hazard_completely_missed": 4,
+        "hazard_predicted_empty_rate": 0.09302325581395349,
+        "per_code": {
+          "fall_height": {
+            "support": 11,
+            "predicted": 6,
+            "tp": 6,
+            "fp": 0,
+            "fn": 5,
+            "f1": 0.7058823529411765,
+            "support_groups": 9
+          },
+          "slip_trip": {
+            "support": 18,
+            "predicted": 12,
+            "tp": 7,
+            "fp": 5,
+            "fn": 11,
+            "f1": 0.4666666666666667,
+            "support_groups": 8
+          },
+          "caught_in_machine": {
+            "support": 4,
+            "predicted": 5,
+            "tp": 4,
+            "fp": 1,
+            "fn": 0,
+            "f1": 0.8888888888888888,
+            "support_groups": 2
+          },
+          "struck_by_lifting": {
+            "support": 3,
+            "predicted": 1,
+            "tp": 0,
+            "fp": 1,
+            "fn": 3,
+            "f1": 0.0,
+            "support_groups": 2
+          },
+          "electrical_energy": {
+            "support": 6,
+            "predicted": 6,
+            "tp": 6,
+            "fp": 0,
+            "fn": 0,
+            "f1": 1.0,
+            "support_groups": 6
+          },
+          "drowning_inundation": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "fire_explosion": {
+            "support": 8,
+            "predicted": 9,
+            "tp": 8,
+            "fp": 1,
+            "fn": 0,
+            "f1": 0.9411764705882353,
+            "support_groups": 8
+          },
+          "confined_space": {
+            "support": 0,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "f1": null,
+            "support_groups": 0
+          },
+          "chemical_exposure": {
+            "support": 3,
+            "predicted": 3,
+            "tp": 3,
+            "fp": 0,
+            "fn": 0,
+            "f1": 1.0,
+            "support_groups": 3
+          },
+          "thermal_weather": {
+            "support": 1,
+            "predicted": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 1,
+            "f1": 0.0,
+            "support_groups": 1
+          },
+          "other": {
+            "support": 5,
+            "predicted": 7,
+            "tp": 3,
+            "fp": 4,
+            "fn": 2,
+            "f1": 0.5,
+            "support_groups": 3
+          }
+        },
+        "fixed_8_common_macro_f1": 0.6878267973856209,
+        "prediction_only_active_codes": [],
+        "severity4": {
+          "photos": 15,
+          "groups": 11,
+          "complete_misses": 5
+        },
+        "multi_hazard": {
+          "photos": 15,
+          "target_codes": 31,
+          "correct_codes": 16,
+          "micro_recall": 0.5161290322580645,
+          "exact_set_matches": 2
+        },
+        "slip_trip_on_absent_target": {
+          "photos": 37,
+          "false_positives": 5,
+          "false_positive_rate": 0.13513513513513514
+        }
+      }
+    },
+    "normal_false_alarm_gate": {
+      "rate": 0.18,
+      "maximum_photos": 2
+    },
+    "shared_active_codes": [
+      "fall_height",
+      "slip_trip",
+      "caught_in_machine",
+      "struck_by_lifting",
+      "electrical_energy",
+      "fire_explosion",
+      "chemical_exposure",
+      "thermal_weather",
+      "other"
+    ],
+    "shared_active_macro_f1": {
+      "v3": 0.49483726150392815,
+      "v4": 0.6114015976761075
+    },
+    "paired_group_bootstrap": {
+      "resamples": 2000,
+      "seed": 42,
+      "active_per_arm": {
+        "groups": 34,
+        "seed": 42,
+        "resamples": 2000,
+        "defined_resamples": 2000,
+        "undefined_resamples": 0,
+        "macro_f1_delta_b_minus_a": 0.11656433617217932,
+        "percentile_95_ci": [
+          0.04077126517555026,
+          0.24171869434912907
+        ]
+      },
+      "supplemental_shared_active": {
+        "defined_resamples": 2000,
+        "percentile_95_ci": [
+          0.04352387200671522,
+          0.24171869434912907
+        ],
+        "delta_v4_minus_v3": 0.11656433617217932
+      },
+      "fixed_8": {
+        "defined_resamples": 2000,
+        "percentile_95_ci": [
+          0.047119182900432884,
+          0.23829695995927838
+        ],
+        "delta_v4_minus_v3": 0.13113487819370173
+      }
+    },
+    "paired_outcomes": {
+      "correct_normal": {
+        "gains": 0,
+        "losses": 0,
+        "both_match": 10,
+        "neither_matches": 2
+      },
+      "severity4_any_correct": {
+        "gains": 0,
+        "losses": 0,
+        "both_match": 10,
+        "neither_matches": 5
+      }
+    }
+  }
+}
