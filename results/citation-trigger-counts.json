@@ -1,0 +1,50 @@
+{
+  "challenge": {
+    "eligible_code": {
+      "caught_in_machine": 1,
+      "fire_explosion": 3,
+      "slip_trip": 8
+    },
+    "eligible_code_and_source_article": {},
+    "emitted_hazards": 17,
+    "output_sha256": "d60b3f543def26647be9937d812611d370996f8f81b37c8119bae264041ed0c7",
+    "photos": 37,
+    "possible_changes_upper_bound": {}
+  },
+  "fold2_197": {
+    "eligible_code": {
+      "caught_in_machine": 9,
+      "fire_explosion": 10,
+      "slip_trip": 47
+    },
+    "eligible_code_and_source_article": {},
+    "emitted_hazards": 147,
+    "output_sha256": "2a3e4c5866d53a67680040bf2a43c164b73bffc330f4547c9a5c8c783e9ecc4a",
+    "photos": 197,
+    "possible_changes_upper_bound": {}
+  },
+  "fold2_55": {
+    "eligible_code": {
+      "caught_in_machine": 3,
+      "fire_explosion": 9,
+      "slip_trip": 13
+    },
+    "eligible_code_and_source_article": {},
+    "emitted_hazards": 47,
+    "output_sha256": "2a3e4c5866d53a67680040bf2a43c164b73bffc330f4547c9a5c8c783e9ecc4a",
+    "photos": 55,
+    "possible_changes_upper_bound": {}
+  },
+  "reserve-run": {
+    "eligible_code": {
+      "caught_in_machine": 3,
+      "fire_explosion": 7,
+      "slip_trip": 13
+    },
+    "eligible_code_and_source_article": {},
+    "emitted_hazards": 25,
+    "output_sha256": "d103a0a4270fa45560f539a3fabf0e714ce043f67ef78355f9b3a94bc34034fc",
+    "photos": 37,
+    "possible_changes_upper_bound": {}
+  }
+}

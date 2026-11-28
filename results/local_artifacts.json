@@ -1,7 +1,7 @@
 {
   "algorithm": "SHA-256",
-  "files": 2688,
-  "total_bytes": 201926981499,
+  "files": 2964,
+  "total_bytes": 202019849444,
   "scope": "Completed project data files and local-only research outputs. In-progress downloads, live transfer status and environment caches are excluded.",
   "artifacts": [
     {
@@ -13443,6 +13443,1386 @@
       "path": "data/local-eval-predictions/sub78-single8-verifier/nf4-measure.stderr.log",
       "bytes": 504,
       "sha256": "d7956f73d50995e4dbcf2ba9b14fffb734542dd65c6b8167d1b1f0aeacd89bae"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/challenge/matched-private.json",
+      "bytes": 3023,
+      "sha256": "c685af71baa43d7f35bf8e43ad7de72f4a745c0b0c62c6e79ac98ae97d16c6f9"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/challenge/submission.jsonl",
+      "bytes": 13286,
+      "sha256": "d60b3f543def26647be9937d812611d370996f8f81b37c8119bae264041ed0c7"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/challenge/traced-private.json",
+      "bytes": 9494,
+      "sha256": "96178537f2e1f357c483e9c3dd548bcb2404fd2880f43bbda5d78187b70bf552"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/challenge-relative/both-readers-locked.json",
+      "bytes": 1131,
+      "sha256": "c1e308c7c0a0911ca2d1ab1069accbbc51c2f076cfe0eed6ce63db4c99633a02"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/challenge-relative/lfm/2d824ac2a8a756f05c55.json",
+      "bytes": 583,
+      "sha256": "d5b1f42804c9f8a132583099f3289c82ffceee28444f9235d6975b59493c5fc9"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/challenge-relative/lfm/861e25f9ebdcfd514cbe.json",
+      "bytes": 583,
+      "sha256": "bbe0abec668b13dd47fc1b9aa281212783e8bb998a47ef357fbe19dd69f98ccb"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/challenge-relative/lfm/8c67d87a1b0071e0ea70.json",
+      "bytes": 583,
+      "sha256": "635bd89bdac2cc28408b3ef0959d3a4bc48b7c31acce3c01119b6b685463977f"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/challenge-relative/lfm/eae97ec6f429befaf102.json",
+      "bytes": 583,
+      "sha256": "bc58d37bbe4718572025fc082c274b6295b08e96d078ff9b6e2e56eb4674f2e6"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/challenge-relative/lfm/f7abf745193838d06b3e.json",
+      "bytes": 587,
+      "sha256": "f4d95693de8897d01f12ace6554a5ad7224dfdafdc83e2f58e0b82794ac78ecd"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/challenge-relative/lfm/ffd56832b2f578138cd1.json",
+      "bytes": 586,
+      "sha256": "c793fd4e7264f3fad97e32d58ce8532e2d98b2cfd51464c436e2c35a99c8c2a9"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/challenge-relative/lfm-deck.json",
+      "bytes": 20444,
+      "sha256": "43e80389c2e7e782a5f309aec382ba0f8c4aaa57f221a58a36bf44a35e07903d"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/challenge-relative/qwen/2950cf7d7522e5f3e600.json",
+      "bytes": 576,
+      "sha256": "eacb3507dac2e270a06276b76b3ec0ff216e389a495abd59fd7017aae2d17655"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/challenge-relative/qwen/3b81220f97518d173945.json",
+      "bytes": 575,
+      "sha256": "fd7e95c838c1f24fe0ca4700c776b2cdc9825f3e9a437865094e54314e49f2d6"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/challenge-relative/qwen/5590e4bb5e64ee88d9b7.json",
+      "bytes": 569,
+      "sha256": "12e5726973ceff6a221ec5d134bd63654a96483d8f4be069c09d4cbb4785b1be"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/challenge-relative/qwen/9708db00e0f23c58a00f.json",
+      "bytes": 577,
+      "sha256": "81f6383ecec78ad5c61d3df48b74f1640062c9e1fdd89dda7cee1f028a996e32"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/challenge-relative/qwen/af21912eed9fcbbfb8de.json",
+      "bytes": 577,
+      "sha256": "819e1040265aac1fe37f42f27180a5e4e635dd4600c6009eccf52bfdd466acaa"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/challenge-relative/qwen/d3c5fc85decd2523e38b.json",
+      "bytes": 565,
+      "sha256": "9a5fbb27d83045d4a29db9f9c73d127a488248af1d225213684a464faa20cc9b"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/challenge-relative/qwen-deck.json",
+      "bytes": 20444,
+      "sha256": "4f7b62fec9e5f25c6cb661681b03492e61d834a5c90d9faae2c1c2fd65528021"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/challenge-relative/random-key.bin",
+      "bytes": 32,
+      "sha256": "b364ada7630192cf4360b3be3d6ec013f49bd13e36df1f4d806de435f53aab08"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/challenge-relative/sealed-key.json",
+      "bytes": 2083,
+      "sha256": "aab5a4e76f08d21683c3bce6879fe57081841091a0fc0863c91a0ad31b4128d1"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/fold2/matched-private.json",
+      "bytes": 2642,
+      "sha256": "5b74be1ed0bc2a44cbdec15c5efcc29c82d5456955456b5b5283dc3fe8469b9c"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/fold2-relative/both-readers-locked.json",
+      "bytes": 943,
+      "sha256": "5fdd135a8605a657ff82bb1b21a6e33bfc2d7ea401d8675d7589261cdd2a94a0"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/fold2-relative/lfm/1d3e018226c472cc44a0.json",
+      "bytes": 587,
+      "sha256": "18b1a576c6e5aa7d4d46c255e5c5709341de53e7fd5bcb48b280fda09e39cc60"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/fold2-relative/lfm/969210c9613042b803f7.json",
+      "bytes": 587,
+      "sha256": "f741085328ffe4456b48b38096f9848c8a41ee92651b31310eae45e0721105fa"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/fold2-relative/lfm/b19ad36947d0ab49e664.json",
+      "bytes": 583,
+      "sha256": "300e79675e008fbbecac64eeba7bd15bc2aa202a3717984700bfb946b0eed14c"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/fold2-relative/lfm/cf53cb07ec208269c416.json",
+      "bytes": 605,
+      "sha256": "18fb6aa2800ce5558460d9e159ff8b0ff0df18fa829d2c0262eaa1c9875a72dc"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/fold2-relative/lfm/d7159b090b46da484677.json",
+      "bytes": 587,
+      "sha256": "f613ff79263af2a19cce078f52b7bdf699bf78f966b8837cd1301560ec2e1452"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/fold2-relative/lfm-deck.json",
+      "bytes": 15048,
+      "sha256": "2e5c4706b3ce9aad6037dc4a3057497cbb7d4fa20ff01ca312e9e5b499517084"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/fold2-relative/qwen/55824bb4bb6f97a47d97.json",
+      "bytes": 572,
+      "sha256": "e4713ec3b5cbcf5484926f3b01a3a94c5d094a27dabcb3ba543fb746e5912d12"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/fold2-relative/qwen/71772236193785f0f6b8.json",
+      "bytes": 577,
+      "sha256": "f42cbad1133850d45a96c09e3aaff6ab4623eb9e03f77acd2504086d4e5ced71"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/fold2-relative/qwen/933d52303e9d4816a31e.json",
+      "bytes": 571,
+      "sha256": "99c1035d27f76452c21823ea2784ce7529359f8c15a2160ebe63ac474cd16b14"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/fold2-relative/qwen/96968ab1a010d65b16b2.json",
+      "bytes": 565,
+      "sha256": "dd3cb15a0c94afe378aa264fb226285d5b6be51fc1ebba98619f6deab3eb0091"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/fold2-relative/qwen/e04e400d4e28e8d7efd5.json",
+      "bytes": 571,
+      "sha256": "7711cbf1894b59932f27d93a2a5f1935b0a1e3c5a9036778fc14091213647d72"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/fold2-relative/qwen-deck.json",
+      "bytes": 15048,
+      "sha256": "f5ee15dcfe877896ee2a5ba5a6d37cf733fb942c6fbff39826499fc497a59fb5"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/fold2-relative/random-key.bin",
+      "bytes": 32,
+      "sha256": "a92235cd53fb27f32010afa8b440d96b644e0515cf9d2bb743fac45f05313548"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/fold2-relative/sealed-key.json",
+      "bytes": 1729,
+      "sha256": "da69e116fd51bfc2f92a573235898d25b326f4a8cb52613af42eacad8df23c08"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/historical-relative/both-readers-locked.json",
+      "bytes": 1131,
+      "sha256": "f6f73fe80cf8fb06aa6a7be633d0725f50bca651f7b6864f1befc65907e8fe13"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/historical-relative/lfm/17994934eca0c4386349.json",
+      "bytes": 583,
+      "sha256": "0e9a70af108c61d42914baa6ff8125190e4dc6d3f0c2f68d1832f45dfcf7d670"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/historical-relative/lfm/38c9eeaf5117325ac1e1.json",
+      "bytes": 587,
+      "sha256": "b5fef114f7cd967e6fbb80ef78ffd39979371a1b148393a4aadb8357ca8b451d"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/historical-relative/lfm/61354dd2728df86c0e4e.json",
+      "bytes": 583,
+      "sha256": "de8ea96207fb4924ad72370935e67ebe8e17e752133c27acd460f1f0c69e6948"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/historical-relative/lfm/83f12f5248b7308c2d9f.json",
+      "bytes": 583,
+      "sha256": "5df3f57c5de7e8744cae2aab004a7baf50b3ee7c509cd8bd5dad94ce82ec2563"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/historical-relative/lfm/9b751669f3c35f0cd142.json",
+      "bytes": 583,
+      "sha256": "3b2c2fd9fd33400031ebb3cfa8a86a67b5a51fac0817bb268bf8cfb3e2937ac9"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/historical-relative/lfm/affd32f3183315b50c85.json",
+      "bytes": 587,
+      "sha256": "442f15fc093190602ed8827d2d2a7db4179826d099f1eeb7ccab5e451f04f735"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/historical-relative/lfm-deck.json",
+      "bytes": 19686,
+      "sha256": "bfec8af89db9b34149c82ea48c0bc9ab33b531fa767df814fa4446490c5a64d1"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/historical-relative/qwen/028f169105648b026059.json",
+      "bytes": 570,
+      "sha256": "39005f53a328b8a87df1f9d03581d9bc75d8b74dfd68b2528785489a717c9421"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/historical-relative/qwen/06b55065593dca24bad4.json",
+      "bytes": 575,
+      "sha256": "17170bac58b6b48cdbba63ff12dbab0b34e860a3ca43acebef162ddc09f7e4aa"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/historical-relative/qwen/61a93ee6248ed5b65601.json",
+      "bytes": 572,
+      "sha256": "d9a62b4811f62f964470011c48d6020580ddf4c3060bf33ea65fdde425b66af2"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/historical-relative/qwen/69aaf75ea9fa98ed3483.json",
+      "bytes": 565,
+      "sha256": "9fdec0a65e8d184709fe53caa7e480580f0c5144d4bc9aa0eb43b9f303400c04"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/historical-relative/qwen/b58f6f62cae35b581be0.json",
+      "bytes": 576,
+      "sha256": "d215cf43cfc5355467e710a32eefacf034866605738a8e1a7159a420f3655615"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/historical-relative/qwen/c1b7da77d1d2492df129.json",
+      "bytes": 572,
+      "sha256": "7c7d78e203768c669eadde20445aa3e7919a286851543367fcf8a45d248e41d1"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/historical-relative/qwen-deck.json",
+      "bytes": 19686,
+      "sha256": "6fb6a0b848864f641784289728b72b880c0f8eeb45a42765c64e0cfecb6488b1"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/historical-relative/random-key.bin",
+      "bytes": 32,
+      "sha256": "a7522f61ecd50a00eded90424b995174941030d7c27531d155aaf5b5ab6b7e55"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/historical-relative/sealed-key.json",
+      "bytes": 2125,
+      "sha256": "33e6daaf03b5dd0ba3ac3602a74ef7ae12e174f7e49496ec418776e184ee488f"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/both-readers-locked.json",
+      "bytes": 5831,
+      "sha256": "b39f091092b8a4dc75c2daf86b55de16e5b6e98d973d37b11e54e48670df2451"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/lfm/066c31c0afc013fbb26d.json",
+      "bytes": 639,
+      "sha256": "da284475eb7740f394cfcb398511a4486cf58fd30cf03c149c844930a53053e9"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/lfm/08e81ba60bc41f960b8c.json",
+      "bytes": 903,
+      "sha256": "857a31ef5da9bfff23a745873d779d9d9528dea76647d6a9411be34d9b25f41b"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/lfm/12964c3b62190675f466.json",
+      "bytes": 1155,
+      "sha256": "890ff6c58cd146064dd600c1a9a4810caab615da256f6b1a7428abcd20a4b912"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/lfm/137d68afc6f64f58178b.json",
+      "bytes": 785,
+      "sha256": "397e7d8df9a4ce0a79632771fd375507f1f77dcf7e96dfb27dd222a059c2c86e"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/lfm/16a6f5203c05c9e0b9b1.json",
+      "bytes": 792,
+      "sha256": "aacfb7879aeada00a455b60e7e1b8b48b6e72dafd2c64f8b7ffd18cd62407cce"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/lfm/18bf53c8e769f6c7fa2e.json",
+      "bytes": 1023,
+      "sha256": "734ada28024413d9656ba11abcfc7157543f56e0553ca92b12c517350c9c060f"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/lfm/1a4ff0b5f39fd0535eea.json",
+      "bytes": 740,
+      "sha256": "e8af64d749ef56f0bedfd02a0378e66a70d5a9dd4d0e52b6723a478096a6b166"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/lfm/299cfa57cefb0c1eedf1.json",
+      "bytes": 730,
+      "sha256": "419d9f3d7ef8b296cef98b437e48225f32176602f3c3782a2d51accd34c7e9f1"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/lfm/2d45dea8c24bc71dd549.json",
+      "bytes": 881,
+      "sha256": "85d2d7d358ab10a76e58a80b6cd3a838f3721f0d0323608a629facb8b6ca1039"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/lfm/3021839f9d18cfa654b2.json",
+      "bytes": 811,
+      "sha256": "8fc9068dfa32c875ffb6ab2a3a4780c0a0ca6be45e8863e78aa7aa301cc5572c"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/lfm/354116d43de64bb724a9.json",
+      "bytes": 893,
+      "sha256": "38f02b84be0e67e50bd6b53592deec8ecaa42dec92e74d75d98ddb964b4957cb"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/lfm/3672e7eeebba65ec0eb6.json",
+      "bytes": 720,
+      "sha256": "f31948526f39d563ea5f8557b6104587e2f6350daa2528227cd9c795f946eac7"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/lfm/545b186e470e9844e4d2.json",
+      "bytes": 1048,
+      "sha256": "63b4d6cbb11fc9b93fd778db9009cb91078a2ab0301a7f50128f2d7dccb3e475"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/lfm/5f9db525d66fec655954.json",
+      "bytes": 890,
+      "sha256": "9979351a13e16b60ac7d1049433ab20e9db344e0833c7b3ac181bdb3ab991107"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/lfm/615fd17754bda89198f9.json",
+      "bytes": 1119,
+      "sha256": "f71777b7bb8a2f433727df1b419d2bd65d9d277a7411f51194351bc43fe1902a"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/lfm/6e3ab10ae130ea62a2fc.json",
+      "bytes": 692,
+      "sha256": "2df6067625654949daa8447cf7f5dc4cf8011124802b1d98a7835b88157c628e"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/lfm/7129ca34f883090bf685.json",
+      "bytes": 805,
+      "sha256": "7f88a0b9aac9152177b221f31064a80553c2cf8cb763e708a97985bbc42584a5"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/lfm/847de3a777bb020a1bdf.json",
+      "bytes": 701,
+      "sha256": "5157c94abeecf68e12245e4aa6f85ae48ef63903f117a211d24c7e8427e61d9c"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/lfm/890a26ccb5f05a5995e2.json",
+      "bytes": 724,
+      "sha256": "17ae88d5e9b4427ae51c695866e263b742f214a2fc9e99de5e994663744c0c67"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/lfm/8f130b557adad93571e2.json",
+      "bytes": 761,
+      "sha256": "0b67f5a0883a41e45d3aef0e57dcc65f03226da5f143356475ad9274a777f68c"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/lfm/918cdecbd70e95285535.json",
+      "bytes": 886,
+      "sha256": "6d6b150dbe1e95a7a5f3d3ab2f10785a5dba59cc00ff32ed0d24a32659a7858e"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/lfm/b4b318a2e9cda670032f.json",
+      "bytes": 872,
+      "sha256": "c2e81d1f44f2c72a9295bdd8c0e7446872d1b447b65819fb54c14ef5ee8d2fef"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/lfm/be5668db88423b7ded8f.json",
+      "bytes": 708,
+      "sha256": "cee99dc758517ac30e3ff1f86b7c4fb390a4e5cd51ea7a2f0533ba89bd7a7984"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/lfm/c067204805ca34fdd3d4.json",
+      "bytes": 1176,
+      "sha256": "276983bc1a795c5b0afbcc5cf1cf827cdb05486b4f3d8d5e1f5cdf45a3b87b88"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/lfm/c3efb42ce7a705261423.json",
+      "bytes": 932,
+      "sha256": "c0ebd7e4a517a3b29f38b28b2e16bb1fc878781efb5b6731a8387cf666c2a913"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/lfm/c5ce3fd0b03ce43bd965.json",
+      "bytes": 696,
+      "sha256": "4356f1d90ed45dc36f85f439b3b4493f12671778847b167348781b516d2d261c"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/lfm/ca0880cd3b54dafdd433.json",
+      "bytes": 905,
+      "sha256": "7b2a647b5cbc046f053d0373128e71346ac3005bb482f527659261a05550d05e"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/lfm/d24f21bfa5f025563549.json",
+      "bytes": 1023,
+      "sha256": "6145931ca961f7ff9d21c3ffc348c913772cda44d686c8fa3e69684fbdfbeff9"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/lfm/ea67434606bce7d69aeb.json",
+      "bytes": 850,
+      "sha256": "aef73d3f4aac83cdd3bf01b003701fb0b992fab396a0e94992a69652f06ae32b"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/lfm/fdeb9c25d2b8927e950f.json",
+      "bytes": 1086,
+      "sha256": "946ace4642634cf649190bcb9ab5a4e1c80650f24c0ae5e6842097c1018de056"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/lfm/fe8f1d0b89297899750b.json",
+      "bytes": 754,
+      "sha256": "6bc92d668343192132231450f1a58061e48c4d8b4e322f209f8e4def3dbd7a4a"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/lfm-deck.json",
+      "bytes": 87610,
+      "sha256": "9fa4cb250d87d9eb671fa4e8f370c22bd6da59700e050941e8cc2ee8c124c047"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/qwen/04bd5e98fb7176f7d03c.json",
+      "bytes": 867,
+      "sha256": "4a3435c22bd852b400e4bfb468e313687ca801c2acfcfdd861e8fcdd23d141b9"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/qwen/0ff28a6929251c90d535.json",
+      "bytes": 1014,
+      "sha256": "208958cb377c66f51bf7308b5edd2e55df5cff9475b0edf6b587e7db913be8d3"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/qwen/10d82173a570b27a8f55.json",
+      "bytes": 877,
+      "sha256": "f097f1e0156f3d2b9de3b4b1ac3b5c9aa00502a8b2b150051ce45e85059670cf"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/qwen/133663fd6467a66f5b4e.json",
+      "bytes": 1127,
+      "sha256": "51d40d8f4efe31b3c15038d4561bfdde011d31b9ee9b7c8973dec0eb542adf6c"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/qwen/37686b2cc91523c50749.json",
+      "bytes": 1152,
+      "sha256": "cc63678e2312c5917ec30e235d67b339a036b44618b9b7c8f063423a94dc6d21"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/qwen/392190272bf64ab186e2.json",
+      "bytes": 941,
+      "sha256": "7a22bd7e44e84935c25a567bc27eac3f0005f9df5011e956e1c1a892ef859c51"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/qwen/47edcac3a00d38638dca.json",
+      "bytes": 1075,
+      "sha256": "cc786aaa4751d81422ba2c57256fb177a2e021ca875621b3d2deffc7ca485025"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/qwen/4b2705313b3a41791bcc.json",
+      "bytes": 914,
+      "sha256": "71b0409c948fa07c54d502395e48a5d9dcf48087ef92f8c3a8a473aaee3c8a80"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/qwen/60948d9c1c40a3ddf5c0.json",
+      "bytes": 849,
+      "sha256": "62fd42a6f7c99c2ee665ac99782d95bba1f69f2770165ece68a06cfbcf8695bd"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/qwen/64a32e20adf5cd48bb0c.json",
+      "bytes": 941,
+      "sha256": "81b4794764de25f9382c69f8760c724933acf6789a283f9450506763ad57f171"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/qwen/672316221a753f3dcbd6.json",
+      "bytes": 1049,
+      "sha256": "1aa2a921db8157299c4028ae3d2f1c04d66552a65de31e8f85f7c90d8905007d"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/qwen/78d574c3382644ee44b3.json",
+      "bytes": 925,
+      "sha256": "9be6dfec967d7a7e2c519d84fa9ed506084da866ff6dd730255e60991bf2971f"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/qwen/7dba552fb7016957db8f.json",
+      "bytes": 1009,
+      "sha256": "2d2083991d653c871ddeb2a6bbe74c598c6c3657129646f507f35c237c67523b"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/qwen/92b8a3a8d1ce3edf0231.json",
+      "bytes": 930,
+      "sha256": "c8f0f2e9adde59d1d91fe1e270ef6295d301ed7ae5a01a2fa4b760e6f5bcc599"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/qwen/9b11955ca1cb089d81c0.json",
+      "bytes": 1005,
+      "sha256": "4380b949d6057891a6054a4224990f4f237f33ffd9b8c84212a9081b7767572e"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/qwen/9ff1c6e7947c715f50e0.json",
+      "bytes": 1141,
+      "sha256": "ee0c86a65019d8d5036975daac61759b5f9a791a167351a1abb82904940e612f"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/qwen/b2d5505831636be4eba6.json",
+      "bytes": 1007,
+      "sha256": "971b4aeac1a31dd1e0244b887e961de96ab9c46f8db511a8839528291ba0ebc6"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/qwen/b5771258d0afa5254ffe.json",
+      "bytes": 1078,
+      "sha256": "3419c7c866cb424fdb8dd26f2043b98d5c27ecf7201b0aa5e736804fb1b26572"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/qwen/ba0cf80f032f4a9bd6bc.json",
+      "bytes": 969,
+      "sha256": "c1d2eaec7af254ddc6390357bac454e85cba2e7a88fec39f516f9afea6f63782"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/qwen/bb8c194fcda14e27e62b.json",
+      "bytes": 875,
+      "sha256": "1fa9b5f284301a09ddcfc5f41528f91030e3e60ad7c3aa4988e0248f7b691b86"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/qwen/bff611c9c5f11b8f78b6.json",
+      "bytes": 906,
+      "sha256": "dd7a9b767fe1dede07f799157308e86968b3cc2ccf399aeda92f000ae0bdd6ed"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/qwen/c91957c0f2c810d1e411.json",
+      "bytes": 1168,
+      "sha256": "8d18088fddc112812be6ecc11c7175e5b6e46930b5e92a869f0f58c85054ed99"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/qwen/c9375f489f8843e8d520.json",
+      "bytes": 1132,
+      "sha256": "17e7955be642ff0a214f06c396f2ef25bfab4a992edcfb4003e8454104c62f82"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/qwen/ca71e483c523e62e3b64.json",
+      "bytes": 1145,
+      "sha256": "252406ecea7f656de416b512382deb866edb5e73bc5c3f23727a88c2b20e57b8"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/qwen/dd382ebda88b552d4559.json",
+      "bytes": 1025,
+      "sha256": "8bc9c745ff4551ad03018e6ff03c19196c299bdfe6527dcbaebc34bd387dec2e"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/qwen/e60bc537d22709761f30.json",
+      "bytes": 1031,
+      "sha256": "ada2cd3b87ebddd55bb3d8df208ac47dee610b2c0cb9af8838a901313de55a5f"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/qwen/ef496bcc937cec875fbc.json",
+      "bytes": 1088,
+      "sha256": "7a5650672336e93f2fc9e4e2ee5488a0a5a41f8182fc2488898fcb4bebe0de93"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/qwen/f08d4f2e91c9abe02515.json",
+      "bytes": 1199,
+      "sha256": "81afd422438650621c678c3b13f6415e99497984d80fb15251efc40f37dd0f3b"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/qwen/f38a2dc75380880bd400.json",
+      "bytes": 998,
+      "sha256": "a5fac53f62affa28344aea27d293c072c805750dd64ed77728f0c20680ba9f88"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/qwen/f3b7e67bb9fdc6910775.json",
+      "bytes": 850,
+      "sha256": "23cfcf5d39345cae0db1325574dc5ad518571d7393178711d7aa28c1aaf34667"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/qwen/ffb2a0536bae56e8ea08.json",
+      "bytes": 1073,
+      "sha256": "5f5def0a48e7fb24d90929d542db24da42ae3dc463ee83e6a934fa857d1a663b"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/qwen-deck.json",
+      "bytes": 87610,
+      "sha256": "632dd377abd65b8d400096dfac9f59942e026a2660da43886b22c0187c556aa3"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/random-key.bin",
+      "bytes": 32,
+      "sha256": "de60f22e229ad74fd6007961728fe092e875fc48b857381a2061a7e78a5f93e3"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel/sealed-key.json",
+      "bytes": 10095,
+      "sha256": "6f59c777430e22c87c2d8e3f235a7d5cf4ffada4cb43045fe759ef7ff91242bc"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/both-readers-locked.json",
+      "bytes": 5079,
+      "sha256": "7eca977d05c1ad2caa52a189a33dd9a6af3bbe6ebe3cfc9fe31fe59c18a67fff"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/lfm/0e640d5bd0c1230c1411.json",
+      "bytes": 583,
+      "sha256": "c65926cf4a5edc4c6ed664361a7747a751c4c5916693377314ca93ed469f7942"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/lfm/17aff8a97f0f87793250.json",
+      "bytes": 587,
+      "sha256": "d994089a2d9080c27177ba26526608de31e032fc08cab362b289136ee1010df3"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/lfm/1c4ae0ae93c0977ef056.json",
+      "bytes": 587,
+      "sha256": "b3d5bf6f66061c1f8c9d9f26f1b8cb08a69ef7a5a750e628b308dc2a6d0790a2"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/lfm/1e68c5ca4165723fa9c2.json",
+      "bytes": 587,
+      "sha256": "48165aed41cb908ba5d48296c1b52b90e328b618e4c62caaeb6907c104e3e763"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/lfm/2f02f4ab11614524558d.json",
+      "bytes": 583,
+      "sha256": "87139e5d836da0dd25a0bba9121563f14189b9d9fb5a1d1c0b02baa864ef93ef"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/lfm/4691f6223f8a67c39483.json",
+      "bytes": 587,
+      "sha256": "967ace84c8b71b37ded09bad34c35291507767c8f6389c45f52744b0b6b46c69"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/lfm/4db60bac5c91ebfe1a34.json",
+      "bytes": 579,
+      "sha256": "d8b0df2bee6b5afaa0964d6497d506fbbcc410fcfe50ebb39db80a8f828a5389"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/lfm/582fffcaab9235174c32.json",
+      "bytes": 587,
+      "sha256": "2255d55d0679fb92a43a550a5a8e872de88c504b21f40aa7db8114bb5be44c4e"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/lfm/5ecf64c938b798604b0f.json",
+      "bytes": 610,
+      "sha256": "c9d29ad4852607958a0d39c787f35319777a6345ca5624ac78e3183e28cc6c61"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/lfm/613edd4f09a1c0211340.json",
+      "bytes": 605,
+      "sha256": "60c119552ef16c3d7928279a2e24adc98eae087f7c6cec08a07e0da29421bb3f"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/lfm/61fabfb601f126076a46.json",
+      "bytes": 605,
+      "sha256": "5a968d70197a7ad5488675ab5a6a754174cc2acec66f5f7891aac9b30396d80f"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/lfm/7c331731a4eb6e45c466.json",
+      "bytes": 587,
+      "sha256": "23a4ab305777f94b5407f63868d8f984e1c5aeb89621f24b40d396708c4aed53"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/lfm/81987549d9c708f49880.json",
+      "bytes": 586,
+      "sha256": "c976f29adaaa7d8c3fee2c0dfa10976d9784b35fffcda68c2b5206780f9e590e"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/lfm/8612569446f59457c17b.json",
+      "bytes": 587,
+      "sha256": "7182e56dfd9756737487beee60aa936c546507efa52fb238160c65b6d0324af2"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/lfm/8aa7ddb10bac7487bcd1.json",
+      "bytes": 583,
+      "sha256": "699306b7d256829bfebfb6274868e8e5077ac9cab41e8153d32cec0ef5cf89cb"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/lfm/99d2414366330ea29b95.json",
+      "bytes": 586,
+      "sha256": "15e91f72745f750dd5c99dd87223e9602c93b52482232187d776f250bda44a11"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/lfm/9af1e8fb9a344ec7e186.json",
+      "bytes": 582,
+      "sha256": "3bb42baa8a07035065681446d4c8d01991f629c06db67ca82403b75070e4c46e"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/lfm/a219fead663b2133328e.json",
+      "bytes": 583,
+      "sha256": "dd91f870a229adf0ac074dce7213cd8b3956129e2493fbe83792102ec7c74931"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/lfm/b4780c85cb9574080e91.json",
+      "bytes": 609,
+      "sha256": "331229f0cb17238b035ce44d146528c2424e177d891e839248452d7eff66677a"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/lfm/b7dae8c9d3ffcbd1b73e.json",
+      "bytes": 587,
+      "sha256": "cfa78e0623c527de32830346fea25038ded36a00f71cc97f73c97ef8da4e7f97"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/lfm/b8b014b1b4d4a9da990d.json",
+      "bytes": 587,
+      "sha256": "19e2c10618d06b79a7d55379028be635e547f257274ad67a217fadc58c16b9ed"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/lfm/c25146789a27551bd68e.json",
+      "bytes": 583,
+      "sha256": "f67e9189970db7ef8fb86985b9ec92e75a535fe4d8ffd4f5478b326a6d099d85"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/lfm/c31a85d3c38d9d6ab0af.json",
+      "bytes": 583,
+      "sha256": "5a352442f155d7b1698ad4fecea932aeb356a6441cad0f180ae392ed8de38b17"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/lfm/c4be43bce783d6447b99.json",
+      "bytes": 583,
+      "sha256": "a75b2b8507524bcd95000d2859e3e367cb03ba57617e100422c3736c04da6839"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/lfm/da585e4d534e39a22c94.json",
+      "bytes": 587,
+      "sha256": "fc48f0e1ebe63758042670e3cea9bc55cf39d0aa7aa9f146802233fcfc84beaf"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/lfm/de3b89d765dbe06876ca.json",
+      "bytes": 587,
+      "sha256": "e4f736f610b0bf940d4dc95cda64e8004b480274ef1f436c74df85f6f6c8ecb6"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/lfm/eb5ae4ecc9d699a9b3f7.json",
+      "bytes": 583,
+      "sha256": "c31c73952685df4f0b87186791f39f01d5dca8b8fba532100ee9a6ec88730a20"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/lfm-deck.json",
+      "bytes": 65445,
+      "sha256": "d67e7e8218fec6efdb068ef14297480fca1e2c4453c24200519020be2e202bc2"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/qwen/07419265b99ce9248178.json",
+      "bytes": 571,
+      "sha256": "3c48f35d9dd7a1e5c0ff8c292f713a3ed4f82ddd4da144ac57eb26dde25022ca"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/qwen/0ac41f9972e9ce4be5b5.json",
+      "bytes": 572,
+      "sha256": "902538208690c2a17d23bb176cc7a5bfc5b91fb4cdb26236289898994b20c3cc"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/qwen/18106c2e6ca174107142.json",
+      "bytes": 571,
+      "sha256": "99606b75f7ab614ceb585c176846e60451d8ee506f7a3099b2f306bfed194a26"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/qwen/1f66a0cc83b40ab76644.json",
+      "bytes": 577,
+      "sha256": "fd4c2dcb251ef507b086a6c04bc2ec569cc0bf602eacc3b404d863e30e450737"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/qwen/2381f86c9b6846eac66a.json",
+      "bytes": 577,
+      "sha256": "463992fada815350c16ca1fa8fd82179885b7cd4b595b5f7babe98689c969a19"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/qwen/37e0659d3ed814bed242.json",
+      "bytes": 571,
+      "sha256": "a04ce43f7074c94739eb57e721da72378c70c7e7624d07e3f006c889b1969b60"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/qwen/4163a850264b87eaf9f6.json",
+      "bytes": 571,
+      "sha256": "ff693c23da040f819938b21f6e420745beee0871d6cdaa48634b6af8ef766200"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/qwen/5233c1c853a4197bd3a9.json",
+      "bytes": 577,
+      "sha256": "046d9b7d447bb9dbf5d48c45c9e01a11d4e929b0f92dd186b5981888b6b409e5"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/qwen/600871346a578657e57d.json",
+      "bytes": 577,
+      "sha256": "8830761b536190f7aa59d135d21206f945f43de3dfba092c806392dc4fc96b9f"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/qwen/63c115cae9d64eecb9e1.json",
+      "bytes": 577,
+      "sha256": "348de7145ded723cd0ca3babb150c60576eae6322245d2067729a7b2f18d3f10"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/qwen/73e0a78ed2fd9afbe838.json",
+      "bytes": 571,
+      "sha256": "252903a03685476e2ae4353e513d1e77e2abfe2d4a4d697adbeb3d16a8521a40"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/qwen/78b92695c0170966ed86.json",
+      "bytes": 576,
+      "sha256": "2a692d6d5c310dd9251327c7abb0afe1285306f6a38ee3085bc9af5a51bcfef0"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/qwen/791d1f287ca2c013b4e6.json",
+      "bytes": 566,
+      "sha256": "ddfc9c13b9e41bd7ce98f79e23df289c90e407167578306f7e7fb464ec34cb45"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/qwen/85dd136e33fe03f433e2.json",
+      "bytes": 577,
+      "sha256": "0b446e6eea9921523b0c71952f5c87bd4005eda3322a25e69ae046eb556c4d4d"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/qwen/9cedecad63019c14ef9e.json",
+      "bytes": 564,
+      "sha256": "a86886c4cf857d56839ada987987e7fe8c24f25f4bc827acd3575a8cb04e19b9"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/qwen/9cf67c5a86fe1f398ddf.json",
+      "bytes": 572,
+      "sha256": "d1d1fc69a8f27757c1403a35616b8dc41fe3aded56d53174a2231b6b2d74372c"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/qwen/ad223ee5ddd88ef54e26.json",
+      "bytes": 575,
+      "sha256": "d1dfc9ec760a183b5617570015014c804651d8f12640a1edcfef91b5f2336f86"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/qwen/af52bd9e5a7e5347d5fd.json",
+      "bytes": 565,
+      "sha256": "aa55ccef628cf6dd2ad04a8addf2a4cdd4fe0d1fdd29eece835416ac5af704b8"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/qwen/b618ede9282622e15dbc.json",
+      "bytes": 572,
+      "sha256": "5431495b6c6310dccc4316925dc365b4a3548d35c77013a8c4a15aa8651c7e52"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/qwen/c619f0d5893366f69078.json",
+      "bytes": 582,
+      "sha256": "ece83b22cdfaab18c11ec46facfb18dd4be13d77ca10822ea4b30c6b43c990d4"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/qwen/d77138c6e32f89c3a014.json",
+      "bytes": 571,
+      "sha256": "b4a0e84356fa6090c69e84310f4dea40605401f066072de6a28f33494ba15fa4"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/qwen/dacc38c56c9c9cd8c7af.json",
+      "bytes": 572,
+      "sha256": "d3a5bdfec8c4f38e7dea4a91951015ad433488df8bdb656f7d5ea4d784d13172"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/qwen/db963be3eb9a1b9c88f7.json",
+      "bytes": 578,
+      "sha256": "2b0f023a2b3a3c93ca25f8ff9b841de815746f35b9967a577a01cfb06058082b"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/qwen/e6abb2011b21f407ee33.json",
+      "bytes": 577,
+      "sha256": "661774a6b2992e75d76d2581d824e9689ccf00bf0986fb158a77227be705277d"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/qwen/f0cecc1fa5697fda309c.json",
+      "bytes": 572,
+      "sha256": "8ef128c226dd9c059812d3e9906d184eb8cb6c9bcdea51f6eb577819cdaae404"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/qwen/f37b48122877ae8a444f.json",
+      "bytes": 578,
+      "sha256": "d6bf279b41f94e4db99e1d2ca723e224bbd9b2d34819fa076f9ab111a739ac74"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/qwen/f62a9ecbc768307a7fff.json",
+      "bytes": 571,
+      "sha256": "6f5ae92fc4435850339c81ce620c8e342391a1bd3f6bc97d2c8093c2f1a15b7a"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/qwen-deck.json",
+      "bytes": 65445,
+      "sha256": "6af316df755cedcda5a416335901750920436b22df07054a7e1d345a6613ee0f"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/random-key.bin",
+      "bytes": 32,
+      "sha256": "66a51f97c80a0d36cc1e1dbe1931c306f4ff4d9d5a715080b57d8265b10de8ac"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel-relative/sealed-key.json",
+      "bytes": 8723,
+      "sha256": "5aa334607485a86878d386f757dd95f5fea27740dff08ed6d23c635a4bc12c2e"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/panel.json",
+      "bytes": 6590,
+      "sha256": "fe9d55e3aede513cda1411c7f567af140868692dfd28aa80c90c0dd5f6449640"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/prospective-input/images/00dcb14cad9930f1405ca2ce12693e81.jpg",
+      "bytes": 2222422,
+      "sha256": "3c86f3f06c2b8a7fe1f739e866c466db9547d2dc5e0d03a6ce873d9e843d6343"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/prospective-input/images/017d5fab7add4c1a32357893ba0fc4f5.jpg",
+      "bytes": 1196113,
+      "sha256": "8fd60230d0c03141a74705ff0d81475346f7ae28385f66363acda69b0c387f33"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/prospective-input/images/02b1c3bde503d5014b328ddfce2959d2.jpg",
+      "bytes": 1338382,
+      "sha256": "26cd1a2db4d6bb095d1bf2a1603af11c3bf82ef52fe83f05e382ed5cff9eb245"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/prospective-input/images/0430564dcf7aaa1ce374fe19ef3846e4.jpg",
+      "bytes": 1185321,
+      "sha256": "76c462af6131e343cb4b91ae61fb33950873d2166c8f31da30f23440b2f60e4c"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/prospective-input/images/046b00bc376cc90c57a7ad419f5238f0.jpg",
+      "bytes": 863464,
+      "sha256": "76bab8c17c253fdcc777760add2c1aee47e1ce9703073efdd400017b9ecdb4f0"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/prospective-input/images/04bdf9f6c8c94465b9ea958dfeb1139d.jpg",
+      "bytes": 1286616,
+      "sha256": "6ae59a6b20659c87319194dd28e4d00a0a3585d89a3b40cd4beff0871bb7d533"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/prospective-input/images/04ff41521665fcd23469f1ec40031045.jpg",
+      "bytes": 1757634,
+      "sha256": "ecbf683637edcd7472d6350b707eb0bfa4c95f6bec77cde34339dfc80c35dcf8"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/prospective-input/images/06c8f82d57f0c45012379d7c0dc46121.jpg",
+      "bytes": 1446250,
+      "sha256": "29b121d91de31853b8c097a703c377a713e4386c5f45d1ac0fec8fb33a8d9134"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/prospective-input/images/074c67fa5626961552c2104493cc2287.jpg",
+      "bytes": 945574,
+      "sha256": "f09581da9b5368e280fd584c03abb4b07b1c3f0e414b2988916c06cb4e34909e"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/prospective-input/images/07b3db47701fc5e5c7c4efe5bd196cd4.jpg",
+      "bytes": 764445,
+      "sha256": "9394ce7a733e5b529225eed4191f6add372348216985d3e41e36cbbbdb84f77c"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/prospective-input/images/0bc1ebdeb10c682681c789715c2f0ab3.jpg",
+      "bytes": 1663756,
+      "sha256": "ca2afe82757ef18bf2abcb49d281c20bbd916c173d7f224706a0af5595d066c3"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/prospective-input/images/0c8cd32e18d33f397742145be3c5ca45.jpg",
+      "bytes": 1307335,
+      "sha256": "661b6049ca23e55ff422f6d4c8afda2c93ad4b0a0e8b69b78302f6f43a0c6bb0"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/prospective-input/images/0d38c0e25a2ebb313fdfc4bcfdc5bf23.jpg",
+      "bytes": 1460711,
+      "sha256": "be44426a9c7a5eb176e6742408316c778bf08918e4464d9c23ca7f05579bd9b7"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/prospective-input/images/0e1fae11e2cc0db67729049403a09af8.jpg",
+      "bytes": 1709671,
+      "sha256": "9ebf069a9b458a2d74188cb20c969e15585622a4a6d0bb7027a80612f6fc375c"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/prospective-input/images/0e372aa040151173b0dbdc033ee13244.jpg",
+      "bytes": 1045094,
+      "sha256": "85a370d6884cd84d44c174c2677e3b9ac5fdea904811b68dcfff712273961a32"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/prospective-input/images/0f7cc34c8fe5e9a1845eaf284592ae00.jpg",
+      "bytes": 861176,
+      "sha256": "650dae7617818cf995e482b084b01b05fa266889f817721dffbefd4b547ff56c"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/prospective-input/images/1262712f98251a2b53a3f7bf91fface0.jpg",
+      "bytes": 1371262,
+      "sha256": "1d4d0ca101142432f6f4ebe597b3eee4d2d28569304527a56724c5482f282c38"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/prospective-input/images/18294d24196ba444a2a12f2c1a7f1d1b.jpg",
+      "bytes": 1262627,
+      "sha256": "b4ec1f2d13aae91f77efae8355b81a42b53f3289169a31724343db7b202f04c9"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/prospective-input/images/195d9cf7533b571e2bb78cb0a833e0a0.jpg",
+      "bytes": 1613744,
+      "sha256": "eaeb3ce64cccd8c51fa586259ade6b199a30886e53e2e501b4a6d874a1792c9d"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/prospective-input/images/196dc4ba74ca3af3c7f719b2da1d94de.jpg",
+      "bytes": 790113,
+      "sha256": "b7cd76163b12fa590c9103d62e5050236a14b826f784d73f1dc299175437226d"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/prospective-input/images/1a0b497c99b15bc0b478795dcd91c315.jpg",
+      "bytes": 1356295,
+      "sha256": "ce4775311dd8e094b45e57bcc517d05ce83faa3c60b811cd55f2aa5d9874c222"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/prospective-input/images/1bad9e98f4990fae834b2f0227bc3e21.jpg",
+      "bytes": 892735,
+      "sha256": "28be12939d27b9142030a5feebb4ea4fa7bbcdf8a91ba05aa34b95e1961a6460"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/prospective-input/images/1bb58ebcdc155ad956f7946f20777fb1.jpg",
+      "bytes": 754453,
+      "sha256": "c42118d3e3a1450021547698ee96cd6625a4598cfa440549b19ccb102b92b285"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/prospective-input/images/20d3b940effa3a87c875699e365e1945.jpg",
+      "bytes": 1393931,
+      "sha256": "0a11ea510c7dd2df212b9c593d604824db16fc1b0fdd480eb181ca3022099bc4"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/prospective-input/images/23c158aafa102697718c84c51441b9f2.jpg",
+      "bytes": 1607524,
+      "sha256": "524e72aad46afbe982332a9849f591bedd230ab62fd674b1fa0b1f23e1630ae4"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/prospective-input/images/29eef76be6a2eeaa860469567b9aa78e.jpg",
+      "bytes": 1216904,
+      "sha256": "f459ee8c3a348d993ae6e80fc33793c801916ce66ac0d592173ddf45139799ac"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/prospective-input/images/32a268d234182d0ed41d2be19c963920.jpg",
+      "bytes": 1805002,
+      "sha256": "feb4266d1d0baf5d6d0db5dd4932e9e7e13268056decc81ddd438b62e046c325"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/prospective-input/images/400c5e04b7811fd8d7271d449b8dfcf7.jpg",
+      "bytes": 1333324,
+      "sha256": "66cf7bd65e66fa25ce17ae3abf53ba58292525dbb967537d31a7af64226a343e"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/prospective-input/images/4a70c7c64d281d1dfc1d71ef2904f682.jpg",
+      "bytes": 1858268,
+      "sha256": "a969d58e441b86b4a8e48df5f65364719da04dc8037b333e25207d46409a0335"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/prospective-input/images/55488410e4defa128353219b68f3c7a2.jpg",
+      "bytes": 871156,
+      "sha256": "ae38580ce536ce845364c5f0bc5dbd8e9c59d346c07a2971a11bb316c02ef013"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/prospective-input/images/5946e907df1d659283f1968600213ae3.jpg",
+      "bytes": 1563309,
+      "sha256": "79d973a5409644fdc7d8cb76f5378300b0b39cc09a2f6f21fa2b9ccf17c8eb27"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/prospective-input/images/7f5a7159f119d4bd61c36e5e474dd83b.jpg",
+      "bytes": 1584047,
+      "sha256": "df6f07268955d3c20d8cf888f43c19123a0f89291afd9e738b8d357cfdd8ad8f"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/prospective-input/images/867be64fa66f4bec0934e888b3f1fd14.jpg",
+      "bytes": 1225887,
+      "sha256": "ffe7a0235d57a37156d9a020dd6e45aa78eaee3d2d7633a126df3a0ce00282e1"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/prospective-input/images/8b4a947220e9fcdf6656a6f8d5999684.jpg",
+      "bytes": 1614409,
+      "sha256": "2bb625864f75c410eb6836ab68fa3da0565be8c4ceb7fa24e73a5a32914a933a"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/prospective-input/images/9cb0065bee50270b26a65149f31d485d.jpg",
+      "bytes": 1535140,
+      "sha256": "f2d6a640956d909cc931ef28be1ea4e93e4ca36a1eb03c398bd21e582bcbac6d"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/prospective-input/images/c1f8b4e2ac9e84b00dd49759cfea0749.jpg",
+      "bytes": 1181975,
+      "sha256": "a25831044f54a77907cd6b1431b1c471d6f28db3fe85ec5e0f8c2ee08f0399a4"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/prospective-input/images/c61046eddd90c38e41c92912e89d2ee4.jpg",
+      "bytes": 1826835,
+      "sha256": "f613c4a00bf8a3f39fa1e95540fdc4532b255e91c50a54e7ed7745047f085ca1"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/prospective-input/manifest.jsonl",
+      "bytes": 1776,
+      "sha256": "232f7896133be839f2f15530cae39c314298cc83dc4565647be84ffa9acb9f72"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/prospective-input/selection.json",
+      "bytes": 15610,
+      "sha256": "11b3cdd8805135260e5a836d6e47555d079de427aa445ec91ae0543b710ac307"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/reserve-input/images/03b1f3c79a2cca643f7bf83a786fbc37.jpg",
+      "bytes": 714080,
+      "sha256": "9287823ae57ed6676f3c59cb51d2e736c2921f09dc81cc2a0c957d39cf1e26c9"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/reserve-input/images/07a43bed751514da8c4d4cb4b75c9ac8.jpg",
+      "bytes": 838864,
+      "sha256": "a41b3097b0dd0651ea503b90b31848418ef079bc8bc8007c3ef32bd8dda8c13a"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/reserve-input/images/1ad3470b1fc8461c1985fcf2a5711322.jpg",
+      "bytes": 1421380,
+      "sha256": "65c3da9ac16098340c0b2b2b593d0ba90b39c07ef08f425f2403ebdbbf03a2f9"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/reserve-input/images/22a752474ae5c0f081eb831e31d163dc.jpg",
+      "bytes": 905738,
+      "sha256": "10152861562a54114c2431e3022daf92a90383594ef181c94512f7fc20f0cb98"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/reserve-input/images/2401337f696f1b3cda761b6b4d1f4c70.jpg",
+      "bytes": 1223096,
+      "sha256": "79280c2a5fc0979acce7f1ca568d09a6d0dacadf92264dc21a48d4be9fe16cad"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/reserve-input/images/3b58c82b20f94ab2648ef0f4b27085e5.jpg",
+      "bytes": 1046390,
+      "sha256": "4665d040feeb6d8ca7168f0628066fdc925d84de570db7e1f93d1f7a39c9d9e8"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/reserve-input/images/3bf82e29d95e02d9d2f20f39af2596fc.jpg",
+      "bytes": 1009459,
+      "sha256": "12043011ab07e401086f19fa65e76832a936af74e5e154fb728ab576513d4391"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/reserve-input/images/3dd2976aa09d51f84809831b3c1bc77d.jpg",
+      "bytes": 1489363,
+      "sha256": "ff9dda7b809b01b53bc5c970fd67bd145f1718f657cfc3b6f9f58ade37393228"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/reserve-input/images/3ecf1c24d11616d88c9dfbaba981656d.jpg",
+      "bytes": 1167712,
+      "sha256": "458078490bc3554c75f1ac9387ee8c5ea3876cc69c5f19fabd9dcfc8794205b6"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/reserve-input/images/4229b25b1428432df5c337d16199fb51.jpg",
+      "bytes": 849164,
+      "sha256": "870b8c89a6f11df83eb3143176ad3ec735b7a4e64b92b8ce24316521ac2cb127"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/reserve-input/images/4b2c7f641e20444d8c4a6ae51432d1cf.jpg",
+      "bytes": 231010,
+      "sha256": "0f4e1862eee1bf0ed0487c771836948075b4cf3244a2b8bfb20e0a7d1b4d3039"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/reserve-input/images/4d86e87f13538a0a1ab8e3e0550dbd09.jpg",
+      "bytes": 1123951,
+      "sha256": "84b1c95634279b3eb2b5a49b180102f99598703ff016870ac391a37cd2f9c8da"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/reserve-input/images/5645e44804601a60d10e2053fe8b59f3.jpg",
+      "bytes": 1415195,
+      "sha256": "e688f5cca0bd42c3d6d34afc64e077771ce7ea8991db11711fc128dae81cddc9"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/reserve-input/images/5c95c67537dff132cd33a0bce7ee7b4f.jpg",
+      "bytes": 954559,
+      "sha256": "3c5181174e7481ef59dbffdeb6e49aa45fa238e940fbd2a26ad5d10a6d2c59db"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/reserve-input/images/5d2a68a62c503e451790e961b1a28f7f.jpg",
+      "bytes": 736656,
+      "sha256": "b33b6f0c32ae7058cc2fdf595b183e03f258e80d7f6ebc12c561615981a096bc"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/reserve-input/images/5dc63731dcbceb42b4b35bcfc075e493.jpg",
+      "bytes": 883632,
+      "sha256": "a2053c574acbe8b8babcd8066ea8486127dc9ff7848bf527f5981391628d71b6"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/reserve-input/images/74f192d8e5e581f4a17db5c7c4eaf592.jpg",
+      "bytes": 1142679,
+      "sha256": "115da8fb7e1ef680a0601f9297bd60e8d237dc2147449dcb96097048af666916"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/reserve-input/images/765a640659d5135b6a671fce69aac24d.jpg",
+      "bytes": 1356697,
+      "sha256": "25373808e41382883e0c7e73433bc25ef99058d165d5d4fb19b81f2926f42641"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/reserve-input/images/794ac102b628690fb2ce5ee5f23f88a6.jpg",
+      "bytes": 820299,
+      "sha256": "4c59f3586d076b8dbb5b4757af6cb1a845dd77ad7178fb4f0ea6b7f523ee4fd3"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/reserve-input/images/7fa54cb963a996742f49d662f5a4d4ec.jpg",
+      "bytes": 1600632,
+      "sha256": "4a73fd32e80b23b331af7b2458c66cbd4ac78861abb1dd38165e3919b5177796"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/reserve-input/images/7feba282eb59420ca5b97018a8c98918.jpg",
+      "bytes": 1552688,
+      "sha256": "f917ebcf1e81a05ffbb1dbed71d6bbc6f2bb5bebd6dccbad62cf07ed4c54c220"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/reserve-input/images/8128e8c55550b593579a662be843551e.jpg",
+      "bytes": 1509560,
+      "sha256": "345ef46b3c89f0ebf85202844e9490fbeb364c6b4958e1f8fadf13a69fe13bcf"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/reserve-input/images/83bfa4b80e67b542beb86e9e766f2f4e.jpg",
+      "bytes": 1229519,
+      "sha256": "2ba7f58b71bfac6ae6f5e7f6a288aa81bc67f0aa6c97a047aa3538dc782db941"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/reserve-input/images/849b960cd2feb9e336781b658654c32b.jpg",
+      "bytes": 1300802,
+      "sha256": "e4e98078c2ae9780390c5b8e28f5f5aa6355d1e6e1e0fe305bf90428c1fa2768"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/reserve-input/images/8e0751b64e5374ec8b9c14f87c00e4aa.jpg",
+      "bytes": 761710,
+      "sha256": "b646c5e8bed0cf3af66ada07da9701b81acaa514e23a1354a9cf75ad150ac325"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/reserve-input/images/92da8e1b09d350467b0770f17131d425.jpg",
+      "bytes": 1374746,
+      "sha256": "62b2a9c4c5d1816feaaa361c19de9f464d6e25ac73bf197990f654fed548ccc8"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/reserve-input/images/94ec916178cc9bc3a161296eaf507c63.jpg",
+      "bytes": 1650328,
+      "sha256": "fefef0a8ae7b0ad8360a33e7fa615d5b935cd04f2f041c8cae6b7e4aa1ee256f"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/reserve-input/images/960d7f8534db7fa246fb9eb689739da1.jpg",
+      "bytes": 1343309,
+      "sha256": "4864993d618144d191e351d6697429b36d7955e37d290a7cba5a09724a8667e2"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/reserve-input/images/9b0fa8833a5a5cc797a52946ee6ee49e.jpg",
+      "bytes": 1437062,
+      "sha256": "e7b35a4b2e1dae5bd397a7823157d65d849cad570f4e6e71ff2c764a8723416c"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/reserve-input/images/a3f8b986ca42c7ede2792307aaf62e7c.jpg",
+      "bytes": 761709,
+      "sha256": "8fd9f9133622f246e369083d6c6c8643c4da7772997766ef0c9abf7f7ffa16ae"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/reserve-input/images/aa4586f1763e047a78ed36057b602690.jpg",
+      "bytes": 1507162,
+      "sha256": "28743891c8c9fd1a40ccb70af31337c4947526104baa9d46471056eb7d2ee2c1"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/reserve-input/images/ae593f009ae2cf1dc3f94960abc87b69.jpg",
+      "bytes": 991795,
+      "sha256": "c25f2ed75aef312389b32358d0a23de0da28f41f2dbfd3bbe17f934d1c5a47cd"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/reserve-input/images/af9763b98950d1de3e124d96d69ad628.jpg",
+      "bytes": 1652943,
+      "sha256": "d1ec97bf0940869e89c5392592d0485ca4af7757295ddce2b17b897f161dbb64"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/reserve-input/images/d7303e8dd143e8a322564c403849a94f.jpg",
+      "bytes": 1418234,
+      "sha256": "380ab95475c307bbdf880f4fcb38705250e13d4873985e21cc9f30e78754e40f"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/reserve-input/images/db768f698ac1ce396d61a5667e8d0bbb.jpg",
+      "bytes": 879997,
+      "sha256": "4932a7eda596195576da9eb897aa66b3fe2533b65fdd001be8ca8ba034762bf0"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/reserve-input/images/f1fcfb7c7563812d2932a84f11e56c88.jpg",
+      "bytes": 893592,
+      "sha256": "2d9c38e0d00ff5887eb4572e40afd6a7c97f6d605e968d1c7cfb8a50f708b88a"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/reserve-input/images/f914d4f750c802e768f768be68e33fb4.jpg",
+      "bytes": 1252294,
+      "sha256": "86a597d221c6b6170adf635a5c88d6630859f4b9ada752c06779b3e27992a740"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/reserve-input/manifest.jsonl",
+      "bytes": 1776,
+      "sha256": "1b8b947668e8344b1941e00470ef8891e00f39c4b4e97ca62a491cc9753aa7e4"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/reserve-input/selection.json",
+      "bytes": 15620,
+      "sha256": "59d306d1ea3d44cf9a65c6ec613c88c509072ef9dd158ab880b05c1d22edcdde"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/reserve-run/matched-private.json",
+      "bytes": 3609,
+      "sha256": "973f16a8aef76fc5a0a9734aaa3b627855422dac80705280f4a8d4377fd15935"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/reserve-run/submission.jsonl",
+      "bytes": 15733,
+      "sha256": "d103a0a4270fa45560f539a3fabf0e714ce043f67ef78355f9b3a94bc34034fc"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/reserve-run/traced-private.json",
+      "bytes": 13910,
+      "sha256": "27b8361e0e5667f57ee4d2baafd0b0e25554657d91b015ac59974e39c3e37d64"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/validation-relative/both-readers-locked.json",
+      "bytes": 943,
+      "sha256": "32217f8598baee5f06b3c860f96d6ce6bf2f577c744ff2842403ddfebefb4876"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/validation-relative/lfm/17a0bd8d6312698d7121.json",
+      "bytes": 583,
+      "sha256": "2011712ab4c534c78ea378b598bd89700823ab89243d18cfd4568a56476d2f9e"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/validation-relative/lfm/3b4c7ea69fc83dd28394.json",
+      "bytes": 583,
+      "sha256": "44b1342cb42485ae19b6787745d8fdf59abeec7efd4ede6792933cbe3db573f2"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/validation-relative/lfm/9858e55e6794c632032d.json",
+      "bytes": 587,
+      "sha256": "74d9845abf024b0d8a4da8766b14a37764a5f2d544a47f244b8ae668416998b3"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/validation-relative/lfm/c725195fa48d404f5e7c.json",
+      "bytes": 587,
+      "sha256": "cd4fca2f278d8e68d926aba9bd2f32345e3d134262e56661ec6f8b9288c1c53a"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/validation-relative/lfm/c942a86318cbaa6d7fdd.json",
+      "bytes": 583,
+      "sha256": "f85cd45ecd4c1b2c13e94c4590c2643e22afa56e02cfe1d82abd5f452abf5313"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/validation-relative/lfm-deck.json",
+      "bytes": 15413,
+      "sha256": "90ec1d8d47b25e09750296387aa07896e51a5343ac40c749bf8e45e86f5c04a2"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/validation-relative/qwen/3f46ff474a61cdcd999a.json",
+      "bytes": 577,
+      "sha256": "ad7b85ee1a3b54fbea657daceb68144999d2b678dac36849fecab67db4d22652"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/validation-relative/qwen/4944b466f26d8cb7e581.json",
+      "bytes": 571,
+      "sha256": "13363827e8f5293cbde8b3bbf7c5f2b70b71eb1164e692c47f7ccb069d147cbd"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/validation-relative/qwen/4c182c18a77b3384f2ae.json",
+      "bytes": 577,
+      "sha256": "5557704c280124220783034c8b30d7e63f243f9a5cac636445a037737bd5a779"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/validation-relative/qwen/ccd9be36e8859d90d0cf.json",
+      "bytes": 571,
+      "sha256": "e827595e956ef7391a7ad59e1caa1db232d6e1300d5acb40f38f3a961b6d5269"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/validation-relative/qwen/e4cfa8087332e79adf42.json",
+      "bytes": 577,
+      "sha256": "ce2094e4c85225a065aa328d36d16a99d90824f5a3a3612df3d04c7a83bbee38"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/validation-relative/qwen-deck.json",
+      "bytes": 15413,
+      "sha256": "dd7d1495993c09fed6d341ceed15d36aac557ce7a421fa7c62a89609a7be751e"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/validation-relative/random-key.bin",
+      "bytes": 32,
+      "sha256": "791d95be79f0a938ec1a3eddb7065ef4b10d5d83d2aa14cb3198925e9aae70f1"
+    },
+    {
+      "path": "data/fold4-citation-review-v2/validation-relative/sealed-key.json",
+      "bytes": 1765,
+      "sha256": "73a8880d5c0fa02092580aeff998d5ce65d4705019ddd1061664fd35fb580ece"
     }
   ]
 }

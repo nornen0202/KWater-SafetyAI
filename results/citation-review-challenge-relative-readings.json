@@ -1,0 +1,53 @@
+{
+  "agreement": {
+    "unchanged_only": {
+      "fit_agreement": 4,
+      "fit_assessable_agreement": 4,
+      "fit_both_assessable": 6,
+      "jointly_valid": 6,
+      "order_agreement": 3,
+      "support_agreement": 0,
+      "support_assessable_agreement": 0,
+      "support_both_assessable": 2
+    }
+  },
+  "key_sha256": "aab5a4e76f08d21683c3bce6879fe57081841091a0fc0863c91a0ad31b4128d1",
+  "models": {
+    "lfm": {
+      "LFM2-VL-450M-Q8_0.gguf": "e97704a0cf0a1d00ca604b4c672c82f4234318dba9d43a7f7a4c0d2df6747844",
+      "mmproj-LFM2-VL-450M-Q8_0.gguf": "a6a813fae4ba3f90852a990fdd4786a017dba0e80e599a366853ba539ee2b5ef"
+    },
+    "qwen": {
+      "Qwen3.5-0.8B-Q4_K_M.gguf": "bd258782e35f7f458f8aced1adc053e6e92e89bc735ba3be89d38a06121dc517",
+      "mmproj-F16.gguf": "56e4c6cfe73b0c82e3e82bc518d7591997e61d81f723fc41a586f4fa69ea2453"
+    }
+  },
+  "ratings": {
+    "lfm": {
+      "unchanged_only": {
+        "fit_candidate_better": 5,
+        "fit_candidate_worse": 1,
+        "order_NA": 4,
+        "order_unsafe": 2,
+        "presentations": 6,
+        "support_candidate_better": 5,
+        "support_candidate_worse": 1,
+        "valid": 6
+      }
+    },
+    "qwen": {
+      "unchanged_only": {
+        "fit_candidate_better": 3,
+        "fit_candidate_worse": 3,
+        "order_NA": 5,
+        "order_safe": 1,
+        "presentations": 6,
+        "support_candidate_tie": 1,
+        "support_candidate_unassessable": 4,
+        "support_candidate_worse": 1,
+        "valid": 6
+      }
+    }
+  },
+  "raw_lock_sha256": "c1e308c7c0a0911ca2d1ab1069accbbc51c2f076cfe0eed6ce63db4c99633a02"
+}
