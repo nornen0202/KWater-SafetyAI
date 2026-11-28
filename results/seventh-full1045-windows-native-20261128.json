@@ -76,6 +76,15 @@
       "output_submission_sha256": "279a58ed6fdfe0cd76020b7eb10a24c15881cd0ad3839eefe79411512d3d1e26"
     },
     "archive_check_extract_seconds": 403.778,
-    "native_main_log_sha256": "fc7c569c55d008e4e60eb46f7fce4e4e816a92941b0d240fb7e34dceee799ca5"
-  }
+    "native_main_log_sha256": "fc7c569c55d008e4e60eb46f7fce4e4e816a92941b0d240fb7e34dceee799ca5",
+    "hardware_observation": {
+      "os": "Windows native",
+      "gpu": "NVIDIA GeForce RTX 3060",
+      "driver_win32_version": "32.0.16.2124",
+      "gpu_driver_source": "Win32_VideoController"
+    }
+  },
+  "packaged_compact_cases_sha256": "aca300189ae149f937e94e2ac2b01fe61a5d97998f5cb2559ddbfb1966f4672f",
+  "packaged_law_corpus_sha256": "1408b69db444cf90b31f9bebb4a773a30fa4362739e50b22c95f3bbe0e75bd9d",
+  "packaged_compact_cases_match_1045_training_population": true
 }
