@@ -51,10 +51,18 @@
           "no_hazard_photos": 27
         }
       },
-      "standalone_zip_estimate_bytes": 17745653528,
-      "estimate_scope": "Replaces 4B tensor/LoRA payload with 8B tensor/LoRA. Nonweight bytes assumed similar.",
-      "package_supported_by_current_packager": false,
-      "official_200_timing": null
+      "estimate_scope": "Historical prebuild estimate. Replaced by the actual archive_bytes.",
+      "package_supported_by_current_packager": true,
+      "official_200_timing": null,
+      "candidate_role": "Standalone candidate for the eighth slot; not yet submitted",
+      "research_archive_receipt": "results/fold4-8b-epoch1-research-package-20261128.json",
+      "archive_filename": "kwater-research-8b-fold4-epoch1-bf16-20261128.zip",
+      "archive_bytes": 17745550610,
+      "archive_sha256": "4b1523af723ec7f6863c0297f3dc6db84d7854e4e3c52dd26f30b26280bbd549",
+      "archive_completed_at_kst": "2026-11-28T14:08:26.5486854+09:00",
+      "packager_option": "--vlm-only --research-8b-base-dir",
+      "archive_cpu_check_receipt": "results/fold4-8b-epoch1-research-package-20261128.json",
+      "prebuild_standalone_zip_estimate_bytes": 17745653528
     },
     "full_inspect_only_8b": {
       "existing_candidate": false,
@@ -237,6 +245,8 @@
     },
     "production_accuracy_or_public_score": null,
     "package_source_sha256": "10117207cd176480126b3804cf0b41d9ff4c0e0e1a67d84ebceecc1bcb6a3ce1",
-    "preparation_source_sha256": "6ed1c89eac19f35d776daafe876f2f14095dd55435492366712bd94cf12e1488"
+    "preparation_source_sha256": "6ed1c89eac19f35d776daafe876f2f14095dd55435492366712bd94cf12e1488",
+    "portal_submitted": false,
+    "role": "Tested 4B comparison alternative for the eighth slot"
   }
 }

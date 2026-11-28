@@ -38,6 +38,40 @@ def comparison_plot(aggregate, destination):
     fig.savefig(destination, dpi=170)
 
 
+def diagnostics_plot(aggregate, destination):
+    arms = ("6", "7", "8", "8B")
+    labels = ["6차 4B 단독", "7차 전량 4B 하이브리드", "비교안 전량 4B 단독", "8B 단독"]
+    colors = ["#537894", "#286850", "#a86835", "#263c73"]
+    checks = aggregate["full_panel_label_diagnostics"]
+    times = [aggregate["official_kit_total_seconds"][arm] for arm in arms]
+    columns = (
+        ("정상 오경보", [checks["arms"][arm]["safe_false_alarms"] for arm in arms],
+         checks["official_no_visible_hazard"], "장"),
+        ("중대 4 위험 완전 미탐", [checks["arms"][arm]["severity4_complete_misses"] for arm in arms],
+         checks["official_severity4_photos"], "장"),
+        ("공식 키트 설치·실행", times, aggregate["research_8b"]["official_kit"]["limit_seconds"], "초"),
+    )
+    fig, axes = plt.subplots(1, 3, figsize=(14.2, 5.3), sharey=True, layout="constrained")
+    fig.suptitle("같은 개발 사진 200장 · 출력과 서울 L4 실행시간", fontsize=23, weight="bold")
+    for ax, (title, values, denominator, unit) in zip(axes, columns):
+        ax.set_title(title, fontsize=15, weight="bold")
+        ax.barh(range(len(arms)), values, color=colors, height=0.55)
+        for index, value in enumerate(values):
+            inside = unit == "초" and value >= denominator / 2
+            x = value - denominator / 45 if inside else value + denominator / 45
+            ax.text(x, index, f"{value:,}/{denominator:,}{unit}",
+                    color="white" if inside else "#213344", ha="right" if inside else "left",
+                    va="center", fontsize=12, weight="bold")
+        ax.set_xlim(0, denominator * 1.21)
+        ax.grid(axis="x", color="#e6edf1")
+        ax.set_axisbelow(True)
+    axes[0].set_yticks(range(len(labels)), labels)
+    axes[-1].axvline(columns[-1][2], color="#9b3c25", linestyle="--", linewidth=1.5)
+    axes[0].invert_yaxis()
+    fig.supxlabel("개발 사진은 일부 또는 전부가 학습에 사용됐다. 품질 수치는 이 패널의 출력 진단이다.", fontsize=12)
+    fig.savefig(destination, dpi=170)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--seventh", type=float)
@@ -45,12 +79,17 @@ def main():
     parser.add_argument("--font", type=Path, default=Path("C:/Windows/Fonts/malgun.ttf"))
     parser.add_argument("--output", type=Path)
     parser.add_argument("--comparisons", type=Path)
+    parser.add_argument("--four-arm", type=Path, help="Four-arm 200-photo timing and diagnostic JSON")
     args = parser.parse_args()
     font_manager.fontManager.addfont(str(args.font))
     plt.rcParams["font.family"] = font_manager.FontProperties(fname=args.font).get_name()
     plt.rcParams.update({"font.size": 14, "axes.spines.top": False, "axes.spines.right": False})
     if args.comparisons:
         comparison_plot(json.loads(args.comparisons.read_bytes()), args.output or "reports/figures/sub78-output-changes-20261128.png")
+        return
+    if args.four_arm:
+        diagnostics_plot(json.loads(args.four_arm.read_bytes()),
+                         args.output or "reports/figures/sub78-four-arm-200-20261128.png")
         return
     receipt = json.loads(Path("results/public_submission_007.json").read_bytes())
     observation = receipt.get("scored_team_leaderboard_observation") or receipt["team_leaderboard_observation"]
