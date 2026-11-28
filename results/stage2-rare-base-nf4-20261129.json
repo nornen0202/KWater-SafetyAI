@@ -1,0 +1,239 @@
+{
+  "scope": "original 8B NF4 development probe; independent in-domain external controls not available",
+  "promotion": "hold_external_controls_missing",
+  "training_photos": 0,
+  "training_updates": 0,
+  "generated_tokens": 0,
+  "recipe": {
+    "probe_source_sha256": "eb3db8c73941a020abd9497054d02319b5ca6311eca843f6c6e271c27549111a",
+    "manifest_sha256": "3864848fe26b951ec070710499d2694078b17c76ffd2aaf38d312b99ad3b2f60",
+    "base_revision": "0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+    "base_config_sha256": "5cd452860dc1e9c29dd71cc3cef7f39b338b7a40793f7a260655c2d3568f3661",
+    "model_source_sha256": "d1bf859489ffdc3761dcd3ab7558783be88882f183297fc7b4fdaa09c149e818",
+    "precision": "nf4_double_quant_bf16_compute",
+    "resident_adapter_sha256": "4ca7c4a810b7834261cd21013fc90cab99993494411564b22ae337c36ca0ddf8",
+    "resident_adapter_config_sha256": "3715f1706b271189e131d9f5023fc8debc19304482926ab20acc110f3ed6eae3",
+    "resident_adapter_usage": "disabled for every forward",
+    "training_photos": 0,
+    "training_updates": 0,
+    "source_inputs": "one EXIF-transposed full-frame RGB image and fixed visual questions",
+    "tokenizer_processor_sha256": {
+      "tokenizer.json": "a5d85b6dcc535e6b93115a9ef287e6132fdbf30270da6218194ba742261173c7",
+      "tokenizer_config.json": "c2da771801886ad9ae98181793ffd3dfb7f1af30f6f7c6a4e15d7dbba52e2399",
+      "chat_template.json": "5c72a170d2a4a1a3bc5adad2e689ae28138a9700e5b8c96c0266331e86c0acce",
+      "preprocessor_config.json": "27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516"
+    },
+    "pixels": {
+      "shortest_edge": 131072,
+      "longest_edge": 393216
+    },
+    "batch_size": 1,
+    "logits_to_keep": 1,
+    "use_cache": false,
+    "generated_tokens": 0,
+    "gate_margin": 2.1972245773362196,
+    "gate_rule": "both margins >= ln(9); yes minus max(no, unknown)",
+    "select_options": {
+      "A": [],
+      "B": [
+        "drowning_inundation"
+      ],
+      "C": [
+        "confined_space"
+      ],
+      "D": [
+        "thermal_weather"
+      ],
+      "E": [
+        "drowning_inundation",
+        "confined_space"
+      ],
+      "F": [
+        "drowning_inundation",
+        "thermal_weather"
+      ],
+      "G": [
+        "confined_space",
+        "thermal_weather"
+      ],
+      "H": [
+        "drowning_inundation",
+        "confined_space",
+        "thermal_weather"
+      ],
+      "I": []
+    },
+    "select_ties": "abstain",
+    "gate_options": [
+      "yes",
+      "no",
+      "unknown"
+    ],
+    "pilot": {
+      "photos": 20,
+      "seed": 20261129,
+      "selection": "random ordered row positions"
+    },
+    "queries": {
+      "select": {
+        "prefix_sha256": "537a95c8c59ebdd499edf771a7d7a7fe59d57b1fa1ba7e2eb113a0e23bf49cba",
+        "last_prefix_token": 25,
+        "choice_tokens": [
+          362,
+          425,
+          356,
+          422,
+          468,
+          434,
+          479,
+          472,
+          358
+        ]
+      },
+      "drowning_inundation:environment": {
+        "prefix_sha256": "9bd0fb6b5027f5b324af0f31c67127fa166ac5ef73b959243f564a9fcb78af47",
+        "last_prefix_token": 25,
+        "choice_tokens": [
+          362,
+          425,
+          356
+        ]
+      },
+      "drowning_inundation:protection": {
+        "prefix_sha256": "e75cb40a5449f809b13851d55c3dcebc51a61c2b44ae3bc9bc94b464cf6a1b7b",
+        "last_prefix_token": 25,
+        "choice_tokens": [
+          362,
+          425,
+          356
+        ]
+      },
+      "confined_space:environment": {
+        "prefix_sha256": "54d177947a3607c3c156aae140046b603c82770b606e5f77ec4d2c31a5edd126",
+        "last_prefix_token": 25,
+        "choice_tokens": [
+          362,
+          425,
+          356
+        ]
+      },
+      "confined_space:protection": {
+        "prefix_sha256": "e4cd314d5334f16cb5c21af534f2abec5e746eb9cc6b77b6aa33f2fa4b5078b5",
+        "last_prefix_token": 25,
+        "choice_tokens": [
+          362,
+          425,
+          356
+        ]
+      },
+      "thermal_weather:environment": {
+        "prefix_sha256": "2f62fee97eff901382d795817931e2205525a85722487680f8b4fb0268235367",
+        "last_prefix_token": 25,
+        "choice_tokens": [
+          362,
+          425,
+          356
+        ]
+      },
+      "thermal_weather:protection": {
+        "prefix_sha256": "58597ddcc16b7a444fd4e783fcf1c346f56e21c6d5668c0b0dcba5034dd414eb",
+        "last_prefix_token": 25,
+        "choice_tokens": [
+          362,
+          425,
+          356
+        ]
+      }
+    }
+  },
+  "runtime_context_sha256": "5855bd8d9f72490a90ad286ca46315c5da04acff1483b6171fc21f9f4266cf3d",
+  "runtime": {
+    "gpu": "NVIDIA GeForce RTX 3060",
+    "torch": "2.5.1",
+    "cuda": "12.4",
+    "transformers": "4.57.1",
+    "peft": "0.17.1",
+    "bitsandbytes": "0.50.2",
+    "Pillow": "11.0.0"
+  },
+  "predictions_sha256": "68be56dd105f6d264274bf0fe010067b9a77713a4f9e05b270565c61af0d51a5",
+  "ordered_row_cache_sha256": "17040fdbe60431ded390566c428f5361310c11b13e3d1bf76d134cd8a8cbaf65",
+  "metrics": {
+    "by_code": {
+      "drowning_inundation": {
+        "official_positives": 1,
+        "official_negatives": 965,
+        "candidate_tp": 1,
+        "candidate_fn": 0,
+        "candidate_fp": 28,
+        "final_tp": 0,
+        "final_fn": 1,
+        "final_fp": 0,
+        "final_fp_among_nonrare": 0
+      },
+      "confined_space": {
+        "official_positives": 1,
+        "official_negatives": 965,
+        "candidate_tp": 1,
+        "candidate_fn": 0,
+        "candidate_fp": 210,
+        "final_tp": 0,
+        "final_fn": 1,
+        "final_fp": 0,
+        "final_fp_among_nonrare": 0
+      },
+      "thermal_weather": {
+        "official_positives": 1,
+        "official_negatives": 965,
+        "candidate_tp": 1,
+        "candidate_fn": 0,
+        "candidate_fp": 23,
+        "final_tp": 0,
+        "final_fn": 1,
+        "final_fp": 0,
+        "final_fp_among_nonrare": 0
+      }
+    },
+    "rare_positive_photos": 3,
+    "nonrare_photos": 963,
+    "rare_positive_photos_fully_recovered_in_candidates": 3,
+    "rare_positive_photos_fully_recovered_in_final": 0,
+    "nonrare_photos_with_any_candidate_rare_fp": 253,
+    "nonrare_photos_with_any_final_rare_fp": 0,
+    "normal_photos": 290,
+    "normal_photos_with_any_final_rare_fp": 0,
+    "selection_background_photos": 664,
+    "selection_unknown_photos": 46,
+    "selection_candidate_photos": 256,
+    "candidate_code_counts": {
+      "drowning_inundation": 29,
+      "confined_space": 211,
+      "thermal_weather": 24
+    },
+    "confirmed_code_counts": {
+      "drowning_inundation": 0,
+      "confined_space": 0,
+      "thermal_weather": 0
+    }
+  },
+  "pilot": {
+    "photos": 20,
+    "candidate_code_queries": 5,
+    "seconds": {
+      "input": 7.629,
+      "select": 28.317,
+      "gates": 6.694
+    },
+    "measured_row_seconds": 42.64,
+    "estimated_full_row_seconds_excluding_cold_load": 2059.5
+  },
+  "telemetry": {
+    "recorded_sessions": 1,
+    "model_load_included": false,
+    "rows_without_closed_session_telemetry": 0,
+    "resident_probe_wall_seconds": 1520.129,
+    "measured_row_seconds": 1229.537,
+    "cuda_peak_allocated_bytes": 7739601920,
+    "cuda_peak_reserved_bytes": 8021606400
+  }
+}
